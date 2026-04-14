@@ -1,61 +1,45 @@
 # agents-and-skills
 
-Boilerplate repo for developing AGENTS and SKILLS files for agentic coding.
+Boilerplate repo for developing AGENTS and SKILLS markdown reference files for agentic coding.
 
 ## Structure
 
 ```
 agents-and-skills/
 ├── agents/
-│   └── agent_template.py   # Base agent class and example implementation
+│   └── agents.md   # Agent protocol, directives, and template for new agents
 ├── skills/
-│   └── skill_template.py   # Base skill class and example implementation
+│   └── skills.md   # Skill registry, invocation contract, and template for new skills
 └── README.md
 ```
 
+## Purpose
+
+This repository provides human- and machine-readable markdown reference files that coding agents can read to understand:
+
+- **How agents should behave** — decision-making rules, escalation paths, output formats.
+- **What skills are available** — a registry of discrete capabilities agents can invoke.
+- **How to extend the system** — templates for adding new agents and skills.
+
 ## Getting Started
 
-### Create a Skill
+### Reading the References
 
-1. Copy `skills/skill_template.py` to a new file (e.g. `skills/my_skill.py`).
-2. Subclass `BaseSkill`, set `name` and `description`, and implement `execute()`.
+Agents should load and internalize these files before executing any task:
 
-```python
-from skills.skill_template import BaseSkill
+1. `agents/agents.md` — defines the base agent protocol all agents must follow.
+2. `skills/skills.md` — lists all registered skills with their input/output contracts.
 
-class MySkill(BaseSkill):
-    name = "my_skill"
-    description = "Does something useful."
+### Adding a New Agent
 
-    def execute(self, input_text: str) -> str:
-        # Your logic here
-        return f"Result for: {input_text}"
+Follow the template at the bottom of `agents/agents.md` and create a new file in the `agents/` directory:
+
+```
+agents/
+└── <agent-name>.md
 ```
 
-### Create an Agent
+### Adding a New Skill
 
-1. Copy `agents/agent_template.py` to a new file (e.g. `agents/my_agent.py`).
-2. Subclass `BaseAgent`, set `name` and `description`, and implement `run()`.
+Add an entry to the skill registry in `skills/skills.md` following the template at the bottom of that file.
 
-```python
-from agents.agent_template import BaseAgent
-
-class MyAgent(BaseAgent):
-    name = "my_agent"
-    description = "An agent that uses my custom skills."
-
-    def run(self, task: str) -> str:
-        # Your logic here, optionally calling self.skills
-        return f"Agent handled: {task}"
-```
-
-### Wire an Agent with Skills
-
-```python
-from agents.my_agent import MyAgent
-from skills.my_skill import MySkill
-
-agent = MyAgent(skills=[MySkill()])
-result = agent.run("Do something useful")
-print(result)
-```
