@@ -131,7 +131,7 @@ To add a new agent to this project:
 | [`web-dev-agent.md`](web-dev-agent.md) | Build REST APIs and web services |
 | [`data-engineering-agent.md`](data-engineering-agent.md) | Build ETL pipelines and database integrations |
 | [`nlp-agent.md`](nlp-agent.md) | Build NLP and text-analysis systems |
-| [`legal-fiscal-agent.md`](legal-fiscal-agent.md) | Analyse legal documents and financial data |
+| [`legal-fiscal-agent.md`](legal-fiscal-agent.md) | Analyze legal documents and financial data |
 | [`dashboard-reporting-agent.md`](dashboard-reporting-agent.md) | Build dashboards and generate reports |
 | [`process-modernization-agent.md`](process-modernization-agent.md) | Modernize legacy processes |
 | [`security-agent.md`](security-agent.md) | Audit and harden application security |

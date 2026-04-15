@@ -251,7 +251,7 @@ def main() -> int:
     except KeyboardInterrupt:
         logger.info("Interrupted by user")
         return 130
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:  # noqa: BLE001  # top-level boundary converts all unhandled exceptions to exit code
         logger.critical("Unexpected error: %s", exc, exc_info=True)
         return 1
 
