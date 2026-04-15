@@ -1,8 +1,10 @@
 # agents-and-skills
 
-A reusable library of **AGENTS** and **SKILLS** markdown templates for AI
-coding agents working in Python. Designed to be copied into new projects or
-referenced directly, these files encode best practices for:
+A reusable library of **AGENTS** and **SKILLS** markdown reference files for AI
+coding agents working in Python. Provides human- and machine-readable files
+that coding agents can read to understand how to behave, what skills are
+available, and how to extend the system. Designed to be copied into new
+projects or referenced directly, these files encode best practices for:
 
 - 🖥️ **Terminal-based (CLI) applications**
 - 🌐 **Web development** (FastAPI, Flask, Django)
@@ -13,17 +15,6 @@ referenced directly, these files encode best practices for:
 
 ---
 
-## Quick Start
-
-1. **Copy `AGENTS.md`** to the root of your new project. This is the primary
-   instruction file read by AI coding agents.
-2. **Copy the relevant `agents/` file** for your domain (e.g.,
-   `agents/cli-agent.md` for CLI tools).
-3. **Copy `templates/pyproject.toml`** and fill in the `<PLACEHOLDER>` values.
-4. **Run `uv venv && uv sync`** to set up the development environment.
-
----
-
 ## Repository Structure
 
 ```
@@ -31,7 +22,8 @@ agents-and-skills/
 │
 ├── AGENTS.md                          # Root agent instructions (start here)
 │
-├── agents/                            # Domain-specific agent files
+├── agents/                            # Agent protocol and domain-specific guides
+│   ├── agents.md                      # Base agent protocol all agents must follow
 │   ├── cli-agent.md                   # CLI / terminal applications
 │   ├── web-dev-agent.md               # Web APIs and applications
 │   ├── nlp-agent.md                   # Natural language processing
@@ -39,7 +31,8 @@ agents-and-skills/
 │   ├── dashboard-reporting-agent.md   # Dashboards and reports
 │   └── process-modernization-agent.md # Process automation and ETL
 │
-├── skills/                            # Reusable skill files (patterns + recipes)
+├── skills/                            # Skill registry and reusable patterns
+│   ├── skills.md                      # Skill registry, invocation contract, and templates
 │   ├── python-formatting.md           # ruff format configuration and usage
 │   ├── python-testing.md              # pytest, coverage, mocking cookbook
 │   ├── python-linting.md              # ruff lint + mypy configuration
@@ -57,6 +50,40 @@ agents-and-skills/
     ├── ruff.toml                      # Standalone ruff linter/formatter config
     └── .python-version                # Pin Python 3.12 for uv/pyenv
 ```
+
+---
+
+## Getting Started
+
+### Reading the References
+
+Agents should load and internalize these files before executing any task:
+
+1. `agents/agents.md` — defines the base agent protocol all agents must follow.
+2. `skills/skills.md` — lists all registered skills with their input/output contracts.
+3. `AGENTS.md` — Python-specific toolchain defaults, coding standards, and domain links.
+
+### Adding a New Agent
+
+Follow the template at the bottom of `agents/agents.md` and create a new file in the `agents/` directory:
+
+```
+agents/
+└── <agent-name>.md
+```
+
+### Adding a New Skill
+
+Add an entry to the skill registry in `skills/skills.md` following the template at the bottom of that file, then create a corresponding detail file in `skills/`.
+
+---
+
+## Quick Start (Python Projects)
+
+1. **Copy `AGENTS.md`** to the root of your new project.
+2. **Copy the relevant `agents/` file** for your domain (e.g., `agents/cli-agent.md`).
+3. **Copy `templates/pyproject.toml`** and fill in the `<PLACEHOLDER>` values.
+4. **Run `uv venv && uv sync`** to set up the development environment.
 
 ---
 
@@ -90,26 +117,4 @@ ruff format .
 
 # Type check
 mypy src/
-```
-
----
-
-## Usage in a New Project
-
-```bash
-# 1. Copy the root agent file
-cp path/to/agents-and-skills/AGENTS.md ./AGENTS.md
-
-# 2. Copy the domain agent file (example: CLI)
-cp path/to/agents-and-skills/agents/cli-agent.md ./agents/cli-agent.md
-
-# 3. Copy the project config template
-cp path/to/agents-and-skills/templates/pyproject.toml ./pyproject.toml
-# Then edit pyproject.toml to fill in <PLACEHOLDER> values
-
-# 4. Copy the Python version pin
-cp path/to/agents-and-skills/templates/.python-version ./.python-version
-
-# 5. Initialize uv environment
-uv venv && uv sync --all-extras
 ```
