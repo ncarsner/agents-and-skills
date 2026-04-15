@@ -2,7 +2,8 @@
 
 This file provides behavioral instructions for AI coding agents working in this
 repository and in any Python project that imports these templates. All agents
-MUST read and comply with these instructions before taking any action.
+MUST read and comply with these instructions **and** [`RULES.md`](RULES.md)
+before taking any action.
 
 ---
 
@@ -40,6 +41,7 @@ python3 -m pytest --cov=src --cov-fail-under=100
 ```
 agents-and-skills/
 ├── AGENTS.md                  ← you are here — root instructions for all agents
+├── RULES.md                   ← mandatory compliance rules all agents must follow
 ├── README.md
 ├── agents/                    ← domain-specific agent instruction files
 │   ├── agents.md              ← agent protocol reference and registry
