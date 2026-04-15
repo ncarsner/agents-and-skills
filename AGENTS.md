@@ -6,6 +6,126 @@ MUST read and comply with these instructions before taking any action.
 
 ---
 
+## Quick Reference: Essential Commands
+
+**Always run these after writing or editing any Python file:**
+
+```bash
+ruff format <file_path>        # format immediately after every edit
+ruff check --fix <file_path>   # lint and auto-fix immediately after every edit
+mypy src/                      # type-check before committing
+python3 -m pytest -x           # run tests; stop on first failure
+```
+
+**Starting a new project:**
+```bash
+uv init my-project && cd my-project
+uv venv
+uv add --dev pytest pytest-cov ruff mypy
+uv sync
+```
+
+**Running CI checks locally (run before every PR):**
+```bash
+ruff check .
+ruff format . --check
+mypy src/
+python3 -m pytest --cov=src --cov-fail-under=100
+```
+
+---
+
+## Repository Map
+
+```
+agents-and-skills/
+├── AGENTS.md                  ← you are here — root instructions for all agents
+├── README.md
+├── agents/                    ← domain-specific agent instruction files
+│   ├── agents.md              ← agent protocol reference and registry
+│   ├── cli-agent.md           ← CLI application development
+│   ├── dashboard-reporting-agent.md
+│   ├── data-engineering-agent.md  ← ETL pipelines, databases, batch processing
+│   ├── legal-fiscal-agent.md
+│   ├── nlp-agent.md
+│   ├── process-modernization-agent.md
+│   ├── security-agent.md      ← security review and hardening
+│   ├── testing-agent.md       ← test design and coverage
+│   └── web-dev-agent.md
+├── skills/                    ← reusable code patterns and recipes
+│   ├── skills.md              ← skill registry and protocol
+│   ├── api-integration.md     ← HTTP clients, retry, pagination
+│   ├── cli-development.md
+│   ├── configuration-management.md  ← env vars, TOML, pydantic-settings
+│   ├── dashboarding-reporting.md
+│   ├── database-access.md     ← SQLAlchemy, sessions, migrations
+│   ├── error-handling.md      ← exceptions, retry, error boundaries
+│   ├── legal-fiscal-analysis.md
+│   ├── logging-observability.md  ← structlog, audit trails, timing
+│   ├── nlp-processing.md
+│   ├── process-modernization.md
+│   ├── python-formatting.md
+│   ├── python-linting.md
+│   ├── python-testing.md
+│   ├── python-uv-workflow.md
+│   └── web-development.md
+└── templates/                 ← copy-paste project configuration files
+    ├── pyproject.toml
+    ├── pytest.ini
+    ├── ruff.toml
+    └── .python-version
+```
+
+---
+
+## Agent Selection Guide
+
+Read the root `AGENTS.md` (this file) first, then load the domain-specific
+agent file that matches your task:
+
+| Task type | Agent file |
+|-----------|-----------|
+| Building a CLI tool | [`agents/cli-agent.md`](agents/cli-agent.md) |
+| REST API or web service | [`agents/web-dev-agent.md`](agents/web-dev-agent.md) |
+| ETL pipeline, database, batch job | [`agents/data-engineering-agent.md`](agents/data-engineering-agent.md) |
+| NLP, text analysis | [`agents/nlp-agent.md`](agents/nlp-agent.md) |
+| Legal or financial analysis | [`agents/legal-fiscal-agent.md`](agents/legal-fiscal-agent.md) |
+| Dashboard or report generation | [`agents/dashboard-reporting-agent.md`](agents/dashboard-reporting-agent.md) |
+| Modernizing a legacy process | [`agents/process-modernization-agent.md`](agents/process-modernization-agent.md) |
+| Security review or hardening | [`agents/security-agent.md`](agents/security-agent.md) |
+| Writing or reviewing tests | [`agents/testing-agent.md`](agents/testing-agent.md) |
+
+---
+
+## Architecture Boundaries
+
+These boundaries apply to all projects built with these templates.
+**Never skip a layer or bypass a boundary.**
+
+```
+External Input (user, file, API)
+        │
+        ▼
+  Validation Layer     ← reject invalid input here; never pass invalid data downstream
+        │
+        ▼
+  Business Logic       ← pure functions; no I/O; fully unit-testable
+        │
+        ▼
+   I/O Layer           ← database, file system, external APIs
+        │
+        ▼
+External Output (DB, file, API response)
+```
+
+Rules:
+1. Business logic must not import from the I/O layer directly.
+2. I/O layer functions must not contain business logic.
+3. Validation must happen before business logic runs.
+4. Secrets must never appear in source code — load from environment variables.
+
+---
+
 ## Identity and Scope
 
 You are a Python-focused software engineering agent. Your primary objective is
@@ -197,10 +317,13 @@ For specialized work, also read the appropriate agent file in `agents/`:
 |--------|------|
 | CLI applications | [`agents/cli-agent.md`](agents/cli-agent.md) |
 | Web development | [`agents/web-dev-agent.md`](agents/web-dev-agent.md) |
+| Data engineering | [`agents/data-engineering-agent.md`](agents/data-engineering-agent.md) |
 | NLP | [`agents/nlp-agent.md`](agents/nlp-agent.md) |
 | Legal & fiscal analysis | [`agents/legal-fiscal-agent.md`](agents/legal-fiscal-agent.md) |
 | Dashboards & reporting | [`agents/dashboard-reporting-agent.md`](agents/dashboard-reporting-agent.md) |
 | Process modernization | [`agents/process-modernization-agent.md`](agents/process-modernization-agent.md) |
+| Security review & hardening | [`agents/security-agent.md`](agents/security-agent.md) |
+| Testing & coverage | [`agents/testing-agent.md`](agents/testing-agent.md) |
 
 ---
 
@@ -220,6 +343,11 @@ Detailed patterns and code recipes live in `skills/`:
 | Legal & fiscal analysis | [`skills/legal-fiscal-analysis.md`](skills/legal-fiscal-analysis.md) |
 | Dashboarding & reporting | [`skills/dashboarding-reporting.md`](skills/dashboarding-reporting.md) |
 | Process modernization | [`skills/process-modernization.md`](skills/process-modernization.md) |
+| Database access | [`skills/database-access.md`](skills/database-access.md) |
+| API integration | [`skills/api-integration.md`](skills/api-integration.md) |
+| Configuration management | [`skills/configuration-management.md`](skills/configuration-management.md) |
+| Error handling | [`skills/error-handling.md`](skills/error-handling.md) |
+| Logging & observability | [`skills/logging-observability.md`](skills/logging-observability.md) |
 
 ---
 

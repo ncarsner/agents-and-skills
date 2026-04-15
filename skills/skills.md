@@ -161,3 +161,28 @@ To add a skill to this project:
 
 2. Ensure the skill name is lowercase and hyphenated.
 3. Verify no existing skill already covers the same capability before adding a new one.
+
+---
+
+## 6. Skill File Index
+
+Detailed patterns, code recipes, and reference implementations live in the
+corresponding `.md` files in this directory:
+
+| Skill | File | Domain |
+|-------|------|--------|
+| Python formatting | [`python-formatting.md`](python-formatting.md) | All |
+| Python testing | [`python-testing.md`](python-testing.md) | All |
+| Python linting | [`python-linting.md`](python-linting.md) | All |
+| uv workflow | [`python-uv-workflow.md`](python-uv-workflow.md) | All |
+| CLI development | [`cli-development.md`](cli-development.md) | CLI |
+| Web development | [`web-development.md`](web-development.md) | Web |
+| NLP processing | [`nlp-processing.md`](nlp-processing.md) | NLP |
+| Legal & fiscal analysis | [`legal-fiscal-analysis.md`](legal-fiscal-analysis.md) | Legal/Fiscal |
+| Dashboarding & reporting | [`dashboarding-reporting.md`](dashboarding-reporting.md) | Dashboards |
+| Process modernization | [`process-modernization.md`](process-modernization.md) | Automation |
+| Database access | [`database-access.md`](database-access.md) | Data / Web |
+| API integration | [`api-integration.md`](api-integration.md) | Data / Web |
+| Configuration management | [`configuration-management.md`](configuration-management.md) | All |
+| Error handling | [`error-handling.md`](error-handling.md) | All |
+| Logging & observability | [`logging-observability.md`](logging-observability.md) | All |
