@@ -21,6 +21,7 @@ projects or referenced directly, these files encode best practices for:
 agents-and-skills/
 │
 ├── AGENTS.md                          # Root agent instructions (start here)
+├── RULES.md                           # Mandatory compliance rules for all agents
 │
 ├── agents/                            # Agent protocol and domain-specific guides
 │   ├── agents.md                      # Base agent protocol all agents must follow
@@ -60,8 +61,9 @@ agents-and-skills/
 Agents should load and internalize these files before executing any task:
 
 1. `agents/agents.md` — defines the base agent protocol all agents must follow.
-2. `skills/skills.md` — lists all registered skills with their input/output contracts.
-3. `AGENTS.md` — Python-specific toolchain defaults, coding standards, and domain links.
+2. `RULES.md` — mandatory compliance rules every agent must obey.
+3. `skills/skills.md` — lists all registered skills with their input/output contracts.
+4. `AGENTS.md` — Python-specific toolchain defaults, coding standards, and domain links.
 
 ### Adding a New Agent
 
