@@ -350,6 +350,7 @@ Detailed patterns and code recipes live in `skills/`:
 | Configuration management | [`skills/configuration-management.md`](skills/configuration-management.md) |
 | Error handling | [`skills/error-handling.md`](skills/error-handling.md) |
 | Logging & observability | [`skills/logging-observability.md`](skills/logging-observability.md) |
+| Approved packages | [`skills/approved-packages.md`](skills/approved-packages.md) |
 
 ---
 

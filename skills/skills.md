@@ -186,3 +186,4 @@ corresponding `.md` files in this directory:
 | Configuration management | [`configuration-management.md`](configuration-management.md) | All |
 | Error handling | [`error-handling.md`](error-handling.md) | All |
 | Logging & observability | [`logging-observability.md`](logging-observability.md) | All |
+| Approved packages | [`approved-packages.md`](approved-packages.md) | All |
