@@ -234,6 +234,48 @@ Before marking any PR as reviewed, confirm:
 
 ---
 
+## Security Assumptions Log
+
+After every major change (new feature, refactor, dependency upgrade, or
+architecture shift), the security agent MUST append an entry to the
+assumptions log. A "major change" is any commit that modifies authentication,
+authorization, data access, external API surface, or dependency versions.
+
+Record each assumption in this format:
+
+```
+[YYYY-MM-DD] <short change description>
+  Assumed: <what the agent assumed to be true about the security context>
+  Boundary: <trust boundary relied upon>
+  Risk if wrong: <consequence if the assumption is violated>
+  Verified by: <test name, audit command, or "manual review">
+```
+
+Example entries:
+
+```
+[2025-09-01] Added OAuth2 token refresh endpoint
+  Assumed: Token signing keys are rotated monthly and stored only in Vault.
+  Boundary: Internal services only; endpoint not exposed to public internet.
+  Risk if wrong: Stale or leaked keys allow arbitrary token forgery.
+  Verified by: test_token_refresh_requires_valid_client_id
+
+[2025-09-15] Upgraded requests from 2.31 to 2.32
+  Assumed: New version contains no regressions in SSL certificate validation.
+  Boundary: All outbound HTTP; default SSL context enforced.
+  Risk if wrong: MITM attacks against third-party API calls.
+  Verified by: uv run pip-audit (no CVEs), manual review of changelog
+```
+
+Rules:
+- Never delete or edit existing assumption entries; append only.
+- If an assumption is later proven false, add a follow-up entry marked
+  `INVALIDATED:` with the date and explanation.
+- The assumptions log must be reviewed alongside the security checklist on
+  every PR that touches security-sensitive code.
+
+---
+
 ## Security Testing Patterns
 
 ```python
