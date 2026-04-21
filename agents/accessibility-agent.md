@@ -124,9 +124,9 @@ Apply to all public-facing written content (web pages, READMEs, published docs):
 - [ ] Reading level is at or below Grade 8 for general audiences (use Flesch-Kincaid or equivalent)
 - [ ] Headings follow a logical hierarchy (`h1` → `h2` → `h3`; no levels skipped)
 - [ ] Bullet points and numbered lists used to break up dense prose
-- [ ] Fonts are at least 16px (1rem) for body text in web contexts
+- [ ] Body text uses relative units (`rem` or `em`); avoid `font-size` below `1rem` on body copy (best practice, not a WCAG criterion)
 - [ ] Line spacing is at least 1.5× the font size
-- [ ] Line length does not exceed 80 characters (≈ 680px at 16px)
+- [ ] Line length does not exceed 80 characters per line
 
 ---
 
