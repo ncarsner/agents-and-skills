@@ -40,7 +40,7 @@ must be written to `logs/usage.jsonl` (newline-delimited JSON). Fields:
 
 ```json
 {
-  "timestamp": "2025-09-01T14:23:00Z",
+  "timestamp": "2025-09-01T14:23:00+00:00",
   "agent": "security-agent",
   "task_id": "pr-review-42",
   "model": "gpt-4o",
@@ -53,6 +53,9 @@ must be written to `logs/usage.jsonl` (newline-delimited JSON). Fields:
 Rules:
 - All fields are required; omit none.
 - `task_id` must match the task identifier assigned by the orchestrator.
+- Timestamps must use the `+00:00` UTC offset suffix (not `Z`) so that
+  `datetime.fromisoformat()` parses them correctly on all supported Python
+  versions.
 - Agents that cannot write to `logs/usage.jsonl` must surface the failure
   and halt rather than silently drop the record.
 
@@ -175,6 +178,15 @@ from decimal import Decimal
 from pathlib import Path
 
 
+def _usage_totals() -> dict[str, Decimal]:
+    """Return a zeroed usage accumulator for a single agent."""
+    return {
+        "prompt_tokens": Decimal(0),
+        "completion_tokens": Decimal(0),
+        "cost_usd": Decimal(0),
+    }
+
+
 def aggregate_usage(
     log_path: Path,
     rates: dict[str, dict[str, Decimal]],
@@ -190,17 +202,13 @@ def aggregate_usage(
     Returns:
         Mapping of agent name to totals: tokens and cost_usd.
     """
-    totals: dict[str, dict[str, Decimal]] = defaultdict(
-        lambda: {"prompt_tokens": Decimal(0),
-                 "completion_tokens": Decimal(0),
-                 "cost_usd": Decimal(0)}
-    )
+    totals: dict[str, dict[str, Decimal]] = defaultdict(_usage_totals)
     with log_path.open() as fh:
         for line in fh:
             entry = json.loads(line)
-            entry_date = datetime.fromisoformat(
-                entry["timestamp"].replace("Z", "+00:00")
-            ).astimezone(timezone.utc).date()
+            entry_date = datetime.fromisoformat(entry["timestamp"]).astimezone(
+                timezone.utc
+            ).date()
             if since and entry_date < since:
                 continue
             agent = entry["agent"]
