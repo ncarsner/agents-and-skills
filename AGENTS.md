@@ -96,6 +96,8 @@ agent file that matches your task:
 | Modernizing a legacy process | [`agents/process-modernization-agent.md`](agents/process-modernization-agent.md) |
 | Security review or hardening | [`agents/security-agent.md`](agents/security-agent.md) |
 | Writing or reviewing tests | [`agents/testing-agent.md`](agents/testing-agent.md) |
+| Docker containerization, deployment, maintenance | [`agents/containerization-agent.md`](agents/containerization-agent.md) |
+| Accessibility review of public-facing content | [`agents/accessibility-agent.md`](agents/accessibility-agent.md) |
 
 ---
 
@@ -326,6 +328,8 @@ For specialized work, also read the appropriate agent file in `agents/`:
 | Process modernization | [`agents/process-modernization-agent.md`](agents/process-modernization-agent.md) |
 | Security review & hardening | [`agents/security-agent.md`](agents/security-agent.md) |
 | Testing & coverage | [`agents/testing-agent.md`](agents/testing-agent.md) |
+| Docker containerization | [`agents/containerization-agent.md`](agents/containerization-agent.md) |
+| Accessibility review | [`agents/accessibility-agent.md`](agents/accessibility-agent.md) |
 
 ---
 
