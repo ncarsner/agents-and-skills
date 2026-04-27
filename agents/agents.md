@@ -147,6 +147,8 @@ To add a new agent to this project:
 | [`process-modernization-agent.md`](process-modernization-agent.md) | Modernize legacy processes |
 | [`security-agent.md`](security-agent.md) | Audit and harden application security |
 | [`testing-agent.md`](testing-agent.md) | Design and implement test suites |
+| [`containerization-agent.md`](containerization-agent.md) | Containerize projects with Docker; guide deployment and maintenance |
+| [`accessibility-agent.md`](accessibility-agent.md) | Identify accessibility deficiencies in public-facing projects and publications |
 | [`accounting-agent.md`](accounting-agent.md) | Monitor token usage and estimate cost |
 | [`senior-dev-review-agent.md`](senior-dev-review-agent.md) | Ad hoc review: architectural efficiency and code quality |
 | [`vp-review-agent.md`](vp-review-agent.md) | Ad hoc review: risk/reward tradeoffs |

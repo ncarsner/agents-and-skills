@@ -45,8 +45,10 @@ agents-and-skills/
 ├── README.md
 ├── agents/                    ← domain-specific agent instruction files
 │   ├── agents.md              ← agent protocol reference and registry
+│   ├── accessibility-agent.md ← accessibility deficiency review for public-facing content
 │   ├── accounting-agent.md    ← token usage monitoring and cost estimation
 │   ├── cli-agent.md           ← CLI application development
+│   ├── containerization-agent.md ← Docker containerization, deployment, maintenance
 │   ├── cto-review-agent.md    ← ad hoc review: C-suite strategic overview
 │   ├── dashboard-reporting-agent.md
 │   ├── data-engineering-agent.md  ← ETL pipelines, databases, batch processing
@@ -100,6 +102,8 @@ agent file that matches your task:
 | Modernizing a legacy process | [`agents/process-modernization-agent.md`](agents/process-modernization-agent.md) |
 | Security review or hardening | [`agents/security-agent.md`](agents/security-agent.md) |
 | Writing or reviewing tests | [`agents/testing-agent.md`](agents/testing-agent.md) |
+| Docker containerization, deployment, maintenance | [`agents/containerization-agent.md`](agents/containerization-agent.md) |
+| Accessibility review of public-facing content | [`agents/accessibility-agent.md`](agents/accessibility-agent.md) |
 | Token usage and cost monitoring | [`agents/accounting-agent.md`](agents/accounting-agent.md) |
 | Code review: architecture and quality | [`agents/senior-dev-review-agent.md`](agents/senior-dev-review-agent.md) |
 | Code review: risk/reward tradeoffs | [`agents/vp-review-agent.md`](agents/vp-review-agent.md) |
@@ -334,6 +338,8 @@ For specialized work, also read the appropriate agent file in `agents/`:
 | Process modernization | [`agents/process-modernization-agent.md`](agents/process-modernization-agent.md) |
 | Security review & hardening | [`agents/security-agent.md`](agents/security-agent.md) |
 | Testing & coverage | [`agents/testing-agent.md`](agents/testing-agent.md) |
+| Docker containerization | [`agents/containerization-agent.md`](agents/containerization-agent.md) |
+| Accessibility review | [`agents/accessibility-agent.md`](agents/accessibility-agent.md) |
 | Token usage & cost monitoring | [`agents/accounting-agent.md`](agents/accounting-agent.md) |
 | Code review: architecture & quality | [`agents/senior-dev-review-agent.md`](agents/senior-dev-review-agent.md) |
 | Code review: risk/reward tradeoffs | [`agents/vp-review-agent.md`](agents/vp-review-agent.md) |
