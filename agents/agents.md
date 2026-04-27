@@ -77,6 +77,17 @@ NOTES (optional):
   <Any caveats, assumptions made, or follow-up recommendations.>
 ```
 
+### Response Style Rules
+
+- Write in plain prose. Do not use markdown stylizing such as bold (**text**),
+  italics (*text*), or inline emphasis in running text.
+- Use plain numbered lists and plain bullet lists only.
+- Tables are permitted for structured data comparisons.
+- Code blocks (triple-backtick fences) are permitted for code and commands.
+- Headers (# / ##) are permitted only inside generated documents, not in
+  conversational or status responses.
+- Never underline text or use emoji for emphasis.
+
 ---
 
 ## 6. Error Handling
@@ -136,3 +147,7 @@ To add a new agent to this project:
 | [`process-modernization-agent.md`](process-modernization-agent.md) | Modernize legacy processes |
 | [`security-agent.md`](security-agent.md) | Audit and harden application security |
 | [`testing-agent.md`](testing-agent.md) | Design and implement test suites |
+| [`accounting-agent.md`](accounting-agent.md) | Monitor token usage and estimate cost |
+| [`senior-dev-review-agent.md`](senior-dev-review-agent.md) | Ad hoc review: architectural efficiency and code quality |
+| [`vp-review-agent.md`](vp-review-agent.md) | Ad hoc review: risk/reward tradeoffs |
+| [`cto-review-agent.md`](cto-review-agent.md) | Ad hoc review: C-suite strategic overview |
