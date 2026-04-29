@@ -29,7 +29,7 @@ human language. Focus areas include:
 | Tokenization (fast) | `tokenizers` | `uv add tokenizers` |
 | ML modeling | `scikit-learn` | `uv add scikit-learn` |
 | Deep learning | `torch` | `uv add torch` |
-| PDF extraction | `pdfplumber` | `uv add pdfplumber` |
+| PDF extraction | `pypdf` | `uv add pypdf` |
 | Document parsing | `python-docx` | `uv add python-docx` |
 | Data wrangling | `pandas` | `uv add pandas` |
 | Text similarity | `sentence-transformers` | `uv add sentence-transformers` |
@@ -261,7 +261,7 @@ def rank_by_similarity(query: str, documents: list[str]) -> list[tuple[float, st
 
 from pathlib import Path
 
-import pdfplumber
+from pypdf import PdfReader
 
 
 def extract_text_from_pdf(path: Path) -> str:
@@ -280,11 +280,11 @@ def extract_text_from_pdf(path: Path) -> str:
     if not path.exists():
         raise FileNotFoundError(f"PDF not found: {path}")
 
+    reader = PdfReader(path)
     pages: list[str] = []
-    with pdfplumber.open(path) as pdf:
-        for page in pdf.pages:
-            text = page.extract_text() or ""
-            pages.append(text)
+    for page in reader.pages:
+        text = page.extract_text() or ""
+        pages.append(text)
     return "\n\n".join(pages)
 
 
@@ -300,8 +300,8 @@ def extract_text_by_page(path: Path) -> list[str]:
     if not path.exists():
         raise FileNotFoundError(f"PDF not found: {path}")
 
-    with pdfplumber.open(path) as pdf:
-        return [page.extract_text() or "" for page in pdf.pages]
+    reader = PdfReader(path)
+    return [page.extract_text() or "" for page in reader.pages]
 ```
 
 ---

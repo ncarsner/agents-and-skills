@@ -26,7 +26,7 @@ traceable back to the source data and the rule that produced it.
 | Data wrangling | `pandas` | `uv add pandas` |
 | Decimal arithmetic | `decimal` | stdlib |
 | Date calculations | `dateutil` | `uv add python-dateutil` |
-| PDF extraction | `pdfplumber` | `uv add pdfplumber` |
+| PDF extraction | `pypdf` | `uv add pypdf` |
 | Excel I/O | `openpyxl` | `uv add openpyxl` |
 | Data validation | `pydantic` | `uv add pydantic` |
 | Reporting | `reportlab` or `jinja2` | `uv add reportlab` |
