@@ -1,4 +1,4 @@
-# Epilogue — End-of-Day Session Closure
+# Epilogue Claude — End-of-Day Session Closure
 
 This document is a standing instruction for AI agents. When invoked at the end of a
 work session, execute every section in order. Do not skip steps. Do not ask for
