@@ -53,9 +53,11 @@ workstreams or deep-dive investigations.
 
 ```
 agents-and-skills/
-├── AGENTS.md                  ← you are here — root instructions for agents
+├── GEMINI.md                  ← you are here — root instructions for agents
 ├── RULES.md                   ← mandatory compliance rules for all agents
 ├── README.md                  ← project overview (currently being updated)
+├── _SCRIPTS/                  ← repository utility and automation scripts
+├── _SOLUTIONS/                ← example or reference solutions
 ├── subagents/                 ← domain-specific subagent instruction files
 │   ├── agents.md              ← subagent protocol reference and registry
 │   ├── accessibility-agent.md ← accessibility deficiency review
