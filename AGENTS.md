@@ -56,6 +56,8 @@ agents-and-skills/
 ├── AGENTS.md                  ← you are here — root instructions for agents
 ├── RULES.md                   ← mandatory compliance rules for all agents
 ├── README.md                  ← project overview (currently being updated)
+├── _SCRIPTS/                  ← root-level utility and automation scripts
+├── _SOLUTIONS/                ← root-level solution/reference materials
 ├── subagents/                 ← domain-specific subagent instruction files
 │   ├── agents.md              ← subagent protocol reference and registry
 │   ├── accessibility-agent.md ← accessibility deficiency review
