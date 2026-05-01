@@ -1,11 +1,26 @@
 #!/usr/bin/env bash
 # Generic Issue Creation Script
 # Prerequisites: gh CLI installed and authenticated (gh auth login)
-set -e
+set -euo pipefail
+
+if ! command -v gh >/dev/null 2>&1; then
+  echo "Error: GitHub CLI (gh) is not installed or not in PATH."
+  exit 1
+fi
+
+if ! gh auth status >/dev/null 2>&1; then
+  echo "Error: GitHub CLI is not authenticated. Run 'gh auth login' first."
+  exit 1
+fi
 
 # Configuration
-REPO="your-org/your-repo"
+REPO="${1:-$(gh repo view --json nameWithOwner --jq '.nameWithOwner')}"
 ISSUES_FILE="issues.txt" # Format: Title | Body (one per line)
+
+if [ -z "$REPO" ]; then
+  echo "Error: Unable to determine repository. Pass it as the first argument or run this script from within a GitHub repository."
+  exit 1
+fi
 
 if [ ! -f "$ISSUES_FILE" ]; then
   echo "Error: $ISSUES_FILE not found. Create it with 'Title | Body' format."
