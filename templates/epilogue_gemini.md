@@ -39,17 +39,17 @@ Generate a summary of the day's work in a new file named `yyyy-mm-dd-session-sum
 
 ## 4. CONTEXT FILE UPDATES
 Context files are the foundation of the agent's understanding. You must update the following files to reflect the session's outcomes:
-- `gemini.md`
-- `claude.md`
-- `agents.md`
+- `GEMINI.md`
+- `CLAUDE.md`
+- `AGENTS.md`
 
 **Synchronization Requirement:**
-Update the primary context file (`gemini.md`) first, then synchronize the others. They should remain identical in their core "state" sections and identical in file size.
+Update the primary context file (`GEMINI.md`) first, then synchronize the others. They should remain identical in their core "state" sections.
 
 **Verification Step:**
 Run the following to ensure parity:
 ```bash
-diff gemini.md claude.md && diff gemini.md agents.md
+diff GEMINI.md CLAUDE.md && diff GEMINI.md AGENTS.md
 ```
 *If there is any output, the files are out of sync. Resolve the differences immediately.*
 

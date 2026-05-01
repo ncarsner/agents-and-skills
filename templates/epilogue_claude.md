@@ -69,11 +69,11 @@ state. Keep them concise — reference other files rather than duplicating conte
 - Next steps (replace stale items with current ones)
 
 **Sync rule:** If more than one context file exists, make all of them identical in
-content and size after updating. Use this command pattern to verify:
+content after updating. Use this command pattern to verify:
 
 ```bash
-diff claude.md gemini.md
-diff claude.md agents.md
+diff CLAUDE.md GEMINI.md
+diff CLAUDE.md AGENTS.md
 ```
 
 No output means they are in sync.
