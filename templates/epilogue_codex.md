@@ -76,13 +76,12 @@ Each context file should reflect the repository as it stands after this session:
 - Next steps, replacing stale items.
 
 If more than one context file exists, keep the shared project-state content in
-sync and ensure all files are identical in size. Verify parity with the files
-that are present:
+sync. Verify parity with the files that are present:
 
 ```bash
-diff claude.md gemini.md
-diff claude.md agents.md
-diff gemini.md agents.md
+diff CLAUDE.md GEMINI.md
+diff CLAUDE.md AGENTS.md
+diff GEMINI.md AGENTS.md
 ```
 
 No output means the compared files match. If a file is absent, skip only that
