@@ -1,4 +1,4 @@
-# AGENTS.md — Root Agent Instructions
+# CLAUDE.md — Root Agent Instructions
 
 This file provides behavioral instructions for AI coding agents working in this
 repository and in any Python project that imports these templates. All agents
@@ -36,66 +36,79 @@ python3 -m pytest --cov=src --cov-fail-under=100
 
 ---
 
+## Subagent Delegation Protocol
+
+When tasks exceed your primary domain or require specialized focus, delegate to
+a subagent. You may spawn up to **20 subagents** per session to handle parallel
+workstreams or deep-dive investigations.
+
+1. **Identify Need:** Determine if a task fits a specialized subagent profile.
+2. **Context Handoff:** Provide the subagent with relevant files and goals.
+3. **Execution:** Subagents operate within their own context and report back.
+4. **Integration:** Review subagent output and integrate into the main branch.
+
+---
+
 ## Repository Map
 
 ```
 agents-and-skills/
-├── AGENTS.md                  ← you are here — root instructions for all agents
-├── RULES.md                   ← mandatory compliance rules all agents must follow
-├── README.md
-├── agents/                    ← domain-specific agent instruction files
-│   ├── agents.md              ← agent protocol reference and registry
+├── CLAUDE.md                  ← you are here — root instructions for agents
+├── RULES.md                   ← mandatory compliance rules for all agents
+├── README.md                  ← project overview (currently being updated)
+├── _SCRIPTS/                  ← helper scripts and automation utilities
+├── _SOLUTIONS/                ← reference solutions and related materials
+├── subagents/                 ← domain-specific subagent instruction files
+│   ├── agents.md              ← subagent protocol reference and registry
+│   ├── accessibility-agent.md ← accessibility deficiency review
+│   ├── accounting-agent.md    ← token usage and cost monitoring
 │   ├── cli-agent.md           ← CLI application development
-│   ├── dashboard-reporting-agent.md
-│   ├── data-engineering-agent.md  ← ETL pipelines, databases, batch processing
-│   ├── legal-fiscal-agent.md
-│   ├── nlp-agent.md
-│   ├── process-modernization-agent.md
+│   ├── containerization-agent.md ← Docker and deployment standards
+│   ├── cto-review-agent.md    ← strategic C-suite overview
+│   ├── dashboard-reporting-agent.md ← report generation
+│   ├── data-engineering-agent.md ← ETL and database pipelines
+│   ├── legal-fiscal-agent.md  ← compliance and fiscal logic
+│   ├── nlp-agent.md           ← text analysis and LLM processing
+│   ├── process-modernization-agent.md ← legacy refactoring
 │   ├── security-agent.md      ← security review and hardening
+│   ├── senior-dev-review-agent.md ← architectural efficiency review
 │   ├── testing-agent.md       ← test design and coverage
-│   └── web-dev-agent.md
+│   ├── vp-review-agent.md     ← risk/reward tradeoff analysis
+│   └── web-dev-agent.md       ← web services and APIs
 ├── skills/                    ← reusable code patterns and recipes
 │   ├── skills.md              ← skill registry and protocol
 │   ├── api-integration.md     ← HTTP clients, retry, pagination
-│   ├── cli-development.md
-│   ├── configuration-management.md  ← env vars, TOML, pydantic-settings
-│   ├── dashboarding-reporting.md
-│   ├── database-access.md     ← SQLAlchemy, sessions, migrations
-│   ├── error-handling.md      ← exceptions, retry, error boundaries
-│   ├── legal-fiscal-analysis.md
-│   ├── logging-observability.md  ← structlog, audit trails, timing
-│   ├── nlp-processing.md
-│   ├── process-modernization.md
-│   ├── python-formatting.md
-│   ├── python-linting.md
-│   ├── python-testing.md
-│   ├── python-uv-workflow.md
-│   └── web-development.md
-└── templates/                 ← copy-paste project configuration files
-    ├── pyproject.toml
-    ├── pytest.ini
-    ├── ruff.toml
-    └── .python-version
+│   ├── cli-development.md     ← terminal UI patterns
+│   └── ... (see skills/ for more)
+└── templates/                 ← project configuration templates
+    ├── pyproject.toml         ← dependency management
+    ├── pytest.ini             ← test configuration
+    └── ruff.toml              ← linting and formatting rules
 ```
 
 ---
 
 ## Agent Selection Guide
 
-Read the root `AGENTS.md` (this file) first, then load the domain-specific
-agent file that matches your task:
+Read this root file first, then load the domain-specific subagent file:
 
-| Task type | Agent file |
-|-----------|-----------|
-| Building a CLI tool | [`agents/cli-agent.md`](agents/cli-agent.md) |
-| REST API or web service | [`agents/web-dev-agent.md`](agents/web-dev-agent.md) |
-| ETL pipeline, database, batch job | [`agents/data-engineering-agent.md`](agents/data-engineering-agent.md) |
-| NLP, text analysis | [`agents/nlp-agent.md`](agents/nlp-agent.md) |
-| Legal or financial analysis | [`agents/legal-fiscal-agent.md`](agents/legal-fiscal-agent.md) |
-| Dashboard or report generation | [`agents/dashboard-reporting-agent.md`](agents/dashboard-reporting-agent.md) |
-| Modernizing a legacy process | [`agents/process-modernization-agent.md`](agents/process-modernization-agent.md) |
-| Security review or hardening | [`agents/security-agent.md`](agents/security-agent.md) |
-| Writing or reviewing tests | [`agents/testing-agent.md`](agents/testing-agent.md) |
+| Task type | Subagent file |
+|-----------|---------------|
+| Building a CLI tool | [`subagents/cli-agent.md`](subagents/cli-agent.md) |
+| REST API or web service | [`subagents/web-dev-agent.md`](subagents/web-dev-agent.md) |
+| ETL pipeline, database | [`subagents/data-engineering-agent.md`](subagents/data-engineering-agent.md) |
+| NLP, text analysis | [`subagents/nlp-agent.md`](subagents/nlp-agent.md) |
+| Legal/fiscal analysis | [`subagents/legal-fiscal-agent.md`](subagents/legal-fiscal-agent.md) |
+| Dashboard/reports | [`subagents/dashboard-reporting-agent.md`](subagents/dashboard-reporting-agent.md) |
+| Modernizing legacy | [`subagents/process-modernization-agent.md`](subagents/process-modernization-agent.md) |
+| Security hardening | [`subagents/security-agent.md`](subagents/security-agent.md) |
+| Testing & coverage | [`subagents/testing-agent.md`](subagents/testing-agent.md) |
+| Containerization | [`subagents/containerization-agent.md`](subagents/containerization-agent.md) |
+| Accessibility | [`subagents/accessibility-agent.md`](subagents/accessibility-agent.md) |
+| Cost/Token audit | [`subagents/accounting-agent.md`](subagents/accounting-agent.md) |
+| Senior Review | [`subagents/senior-dev-review-agent.md`](subagents/senior-dev-review-agent.md) |
+| VP/Risk Review | [`subagents/vp-review-agent.md`](subagents/vp-review-agent.md) |
+| CTO/Strategy | [`subagents/cto-review-agent.md`](subagents/cto-review-agent.md) |
 
 ---
 
@@ -105,40 +118,21 @@ These boundaries apply to all projects built with these templates.
 **Never skip a layer or bypass a boundary.**
 
 ```
-External Input (user, file, API)
-        │
-        ▼
-  Validation Layer     ← reject invalid input here; never pass invalid data downstream
-        │
-        ▼
-  Business Logic       ← pure functions; no I/O; fully unit-testable
-        │
-        ▼
-   I/O Layer           ← database, file system, external APIs
-        │
-        ▼
-External Output (DB, file, API response)
+External Input (user, file, API) -> Validation -> Logic -> I/O -> Output
 ```
 
-Rules:
 1. Business logic must not import from the I/O layer directly.
 2. I/O layer functions must not contain business logic.
 3. Validation must happen before business logic runs.
-4. Secrets must never appear in source code — load from environment variables.
+4. Secrets must never appear in source code — load from environment.
 
 ---
 
 ## Identity and Scope
 
 You are a Python-focused software engineering agent. Your primary objective is
-to produce correct, auditable, and maintainable Python code. You specialize in:
-
-- Terminal-based (CLI) applications
-- Web development (Flask, FastAPI, Django)
-- Natural language processing (spaCy, NLTK, Transformers)
-- Legal and fiscal data analysis
-- Dashboarding and reporting (Matplotlib, Plotly, Dash)
-- Modernizing legacy processes through dynamic, data-driven solutions
+to produce correct, auditable, and maintainable Python code. You specialize in
+CLI tools, web services, data engineering, and automated reporting.
 
 ---
 
@@ -146,222 +140,19 @@ to produce correct, auditable, and maintainable Python code. You specialize in:
 
 | Setting | Value |
 |---------|-------|
-| Python executable | `python3` |
 | Package manager | `uv` |
-| Virtual environments | `uv venv` (never `venv`, `virtualenv`, or `conda`) |
-| Dependency file | `pyproject.toml` |
-| Lock file | `uv.lock` |
 | Test runner | `pytest` |
-| Coverage target | 100% (enforced via `pytest-cov`) |
-| Linter | `ruff` |
-| Formatter | `ruff format` (Black-compatible) |
+| Linter/Formatter | `ruff` |
 | Type checker | `mypy` |
-
----
-
-## Toolchain Commands
-
-### Environment Setup
-```bash
-uv venv                        # create virtual environment
-uv pip install -e ".[dev]"     # install project + dev dependencies
-```
-
-### Running the Project
-```bash
-python3 -m <package_name>      # run as module
-python3 src/<entry>.py         # run script directly
-```
-
-### Dependency Management
-```bash
-uv add <package>               # add runtime dependency
-uv add --dev <package>         # add dev-only dependency
-uv remove <package>            # remove dependency
-uv sync                        # sync environment to lockfile
-uv lock                        # regenerate lockfile
-```
-
-### Testing
-```bash
-python3 -m pytest                                     # run all tests
-python3 -m pytest tests/unit/                         # run unit tests only
-python3 -m pytest --cov=src --cov-report=term-missing # coverage report
-python3 -m pytest --cov=src --cov-fail-under=100      # enforce 100% coverage
-python3 -m pytest -x                                  # stop on first failure
-python3 -m pytest -v                                  # verbose output
-```
-
-### Linting and Formatting
-```bash
-ruff check .                   # lint all files
-ruff check . --fix             # auto-fix lint issues
-ruff format .                  # format all files
-ruff format . --check          # check formatting (CI mode)
-mypy src/                      # static type checking
-```
+| Coverage target | 100% |
 
 ---
 
 ## Coding Standards
 
-### File Structure
-Every project MUST follow this layout:
-```
-project-root/
-├── pyproject.toml
-├── uv.lock
-├── README.md
-├── AGENTS.md                  # copy or symlink from this repo
-├── .python-version
-├── src/
-│   └── <package>/
-│       ├── __init__.py
-│       └── ...
-└── tests/
-    ├── __init__.py
-    ├── unit/
-    │   └── __init__.py
-    └── integration/
-        └── __init__.py
-```
-
-### Python Style Rules
-- Follow PEP 8 with a line length of **88 characters** (Black-compatible)
-- Use **type annotations** on all public functions and methods
-- Use **f-strings** for string formatting (never `%` or `.format()`)
-- Use `pathlib.Path` for all file paths (never `os.path`)
-- Use `logging` module instead of `print()` for diagnostic output
-- Prefer **dataclasses** or **Pydantic models** over plain dicts for structured data
-- Use `argparse` or `click` for CLI argument parsing
-- Never use bare `except:` — always catch specific exceptions
-
-### Docstrings
-Every public module, class, and function MUST have a docstring:
-```python
-def calculate_tax(income: float, rate: float) -> float:
-    """Calculate tax owed based on income and rate.
-
-    Args:
-        income: Gross income in USD.
-        rate: Effective tax rate as a decimal (e.g., 0.22 for 22%).
-
-    Returns:
-        Tax amount owed in USD.
-
-    Raises:
-        ValueError: If income or rate is negative.
-    """
-```
-
-### Import Order (enforced by ruff)
-1. Standard library imports
-2. Third-party imports
-3. Local/first-party imports
-
----
-
-## Testing Requirements
-
-- All new code MUST be accompanied by tests
-- Target **100% line and branch coverage**
-- Test files MUST be named `test_<module>.py`
-- Test functions MUST be named `test_<behavior>`
-- Use `pytest.fixture` for shared test state
-- Use `pytest.mark.parametrize` for data-driven tests
-- Mock external dependencies with `unittest.mock` or `pytest-mock`
-- Never test implementation details — test observable behavior
-
-```python
-# Good test structure
-def test_calculate_tax_standard_rate() -> None:
-    """Tax at 22% rate should return correct amount."""
-    result = calculate_tax(income=50_000.0, rate=0.22)
-    assert result == 11_000.0
-
-def test_calculate_tax_raises_on_negative_income() -> None:
-    """Negative income should raise ValueError."""
-    with pytest.raises(ValueError, match="income must be non-negative"):
-        calculate_tax(income=-1.0, rate=0.22)
-```
-
----
-
-## Security and Auditability
-
-- Never hard-code secrets, credentials, or API keys — use environment variables
-  loaded via `python-dotenv` or `os.environ`
-- Log all significant state changes using the `logging` module
-- Use `structlog` for structured (JSON) logging in production services
-- Validate and sanitize all external input before use
-- Use parameterized queries for any SQL operations (never string concatenation)
-- Document every external API or data source in the module docstring
-
----
-
-## Prohibited Actions
-
-- Do NOT use `pip install` directly — always use `uv`
-- Do NOT use `os.path` — use `pathlib.Path`
-- Do NOT use `print()` for diagnostic output in library code — use `logging`
-- Do NOT commit secrets, API keys, or credentials to the repository
-- Do NOT skip or delete tests to achieve a passing build
-- Do NOT use deprecated Python 2 patterns (`print` statement, `unicode`, etc.)
-- Do NOT use mutable default arguments in function signatures
-
----
-
-## Domain-Specific Agent Files
-
-For specialized work, also read the appropriate agent file in `agents/`:
-
-| Domain | File |
-|--------|------|
-| CLI applications | [`agents/cli-agent.md`](agents/cli-agent.md) |
-| Web development | [`agents/web-dev-agent.md`](agents/web-dev-agent.md) |
-| Data engineering | [`agents/data-engineering-agent.md`](agents/data-engineering-agent.md) |
-| NLP | [`agents/nlp-agent.md`](agents/nlp-agent.md) |
-| Legal & fiscal analysis | [`agents/legal-fiscal-agent.md`](agents/legal-fiscal-agent.md) |
-| Dashboards & reporting | [`agents/dashboard-reporting-agent.md`](agents/dashboard-reporting-agent.md) |
-| Process modernization | [`agents/process-modernization-agent.md`](agents/process-modernization-agent.md) |
-| Security review & hardening | [`agents/security-agent.md`](agents/security-agent.md) |
-| Testing & coverage | [`agents/testing-agent.md`](agents/testing-agent.md) |
-
----
-
-## Reusable Skills
-
-Detailed patterns and code recipes live in `skills/`:
-
-| Skill | File |
-|-------|------|
-| Python formatting | [`skills/python-formatting.md`](skills/python-formatting.md) |
-| Python testing | [`skills/python-testing.md`](skills/python-testing.md) |
-| Python linting | [`skills/python-linting.md`](skills/python-linting.md) |
-| uv workflow | [`skills/python-uv-workflow.md`](skills/python-uv-workflow.md) |
-| CLI development | [`skills/cli-development.md`](skills/cli-development.md) |
-| Web development | [`skills/web-development.md`](skills/web-development.md) |
-| NLP processing | [`skills/nlp-processing.md`](skills/nlp-processing.md) |
-| Legal & fiscal analysis | [`skills/legal-fiscal-analysis.md`](skills/legal-fiscal-analysis.md) |
-| Dashboarding & reporting | [`skills/dashboarding-reporting.md`](skills/dashboarding-reporting.md) |
-| Process modernization | [`skills/process-modernization.md`](skills/process-modernization.md) |
-| Database access | [`skills/database-access.md`](skills/database-access.md) |
-| API integration | [`skills/api-integration.md`](skills/api-integration.md) |
-| Configuration management | [`skills/configuration-management.md`](skills/configuration-management.md) |
-| Error handling | [`skills/error-handling.md`](skills/error-handling.md) |
-| Logging & observability | [`skills/logging-observability.md`](skills/logging-observability.md) |
-| Approved packages | [`skills/approved-packages.md`](skills/approved-packages.md) |
-
----
-
-## Configuration Templates
-
-Ready-to-copy configuration files live in `templates/`. Copy them to your
-project root and customize as needed:
-
-| File | Purpose |
-|------|---------|
-| [`templates/pyproject.toml`](templates/pyproject.toml) | Project metadata, dependencies, tool config |
-| [`templates/pytest.ini`](templates/pytest.ini) | Pytest configuration |
-| [`templates/ruff.toml`](templates/ruff.toml) | Ruff linter/formatter configuration |
-| [`templates/.python-version`](templates/.python-version) | Pin Python version for uv/pyenv |
+- **Style:** PEP 8, 88 character line length.
+- **Types:** Type annotations required on all public functions.
+- **Paths:** Use `pathlib.Path` exclusively.
+- **Logging:** Use `logging` or `structlog`, never `print()`.
+- **Tests:** 100% coverage required for all new code.
+- **Security:** No secrets in code; validate all external input.

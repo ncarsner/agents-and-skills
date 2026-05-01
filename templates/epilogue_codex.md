@@ -79,9 +79,9 @@ If more than one context file exists, keep the shared project-state content in
 sync. Verify parity with the files that are present:
 
 ```bash
-diff claude.md gemini.md
-diff claude.md agents.md
-diff gemini.md agents.md
+diff CLAUDE.md GEMINI.md
+diff CLAUDE.md AGENTS.md
+diff GEMINI.md AGENTS.md
 ```
 
 No output means the compared files match. If a file is absent, skip only that

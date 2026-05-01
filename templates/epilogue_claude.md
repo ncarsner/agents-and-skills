@@ -72,8 +72,8 @@ state. Keep them concise — reference other files rather than duplicating conte
 content after updating. Use this command pattern to verify:
 
 ```bash
-diff claude.md gemini.md
-diff claude.md agents.md
+diff CLAUDE.md GEMINI.md
+diff CLAUDE.md AGENTS.md
 ```
 
 No output means they are in sync.
