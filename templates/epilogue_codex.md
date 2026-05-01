@@ -76,7 +76,8 @@ Each context file should reflect the repository as it stands after this session:
 - Next steps, replacing stale items.
 
 If more than one context file exists, keep the shared project-state content in
-sync. Verify parity with the files that are present:
+sync and ensure all files are identical in size. Verify parity with the files
+that are present:
 
 ```bash
 diff claude.md gemini.md

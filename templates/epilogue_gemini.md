@@ -44,7 +44,7 @@ Context files are the foundation of the agent's understanding. You must update t
 - `agents.md`
 
 **Synchronization Requirement:**
-Update the primary context file (`gemini.md`) first, then synchronize the others. They should remain identical in their core "state" sections.
+Update the primary context file (`gemini.md`) first, then synchronize the others. They should remain identical in their core "state" sections and identical in file size.
 
 **Verification Step:**
 Run the following to ensure parity:
