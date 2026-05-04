@@ -80,6 +80,16 @@ agents-and-skills/
 │   ├── api-integration.md     ← HTTP clients, retry, pagination
 │   ├── cli-development.md     ← terminal UI patterns
 │   └── ... (see skills/ for more)
+├── tools/                     ← deterministic code tools (copy-pasteable)
+│   ├── tools.md               ← tool registry and usage protocol
+│   ├── collections.md         ← Counter, group_by, deduplicate, chunk, bisect
+│   ├── datetime.md            ← parse, format, ranges, timezone conversion
+│   ├── file-io.md             ← pathlib read/write, find, atomic write
+│   ├── serialization.md       ← JSON, CSV, TOML parsing and serialization
+│   ├── string-processing.md   ← slugify, regex extraction, normalization
+│   ├── itertools-functools.md ← sliding windows, partition, memoize
+│   ├── math-statistics.md     ← clamp, percentile, moving average, summary
+│   └── hashing-encoding.md    ← SHA-256, HMAC, Base64, UUID, secure tokens (no MD5)
 └── templates/                 ← project configuration templates
     ├── pyproject.toml         ← dependency management
     ├── pytest.ini             ← test configuration
@@ -90,7 +100,9 @@ agents-and-skills/
 
 ## Agent Selection Guide
 
-Read this root file first, then load the domain-specific subagent file:
+Read this root file first, then load the domain-specific subagent file.
+For deterministic utility code (hashing, parsing, sorting, date math), copy
+from [`tools/`](tools/tools.md) before writing from scratch.
 
 | Task type | Subagent file |
 |-----------|---------------|

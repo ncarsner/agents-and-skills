@@ -146,9 +146,9 @@ name = "my-project"
 version = "0.1.0"
 description = "What this project does"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 license = { text = "MIT" }
-authors = [{ name = "Your Name", email = "you@example.com" }]
+authors = [{ name = "Nicholas Carsner", email = "nicholascarsner@gmail.com" }]
 
 dependencies = [
     "requests>=2.28",
@@ -223,7 +223,7 @@ python3 -m pytest               # verify nothing broke
 
 ### Add a new feature with its dependency
 ```bash
-uv add pdfplumber
+uv add pypdf
 # ... write code ...
 python3 -m pytest --cov=src --cov-fail-under=100
 ```
