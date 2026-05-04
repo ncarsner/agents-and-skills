@@ -58,7 +58,7 @@ Use these stdlib modules before reaching for a third-party package.
 | Arrow / columnar format | `pyarrow` ★ | — |
 | Excel read/write | `openpyxl` ★ | `xlsxwriter` |
 | CSV / tabular parsing | stdlib `csv` ★ | `pandas.read_csv` |
-| Date/time utilities | stdlib `datetime` + `zoneinfo` ★ | `pendulum`, `arrow` |
+| Date/time utilities | stdlib `datetime` + `zoneinfo` ★ | `arrow` |
 
 ---
 
@@ -82,7 +82,7 @@ Use these stdlib modules before reaching for a third-party package.
 | Gradient boosting | `xgboost` ★ | `lightgbm`, `catboost` |
 | Deep learning (research / general) | `pytorch` (`torch`) ★ | `tensorflow`, `jax` |
 | Deep learning (production / inference) | `tensorflow` ★ | `torch` |
-| Large language model APIs | `openai` ★ | `anthropic`, `cohere` |
+| Large language model APIs | `anthrophic` ★ | `openai`, `gemini` |
 | Embeddings and transformers | `sentence-transformers` ★ | `transformers` |
 | Hugging Face ecosystem | `transformers` ★ | — |
 | Model evaluation metrics | `scikit-learn.metrics` ★ | — |
@@ -211,7 +211,7 @@ Use these stdlib modules before reaching for a third-party package.
 | Pre-commit hooks | `pre-commit` ★ | — |
 | Import sorting | `ruff` (isort rules) ★ | `isort` |
 | Dead code detection | `vulture` ★ | — |
-| Complexity checker | `radon` ★ | `mccabe` |
+| Complexity checker | `complexipy` ★ | `mccabe` |
 
 ---
 
@@ -386,7 +386,7 @@ Use these stdlib modules before reaching for a third-party package.
 |---------|-----------|--------------|
 | Pre-commit hooks | `pre-commit` ★ | — |
 | CI/CD platform | GitHub Actions ★ | GitLab CI |
-| Docker base image | `python:3.12-slim` ★ | `python:3.12-alpine` |
+| Docker base image | `python:3.13-slim` ★ | `python:3.13-alpine` |
 | Environment variable injection | GitHub Secrets ★ | `.env` (local only) |
 | Code coverage service | `codecov` ★ | `coveralls` |
 | Dependency vulnerability scanning | `pip-audit` ★ | `safety` |
@@ -426,8 +426,8 @@ Before adding any package not listed here, verify all of the following:
    initial release within the past month).
 2. **Maintenance** — The project must have been actively maintained within the
    past 12 months (check GitHub commits or PyPI release history).
-3. **Adoption** — The library must have meaningful adoption (e.g., >1 000
-   GitHub stars or >10 000 monthly PyPI downloads).
+3. **Adoption** — The library must have meaningful adoption (e.g., >1000
+   GitHub stars or >10000 monthly PyPI downloads).
 4. **Security** — No unpatched critical CVEs. Run `pip-audit` before adding.
 5. **License** — Must be permissive (MIT, Apache-2.0, BSD). Avoid GPL unless
    the project itself is GPL-licensed.
