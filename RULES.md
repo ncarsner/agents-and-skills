@@ -332,6 +332,7 @@ source code or be committed to the repository.
 - Load all secrets via environment variables using `python-dotenv` or
   `os.environ`.
 - Add `.env` to `.gitignore` immediately when creating a new project.
+- Add `.env-template` that mimics `.env` with expected keys but includes no values. 
 - Use `parameterized queries` for all database interactions — never use string
   concatenation to build SQL.
 - Validate and sanitize **all** external input before it reaches business logic.
