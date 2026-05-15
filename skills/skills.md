@@ -23,11 +23,13 @@ recipes, and code cookbooks. They are read on demand when an agent needs to know
 | [`logging-observability.md`](logging-observability.md) | All | structlog, logging levels, audit trails |
 | [`configuration-management.md`](configuration-management.md) | All | Config file handling patterns |
 | [`github-issue-creation.md`](github-issue-creation.md) | All | GitHub issue authorization rules and `gh` commands |
-| [`secret-scanning.md`](secret-scanning.md) | All | Pre-commit hook setup, baseline management, incident remediation |
+| [`secret-scanning.md`](secret-scanning.md) | All | Pre-commit hook setup, baseline management, credential rotation, incident remediation |
 | [`multi-agent.md`](multi-agent.md) | All | Handoff payload schema, context passing, loop detection, logging |
 | [`prompt-engineering.md`](prompt-engineering.md) | All | Prompt structure standards, injection defense, token efficiency |
 | [`cost-management.md`](cost-management.md) | All | LLM token logging, session budget guards, pre-flight cost estimation |
 | [`containerization.md`](containerization.md) | DevOps | Docker multi-stage builds, non-root user, .dockerignore, trivy scanning |
+| [`infrastructure-operations.md`](infrastructure-operations.md) | DevOps | Feature flags, canary/blue-green validation, rollback procedure |
+| [`cloud-cost-management.md`](cloud-cost-management.md) | DevOps | Resource tagging, budget alerts, right-sizing, cost-review checklist |
 | [`cli-development.md`](cli-development.md) | CLI | Click/Typer patterns, terminal UI |
 | [`web-development.md`](web-development.md) | Web | FastAPI, Flask, Django patterns |
 | [`api-integration.md`](api-integration.md) | Data/Web | HTTP clients, retry, pagination |

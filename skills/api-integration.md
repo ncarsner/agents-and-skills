@@ -347,6 +347,97 @@ def test_get_raises_on_404(httpx_mock: HTTPXMock) -> None:
 
 ---
 
+## Rate Limiting and 429/503 Handling
+
+When a server responds with `429 Too Many Requests` or `503 Service Unavailable`,
+the client must back off before retrying. Never retry immediately on these codes.
+
+```python
+import time
+import httpx
+from tenacity import (
+    retry,
+    retry_if_exception,
+    stop_after_attempt,
+    wait_exponential,
+    before_sleep_log,
+)
+import logging
+
+logger = logging.getLogger(__name__)
+
+RATE_LIMITED = {429, 503}
+
+
+def _is_retryable(exc: BaseException) -> bool:
+    """Retry on network errors and rate-limit/unavailable HTTP responses."""
+    if isinstance(exc, httpx.HTTPStatusError):
+        return exc.response.status_code in RATE_LIMITED
+    return isinstance(exc, (httpx.TimeoutException, httpx.NetworkError))
+
+
+def _get_retry_after(exc: BaseException) -> float:
+    """Honor Retry-After header when present; default to 60 s."""
+    if isinstance(exc, httpx.HTTPStatusError):
+        header = exc.response.headers.get("Retry-After")
+        if header:
+            return float(header)
+    return 60.0
+
+
+@retry(
+    retry=retry_if_exception(_is_retryable),
+    wait=wait_exponential(multiplier=2, min=4, max=120),
+    stop=stop_after_attempt(6),
+    before_sleep=before_sleep_log(logger, logging.WARNING),
+    reraise=True,
+)
+def get_with_rate_limit(client: httpx.Client, url: str) -> dict:
+    """GET a URL, respecting rate-limit and unavailability responses.
+
+    Args:
+        client: An open httpx.Client instance.
+        url: The URL to fetch.
+
+    Returns:
+        Parsed JSON response.
+
+    Raises:
+        httpx.HTTPStatusError: On non-retryable 4xx/5xx after all attempts.
+    """
+    try:
+        response = client.get(url)
+        response.raise_for_status()
+        return response.json()
+    except httpx.HTTPStatusError as exc:
+        if exc.response.status_code in RATE_LIMITED:
+            sleep_for = _get_retry_after(exc)
+            logger.warning(
+                "Rate limited; sleeping before retry",
+                status=exc.response.status_code,
+                retry_after=sleep_for,
+            )
+            time.sleep(sleep_for)
+        raise
+```
+
+### Rate-Limit Rules
+
+| HTTP status | Meaning | Required behavior |
+|-------------|---------|------------------|
+| `429` | Too Many Requests | Back off; honor `Retry-After` header if present |
+| `503` | Service Unavailable | Back off with exponential delay; retry up to 6 times |
+| `504` | Gateway Timeout | Treat as transient; retry with backoff |
+| `4xx` (other) | Client error | Do not retry; raise immediately |
+| `5xx` (other) | Server error | Retry with backoff up to 3 times |
+
+- Always read the `Retry-After` header before deciding sleep duration.
+- Maximum backoff cap: 120 seconds per attempt.
+- Log every retry at `WARNING` level with the status code and sleep duration.
+- After all attempts exhausted, raise the original exception — do not swallow it.
+
+---
+
 ## Authentication Methods Reference
 
 | Method | Implementation |

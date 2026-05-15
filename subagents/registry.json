@@ -206,7 +206,7 @@
       "domain": "publishing",
       "version": "1.0.0",
       "status": "active",
-      "role": "Manage PyPI package releases: semver, CHANGELOG, build, publish, GitHub Release",
+      "role": "Manage PyPI package releases: semantic versioning, CHANGELOG, build, publish, GitHub Release",
       "skills_used": ["python-uv-workflow", "secret-scanning", "python-testing"]
     }
   ],
