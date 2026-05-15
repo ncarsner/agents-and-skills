@@ -199,6 +199,15 @@
       "status": "active",
       "role": "Audit and implement data collection pipelines: provenance, quality, PII, compliance",
       "skills_used": ["api-integration", "database-access", "python-testing", "logging-observability", "configuration-management"]
+    },
+    {
+      "file": "subagents/release-agent.md",
+      "name": "release-agent",
+      "domain": "publishing",
+      "version": "1.0.0",
+      "status": "active",
+      "role": "Manage PyPI package releases: semver, CHANGELOG, build, publish, GitHub Release",
+      "skills_used": ["python-uv-workflow", "secret-scanning", "python-testing"]
     }
   ],
   "skills": [

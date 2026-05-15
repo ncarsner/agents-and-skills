@@ -22,7 +22,7 @@ non-negotiable unless explicitly overridden in writing by a human reviewer.
 12. [Local-Only Agent Directory](#12-local-only-agent-directory)
 13. [AI Agent Compliance](#13-ai-agent-compliance)
 14. [Performance Standards](#14-performance-standards)
-15. [Placeholder: Accessibility and Internationalization](#placeholder-accessibility-and-internationalization)
+15. [Accessibility and Internationalization](#15-accessibility-and-internationalization)
 16. [Data Privacy and Compliance](#16-data-privacy-and-compliance)
 17. [Deployment and Environment Parity](#17-deployment-and-environment-parity)
 18. [Code Review and Approval Workflow](#18-code-review-and-approval-workflow)
@@ -549,6 +549,98 @@ the project owner before merging.
 
 ---
 
+## 15. Accessibility and Internationalization
+
+**Rule:** Any web UI, CLI output, or document produced by an agent must meet
+the accessibility and internationalization standards below. These apply when the
+project serves end users — not to internal tooling or agent-only pipelines.
+
+### Web UI — WCAG 2.1 AA Compliance
+
+All agent-generated web interfaces must satisfy WCAG 2.1 Level AA:
+
+| Criterion | Requirement |
+|-----------|------------|
+| Color contrast | Text/background ratio ≥ 4.5:1 (normal text), ≥ 3:1 (large text) |
+| Keyboard navigation | All interactive elements reachable and operable via keyboard alone |
+| Focus indicators | Visible focus ring on all focusable elements |
+| Alt text | Every non-decorative image has a descriptive `alt` attribute |
+| Form labels | Every input has an associated `<label>` or `aria-label` |
+| Error messages | Errors identified in text — never by color alone |
+| Heading structure | Headings used semantically (`h1`→`h2`→`h3`), not for styling |
+
+Required accessibility testing before any web UI ships:
+
+```bash
+# axe-core CLI (install once)
+npm install -g @axe-core/cli
+
+# Run against a running local server
+axe http://localhost:8000 --exit
+```
+
+Zero WCAG 2.1 AA violations allowed. Critical and serious violations block the
+PR; moderate violations must be documented as known issues with a remediation
+timeline.
+
+### CLI — Color and Terminal Output
+
+- Never use color as the sole means of conveying information (e.g., red = error,
+  green = success must also include a text label).
+- Test with `NO_COLOR=1` — all output must be fully readable in plain text.
+- Minimum contrast for terminal color pairs: verify with the ANSI color contrast
+  table in `skills/cli-development.md`.
+
+### Internationalization (i18n)
+
+**Locale and timezone:**
+
+```python
+from zoneinfo import ZoneInfo
+
+# Always use explicit timezone — never datetime.now() without tz
+from datetime import datetime
+now = datetime.now(tz=ZoneInfo("UTC"))
+
+# Format for display using babel (locale-aware)
+from babel.dates import format_datetime
+display = format_datetime(now, locale="en_US")
+```
+
+Approved i18n libraries:
+
+| Library | Install | Use for |
+|---------|---------|--------|
+| `zoneinfo` | stdlib (3.9+) | Timezone-aware datetimes |
+| `babel` | `uv add babel` | Locale-aware date, number, currency formatting |
+| `gettext` | stdlib | String externalization for translated UIs |
+
+**String externalization rules:**
+
+- All user-visible strings in web UIs must be wrapped in `gettext` calls (`_("...")`).
+- Source strings are English; translations live in `locale/<lang>/LC_MESSAGES/`.
+- Do not concatenate translated strings — use format strings with named placeholders:
+  ```python
+  # Correct
+  _("Found {count} records").format(count=n)
+  # Wrong — breaks in languages with different word order
+  _("Found") + f" {n} " + _("records")
+  ```
+- Dates, numbers, and currency must use `babel` formatters, never f-strings, when
+  locale-aware output is required.
+
+### Scope Exceptions
+
+These rules apply only when the project:
+- Serves end users via a web browser or terminal interface, **and**
+- Targets a locale other than the deployment default (for i18n string rules).
+
+Pure data pipelines, internal CLI tools, and agent-only scripts are exempt from
+the WCAG and i18n string externalization requirements, but must still follow
+the color/`NO_COLOR` rule for any terminal output.
+
+---
+
 ## 16. Data Privacy and Compliance
 
 **Rule:** All agents must handle personal and sensitive data according to the
@@ -765,6 +857,7 @@ Architectural decisions require:
 
 | Date | Change |
 |------|--------|
+| 2026-05-15 | §15: Accessibility and Internationalization filled — WCAG 2.1 AA criteria, axe-core testing, CLI NO_COLOR rule, babel/zoneinfo/gettext i18n standards, scope exceptions. |
 | 2026-05-15 | §14: Performance Standards filled — latency targets, memory limits, approved profiling tools, caching libraries, regression escalation criteria. |
 | 2026-05-15 | §16: Data Privacy and Compliance filled — classification levels, PII handling, anonymization, retention/deletion policy, audit trail schema, GDPR/CCPA/HIPAA obligations. |
 | 2026-05-14 | §8: pre-commit hook requirement made mandatory; reference to `skills/secret-scanning.md` and `templates/.pre-commit-config.yaml` added. Remediation steps expanded. |

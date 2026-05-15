@@ -5,6 +5,18 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-05-15 (batch 3)
+
+### Added
+- `subagents/release-agent.md` — end-to-end PyPI release workflow: semver policy, CHANGELOG format, CI gates, `uv publish` / `twine` steps, PyPI token security, GitHub Release creation.
+
+### Changed
+- `RULES.md §15` — filled "Accessibility and Internationalization" placeholder: WCAG 2.1 AA criteria table, `axe-core` CLI testing requirement, CLI `NO_COLOR` rule, `babel`/`zoneinfo`/`gettext` i18n standards, scope exceptions for internal tools.
+- `subagents/subagents.md §9` — registered `release-agent`.
+- `subagents/registry.json` — added `release-agent` entry.
+
+---
+
 ## 2026-05-15 (batch 2)
 
 ### Changed
