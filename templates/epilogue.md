@@ -191,7 +191,7 @@ do not replace it.
 
 ---
 
-## 4.5. Update CHANGELOG (if applicable)
+## 5. Update CHANGELOG (if applicable)
 
 If the session produced anything a future reader would consider notable — a new
 feature, a bug fix, a breaking change, or a significant refactor — add an entry
