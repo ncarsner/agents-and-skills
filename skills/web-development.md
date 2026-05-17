@@ -359,6 +359,83 @@ def test_create_item_validates_name(client: TestClient) -> None:
 
 ---
 
+## Health Check Convention
+
+Every containerized web service must expose `/health` (liveness) and
+`/ready` (readiness) endpoints. These are required for Kubernetes probes,
+Docker health checks, and load-balancer routing.
+
+```python
+from fastapi import FastAPI, status
+from pydantic import BaseModel
+
+
+class HealthResponse(BaseModel):
+    """Standard health check response."""
+    status: str
+    version: str
+
+
+def register_health_routes(app: FastAPI, version: str) -> None:
+    """Attach /health and /ready to app."""
+
+    @app.get("/health", response_model=HealthResponse, tags=["ops"])
+    def liveness() -> HealthResponse:
+        """Liveness probe — returns 200 when the process is running."""
+        return HealthResponse(status="ok", version=version)
+
+    @app.get("/ready", response_model=HealthResponse, tags=["ops"])
+    def readiness(db: bool = True) -> HealthResponse:
+        """Readiness probe — returns 200 only when dependencies are reachable.
+
+        Raises:
+            HTTPException 503: When a required dependency is unavailable.
+        """
+        from fastapi import HTTPException
+        if not _check_db():
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="database unavailable",
+            )
+        return HealthResponse(status="ready", version=version)
+
+
+def _check_db() -> bool:
+    """Return True if the database responds to a lightweight query."""
+    try:
+        # Replace with an actual DB ping appropriate for your ORM/driver
+        from sqlalchemy import text
+        from my_api.database import engine
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+        return True
+    except Exception:
+        return False
+```
+
+### Probe Rules
+
+| Endpoint | Probe type | Returns 200 when | Returns 503 when |
+|----------|-----------|-----------------|-----------------|
+| `/health` | Liveness | Process is alive | Never (if process is alive) |
+| `/ready` | Readiness | All dependencies reachable | Any dependency down |
+
+- Both endpoints must respond in < 200 ms.
+- `/health` must never call external services — it only proves the process is running.
+- `/ready` must check every dependency the service needs to serve traffic (DB, cache, upstream APIs).
+- Exclude `/health` and `/ready` from authentication middleware.
+- In Docker Compose, declare as:
+  ```yaml
+  healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+    interval: 30s
+    timeout: 5s
+    retries: 3
+    start_period: 10s
+  ```
+
+---
+
 ## See Also
 
 - [`agents/web-dev-agent.md`](../agents/web-dev-agent.md)
