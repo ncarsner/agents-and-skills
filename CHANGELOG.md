@@ -5,6 +5,19 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-05-17
+
+### Added
+- `profiles/python.md` — language profile extracted from `RULES.md`; contains §1 (uv), §2 (python3), §3 (code quality), §7 (testing), §9 (error handling), §10 (logging), §14 (performance standards).
+- `.12-FACTOR-AGENTS.md` — worktree vs branch analysis appendix: conceptual distinction, template-copy model relationship, quantitative comparison with feature branch PR pattern.
+
+### Changed
+- `RULES.md` — structural refactor: scope markers (`[CORE]`, `[LANG:PYTHON]`, `[PROFILE:WEB-UI]`, `[PROFILE:SERVICE]`, `[CONFIGURABLE]`) added to all 18 section headers; Python-specific sections replaced with stubs pointing to `profiles/python.md`; Active Profile declaration added before ToC; §12 rewritten to clarify master-source exemption; §6/§13 authorship rule deduplicated (§6 authoritative); `[CONFIGURABLE]` override notes with example syntax added to §7, §16, §18; CI/CD check commands in §17/§18 generalized to language-profile references.
+- `templates/epilogue.md` — fixed step numbering gap: §4.5 renamed §5, steps now run 1–9 sequentially.
+- `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` — updated `profiles/` resource row to reflect language profile addition.
+
+---
+
 ## 2026-05-15 (batch 3)
 
 ### Added

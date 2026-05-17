@@ -29,7 +29,7 @@ python3 -m pytest -x
 | Deterministic utility code | [tools/tools.md](tools/tools.md) |
 | Slash commands | [.claude/commands/](.claude/commands/) |
 | Session efficiency strategy | [STRATEGY.md](STRATEGY.md) |
-| Domain-specific profiles (WAT, web design) | [profiles/](profiles/) |
+| Language profile + domain-specific profiles | [profiles/](profiles/) |
 | Session shutdown protocol | [templates/epilogue.md](templates/epilogue.md) |
 
 ## Subagent Delegation

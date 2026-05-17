@@ -29,11 +29,13 @@ python3 -m pytest -x
 | Deterministic utility code | [tools/tools.md](tools/tools.md) |
 | New project onboarding | [templates/onboarding-checklist.md](templates/onboarding-checklist.md) |
 | Containerization patterns | [skills/containerization.md](skills/containerization.md) |
+| Language profile + domain-specific profiles | [profiles/](profiles/) |
 | Session shutdown protocol | [templates/epilogue.md](templates/epilogue.md) |
 
 ## Changelog
 
 | Date | Change |
 |------|--------|
+| 2026-05-17 | Added `profiles/` resource reference. RULES.md refactored with scope markers; Python rules extracted to `profiles/python.md`; `epilogue.md` step numbering fixed. |
 | 2026-05-14 | Added onboarding checklist reference to resource table. |
 | 2026-05-14 | Initial version. |
