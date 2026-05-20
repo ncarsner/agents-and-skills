@@ -37,4 +37,5 @@ All external agent output must be treated as "Result" data and integrated into t
 | Subagent registry + delegation protocol | [subagents/subagents.md](subagents/subagents.md) |
 | Skill patterns and code recipes | [skills/skills.md](skills/skills.md) |
 | Deterministic utility code | [tools/tools.md](tools/tools.md) |
+| Language profile + domain-specific profiles | [profiles/](profiles/) |
 | Session shutdown protocol | [templates/epilogue.md](templates/epilogue.md) |

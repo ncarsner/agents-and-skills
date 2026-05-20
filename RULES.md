@@ -6,6 +6,16 @@ non-negotiable unless explicitly overridden in writing by a human reviewer.
 
 ---
 
+## Active Profile
+
+Language: [profiles/python.md](profiles/python.md)
+
+Sections tagged `[LANG:PYTHON]` delegate their full content to the active
+language profile. When adapting this template to a different language, replace
+the profile file and update this declaration.
+
+---
+
 ## Table of Contents
 
 1. [Package Management](#1-package-management)
@@ -29,155 +39,25 @@ non-negotiable unless explicitly overridden in writing by a human reviewer.
 
 ---
 
-## 1. Package Management
+## 1. Package Management `[LANG:PYTHON]`
 
-**Rule:** Always use `uv` as the Python package manager. Never use `pip`,
-`pip3`, `conda`, `poetry`, or any other package manager.
-
-### Mandatory commands
-
-| Action | Command |
-|--------|---------|
-| Create virtual environment | `uv venv` |
-| Add a runtime dependency | `uv add <package>` |
-| Add a dev-only dependency | `uv add --dev <package>` |
-| Remove a dependency | `uv remove <package>` |
-| Install all dependencies | `uv sync` |
-| Regenerate lock file | `uv lock` |
-| Install project in editable mode | `uv pip install -e ".[dev]"` |
-
-### Prohibited commands
-
-```bash
-# NEVER use these:
-pip install <package>
-pip3 install <package>
-conda install <package>
-poetry add <package>
-```
-
-### Rationale
-
-`uv` provides deterministic installs via `uv.lock`, is significantly faster
-than pip, and is the single source of truth for dependency management across
-all projects in this repository.
+See [profiles/python.md](profiles/python.md) — Package Management section.
 
 ---
 
-## 2. Python Executable
+## 2. Python Executable `[LANG:PYTHON]`
 
-**Rule:** Always invoke Python using `python3`. Never use `python` (which may
-resolve to Python 2 on some systems) or a bare `py` alias.
-
-### Correct usage
-
-```bash
-python3 -m pytest              # run tests
-python3 -m <package_name>      # run package as module
-python3 src/<entry>.py         # run script directly
-python3 --version              # verify interpreter version
-```
-
-### Prohibited usage
-
-```bash
-# NEVER use these:
-python script.py
-py script.py
-```
-
-### Rationale
-
-Using `python3` ensures the correct interpreter is always invoked, regardless
-of system-level alias configuration. This prevents silent failures caused by
-Python 2 being picked up from `$PATH`.
+See [profiles/python.md](profiles/python.md) — Python Executable section.
 
 ---
 
-## 3. Code Quality — Docstrings, Type Hints, and Comments
+## 3. Code Quality — Docstrings, Type Hints, and Comments `[LANG:PYTHON]`
 
-**Rule:** Every public module, class, function, and method MUST include a
-docstring, type hints on all parameters and return values, and inline comments
-where the logic is non-obvious.
-
-### Docstrings
-
-Use Google-style docstrings for all public symbols:
-
-```python
-def parse_invoice(raw: str, currency: str = "USD") -> dict[str, float]:
-    """Parse a raw invoice string into a structured line-item dict.
-
-    Args:
-        raw: The raw invoice text as received from the upstream source.
-        currency: ISO 4217 currency code. Defaults to "USD".
-
-    Returns:
-        A mapping of line-item description to amount in the given currency.
-
-    Raises:
-        ValueError: If `raw` is empty or cannot be parsed.
-        KeyError: If a required field is missing from the invoice.
-    """
-```
-
-Rules:
-- One-line summary on the first line, followed by a blank line if there are
-  additional sections.
-- Document every parameter (`Args:`), return value (`Returns:`), and exception
-  that can propagate (`Raises:`).
-- Private helpers (`_name`) should have at minimum a one-line docstring.
-
-### Type hints
-
-- Annotate every function/method signature, including `self`-less methods and
-  standalone functions.
-- Use `from __future__ import annotations` at the top of modules that reference
-  forward-declared types.
-- Prefer built-in generics (`list[str]`, `dict[str, int]`) over `typing.List`
-  and `typing.Dict` (Python ≥ 3.9).
-- Use `Optional[X]` only for clarity; prefer `X | None` in Python ≥ 3.10.
-
-```python
-# Good
-def fetch_records(limit: int, offset: int = 0) -> list[dict[str, str]]:
-    ...
-
-# Bad — missing annotations
-def fetch_records(limit, offset=0):
-    ...
-```
-
-### Inline comments
-
-- Add a comment above any block of logic that is not immediately obvious from
-  reading the code (e.g., algorithmic tricks, regex patterns, bitwise ops).
-- Do **not** add comments that merely restate what the code already says.
-
-```python
-# Good — explains the "why"
-# Retry up to 3 times with exponential back-off to handle transient HTTP 429s.
-for attempt in range(MAX_RETRIES):
-    ...
-
-# Bad — restates the "what"
-# Add 1 to counter
-counter += 1
-```
-
-### Enforcement
-
-Run the following after every edit:
-
-```bash
-ruff format <file_path>        # auto-format
-ruff check --fix <file_path>   # auto-fix lint issues
-mypy src/                      # verify type correctness
-```
+See [profiles/python.md](profiles/python.md) — Code Quality section.
 
 ---
 
-## 4. Documentation — Keeping README Current
+## 4. Documentation — Keeping README Current `[CORE]`
 
 **Rule:** Whenever a code change affects public-facing behavior, adds or removes
 a feature, changes a configuration option, or modifies the project's setup
@@ -208,7 +88,7 @@ steps, the `README.md` MUST be updated in the same commit or PR.
 
 ---
 
-## 5. Third-Party Library Authorization
+## 5. Third-Party Library Authorization `[CORE]`
 
 **Rule:** Before adding any third-party library to a project, verify it is
 listed in the project's **authorized library file**. If it is not listed,
@@ -268,7 +148,7 @@ before the library may be added.
 
 ---
 
-## 6. Version Control and Commits
+## 6. Version Control and Commits `[CORE]`
 
 **Rule:** Every commit must be atomic, descriptive, and traceable to a task or
 issue.
@@ -305,35 +185,17 @@ any version control artifact.
 
 ---
 
-## 7. Testing and Coverage
+## 7. Testing and Coverage `[LANG:PYTHON]` `[CONFIGURABLE]`
 
-**Rule:** All new code MUST be accompanied by tests. The minimum acceptable
-coverage is **100%** for new modules; legacy modules must not decrease in
-coverage.
+See [profiles/python.md](profiles/python.md) — Testing and Coverage section.
 
-### Required practices
-
-- Test files named `test_<module>.py` in the `tests/` directory.
-- Test functions named `test_<behavior_under_test>`.
-- Use `pytest.fixture` for shared state; use `pytest.mark.parametrize` for
-  data-driven cases.
-- Mock all external I/O (network, filesystem, database) with `unittest.mock`
-  or `pytest-mock`.
-- Run the full suite before every PR:
-
-```bash
-python3 -m pytest --cov=src --cov-fail-under=100
-```
-
-### Prohibited practices
-
-- Do NOT delete or comment out tests to make a build pass.
-- Do NOT use `# noqa` or `# type: ignore` to suppress errors without a
-  documented reason in the same line or adjacent comment.
+> **Override:** The coverage threshold (default 100%) may be adjusted in the
+> downstream project's `AGENTS.md` with a written rationale.
+> Example: `§7 coverage override: 80% — rationale: legacy codebase with untestable I/O layer.`
 
 ---
 
-## 8. Security and Secrets
+## 8. Security and Secrets `[CORE]`
 
 **Rule:** No secret, credential, API key, token, or password may ever appear in
 source code or be committed to the repository.
@@ -343,7 +205,7 @@ source code or be committed to the repository.
 - Load all secrets via environment variables using `python-dotenv` or
   `os.environ`.
 - Add `.env` to `.gitignore` immediately when creating a new project.
-- Add `.env-template` that mimics `.env` with expected keys but includes no values. 
+- Add `.env-template` that mimics `.env` with expected keys but includes no values.
 - Use `parameterized queries` for all database interactions — never use string
   concatenation to build SQL.
 - Validate and sanitize **all** external input before it reaches business logic.
@@ -365,70 +227,19 @@ This is a security incident. Follow the full remediation playbook in
 
 ---
 
-## 9. Error Handling
+## 9. Error Handling `[LANG:PYTHON]`
 
-**Rule:** Never use bare `except:` clauses. Always catch specific exceptions and
-handle or re-raise them with context.
-
-```python
-# Good
-try:
-    result = risky_operation()
-except ValueError as exc:
-    logger.error("Invalid value in risky_operation: %s", exc)
-    raise
-
-# Bad
-try:
-    result = risky_operation()
-except:          # catches KeyboardInterrupt, SystemExit, etc.
-    pass
-```
-
-### Additional rules
-
-- Use custom exception classes (subclasses of `Exception`) for domain-specific
-  errors.
-- Always log the exception before re-raising or swallowing it.
-- Never silently swallow exceptions unless there is an explicit and documented
-  reason.
-- Propagate errors upward to a defined error boundary; do not let errors leak
-  silently across layers.
+See [profiles/python.md](profiles/python.md) — Error Handling section.
 
 ---
 
-## 10. Logging and Observability
+## 10. Logging and Observability `[LANG:PYTHON]`
 
-**Rule:** Use the standard `logging` module (or `structlog` for services) for
-all diagnostic output. Never use `print()` in library or service code.
-
-```python
-import logging
-
-logger = logging.getLogger(__name__)
-
-# Good
-logger.info("Processing %d records", len(records))
-logger.warning("Rate limit approaching: %d remaining", remaining)
-logger.error("Failed to connect to %s: %s", host, exc)
-
-# Bad
-print(f"Processing {len(records)} records")
-```
-
-### Log level guidelines
-
-| Level | When to use |
-|-------|-------------|
-| `DEBUG` | Detailed trace information for development |
-| `INFO` | Normal operational events (start, stop, milestone) |
-| `WARNING` | Something unexpected that is recoverable |
-| `ERROR` | A failure that prevented an operation from completing |
-| `CRITICAL` | A failure that requires immediate human attention |
+See [profiles/python.md](profiles/python.md) — Logging and Observability section.
 
 ---
 
-## 11. Architecture Boundaries
+## 11. Architecture Boundaries `[CORE]`
 
 **Rule:** All code in this repository must respect the following layer boundaries.
 Never skip a layer or bypass a boundary.
@@ -444,25 +255,27 @@ External Input (user, file, API) -> Validation -> Logic -> I/O -> Output
 
 ---
 
-## 12. Local-Only Agent Directory
+## 12. Local-Only Agent Directory `[CORE]`
 
-**Rule:** When copying this repository's agentic materials into another project,
-place them in an `AGENTS/` directory and immediately add `AGENTS/` to that
-project's `.gitignore`. The `AGENTS/` directory must remain untracked and must
-never be committed to another repository. This repository is the master source.
+**Rule:** When copying this repository's agentic materials into a downstream
+project, place them in an `AGENTS/` directory and immediately add `AGENTS/` to
+that project's `.gitignore`. The `AGENTS/` directory must remain untracked and
+must never be committed to the downstream repository.
+
+This rule applies to **downstream copies only**. This repository is the master
+source and is exempt — its agent materials (`CLAUDE.md`, `RULES.md`, `skills/`,
+`subagents/`, etc.) are intentionally tracked at the root level.
 
 ---
 
-## 13. AI Agent Compliance
+## 13. AI Agent Compliance `[CORE]`
 
 **Rule:** All AI agents operating in this repository must observe the following
 directives in addition to every other rule in this file.
 
 ### Identity and attribution
 
-- Never set `git config user.name` or `user.email` to an agent identity.
-- No `Co-Authored-By:` trailers or any agent attribution in commits, PRs, or
-  any version-control artifact (see §6).
+Never set a git identity or add attribution to commits or PRs. See §6 — Authorship.
 
 ### Scope and escalation
 
@@ -486,70 +299,18 @@ directives in addition to every other rule in this file.
 
 ---
 
-## 14. Performance Standards
+## 14. Performance Standards `[LANG:PYTHON]` `[CONFIGURABLE]`
 
-**Rule:** All agents must design for performance from the start. Performance
-regressions introduced by an agent must be identified, documented, and resolved
-before the PR is merged.
+See [profiles/python.md](profiles/python.md) — Performance Standards section.
 
-### Latency Targets
-
-| Workload type | Target | Measurement |
-|---------------|--------|-------------|
-| Synchronous API endpoint | p95 < 200 ms | Load test at expected peak QPS |
-| Background / async task | p95 < 2 s | End-to-end wall time |
-| Batch ETL job (per 10 k rows) | < 60 s | Wall time on reference hardware |
-| CLI command (interactive) | p95 < 500 ms | Cold-start wall time |
-
-Targets may be adjusted in the project's `AGENTS.md` with a written rationale.
-Exceeding a target by >2× requires escalation before shipping.
-
-### Memory Limits
-
-| Process type | Soft limit | Hard limit |
-|--------------|-----------|-----------|
-| API service (per worker) | 256 MB RSS | 512 MB RSS |
-| CLI tool | 128 MB RSS | 256 MB RSS |
-| Batch job | 1 GB RSS | 4 GB RSS |
-
-Soft limit breach → log a `WARNING`. Hard limit breach → log `ERROR` and halt.
-
-### Approved Profiling Tools
-
-| Tool | Install | Best for |
-|------|---------|---------|
-| `cProfile` | stdlib | CPU-bound function hotspots |
-| `memray` | `uv add --dev memray` | Memory allocation flamegraphs |
-
-Run profiling before claiming a performance fix. Attach the flamegraph to the PR.
-
-### Caching
-
-Approved caching libraries:
-
-| Library | Use case |
-|---------|---------|
-| `functools.lru_cache` / `functools.cache` | In-process memoization (stdlib) |
-| `diskcache` | Persistent cross-process local cache |
-| `redis-py` | Distributed cache / message broker |
-
-Do not cache secrets, PII, or session tokens (§16). Cache TTLs must be explicit —
-never cache indefinitely without a documented reason.
-
-### Regression Escalation
-
-A performance regression must be escalated to a human reviewer when:
-
-- A measured p95 latency increases by >25% vs. the prior release.
-- Memory usage increases by >50% vs. the prior release.
-- A batch job runtime budget is exceeded by >2×.
-
-Escalation means: open a GitHub issue tagged `perf`, block the PR, and notify
-the project owner before merging.
+> **Override:** Performance targets may be adjusted in the downstream project's
+> `AGENTS.md` with a written rationale. Exceeding a target by >2× requires
+> escalation before shipping.
+> Example: `§14 latency override: CLI p95 < 2s — rationale: cold-start includes model load.`
 
 ---
 
-## 15. Accessibility and Internationalization
+## 15. Accessibility and Internationalization `[PROFILE:WEB-UI]`
 
 **Rule:** Any web UI, CLI output, or document produced by an agent must meet
 the accessibility and internationalization standards below. These apply when the
@@ -641,7 +402,7 @@ the color/`NO_COLOR` rule for any terminal output.
 
 ---
 
-## 16. Data Privacy and Compliance
+## 16. Data Privacy and Compliance `[CORE]` `[CONFIGURABLE]`
 
 **Rule:** All agents must handle personal and sensitive data according to the
 classification level, applicable regulatory frameworks, and the practices defined
@@ -696,6 +457,10 @@ variable (never hardcoded). See `tools/hashing-encoding.md`.
 | Confidential | 1 year | Secure delete + audit log |
 | Restricted | 90 days (or legal minimum) | Secure delete + audit log + confirmation |
 
+> **Override:** Retention windows may be adjusted in the downstream project's
+> `AGENTS.md` with written rationale and legal review.
+> Example: `§16 retention override: Restricted 1 year — rationale: HIPAA minimum retention requirement.`
+
 Agents must not retain Restricted data beyond the defined window. Implement a
 deletion job; do not rely on manual cleanup.
 
@@ -736,7 +501,7 @@ When a project processes data under any of these frameworks:
 
 ---
 
-## 17. Deployment and Environment Parity
+## 17. Deployment and Environment Parity `[PROFILE:SERVICE]`
 
 **Rule:** All deployed services must maintain parity between local development,
 staging, and production. Differences must be limited to environment variable
@@ -769,10 +534,9 @@ docker compose down         # tear down
 All of the following must pass before any deployment proceeds:
 
 1. `pre-commit run --all-files` — secret scanning (§8)
-2. `ruff check .` — no lint errors
-3. `mypy src/` — no type errors
-4. `python3 -m pytest --cov=src --cov-fail-under=100` — full test suite at 100%
-5. `trivy image --exit-code 1 --severity HIGH,CRITICAL <image>:<tag>` — no critical CVEs
+2. Language-profile lint and type checks (see active profile)
+3. Language-profile test suite at required coverage (see active profile)
+4. `trivy image --exit-code 1 --severity HIGH,CRITICAL <image>:<tag>` — no critical CVEs
 
 No deployment may proceed if any gate fails.
 
@@ -789,7 +553,7 @@ Agents must not trigger a cutover without human approval (RULES.md §18).
 
 ---
 
-## 18. Code Review and Approval Workflow
+## 18. Code Review and Approval Workflow `[CORE]` `[CONFIGURABLE]`
 
 **Rule:** All code changes must pass automated checks and receive human approval
 before merging. Required approvals and the review checklist vary by PR type.
@@ -803,12 +567,15 @@ before merging. Required approvals and the review checklist vary by PR type.
 | Architectural | Changes to RULES.md, AGENTS.md, subagents.md, or any file that governs agent behavior | 2 humans |
 | Breaking | Removes or renames a public interface, agent, or skill | 2 humans |
 
+> **Override:** Minimum approval counts may be adjusted in the downstream
+> project's `AGENTS.md` with a written rationale.
+> Example: `§18 approval override: Hotfix 0 humans — rationale: solo maintainer project.`
+
 ### Automated Checks (must all pass before requesting review)
 
 1. `pre-commit run --all-files` — secret scanning and hook suite (§8)
-2. `ruff check .` — no lint errors
-3. `mypy src/` — no type errors (where `src/` exists)
-4. `python3 -m pytest --cov=src --cov-fail-under=100` — tests pass at 100% coverage
+2. Language-profile lint and type checks (see active profile)
+3. Language-profile test suite at required coverage (see active profile)
 
 No review may be requested while any automated check is failing.
 
@@ -857,6 +624,7 @@ Architectural decisions require:
 
 | Date | Change |
 |------|--------|
+| 2026-05-17 | Structural refactor: added scope markers (`[CORE]`, `[LANG:PYTHON]`, `[PROFILE:WEB-UI]`, `[PROFILE:SERVICE]`, `[CONFIGURABLE]`) to all section headers; extracted §1, §2, §3, §7, §9, §10, §14 to `profiles/python.md`; added Active Profile declaration before ToC; rewrote §12 to clarify master-source exemption for downstream copies; deduplicated §6/§13 authorship rule (§6 authoritative, §13 references); added `[CONFIGURABLE]` override notes with example syntax to §7, §16, §18; generalized language-specific CI/CD check commands in §17 and §18. |
 | 2026-05-15 | §15: Accessibility and Internationalization filled — WCAG 2.1 AA criteria, axe-core testing, CLI NO_COLOR rule, babel/zoneinfo/gettext i18n standards, scope exceptions. |
 | 2026-05-15 | §14: Performance Standards filled — latency targets, memory limits, approved profiling tools, caching libraries, regression escalation criteria. |
 | 2026-05-15 | §16: Data Privacy and Compliance filled — classification levels, PII handling, anonymization, retention/deletion policy, audit trail schema, GDPR/CCPA/HIPAA obligations. |
@@ -865,5 +633,5 @@ Architectural decisions require:
 
 ---
 
-*Last updated: 2026-05-14. Maintained by the repository owner. All agents must
+*Last updated: 2026-05-17. Maintained by the repository owner. All agents must
 re-read this file at the start of every session.*
