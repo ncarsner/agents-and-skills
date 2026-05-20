@@ -31,6 +31,7 @@ python3 -m pytest -x
 | Session efficiency strategy | [STRATEGY.md](STRATEGY.md) |
 | Domain-specific profiles (WAT, web design) | [profiles/](profiles/) |
 | Session shutdown protocol | [templates/epilogue.md](templates/epilogue.md) |
+| 12-factor agents analysis + Karpathy wiki lens | [.12-FACTOR-AGENTS.md](.12-FACTOR-AGENTS.md) |
 
 ## Subagent Delegation
 

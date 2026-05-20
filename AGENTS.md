@@ -30,6 +30,7 @@ python3 -m pytest -x
 | New project onboarding | [templates/onboarding-checklist.md](templates/onboarding-checklist.md) |
 | Containerization patterns | [skills/containerization.md](skills/containerization.md) |
 | Session shutdown protocol | [templates/epilogue.md](templates/epilogue.md) |
+| 12-factor agents analysis + Karpathy wiki lens | [.12-FACTOR-AGENTS.md](.12-FACTOR-AGENTS.md) |
 
 ## Changelog
 

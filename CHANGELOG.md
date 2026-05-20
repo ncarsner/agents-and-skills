@@ -5,6 +5,14 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-05-17
+
+### Added
+- `.12-FACTOR-AGENTS.md` — analysis of 12-factor agents spec against current repo orchestration, extended with Karpathy wiki lens section mapping `index.md`/`log.md`/wiki-page primitives to existing artifacts and revised recommendations for F3, F5, F12, F13.
+- `_SOLUTIONS/2026-05-17-karpathy-wiki.md` — reference document on git worktree mechanics in this repo: filesystem vs. object-level duplication, benefits/tradeoffs, and five refactoring opportunities (tracked as issues #57–#61).
+
+---
+
 ## 2026-05-15 (batch 4)
 
 ### Added
