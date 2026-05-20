@@ -15,13 +15,30 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `RULES.md` — structural refactor: scope markers (`[CORE]`, `[LANG:PYTHON]`, `[PROFILE:WEB-UI]`, `[PROFILE:SERVICE]`, `[CONFIGURABLE]`) added to all 18 section headers; Python-specific sections replaced with stubs pointing to `profiles/python.md`; Active Profile declaration added before ToC; §12 rewritten to clarify master-source exemption; §6/§13 authorship rule deduplicated (§6 authoritative); `[CONFIGURABLE]` override notes with example syntax added to §7, §16, §18; CI/CD check commands in §17/§18 generalized to language-profile references.
 - `templates/epilogue.md` — fixed step numbering gap: §4.5 renamed §5, steps now run 1–9 sequentially.
 - `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` — updated `profiles/` resource row to reflect language profile addition.
+- `.12-FACTOR-AGENTS.md` — analysis of 12-factor agents spec against current repo orchestration, extended with Karpathy wiki lens section mapping `index.md`/`log.md`/wiki-page primitives to existing artifacts and revised recommendations for F3, F5, F12, F13.
+- `_SOLUTIONS/2026-05-17-karpathy-wiki.md` — reference document on git worktree mechanics in this repo: filesystem vs. object-level duplication, benefits/tradeoffs, and five refactoring opportunities (tracked as issues #57–#61).
+
+---
+
+## 2026-05-15 (batch 4)
+
+### Added
+- `skills/infrastructure-operations.md` — feature flags (env-var, flagsmith, launchdarkly patterns; lifecycle rules), canary/blue-green smoke tests and success metrics table, rollback procedure with `gh issue create` step.
+- `skills/cloud-cost-management.md` — required resource tagging table, automated budget alert thresholds, right-sizing recommendations by workload type, cost-review PR checklist.
+
+### Changed
+- `skills/api-integration.md` — added Rate Limiting and 429/503 Handling section: `_is_retryable` / `_get_retry_after` helpers, `@retry` decorator with `Retry-After` honor, per-status rules table.
+- `skills/web-development.md` — added Health Check Convention section: `/health` (liveness) and `/ready` (readiness) FastAPI pattern, probe rules table, Docker Compose `healthcheck` stanza.
+- `skills/secret-scanning.md` — added Credential Rotation Scheduling section: rotation schedule by credential type, `.credential-manifest.json` pattern, `check_credential_expiry()` helper, 6-step rotation procedure.
+- `skills/skills.md` — registered `infrastructure-operations.md` and `cloud-cost-management.md`; updated `secret-scanning.md` description.
+- Replaced `semver` with "semantic versioning" across `CHANGELOG.md`, `subagents/registry.json`, `subagents/subagents.md`, `subagents/project-review-interoperability.md`.
 
 ---
 
 ## 2026-05-15 (batch 3)
 
 ### Added
-- `subagents/release-agent.md` — end-to-end PyPI release workflow: semver policy, CHANGELOG format, CI gates, `uv publish` / `twine` steps, PyPI token security, GitHub Release creation.
+- `subagents/release-agent.md` — end-to-end PyPI release workflow: semantic versioning policy, CHANGELOG format, CI gates, `uv publish` / `twine` steps, PyPI token security, GitHub Release creation.
 
 ### Changed
 - `RULES.md §15` — filled "Accessibility and Internationalization" placeholder: WCAG 2.1 AA criteria table, `axe-core` CLI testing requirement, CLI `NO_COLOR` rule, `babel`/`zoneinfo`/`gettext` i18n standards, scope exceptions for internal tools.
@@ -60,7 +77,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `RULES.md §17` — filled "Deployment and Environment Parity" placeholder: env var requirements, 5-gate CI/CD pipeline, blue/green rollback trigger.
 - `skills/python-testing.md` — added integration/E2E test section (mock-vs-live boundary table, `@pytest.mark.integration`, `pytest-httpx`/`responses` examples), property-based testing (Hypothesis), mutation testing (mutmut).
 - `skills/dashboarding-reporting.md` — added structured output standards: required fields, approved libraries by format, manifest sidecar `write_manifest()` pattern.
-- `subagents/subagents.md` — added §4.1 Cross-Agent Skill Reuse and §8.1 Versioning and Lifecycle (semver, 30-day deprecation policy).
+- `subagents/subagents.md` — added §4.1 Cross-Agent Skill Reuse and §8.1 Versioning and Lifecycle (semantic versioning, 30-day deprecation policy).
 - `subagents/subagents.md §9` — registered `data-collection-agent`.
 - `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` — added containerization and onboarding-checklist to on-demand resource tables.
 

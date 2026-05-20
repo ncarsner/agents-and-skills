@@ -154,3 +154,91 @@ git push --force-with-lease
 5. **Audit access logs** — determine whether the exposed credential was used.
 
 6. **Document the incident** — add a timestamped entry to the project's incident log or PR.
+
+---
+
+## Credential Rotation Scheduling
+
+Agents must alert when credentials are approaching expiration and must never
+silently allow an expired credential to remain in use.
+
+### Rotation Schedule Defaults
+
+| Credential type | Maximum lifetime | Alert at |
+|----------------|-----------------|---------|
+| API tokens (third-party services) | 90 days | 14 days before expiry |
+| Database passwords | 180 days | 30 days before expiry |
+| PyPI tokens | 365 days | 30 days before expiry |
+| CI/CD secrets (GitHub Actions) | 365 days | 30 days before expiry |
+| SSH deploy keys | 365 days | 30 days before expiry |
+| TLS certificates | Per CA (≤ 398 days) | 30 days before expiry |
+
+Override defaults in the project's `AGENTS.md` with a written rationale.
+
+### Detecting Expiry
+
+Where the credential provider exposes an expiry date, record it in a
+`.credential-manifest.json` at project root (never committed — add to `.gitignore`):
+
+```json
+{
+  "credentials": [
+    {
+      "name": "THIRD_PARTY_API_TOKEN",
+      "env_var": "THIRD_PARTY_API_TOKEN",
+      "issued": "2026-01-15",
+      "expires": "2026-04-15",
+      "rotation_alert_days": 14
+    }
+  ]
+}
+```
+
+Check expiry programmatically:
+
+```python
+import json
+from datetime import date, timedelta
+from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+def check_credential_expiry(manifest_path: Path = Path(".credential-manifest.json")) -> None:
+    """Log warnings for credentials approaching expiration.
+
+    Raises:
+        RuntimeError: If any credential is already expired.
+    """
+    if not manifest_path.exists():
+        return
+    manifest = json.loads(manifest_path.read_text())
+    today = date.today()
+    for cred in manifest.get("credentials", []):
+        expires = date.fromisoformat(cred["expires"])
+        alert_at = expires - timedelta(days=cred.get("rotation_alert_days", 14))
+        if today >= expires:
+            raise RuntimeError(
+                f"Credential '{cred['name']}' expired on {expires}. Rotate immediately."
+            )
+        if today >= alert_at:
+            logger.warning(
+                "Credential approaching expiration",
+                name=cred["name"],
+                expires=str(expires),
+                days_remaining=(expires - today).days,
+            )
+```
+
+Call `check_credential_expiry()` at application startup and as a CI step.
+
+### Rotation Procedure
+
+1. Generate the new credential in the provider's console.
+2. Update the secret in all environments (GitHub Actions secrets, `.env` on each host).
+3. Verify the application starts cleanly with the new credential.
+4. Revoke the old credential in the provider's console.
+5. Update `expires` in `.credential-manifest.json` and commit the manifest file update
+   (the manifest file itself is gitignored; commit only the `.gitignore` entry).
+6. Log the rotation in the project's incident/maintenance log.

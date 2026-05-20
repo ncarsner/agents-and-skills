@@ -73,7 +73,7 @@ CONTRACT COMPLIANCE:
   Contract tests present: <yes | no | not required>
 
 VERSIONING:
-  Current version: <semver or "unversioned">
+  Current version: <semantic version or "unversioned">
   Required bump: <major | minor | patch | none>
   Version bump applied: <yes | no | not required>
 
