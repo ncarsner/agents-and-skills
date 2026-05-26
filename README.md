@@ -258,3 +258,5 @@ mypy src/
 
 The `/caveman`, `/grill-me`, and `/write-a-skill` skills are adapted from
 [Matt Pocock's skills library](https://github.com/mattpocock/skills/tree/main/skills/productivity).
+
+The `/debt-scan`, `/dissent`, `/migrate-draft`, `/preflight`, `/rebuild`, `/refactor-safe`, and `/ship` commands [courtesy of Avi Chawla](https://www.dailydoseofds.com/p/10-must-use-slash-commands-in-claude-code/).

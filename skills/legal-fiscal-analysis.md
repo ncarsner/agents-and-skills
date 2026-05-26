@@ -406,6 +406,93 @@ def test_quarter_for_date() -> None:
 
 ---
 
+## Pattern: State-Machine Parsing of PDF-Extracted Legal Code
+
+PDF-extracted statutory text has a predictable two-region structure that
+requires a state machine — not a simple line-by-line regex pass — because
+headers appear in two forms:
+
+- **Named** (TOC entries): `Chapter 3 Inspection of Volatile Oils` — on one line.
+- **Bare** (body section headers): `Chapter 3` alone, name on the next line.
+
+Body text also contains cross-references and session law citations that match
+section-number patterns and must be silently discarded.
+
+### Key design rules
+
+1. **Case-sensitive patterns.** `^Chapter\s+(\d+)` (no `re.IGNORECASE`). Body
+   text references (`chapter 9 of this title, …`) are lowercase; structural
+   headers are always capitalized. Using `IGNORECASE` causes silent corruption.
+2. **State machine, not flags.** Use explicit states (`LOOKING_TITLE`,
+   `TITLE_NAME`, `PARSING`, `CHAPTER_NAME`, `PART_NAME`) rather than boolean
+   flags. Each state has one clear responsibility.
+3. **Emitted-key dedup.** TOC section listings and body section headers produce
+   identical text. An `emitted_keys: set[str]` prevents double-emission; the
+   first occurrence (from the TOC pass) wins.
+4. **Skip on context mismatch.** When a section number's encoded title/chapter
+   doesn't match current context, skip silently. Mismatches are either PDF
+   line-split artifacts (e.g. `6\n0-1-101`) or inline cross-references — never
+   legitimate new entries, because the TOC pass captured them first.
+
+```python
+class LegalCodeParser:
+    _LOOKING_TITLE = 'LOOKING_TITLE'
+    _TITLE_NAME    = 'TITLE_NAME'
+    _PARSING       = 'PARSING'
+    _CHAPTER_NAME  = 'CHAPTER_NAME'
+    _PART_NAME     = 'PART_NAME'
+
+    def __init__(self):
+        self.state = self._LOOKING_TITLE
+        self.emitted_keys: set[str] = set()
+        # Case-sensitive — body text references use lowercase
+        self.chapter_named_re = re.compile(r'^Chapter\s+(\d+)\s+(.+)$')
+        self.chapter_bare_re  = re.compile(r'^Chapter\s+(\d+)$')
+
+    def process_line(self, line: str):
+        text = line.strip()
+        if not text:
+            return
+
+        if self.state == self._CHAPTER_NAME:
+            # Name line after bare header — already emitted from TOC; skip.
+            self.state = self._PARSING
+            return
+
+        if self.state == self._PARSING:
+            m = self.chapter_named_re.match(text)
+            if m:
+                key = self._make_key(chapter=int(m.group(1)))
+                self._emit(key, m.group(2).strip())
+                return
+
+            m = self.chapter_bare_re.match(text)
+            if m:
+                self.current_chapter = int(m.group(1))
+                self.state = self._CHAPTER_NAME
+                return
+
+            # Section: skip if title/chapter mismatch (cross-ref or artifact)
+            m = self.section_re.match(text)
+            if m:
+                if int(m.group(1)) != self.current_title or \
+                   int(m.group(2)) != self.current_chapter:
+                    return
+                key = self._make_key(section=m.group(3))
+                self._emit(key, m.group(4).strip())
+
+    def _emit(self, key: str, value: str):
+        if key not in self.emitted_keys:
+            self.emitted_keys.add(key)
+            self.output.append(f'{key}\t{value}')
+```
+
+### Tested against
+69 TCA (Tennessee Code Annotated) title files, ~37k entries, zero false
+emissions after applying the above rules. See `src/utils/tca_title_to_tsv.py`.
+
+---
+
 ## See Also
 
 - [`agents/legal-fiscal-agent.md`](../agents/legal-fiscal-agent.md)
