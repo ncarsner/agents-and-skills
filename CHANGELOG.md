@@ -5,6 +5,25 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-05-26
+
+### Added
+- `skills/wikimedia-svg-sourcing.md` — patterns for downloading public-domain SVGs from Wikimedia Commons: MD5-based URL computation, rate-limit-safe batch downloading (3s delay, ~20-file batches, 15-min cooldown after HTTP 429), HTML error page detection, and ICS signal flag naming conventions. Sourced from `will-it-python` naval flags session (2026-05-23).
+- `.claude/commands/rebuild.md` — `/rebuild`: reloads working context after `/clear`; reads uncommitted diff, last 5 commits, modified-file TODOs, and branch-vs-main delta, then summarizes current state.
+- `.claude/commands/preflight.md` — `/preflight`: pre-commit scan of staged diff for debug artifacts, hardcoded secrets, commented-out code, test-only flags, and dev-only imports.
+- `.claude/commands/dissect.md` — `/dissect <file>`: deep structural review across error handling, edge cases, concurrency, dependencies, and naming; findings rated Critical / Warning / Note.
+- `.claude/commands/refactor-safe.md` — `/refactor-safe <file>`: refactors internals (extract helpers, simplify conditionals, remove dead code) without touching exported signatures or public API.
+- `.claude/commands/ship.md` — `/ship`: validates tests, assesses diff size, and generates a PR description (Summary, Changes, How to test, Risk assessment, Related issues) ready to paste into GitHub.
+- `.claude/commands/migrate-draft.md` — `/migrate-draft <description>`: detects the migration system in use, generates a migration file with UP and DOWN logic matching project conventions, and outputs a safety checklist.
+- `.claude/commands/debt-scan.md` — `/debt-scan`: scans for technical debt across code complexity, dependency health, test coverage gaps, code smells, and architectural smells; findings grouped High / Medium / Low.
+- `.claude/commands/skills-sync.md` — `/skills-sync`: scans all `~/Code/*/AGENTS/skills/` directories, merges new skill files and missing sections into `skills/`, updates `skills/skills.md` index, and appends a CHANGELOG entry.
+
+### Changed
+- `skills/legal-fiscal-analysis.md` — added "Pattern: State-Machine Parsing of PDF-Extracted Legal Code" section: two-region PDF structure (TOC block → body block), four design rules (case-sensitive patterns, explicit state machine, emitted-key dedup, skip on context mismatch), `LegalCodeParser` skeleton. Validated against 69 TCA files, ~37k entries. Sourced from `frc-tools` TCA TSV converter session (2026-05-25).
+- `skills/skills.md` — registered `wikimedia-svg-sourcing.md` in reference table; registered `skills-sync` in invokable commands table.
+
+---
+
 ## 2026-05-17
 
 ### Added

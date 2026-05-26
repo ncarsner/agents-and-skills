@@ -33,6 +33,7 @@ recipes, and code cookbooks. They are read on demand when an agent needs to know
 | [`cli-development.md`](cli-development.md) | CLI | Click/Typer patterns, terminal UI |
 | [`web-development.md`](web-development.md) | Web | FastAPI, Flask, Django patterns |
 | [`api-integration.md`](api-integration.md) | Data/Web | HTTP clients, retry, pagination |
+| [`wikimedia-svg-sourcing.md`](wikimedia-svg-sourcing.md) | Data/Web | Downloading public-domain SVGs from Wikimedia Commons; MD5 URL computation; rate-limit handling |
 | [`database-access.md`](database-access.md) | Data/Web | Query patterns, parameterized SQL |
 | [`nlp-processing.md`](nlp-processing.md) | NLP | spaCy, Transformers, sklearn patterns |
 | [`legal-fiscal-analysis.md`](legal-fiscal-analysis.md) | Legal/Fiscal | Decimal arithmetic, tax rules, audit trails |
@@ -72,4 +73,5 @@ Run these in order to take a raw idea through to automated implementation:
 | project-review | `/project-review [perspective]` | Structured multi-lens project audit |
 | stress-test | `/stress-test [topic]` | Stress-test a design, code, or proposal with hard questions |
 | write-a-skill | `/write-a-skill [name]` | Scaffold a new slash command skill with correct frontmatter and repo conventions |
+| skills-sync | `/skills-sync` | Scan all ~/Code project AGENTS/skills/ dirs and merge new files/sections into this repo |
 | caveman | `/caveman` | Ultra-compressed responses (~75% fewer tokens) |
