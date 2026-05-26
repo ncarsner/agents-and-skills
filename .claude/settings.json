@@ -15,9 +15,15 @@
             "Bash(git status *)",
             "Bash(mypy *)",
             "Bash(python3 -m pytest *)",
-            "Bash(python3 -C *)",
+            "Bash(python3 -c *)",
+            "Bash(python3 -m venv *)",
             "Bash(ruff *)",
-            "Bash(uv *)"
+            "Bash(uv *)",
+            "Bash(awk *)",
+            "Bash(sed *)",
+            "Bash(grep *)",
+    	    "Bash(find *)",
+            "Bash(ls *)"
         ]
     }
 }
