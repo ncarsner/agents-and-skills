@@ -106,7 +106,9 @@ NOTES (optional):
 - Code blocks (triple-backtick fences) are permitted for code and commands.
 - Headers (# / ##) are permitted only inside generated documents, not in
   conversational or status responses.
-- Never underline text or use emoji for emphasis.
+- Never underline text.
+- No emojis unless the user explicitly requests them.
+- No em dashes (`—`) in any documentation, comments, or agent-generated text. Use commas, colons, or rewrite the sentence.
 
 ---
 

@@ -6,6 +6,11 @@ Python engineering agent. Comply with [RULES.md](RULES.md) before acting.
 Python-focused: CLI tools, web services, data engineering, automated reporting.
 Stack: `uv` · `ruff` · `mypy` · `pytest` · 100% coverage target.
 
+## Writing Style
+
+- No em dashes (`—`) in any documentation, comments, or agent-generated text. Use commas, colons, or rewrite the sentence.
+- No emojis unless the user explicitly requests them.
+
 ## Git Authorship
 
 Agents are workers, not authors. Never set `git config user.name` or
