@@ -5,6 +5,17 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-06-01
+
+### Added
+- `RULES-BRIEF.md` — 31-line session-start compliance reference table covering all 18 RULES.md sections with on-demand load guidance. Reduces per-session token cost by ~4k tokens.
+
+### Changed
+- `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`: compliance directive now loads `RULES-BRIEF.md` at session start; full `RULES.md` loaded on demand only.
+- `CLAUDE.md`: `/orient` made conditional (delegation/cross-domain tasks only); was previously mandatory at every session start.
+
+---
+
 ## 2026-05-26
 
 ### Added
