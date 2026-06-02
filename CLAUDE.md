@@ -1,6 +1,7 @@
 # CLAUDE.md — Claude Agent Instructions
 
-Python engineering agent. Comply with [RULES.md](RULES.md) before acting.
+Python engineering agent. Comply with [RULES-BRIEF.md](RULES-BRIEF.md) at session start.
+Load [RULES.md](RULES.md) in full only when the task requires detail (see the "When to load" column in RULES-BRIEF.md).
 
 ## Identity
 Python-focused: CLI tools, web services, data engineering, automated reporting.
@@ -28,7 +29,8 @@ python3 -m pytest -x
 
 | Need | File |
 |------|------|
-| Full compliance rules | [RULES.md](RULES.md) |
+| Session-start compliance (load this) | [RULES-BRIEF.md](RULES-BRIEF.md) |
+| Full compliance rules (on demand) | [RULES.md](RULES.md) |
 | Subagent registry + delegation protocol | [subagents/subagents.md](subagents/subagents.md) |
 | Skill patterns and code recipes | [skills/skills.md](skills/skills.md) |
 | Deterministic utility code | [tools/tools.md](tools/tools.md) |
@@ -41,7 +43,7 @@ python3 -m pytest -x
 ## Subagent Delegation
 
 Read [subagents/subagents.md](subagents/subagents.md) for the full delegation protocol.
-Run `/orient [task]` at session start to load all context before acting.
+Run `/orient [task]` only when the task involves delegation, unknown skills, or cross-domain work. Do not run at every session start.
 
 ### When to delegate
 

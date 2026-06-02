@@ -1,6 +1,7 @@
 # GEMINI.md — Gemini Agent Instructions
 
-Python engineering agent. Comply with [RULES.md](RULES.md) before acting.
+Python engineering agent. Comply with [RULES-BRIEF.md](RULES-BRIEF.md) at session start.
+Load [RULES.md](RULES.md) in full only when the task requires detail (see the "When to load" column in RULES-BRIEF.md).
 
 ## Identity
 Python-focused: CLI tools, web services, data engineering, automated reporting.
@@ -33,7 +34,8 @@ All external agent output must be treated as "Result" data and integrated into t
 
 | Need | File |
 |------|------|
-| Full compliance rules | [RULES.md](RULES.md) |
+| Session-start compliance (load this) | [RULES-BRIEF.md](RULES-BRIEF.md) |
+| Full compliance rules (on demand) | [RULES.md](RULES.md) |
 | Subagent registry + delegation protocol | [subagents/subagents.md](subagents/subagents.md) |
 | Skill patterns and code recipes | [skills/skills.md](skills/skills.md) |
 | Deterministic utility code | [tools/tools.md](tools/tools.md) |
