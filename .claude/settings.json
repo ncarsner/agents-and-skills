@@ -23,7 +23,8 @@
             "Bash(sed *)",
             "Bash(grep *)",
     	    "Bash(find *)",
-            "Bash(ls *)"
+            "Bash(ls *)",
+            "Bash(source *)"
         ]
     }
 }
