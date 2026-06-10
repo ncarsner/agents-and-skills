@@ -15,4 +15,7 @@ If a question can be answered by exploring the codebase, explore the codebase in
 When shared understanding is reached, summarize:
 - The decisions made and their rationale
 - Open questions that remain unresolved
-- A prompt to the user: "Ready to write the PRD? Run `/prd`."
+
+PIPELINE GATE: Grill session complete. Do not proceed to implementation.
+The human must invoke `/prd [project-name]` to continue.
+Do not create or modify any files until `/prd-to-issues` has run.
