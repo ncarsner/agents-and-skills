@@ -130,6 +130,32 @@ in place rather than creating new lowercase copies.
 | Codex      | `AGENTS.md`  |
 | Perplexity | `AGENTS.md`  |
 
+### Locating context files when operating inside AGENTS/
+
+When the agent materials have been copied into an `AGENTS/` subdirectory of a
+downstream project (per RULES.md §12), the context files live at the project
+root — one level above `AGENTS/`. The agent must locate them before editing.
+
+Run this discovery command from the project root or from within `AGENTS/`:
+
+```bash
+# From the project root
+find . -maxdepth 1 -name "CLAUDE.md" -o -name "GEMINI.md" -o -name "AGENTS.md" | sort
+
+# From inside AGENTS/
+find .. -maxdepth 1 -name "CLAUDE.md" -o -name "GEMINI.md" -o -name "AGENTS.md" | sort
+```
+
+Use the paths returned by the discovery command. If the command returns no
+results, the context files have not been created yet — create them at the
+project root (not inside `AGENTS/`).
+
+**Never create or modify context files inside the `AGENTS/` directory.** That
+directory is gitignored and untracked; files placed there will not persist in
+the downstream repository.
+
+### Updating context files
+
 Each context file should reflect the repository as it stands after this session:
 - Current phase and status.
 - Important files added or changed today, with their purpose.
@@ -138,11 +164,11 @@ Each context file should reflect the repository as it stands after this session:
 - Next steps, replacing any stale items.
 
 **Do not create new lowercase files** (`claude.md`, `gemini.md`, `agents.md`).
-Update the existing uppercase files. If a context file does not exist yet, create
-it at the project root using its correct uppercase name.
+Update the existing uppercase files at the project root. If a context file does
+not exist yet, create it at the project root using its correct uppercase name.
 
 If more than one context file exists, keep the shared project-state content in
-sync. Verify parity with all files that are present:
+sync. Verify parity with all files that are present (run from the project root):
 
 ```bash
 diff CLAUDE.md GEMINI.md
@@ -302,8 +328,9 @@ Report each item as done, skipped with reason, or blocked:
       `skills/skills.md` (or skipped — no new patterns this session).
 - [ ] CHANGELOG.md updated with session entry, or skipped — nothing notable.
 - [ ] `.gitignore` includes `*-session.md` pattern.
-- [ ] Root context files (`CLAUDE.md`, `GEMINI.md`, `AGENTS.md`) updated where
-      present; no new lowercase copies created.
+- [ ] Root context files (`CLAUDE.md`, `GEMINI.md`, `AGENTS.md`) located via
+      discovery command and updated at the project root; no files created inside
+      `AGENTS/`; no new lowercase copies created.
 - [ ] Context files compared and synchronized where more than one exists.
 - [ ] Secrets and local-only files were checked before staging.
 - [ ] Intended changes were committed using Conventional Commits format
