@@ -5,6 +5,20 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-06-10
+
+### Added
+- `CLAUDE.md`, `GEMINI.md`, `AGENTS.md` — Pipeline Discipline section enforcing ideate-to-ralph stage order at session start, with scope check against `plans/*.json`.
+
+### Changed
+- `.claude/skills/ideate/SKILL.md` — added PIPELINE GATE block at output end: prohibits file creation, requires human to invoke `/grill-me` next.
+- `.claude/skills/grill-me/SKILL.md` — replaced soft "Ready to run /prd?" handoff with hard PIPELINE GATE stop instruction.
+- `.claude/skills/prd/SKILL.md` — replaced soft "Ready to run /prd-to-issues?" handoff with hard PIPELINE GATE stop instruction.
+- `subagents/subagents.md` — scope-validation step (§2) now checks pipeline stage: routes to `/ralph` if `plans/*.json` has incomplete tasks; routes to `/ideate` for new features with no plan file.
+- `templates/epilogue.md` — §3 adds `find` discovery command for locating context files from inside the `AGENTS/` subdirectory; prohibits creating context files inside `AGENTS/`; checklist item updated to match.
+
+---
+
 ## 2026-05-26
 
 ### Added
