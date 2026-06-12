@@ -24,3 +24,10 @@ Output:
 - One-line verdict: **Proceed**, **Proceed with caution**, or **Rethink**
 
 Do not hedge. Be precise and direct. Diplomacy is not the goal — correctness is.
+
+---
+
+PIPELINE GATE: This ideation session is analysis, not an implementation instruction.
+Do not create, modify, or delete any files.
+Next step: the human must invoke `/grill-me [topic]`.
+No code changes may occur until `/prd-to-issues` has run and GitHub issues exist.

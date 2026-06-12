@@ -25,7 +25,11 @@ Produce a document with these sections in order:
 
 1. Write the PRD in markdown to `plans/<project-name>-prd.md`.
 2. Also write a task list in JSON to `plans/<project-name>-prd.json` following the schema in `plans/prd.json` — one entry per requirement with `task`, `category`, `priority`, `done`, `description`, `files_affected`, `acceptance_criteria`, and `steps` fields.
-3. Confirm both files written and ask: "Ready to create GitHub issues? Run `/prd-to-issues plans/<project-name>-prd.md`."
+3. Confirm both files written. Then output:
+
+PIPELINE GATE: PRD written. Do not begin implementation.
+The human must invoke `/prd-to-issues plans/<project-name>-prd.md` to continue.
+No code changes may occur until GitHub issues exist.
 
 Constraints:
 - Do not fabricate decisions not established in the conversation.

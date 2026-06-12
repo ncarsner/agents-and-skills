@@ -20,6 +20,22 @@ mypy src/
 python3 -m pytest -x
 ```
 
+## Pipeline Discipline
+
+New work follows the pipeline in order:
+
+```
+/ideate → /grill-me → /prd → /prd-to-issues → /ralph
+```
+
+No file creation or code changes may occur before `/prd-to-issues` has run and
+GitHub issues exist. `/ideate` output is analysis, not a task list. Each stage
+boundary is a STOP requiring human invocation of the next command.
+
+Scope check at session start: if `plans/*.json` exists with `done:false` tasks,
+route to `/ralph`, not `/ideate`. If no `plans/*.json` exists and the task is a
+new feature, begin at `/ideate`.
+
 ## On-demand resources (load only what the task requires)
 
 | Need | File |
@@ -39,6 +55,7 @@ python3 -m pytest -x
 
 | Date | Change |
 |------|--------|
+| 2026-06-10 | Added Pipeline Discipline section to all three root context files. Added PIPELINE GATE blocks to `/ideate`, `/grill-me`, and `/prd` skills. Fixed `epilogue.md` §3 to discover context files from inside `AGENTS/` subdirectory. |
 | 2026-06-01 | Added `RULES-BRIEF.md` reference; changed session-start compliance directive to load brief file, full RULES.md on demand only. |
 | 2026-05-17 | Added `profiles/` resource reference. RULES.md refactored with scope markers; Python rules extracted to `profiles/python.md`; `epilogue.md` step numbering fixed. |
 | 2026-05-14 | Added onboarding checklist reference to resource table. |

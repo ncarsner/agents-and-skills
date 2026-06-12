@@ -25,6 +25,22 @@ mypy src/
 python3 -m pytest -x
 ```
 
+## Pipeline Discipline
+
+New work follows the pipeline in order:
+
+```
+/ideate → /grill-me → /prd → /prd-to-issues → /ralph
+```
+
+No file creation or code changes may occur before `/prd-to-issues` has run and
+GitHub issues exist. `/ideate` output is analysis, not a task list. Each stage
+boundary is a STOP requiring human invocation of the next command.
+
+Scope check at session start: if `plans/*.json` exists with `done:false` tasks,
+route to `/ralph`, not `/ideate`. If no `plans/*.json` exists and the task is a
+new feature, begin at `/ideate`.
+
 ## On-demand resources (load only what the task requires)
 
 | Need | File |
