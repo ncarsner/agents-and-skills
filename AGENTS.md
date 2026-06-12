@@ -1,6 +1,7 @@
 # AGENTS.md — Root Agent Instructions
 
-Python engineering agent. Comply with [RULES.md](RULES.md) before acting.
+Python engineering agent. Comply with [RULES-BRIEF.md](RULES-BRIEF.md) at session start.
+Load [RULES.md](RULES.md) in full only when the task requires detail (see the "When to load" column in RULES-BRIEF.md).
 
 ## Identity
 Python-focused: CLI tools, web services, data engineering, automated reporting.
@@ -39,7 +40,8 @@ new feature, begin at `/ideate`.
 
 | Need | File |
 |------|------|
-| Full compliance rules | [RULES.md](RULES.md) |
+| Session-start compliance (load this) | [RULES-BRIEF.md](RULES-BRIEF.md) |
+| Full compliance rules (on demand) | [RULES.md](RULES.md) |
 | Subagent registry + delegation protocol | [subagents/subagents.md](subagents/subagents.md) |
 | Skill patterns and code recipes | [skills/skills.md](skills/skills.md) |
 | Deterministic utility code | [tools/tools.md](tools/tools.md) |
@@ -54,6 +56,7 @@ new feature, begin at `/ideate`.
 | Date | Change |
 |------|--------|
 | 2026-06-10 | Added Pipeline Discipline section to all three root context files. Added PIPELINE GATE blocks to `/ideate`, `/grill-me`, and `/prd` skills. Fixed `epilogue.md` §3 to discover context files from inside `AGENTS/` subdirectory. |
+| 2026-06-01 | Added `RULES-BRIEF.md` reference; changed session-start compliance directive to load brief file, full RULES.md on demand only. |
 | 2026-05-17 | Added `profiles/` resource reference. RULES.md refactored with scope markers; Python rules extracted to `profiles/python.md`; `epilogue.md` step numbering fixed. |
 | 2026-05-14 | Added onboarding checklist reference to resource table. |
 | 2026-05-14 | Initial version. |
