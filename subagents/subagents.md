@@ -129,7 +129,6 @@ NOTES (optional):
 - Agents **must not** modify files outside their declared scope without explicit human approval.
 - Agents **must not** store, log, or transmit sensitive data (credentials, PII, proprietary content).
 - Agents **must not** invoke other agents directly; all cross-agent coordination must go through the orchestrator.
-- Agents **must** version-stamp any artifact they produce with the task ID and timestamp.
 
 ---
 

@@ -5,6 +5,18 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-06-18
+
+### Added
+- `RULES.md §18 Authorship and Attribution` — new `[CORE]` section: blanket prohibition on agent attribution in file headers, inline comments, documentation, commits, PRs, release notes, tags, and all version control artifacts; enumerated prohibited forms; enforcement note (human removes Co-Authored-By trailers, no hook).
+
+### Changed
+- `RULES.md` — old §18 Code Review and Approval Workflow renumbered to §19; §6 Authorship subsection trimmed to reference §18; §13 cross-reference updated; §19 review checklist gains Authorship item; RULES.md compliance range updated to §§1-18; escalation path scope updated to §§1-18.
+- `CLAUDE.md` — Git Authorship section expanded to cover file-level attribution; reference updated to §18.
+- `subagents/subagents.md §7` — removed version-stamp constraint (incoherent with authorship doctrine).
+
+---
+
 ## 2026-05-26
 
 ### Added
