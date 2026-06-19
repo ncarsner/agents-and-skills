@@ -14,9 +14,7 @@ Stack: `uv` · `ruff` · `mypy` · `pytest` · 100% coverage target.
 
 ## Git Authorship
 
-Agents are workers, not authors. Never set `git config user.name` or
-`user.email` to an agent identity. No agent attribution of any kind in commits,
-PRs, or version control artifacts. See [RULES.md §6](RULES.md#6-version-control-and-commits).
+Agents are workers, not authors. No agent attribution of any kind in file headers, inline comments, documentation, commits, PRs, or version control artifacts. See [RULES.md §18](RULES.md#18-authorship-and-attribution).
 
 ## After every Python edit
 ```bash
