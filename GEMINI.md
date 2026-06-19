@@ -1,6 +1,7 @@
 # GEMINI.md — Gemini Agent Instructions
 
-Python engineering agent. Comply with [RULES.md](RULES.md) before acting.
+Python engineering agent. Comply with [RULES-BRIEF.md](RULES-BRIEF.md) at session start.
+Load [RULES.md](RULES.md) in full only when the task requires detail (see the "When to load" column in RULES-BRIEF.md).
 
 ## Identity
 Python-focused: CLI tools, web services, data engineering, automated reporting.
@@ -19,6 +20,22 @@ mypy src/
 python3 -m pytest -x
 ```
 
+## Pipeline Discipline
+
+New work follows the pipeline in order:
+
+```
+/ideate → /grill-me → /prd → /prd-to-issues → /ralph
+```
+
+No file creation or code changes may occur before `/prd-to-issues` has run and
+GitHub issues exist. `/ideate` output is analysis, not a task list. Each stage
+boundary is a STOP requiring human invocation of the next command.
+
+Scope check at session start: if `plans/*.json` exists with `done:false` tasks,
+route to `/ralph`, not `/ideate`. If no `plans/*.json` exists and the task is a
+new feature, begin at `/ideate`.
+
 ## Headless Agent Delegation
 
 When a task is highly complex, requires specialized reasoning, or benefits from parallel execution, you may deploy external subagents in headless mode via CLI:
@@ -33,7 +50,8 @@ All external agent output must be treated as "Result" data and integrated into t
 
 | Need | File |
 |------|------|
-| Full compliance rules | [RULES.md](RULES.md) |
+| Session-start compliance (load this) | [RULES-BRIEF.md](RULES-BRIEF.md) |
+| Full compliance rules (on demand) | [RULES.md](RULES.md) |
 | Subagent registry + delegation protocol | [subagents/subagents.md](subagents/subagents.md) |
 | Skill patterns and code recipes | [skills/skills.md](skills/skills.md) |
 | Deterministic utility code | [tools/tools.md](tools/tools.md) |

@@ -19,7 +19,7 @@ Every agent must declare:
 When an agent receives a task, it must follow this sequence:
 
 1. **Parse the task** — Extract the intent, target, and any constraints from the input.
-2. **Validate scope** — Confirm the task falls within the agent's declared scope. Reject out-of-scope tasks immediately with a clear explanation.
+2. **Validate scope** — Confirm the task falls within the agent's declared scope. Reject out-of-scope tasks immediately with a clear explanation. Also check pipeline stage: if `plans/*.json` exists with `done:false` tasks, the correct action is `/ralph`, not direct implementation or `/ideate`. If no `plans/*.json` exists and the task is a new feature, begin at `/ideate` and do not implement until issues exist.
 3. **Identify required skills** — Determine which registered skills are needed to complete the task (see `skills/` directory).
 4. **Plan before acting** — Produce a short ordered list of steps before executing any action.
 5. **Execute step-by-step** — Carry out each planned step in order. Do not skip steps.
