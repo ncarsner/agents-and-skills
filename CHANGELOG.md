@@ -28,6 +28,10 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 - `templates/context-file-stub.md` — the exact root-stub content downstream projects copy to `CLAUDE.md` when the full bundle lives under `AGENTS/`.
+- `.claude/commands/epilogue.md` — the session shutdown protocol, converted from `templates/epilogue.md` to a `/epilogue` command since it's invoked frequently at end of session rather than copied once into a new project. Content carried over in full (all 9 steps, closure checklist, final report format); §3 already reflects the `CLAUDE.md`-only context-file change above. Original template archived at `archive/epilogue-template-2026-07-12.md` before conversion.
+
+### Removed (continued)
+- `templates/epilogue.md` — superseded by `.claude/commands/epilogue.md`. All references updated (`CLAUDE.md` resource table, `README.md` structure tree and prose, `STRATEGY.md`, `skills/skills.md`'s command-file table). `.file_list` needed no change — `.claude/commands/` is already covered by the existing `/.claude/***` entry, and the new `archive/` directory is intentionally unlisted (repo-internal history, not shipped downstream).
 
 Note for whoever runs `/ralph` next: `plans/prd.json`'s existing "AGENTS.md canonicalization" task is now fully superseded by the work above — `AGENTS.md` no longer exists to canonicalize around. That task should be closed or rewritten, not executed as written.
 

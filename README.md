@@ -43,6 +43,16 @@ agents-and-skills/
 │       ├── stress-test/               # /stress-test — stress-test a design or proposal
 │       ├── write-a-skill/             # /write-a-skill — scaffold a new skill
 │       └── caveman/                   # /caveman  — ultra-compressed responses
+│   └── commands/                      # Command-file invocables (not skill dirs)
+│       ├── epilogue.md                # /epilogue — session shutdown protocol
+│       ├── skills-sync.md             # /skills-sync — pull skills from other project copies
+│       ├── debt-scan.md               # /debt-scan — scan for technical debt
+│       ├── dissect.md                 # /dissect  — deep structural review of a file
+│       ├── migrate-draft.md           # /migrate-draft — draft a DB migration + rollback
+│       ├── preflight.md               # /preflight — pre-commit scan for debug artifacts
+│       ├── rebuild.md                 # /rebuild  — rebuild context after /clear
+│       ├── refactor-safe.md           # /refactor-safe — refactor without changing public API
+│       └── ship.md                    # /ship     — validate + generate PR description
 │
 ├── plans/                             # PRD and task-list files for ralph loops
 │   ├── prd.json                       # Active PRD task list (consumed by ralph --prd)
@@ -108,8 +118,8 @@ agents-and-skills/
     ├── .pre-commit-config.yaml        # Pre-commit hook config using detect-secrets
     ├── .python-version                # Pin Python 3.12 for uv/pyenv
     ├── authorized_libraries.md        # Template for the approved third-party library list
+    ├── context-file-stub.md           # Root CLAUDE.md stub for downstream AGENTS/ copies
     ├── Dockerfile                     # Two-stage (build/runtime) Dockerfile for uv-managed projects
-    ├── epilogue.md                    # Session shutdown protocol — run when closing a session
     ├── onboarding-checklist.md        # New-agent onboarding checklist for downstream projects
     ├── pyproject.toml                 # Full project config (pytest, ruff, mypy)
     ├── pytest.ini                     # Standalone pytest config
@@ -167,7 +177,7 @@ When finishing a session, run the shutdown protocol to capture work, update
 context files, and leave the repo in a clean state:
 
 ```
-templates/epilogue.md
+/epilogue
 ```
 
 The protocol covers: session summary, skill updates, context file refresh,

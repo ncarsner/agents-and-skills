@@ -1,3 +1,11 @@
+> **Archived 2026-07-12.** This is the last version of the epilogue protocol
+> in template form, before conversion to `.claude/commands/epilogue.md`
+> (invoked as `/epilogue`). Kept for reference only — not tracked by
+> `.file_list` and not shipped to downstream copies. See `CHANGELOG.md`
+> under 2026-07-12 for the conversion rationale.
+
+---
+
 # Epilogue — Session Shutdown Protocol
 
 Use this protocol when the user asks to close a session, run the epilogue, or

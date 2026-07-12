@@ -36,7 +36,7 @@ Never rely on conversational memory across session boundaries.
 
 **Closing ritual (< 10 minutes):**
 
-1. Invoke the epilogue template (`templates/epilogue.md`).
+1. Invoke `/epilogue` (`.claude/commands/epilogue.md`).
 2. Write a dated session summary using the naming convention
    `yyyy-mm-dd-<phase>-summary.md` (e.g., `2026-04-29-morning-summary.md`).
 3. Commit and push.

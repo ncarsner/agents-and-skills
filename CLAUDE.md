@@ -63,7 +63,7 @@ new feature, begin at `/ideate`.
 | Slash commands | [.claude/commands/](.claude/commands/) |
 | Session efficiency strategy | [STRATEGY.md](STRATEGY.md) |
 | Language profile + domain-specific profiles | [profiles/](profiles/) |
-| Session shutdown protocol | [templates/epilogue.md](templates/epilogue.md) |
+| Session shutdown protocol | `/epilogue` ([.claude/commands/epilogue.md](.claude/commands/epilogue.md)) |
 | 12-factor agents analysis + Karpathy wiki lens | [.12-FACTOR-AGENTS.md](.12-FACTOR-AGENTS.md) |
 
 ## Subagent Delegation
@@ -98,6 +98,7 @@ Delegate a subtask when it:
 
 | Date | Change |
 |------|--------|
+| 2026-07-12 | `templates/epilogue.md` converted to `.claude/commands/epilogue.md` (invoked as `/epilogue`), since it's a frequently-invoked end-of-session action rather than a copy-once template. Original archived at `archive/epilogue-template-2026-07-12.md`. |
 | 2026-07-12 | Root-doc consolidation completed. `AGENTS.md` and `GEMINI.md` deleted — `CLAUDE.md` is now the sole root context file, in this repo and in downstream copies (`RULES.md` §12 stub pattern). Unique content merged in first: the git-config authorship detail and headless-delegation integration note (from `GEMINI.md`), and the onboarding/containerization resource-table rows (from `AGENTS.md`). |
 | 2026-06-10 | Added Pipeline Discipline section to all three root context files. Added PIPELINE GATE blocks to `/ideate`, `/grill-me`, and `/prd` skills. Fixed `epilogue.md` §3 to discover context files from inside `AGENTS/` subdirectory. |
 | 2026-06-01 | Added `RULES-BRIEF.md` reference; changed session-start compliance directive to load brief file, full RULES.md on demand only. |
