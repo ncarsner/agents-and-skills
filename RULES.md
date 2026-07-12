@@ -432,6 +432,8 @@ name detection list. Additional detection rules:
   ```
 - Mask PII in error messages, stack traces, and exception payloads.
 - Do not write raw PII to intermediate files, temp dirs, or caches (§14).
+- Schema objects (columns, fields) containing PII must carry a `confidential`
+  or `restricted` comment/annotation label.
 
 ### Anonymization Requirements
 
@@ -526,6 +528,16 @@ Use Docker Compose for local multi-service development. See
 ```bash
 docker compose up --build   # start all services
 docker compose down         # tear down
+```
+
+Container images must pin the base image by digest, never a floating tag:
+
+```dockerfile
+# Good
+FROM python:3.12-slim@sha256:<digest>
+
+# Bad — floating tag can change under you
+FROM python:3.12-slim
 ```
 
 ### Mandatory CI/CD Gates
@@ -647,14 +659,11 @@ Architectural decisions require:
 
 ---
 
-*Draft rules under development: see [RULES-DRAFTS.md](RULES-DRAFTS.md).*
-
----
-
 ## Changelog
 
 | Date | Change |
 |------|--------|
+| 2026-07-12 | `RULES-DRAFTS.md` resolved and deleted — four of its five placeholder sections were already fully covered by §14-§19 and `profiles/python.md`; the three remaining orphaned provisional defaults were promoted: batch-job runtime budget declaration (`profiles/python.md` Performance Standards), PII schema labeling (§16), and container base-image digest pinning (§17). Footer reference to `RULES-DRAFTS.md` removed. |
 | 2026-06-18 | §18 added: Authorship and Attribution — blanket prohibition on all agent attribution in file content, comments, documentation, and version control artifacts; prohibited forms enumerated; enforcement note added (human removes Co-Authored-By trailers, no hook); old §18 renumbered to §19; §6 authorship subsection trimmed to reference §18; §13 cross-reference updated; §19 review checklist and escalation path scope updated to include §18; subagents.md §7 version-stamp rule removed. |
 | 2026-05-17 | Structural refactor: added scope markers (`[CORE]`, `[LANG:PYTHON]`, `[PROFILE:WEB-UI]`, `[PROFILE:SERVICE]`, `[CONFIGURABLE]`) to all section headers; extracted §1, §2, §3, §7, §9, §10, §14 to `profiles/python.md`; added Active Profile declaration before ToC; rewrote §12 to clarify master-source exemption for downstream copies; deduplicated §6/§13 authorship rule (§6 authoritative, §13 references); added `[CONFIGURABLE]` override notes with example syntax to §7, §16, §18; generalized language-specific CI/CD check commands in §17 and §18. |
 | 2026-05-15 | §15: Accessibility and Internationalization filled — WCAG 2.1 AA criteria, axe-core testing, CLI NO_COLOR rule, babel/zoneinfo/gettext i18n standards, scope exceptions. |

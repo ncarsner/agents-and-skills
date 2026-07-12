@@ -5,6 +5,28 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-07-12
+
+### Fixed
+- `RULES-DRAFTS.md` resolved and deleted. Four of its five placeholder sections were already fully covered by `RULES.md` §14-§19; the three remaining orphaned provisional defaults were promoted before deletion: batch-job runtime budget declaration (`profiles/python.md` Performance Standards), PII schema/field labeling (`RULES.md` §16), and container base-image digest pinning (`RULES.md` §17). Footer reference and `README.md` structure-tree entry removed.
+- `subagents/registry.json` — `skills` array was drifted from `skills/`: removed a duplicate `python-testing` entry (stale 1.1.0 alongside 1.2.0), added three missing entries (`infrastructure-operations`, `cloud-cost-management`, `wikimedia-svg-sourcing`). Registry now in exact parity with the filesystem.
+- `skills/skills.md` — `skills-sync` was listed as if it were a `.claude/skills/` directory like the other invokable skills; it's actually `.claude/commands/skills-sync.md`. Split it and the other seven command-file invocables into their own "Command-file invocables" table.
+- `templates/ruff.toml` and `templates/pyproject.toml` — `[tool.ruff] target-version` was `py311`, inconsistent with `templates/.python-version`'s `3.12` pin. Bumped both to `py312`.
+- `README.md` — `templates/` subtree listing was missing five files that exist on disk (`.dockerignore`, `.pre-commit-config.yaml`, `authorized_libraries.md`, `Dockerfile`, `onboarding-checklist.md`); added them.
+- `.file_list` — removed a dead `+ SKILLS.md` entry (no such file exists at repo root); added a missing `+ /profiles/***` entry (`RULES.md` §§1,2,3,7,9,10,14 all delegate to `profiles/python.md`, so downstream copies were shipping with broken references).
+
+### Decided, not yet implemented
+Three structural/architectural items were scoped and decided this session but deliberately **not** executed, per `RULES.md` §19 (root-doc edits are an Architectural change requiring an issue + 2 approvals) and the existing `plans/prd.json` backlog (`done:false` tasks route to `/ralph`/the pipeline, not ad hoc implementation):
+- **Root-doc consolidation:** `CLAUDE.md` becomes the base/canonical document (union of all three files' content — CLAUDE.md's current §18/§19 references, AGENTS.md/GEMINI.md's resource-table rows CLAUDE.md is missing, GEMINI.md's headless-delegation section). `AGENTS.md` and `GEMINI.md` shrink to one-line stubs pointing at `CLAUDE.md`, preserving each tool's auto-load-by-filename convention. A filename rename of `CLAUDE.md` itself is explicitly deferred.
+- **`profiles/` expansion axis:** by domain, matching `RULES.md`'s existing `[PROFILE:WEB-UI]` (§15) and `[PROFILE:SERVICE]` (§17) scope markers — i.e. future `profiles/web-ui.md` and `profiles/service.md`, same extraction pattern used for `profiles/python.md`. Not a multi-language expansion.
+- **"Unused" skills/subagents:** deferred as an open question for `/grill-me` — `skills/skills.md` and `subagents/registry.json` are in perfect sync with the filesystem (confirmed this session), so nothing can be pruned on file-hygiene grounds alone; needs the user to name specific skills/subagents or tighten trigger metadata.
+
+Note for whoever runs `/ralph` next: `plans/prd.json`'s existing "AGENTS.md canonicalization" task assumes the *opposite* direction (canonicalizing around `AGENTS.md`) from what was decided above (`CLAUDE.md` is base). That task needs correcting, not blind execution. Next step: run `/grill-me` on the structural backlog (root-doc consolidation, `profiles/` domain expansion, unused-skills triage, final `.file_list` shape once consolidation lands) before `/prd`.
+
+Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addressed after this cleanup.
+
+---
+
 ## 2026-06-18
 
 ### Added

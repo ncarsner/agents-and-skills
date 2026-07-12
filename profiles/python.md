@@ -261,6 +261,11 @@ before the PR is merged.
 | Batch ETL job (per 10 k rows) | < 60 s | Wall time on reference hardware |
 | CLI command (interactive) | p95 < 500 ms | Cold-start wall time |
 
+### Runtime Budgets
+
+Batch jobs must declare a runtime budget in the task spec before starting, in
+addition to meeting the reference target in the table above.
+
 ### Memory Limits
 
 | Process type | Soft limit | Hard limit |

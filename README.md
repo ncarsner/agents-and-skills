@@ -25,7 +25,6 @@ agents-and-skills/
 ├── CLAUDE.md                          # Claude-specific root instructions
 ├── GEMINI.md                          # Gemini-specific root instructions
 ├── RULES.md                           # Mandatory compliance rules for all agents
-├── RULES-DRAFTS.md                    # Provisional rules under development
 ├── CHANGELOG.md                       # Notable changes by date
 ├── STRATEGY.md                        # Repository strategy notes
 ├── ralph.sh                           # Agent loop script — runs Claude tasks until success
@@ -107,11 +106,16 @@ agents-and-skills/
 │   └── string-processing.md           # Slugify, regex extraction, normalization
 │
 └── templates/                         # Ready-to-copy configuration files
+    ├── .dockerignore                  # Copy-to-root dockerignore for uv-managed Python projects
+    ├── .pre-commit-config.yaml        # Pre-commit hook config using detect-secrets
+    ├── .python-version                # Pin Python 3.12 for uv/pyenv
+    ├── authorized_libraries.md        # Template for the approved third-party library list
+    ├── Dockerfile                     # Two-stage (build/runtime) Dockerfile for uv-managed projects
     ├── epilogue.md                    # Session shutdown protocol — run when closing a session
+    ├── onboarding-checklist.md        # New-agent onboarding checklist for downstream projects
     ├── pyproject.toml                 # Full project config (pytest, ruff, mypy)
     ├── pytest.ini                     # Standalone pytest config
-    ├── ruff.toml                      # Standalone ruff linter/formatter config
-    └── .python-version                # Pin Python 3.12 for uv/pyenv
+    └── ruff.toml                      # Standalone ruff linter/formatter config
 ```
 
 ---

@@ -73,5 +73,17 @@ Run these in order to take a raw idea through to automated implementation:
 | project-review | `/project-review [perspective]` | Structured multi-lens project audit |
 | stress-test | `/stress-test [topic]` | Stress-test a design, code, or proposal with hard questions |
 | write-a-skill | `/write-a-skill [name]` | Scaffold a new slash command skill with correct frontmatter and repo conventions |
-| skills-sync | `/skills-sync` | Scan all ~/Code project AGENTS/skills/ dirs and merge new files/sections into this repo |
 | caveman | `/caveman` | Ultra-compressed responses (~75% fewer tokens) |
+
+Command-file invocables (`.claude/commands/`, not `.claude/skills/`):
+
+| Command | Invocation | What it does |
+|---------|-----------|--------------|
+| skills-sync | `/skills-sync` | Scan all ~/Code project AGENTS/skills/ dirs and merge new files/sections into this repo |
+| debt-scan | `/debt-scan` | Scan for technical debt patterns and prioritize remediation |
+| dissect | `/dissect [path]` | Deep structural review of a file or module |
+| migrate-draft | `/migrate-draft` | Draft a database migration with rollback plan |
+| preflight | `/preflight` | Pre-commit scan for debug artifacts and code smells |
+| rebuild | `/rebuild` | Rebuild working context after `/clear` |
+| refactor-safe | `/refactor-safe` | Refactor internals without changing public API |
+| ship | `/ship` | Validate and generate PR description from current branch |
