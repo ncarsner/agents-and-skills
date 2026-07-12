@@ -14,6 +14,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `templates/ruff.toml` and `templates/pyproject.toml` — `[tool.ruff] target-version` was `py311`, inconsistent with `templates/.python-version`'s `3.12` pin. Bumped both to `py312`.
 - `README.md` — `templates/` subtree listing was missing five files that exist on disk (`.dockerignore`, `.pre-commit-config.yaml`, `authorized_libraries.md`, `Dockerfile`, `onboarding-checklist.md`); added them.
 - `.file_list` — removed a dead `+ SKILLS.md` entry (no such file exists at repo root); added a missing `+ /profiles/***` entry (`RULES.md` §§1,2,3,7,9,10,14 all delegate to `profiles/python.md`, so downstream copies were shipping with broken references).
+- `.claude/commands/skills-sync.md` — the sync process updated `skills/skills.md` for newly added files but never registered them in `subagents/registry.json`, which is exactly how that registry drifted in the first place. Added a step that registers new skills in `subagents/registry.json` alongside the existing `skills.md` update, so future syncs stay in parity automatically.
 
 ### Decided, not yet implemented
 Three structural/architectural items were scoped and decided this session but deliberately **not** executed, per `RULES.md` §19 (root-doc edits are an Architectural change requiring an issue + 2 approvals) and the existing `plans/prd.json` backlog (`done:false` tasks route to `/ralph`/the pipeline, not ad hoc implementation):
