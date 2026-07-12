@@ -21,9 +21,7 @@ projects or referenced directly, these files encode best practices for:
 ```
 agents-and-skills/
 │
-├── AGENTS.md                          # Root agent instructions (start here)
-├── CLAUDE.md                          # Claude-specific root instructions
-├── GEMINI.md                          # Gemini-specific root instructions
+├── CLAUDE.md                          # Universal root agent instructions (start here)
 ├── RULES.md                           # Mandatory compliance rules for all agents
 ├── CHANGELOG.md                       # Notable changes by date
 ├── STRATEGY.md                        # Repository strategy notes
@@ -173,9 +171,9 @@ templates/epilogue.md
 ```
 
 The protocol covers: session summary, skill updates, context file refresh,
-git commit and push, and a final clean-state verification. All root context
-files (`CLAUDE.md`, `GEMINI.md`, `AGENTS.md`) link to this file under
-"On-demand resources → Session shutdown protocol."
+git commit and push, and a final clean-state verification. `CLAUDE.md`, the
+sole root context file, links to this file under "On-demand resources →
+Session shutdown protocol."
 
 ---
 
@@ -188,7 +186,7 @@ Agents should load and internalize these files before executing any task:
 1. `subagents/subagents.md` — defines the base agent protocol all agents must follow.
 2. `RULES.md` — mandatory compliance rules every agent must obey.
 3. `skills/skills.md` — lists all registered skills with their input/output contracts.
-4. `AGENTS.md` — Python-specific toolchain defaults, coding standards, and domain links.
+4. `CLAUDE.md` — Python-specific toolchain defaults, coding standards, and domain links.
 
 ### Adding a New Agent
 
@@ -217,10 +215,15 @@ Slash commands are invokable skills that live in `.claude/skills/` and appear as
 
 ## Quick Start (Python Projects)
 
-1. **Copy `AGENTS.md`** to the root of your new project.
-2. **Copy the relevant `subagents/` file** for your domain (e.g., `subagents/cli-agent.md`).
-3. **Copy `templates/pyproject.toml`** and fill in the `<PLACEHOLDER>` values.
-4. **Run `uv venv && uv sync`** to set up the development environment.
+1. **Copy this repo's agentic materials** (`CLAUDE.md`, `RULES.md`, `skills/`,
+   `subagents/`, etc.) into an `AGENTS/` directory in your new project and add
+   `AGENTS/` to `.gitignore` (RULES.md §12).
+2. **Copy `templates/context-file-stub.md`** to `CLAUDE.md` at the project
+   root — this stub is all Claude Code needs to auto-load; the full content
+   lives at `AGENTS/CLAUDE.md`.
+3. **Copy the relevant `subagents/` file** for your domain (e.g., `subagents/cli-agent.md`).
+4. **Copy `templates/pyproject.toml`** and fill in the `<PLACEHOLDER>` values.
+5. **Run `uv venv && uv sync`** to set up the development environment.
 
 ---
 

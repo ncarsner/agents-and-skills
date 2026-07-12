@@ -117,67 +117,58 @@ placeholder or empty skill files.
 
 ---
 
-## 3. Refresh Context Files
+## 3. Refresh the Context File
 
-Update every root-level context file that exists in the destination project.
-These files serve as the agent's persistent memory across sessions — update them
-in place rather than creating new lowercase copies.
+`CLAUDE.md` is the only root context file this project produces — there is no
+`GEMINI.md` or `AGENTS.md`. It serves as the agent's persistent memory across
+sessions. Update it in place rather than creating new lowercase copies.
 
-| Agent      | Context file |
-|------------|--------------|
-| Claude     | `CLAUDE.md`  |
-| Gemini CLI | `GEMINI.md`  |
-| Codex      | `AGENTS.md`  |
-| Perplexity | `AGENTS.md`  |
-
-### Locating context files when operating inside AGENTS/
+### Locating the canonical content when operating inside AGENTS/
 
 When the agent materials have been copied into an `AGENTS/` subdirectory of a
-downstream project (per RULES.md §12), the context files live at the project
-root — one level above `AGENTS/`. The agent must locate them before editing.
+downstream project (per RULES.md §12), the project root holds only a short
+`CLAUDE.md` **stub** (see `templates/context-file-stub.md`). The full,
+canonical content lives at `AGENTS/CLAUDE.md`. Edit that file — never the
+root stub.
 
-Run this discovery command from the project root or from within `AGENTS/`:
+Run this discovery command from the project root or from within `AGENTS/` to
+confirm which layout is in play:
 
 ```bash
 # From the project root
-find . -maxdepth 1 -name "CLAUDE.md" -o -name "GEMINI.md" -o -name "AGENTS.md" | sort
+find . -maxdepth 1 -name "CLAUDE.md" | sort
+find . -maxdepth 2 -path "./AGENTS/CLAUDE.md" | sort
 
 # From inside AGENTS/
-find .. -maxdepth 1 -name "CLAUDE.md" -o -name "GEMINI.md" -o -name "AGENTS.md" | sort
+find . -maxdepth 1 -name "CLAUDE.md" | sort
 ```
 
-Use the paths returned by the discovery command. If the command returns no
-results, the context files have not been created yet — create them at the
-project root (not inside `AGENTS/`).
+If `AGENTS/CLAUDE.md` exists, edit that file and leave the root stub
+untouched (it should never contain more than the template). If no `AGENTS/`
+directory exists, this is the master-source repository or a project without
+the local-only bundle — edit the root `CLAUDE.md` directly. If neither exists
+yet, create the root `CLAUDE.md` from `templates/context-file-stub.md` if an
+`AGENTS/` bundle is present, or from scratch at the project root otherwise.
 
-**Never create or modify context files inside the `AGENTS/` directory.** That
-directory is gitignored and untracked; files placed there will not persist in
-the downstream repository.
+**Never create or modify context files inside the `AGENTS/` directory unless
+that is the canonical copy per the layout check above.** The directory is
+gitignored and untracked; anything else placed there will not persist in the
+downstream repository.
 
-### Updating context files
+### Updating the context file
 
-Each context file should reflect the repository as it stands after this session:
+The canonical `CLAUDE.md` (root, or `AGENTS/CLAUDE.md` in the local-only
+layout) should reflect the repository as it stands after this session:
 - Current phase and status.
 - Important files added or changed today, with their purpose.
 - Decisions made today, dated.
 - Known blockers or risks.
 - Next steps, replacing any stale items.
 
-**Do not create new lowercase files** (`claude.md`, `gemini.md`, `agents.md`).
-Update the existing uppercase files at the project root. If a context file does
-not exist yet, create it at the project root using its correct uppercase name.
-
-If more than one context file exists, keep the shared project-state content in
-sync. Verify parity with all files that are present (run from the project root):
-
-```bash
-diff CLAUDE.md GEMINI.md
-diff CLAUDE.md AGENTS.md
-diff GEMINI.md AGENTS.md
-```
-
-No output means the compared files match. If a file is absent, skip only that
-specific comparison and note that it was not present.
+**Do not create new lowercase files** (`claude.md`) or reintroduce
+`GEMINI.md`/`AGENTS.md` as separate root files. There is exactly one
+canonical copy per project — the root `CLAUDE.md` in the master-source
+layout, or `AGENTS/CLAUDE.md` behind a root stub in the local-only layout.
 
 ---
 
@@ -328,10 +319,10 @@ Report each item as done, skipped with reason, or blocked:
       `skills/skills.md` (or skipped — no new patterns this session).
 - [ ] CHANGELOG.md updated with session entry, or skipped — nothing notable.
 - [ ] `.gitignore` includes `*-session.md` pattern.
-- [ ] Root context files (`CLAUDE.md`, `GEMINI.md`, `AGENTS.md`) located via
-      discovery command and updated at the project root; no files created inside
-      `AGENTS/`; no new lowercase copies created.
-- [ ] Context files compared and synchronized where more than one exists.
+- [ ] `CLAUDE.md` located via the discovery command (root stub vs.
+      `AGENTS/CLAUDE.md` canonical copy) and updated in the correct location;
+      no files created inside `AGENTS/` beyond the canonical copy; no new
+      lowercase copies or `GEMINI.md`/`AGENTS.md` files created.
 - [ ] Secrets and local-only files were checked before staging.
 - [ ] Intended changes were committed using Conventional Commits format
       (RULES.md §6), or there was nothing to commit.
@@ -352,7 +343,7 @@ Commit: <short-sha> — <commit message, or "no commit needed">
 Remote: <origin-url, or blocker>
 CHANGELOG: <updated | skipped — reason>
 Skills: <files created or updated, or "none — no new patterns this session">
-Context files: <updated files, or "none present">
+Context file: <CLAUDE.md updated, or "none present">
 Status: <clean / not clean with reason>
 
 Next steps:

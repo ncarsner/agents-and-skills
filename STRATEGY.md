@@ -31,7 +31,7 @@ Never rely on conversational memory across session boundaries.
 **Opening ritual (< 5 minutes):**
 
 1. Read the most recent dated session summary (`yyyy-mm-dd-session-summary.md`).
-2. Read `CLAUDE.md` / `GEMINI.md` / agent context file for current project state.
+2. Read `CLAUDE.md` (root stub or `AGENTS/CLAUDE.md` canonical copy, per RULES.md §12) for current project state.
 3. Read the `Next Steps` section only — ignore the rest of the summary.
 
 **Closing ritual (< 10 minutes):**
@@ -122,7 +122,7 @@ and context documents form a reusable asset for the next project.
 1. Consolidate the three phase summaries into a single
    `yyyy-mm-dd-project-retrospective.md` at the project root.
 2. Extract any new patterns into a new or updated `skills/` document.
-3. Update `AGENTS.md` if a new agent or workflow was used successfully.
+3. Update `CLAUDE.md` if a new agent or workflow was used successfully.
 4. Tag the commit with the project name:
    ```bash
    git tag project/<project-name>-complete
@@ -158,7 +158,7 @@ knowledge rather than from zero.
 - [ ] Produce: hardened, documented, deployable artifact
 - [ ] Write `yyyy-mm-dd-evening-summary.md`; commit and push
 - [ ] Consolidate into `yyyy-mm-dd-project-retrospective.md`
-- [ ] Extract new patterns into `skills/`; update `AGENTS.md` if needed
+- [ ] Extract new patterns into `skills/`; update `CLAUDE.md` if needed
 - [ ] Tag commit; push tags
 
 ---

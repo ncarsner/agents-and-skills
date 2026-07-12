@@ -1,7 +1,7 @@
 # Accounting Agent Instructions
 
-This file extends `AGENTS.md` with instructions specific to monitoring and
-reporting on AI token consumption and associated cost. Read root `AGENTS.md`
+This file extends `CLAUDE.md` with instructions specific to monitoring and
+reporting on AI token consumption and associated cost. Read root `CLAUDE.md`
 first.
 
 ---

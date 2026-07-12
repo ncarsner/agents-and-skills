@@ -1,8 +1,8 @@
 # Containerization Agent Instructions
 
-This file extends `AGENTS.md` with instructions specific to **Docker
+This file extends `CLAUDE.md` with instructions specific to **Docker
 containerization, deployment, and maintenance** of Python projects. Read root
-`AGENTS.md` first.
+`CLAUDE.md` first.
 
 ---
 

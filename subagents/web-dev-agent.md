@@ -1,7 +1,7 @@
 # Web Development Agent Instructions
 
-This file extends `AGENTS.md` with instructions specific to **Python web
-development**. Read root `AGENTS.md` first.
+This file extends `CLAUDE.md` with instructions specific to **Python web
+development**. Read root `CLAUDE.md` first.
 
 ---
 
@@ -27,7 +27,7 @@ my-api/
 ├── .python-version
 ├── .env.example
 ├── README.md
-├── AGENTS.md
+├── CLAUDE.md
 ├── src/
 │   └── my_api/
 │       ├── __init__.py

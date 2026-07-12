@@ -189,7 +189,8 @@ control artifacts. See §18 — Authorship and Attribution for the full rule.
 See [profiles/python.md](profiles/python.md) — Testing and Coverage section.
 
 > **Override:** The coverage threshold (default 100%) may be adjusted in the
-> downstream project's `AGENTS.md` with a written rationale.
+> downstream project's `CLAUDE.md` (or `AGENTS/CLAUDE.md` per §12) with a
+> written rationale.
 > Example: `§7 coverage override: 80% — rationale: legacy codebase with untestable I/O layer.`
 
 ---
@@ -257,13 +258,39 @@ External Input (user, file, API) -> Validation -> Logic -> I/O -> Output
 ## 12. Local-Only Agent Directory `[CORE]`
 
 **Rule:** When copying this repository's agentic materials into a downstream
-project, place them in an `AGENTS/` directory and immediately add `AGENTS/` to
+project, place the full bundle (`CLAUDE.md`, `RULES.md`, `skills/`,
+`subagents/`, etc.) in an `AGENTS/` directory and immediately add `AGENTS/` to
 that project's `.gitignore`. The `AGENTS/` directory must remain untracked and
 must never be committed to the downstream repository.
 
+### Root-level stub
+
+Claude Code (and any tool relying on auto-load-by-filename) requires a
+`CLAUDE.md` at the project root. `CLAUDE.md` is the only root context file
+this repository produces — there is no `AGENTS.md` or `GEMINI.md` — so it is
+also the only stub needed. To avoid a second, drifting copy of the full
+content, the root `CLAUDE.md` MUST be a short stub only, never the full
+instructions. Copy [templates/context-file-stub.md](templates/context-file-stub.md)
+to `<project-root>/CLAUDE.md` verbatim:
+
+```markdown
+# CLAUDE.md
+
+See `AGENTS/CLAUDE.md` for full agent instructions. This file exists only so
+agent tools auto-load it from the project root — do not add content here;
+edit `AGENTS/CLAUDE.md` instead.
+```
+
+All substantive content — identity, rules, pipeline discipline, resource
+table — lives exactly once, in `AGENTS/CLAUDE.md`. Never duplicate it at the
+project root, and never edit the root stub beyond the template above. Tools
+other than Claude Code (Gemini CLI, Codex, etc.) should be pointed at
+`AGENTS/CLAUDE.md` explicitly rather than given their own root file.
+
 This rule applies to **downstream copies only**. This repository is the master
 source and is exempt — its agent materials (`CLAUDE.md`, `RULES.md`, `skills/`,
-`subagents/`, etc.) are intentionally tracked at the root level.
+`subagents/`, etc.) are intentionally tracked at the root level with no
+`AGENTS/` directory.
 
 ---
 
@@ -303,8 +330,8 @@ Never set a git identity or add attribution to commits, PRs, or any version cont
 See [profiles/python.md](profiles/python.md) — Performance Standards section.
 
 > **Override:** Performance targets may be adjusted in the downstream project's
-> `AGENTS.md` with a written rationale. Exceeding a target by >2× requires
-> escalation before shipping.
+> `CLAUDE.md` (or `AGENTS/CLAUDE.md` per §12) with a written rationale.
+> Exceeding a target by >2× requires escalation before shipping.
 > Example: `§14 latency override: CLI p95 < 2s — rationale: cold-start includes model load.`
 
 ---
@@ -459,7 +486,7 @@ variable (never hardcoded). See `tools/hashing-encoding.md`.
 | Restricted | 90 days (or legal minimum) | Secure delete + audit log + confirmation |
 
 > **Override:** Retention windows may be adjusted in the downstream project's
-> `AGENTS.md` with written rationale and legal review.
+> `CLAUDE.md` (or `AGENTS/CLAUDE.md` per §12) with written rationale and legal review.
 > Example: `§16 retention override: Restricted 1 year — rationale: HIPAA minimum retention requirement.`
 
 Agents must not retain Restricted data beyond the defined window. Implement a
@@ -494,7 +521,7 @@ Audit logs are **Internal** classification and must be retained for 2 years.
 
 When a project processes data under any of these frameworks:
 
-1. Document the applicable framework in the project's `AGENTS.md`.
+1. Document the applicable framework in the project's `CLAUDE.md` (or `AGENTS/CLAUDE.md` per §12).
 2. Implement the audit trail (above) for all Restricted data operations.
 3. Encrypt Restricted data at rest (AES-256) and in transit (TLS 1.2+).
 4. Never pass Restricted data to an external LLM API without explicit written
@@ -606,11 +633,11 @@ before merging. Required approvals and the review checklist vary by PR type.
 |---------|-----------|-------------------|
 | Hotfix | Critical bug fix; no new features | 1 human |
 | Feature | New capability, skill file, or agent definition | 1 human |
-| Architectural | Changes to RULES.md, AGENTS.md, subagents.md, or any file that governs agent behavior | 2 humans |
+| Architectural | Changes to RULES.md, CLAUDE.md, subagents.md, or any file that governs agent behavior | 2 humans |
 | Breaking | Removes or renames a public interface, agent, or skill | 2 humans |
 
 > **Override:** Minimum approval counts may be adjusted in the downstream
-> project's `AGENTS.md` with a written rationale.
+> project's `CLAUDE.md` (or `AGENTS/CLAUDE.md` per §12) with a written rationale.
 > Example: `§19 approval override: Hotfix 0 humans — rationale: solo maintainer project.`
 
 ### Automated Checks (must all pass before requesting review)

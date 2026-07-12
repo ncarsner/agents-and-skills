@@ -1,7 +1,7 @@
 # Interoperability Review Agent Instructions
 
-This file extends `AGENTS.md` with instructions for project review focused on
-system interoperability. Read root `AGENTS.md` first.
+This file extends `CLAUDE.md` with instructions for project review focused on
+system interoperability. Read root `CLAUDE.md` first.
 
 ---
 

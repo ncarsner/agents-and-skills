@@ -1,7 +1,7 @@
 # Dashboard and Reporting Agent Instructions
 
-This file extends `AGENTS.md` with instructions specific to **dashboarding and
-reporting** projects in Python. Read root `AGENTS.md` first.
+This file extends `CLAUDE.md` with instructions specific to **dashboarding and
+reporting** projects in Python. Read root `CLAUDE.md` first.
 
 ---
 
@@ -40,7 +40,7 @@ my-dashboard/
 ├── uv.lock
 ├── .python-version
 ├── README.md
-├── AGENTS.md
+├── CLAUDE.md
 ├── data/
 │   ├── raw/
 │   └── processed/

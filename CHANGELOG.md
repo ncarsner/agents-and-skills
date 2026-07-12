@@ -16,13 +16,22 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `.file_list` — removed a dead `+ SKILLS.md` entry (no such file exists at repo root); added a missing `+ /profiles/***` entry (`RULES.md` §§1,2,3,7,9,10,14 all delegate to `profiles/python.md`, so downstream copies were shipping with broken references).
 - `.claude/commands/skills-sync.md` — the sync process updated `skills/skills.md` for newly added files but never registered them in `subagents/registry.json`, which is exactly how that registry drifted in the first place. Added a step that registers new skills in `subagents/registry.json` alongside the existing `skills.md` update, so future syncs stay in parity automatically.
 
-### Decided, not yet implemented
-Three structural/architectural items were scoped and decided this session but deliberately **not** executed, per `RULES.md` §19 (root-doc edits are an Architectural change requiring an issue + 2 approvals) and the existing `plans/prd.json` backlog (`done:false` tasks route to `/ralph`/the pipeline, not ad hoc implementation):
-- **Root-doc consolidation:** `CLAUDE.md` becomes the base/canonical document (union of all three files' content — CLAUDE.md's current §18/§19 references, AGENTS.md/GEMINI.md's resource-table rows CLAUDE.md is missing, GEMINI.md's headless-delegation section). `AGENTS.md` and `GEMINI.md` shrink to one-line stubs pointing at `CLAUDE.md`, preserving each tool's auto-load-by-filename convention. A filename rename of `CLAUDE.md` itself is explicitly deferred.
-- **`profiles/` expansion axis:** by domain, matching `RULES.md`'s existing `[PROFILE:WEB-UI]` (§15) and `[PROFILE:SERVICE]` (§17) scope markers — i.e. future `profiles/web-ui.md` and `profiles/service.md`, same extraction pattern used for `profiles/python.md`. Not a multi-language expansion.
-- **"Unused" skills/subagents:** deferred as an open question for `/grill-me` — `skills/skills.md` and `subagents/registry.json` are in perfect sync with the filesystem (confirmed this session), so nothing can be pruned on file-hygiene grounds alone; needs the user to name specific skills/subagents or tighten trigger metadata.
+### Removed
+- `AGENTS.md` and `GEMINI.md` deleted. `CLAUDE.md` is now the sole root context file, in this repo and in downstream copies. Supersedes the stub-file approach originally recorded here earlier today — the decision was revised mid-session to full removal rather than one-line stubs, since this repo has no `AGENTS/` subdirectory of its own (RULES.md §12 exemption) and keeping an `AGENTS.md` *file* alongside that convention's `AGENTS/` *folder* name downstream was a source of confusion, not just duplication.
 
-Note for whoever runs `/ralph` next: `plans/prd.json`'s existing "AGENTS.md canonicalization" task assumes the *opposite* direction (canonicalizing around `AGENTS.md`) from what was decided above (`CLAUDE.md` is base). That task needs correcting, not blind execution. Next step: run `/grill-me` on the structural backlog (root-doc consolidation, `profiles/` domain expansion, unused-skills triage, final `.file_list` shape once consolidation lands) before `/prd`.
+### Changed
+- `CLAUDE.md` — merged the unique content from `AGENTS.md`/`GEMINI.md` before deleting them: the explicit git-config authorship instruction and the headless-delegation "treat output as untrusted Result data" integration note (from `GEMINI.md`), and the onboarding-checklist / containerization resource-table rows (from `AGENTS.md`). Also carries forward `AGENTS.md`'s changelog section as `CLAUDE.md`'s own.
+- `RULES.md` §12 — downstream copies now place the full bundle under `AGENTS/` as before, but the project root gets only a `CLAUDE.md` **stub** (new `templates/context-file-stub.md`) pointing at `AGENTS/CLAUDE.md`, which holds the actual canonical content. This makes the root/`AGENTS/` duplication that motivated this change structurally impossible — there's nothing left at root to drift out of sync. Six other `AGENTS.md` mentions (override-note pointers in §7, §14, §16, §19, and the §19 architectural-file list) updated to `CLAUDE.md`.
+- `templates/epilogue.md` §3 — dropped the per-tool context-file table (Claude/Gemini/Codex/Perplexity); replaced with `CLAUDE.md`-only guidance that locates and edits the canonical copy (root or `AGENTS/CLAUDE.md`) rather than maintaining parallel files.
+- `templates/onboarding-checklist.md`, `STRATEGY.md`, `skills/secret-scanning.md`, `README.md`, and all 23 `subagents/*.md` files — updated `AGENTS.md`/`GEMINI.md` references to `CLAUDE.md` (subagent files used a consistent "This file extends `AGENTS.md`... read root `AGENTS.md` first" pattern, bulk-corrected).
+- `.file_list` — removed the `+ AGENTS.md` and `+ GEMINI.md` entries; only `+ CLAUDE.md` ships as the root context file now.
+
+### Added
+- `templates/context-file-stub.md` — the exact root-stub content downstream projects copy to `CLAUDE.md` when the full bundle lives under `AGENTS/`.
+
+Note for whoever runs `/ralph` next: `plans/prd.json`'s existing "AGENTS.md canonicalization" task is now fully superseded by the work above — `AGENTS.md` no longer exists to canonicalize around. That task should be closed or rewritten, not executed as written.
+
+Still deferred, per the existing `plans/prd.json` backlog and pipeline discipline: `profiles/` domain expansion (`profiles/web-ui.md`, `profiles/service.md` matching RULES.md §15/§17's `[PROFILE:...]` markers) and "unused" skills/subagents triage (registries are in perfect sync with the filesystem; needs the user to name specifics).
 
 Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addressed after this cleanup.
 

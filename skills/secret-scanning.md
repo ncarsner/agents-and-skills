@@ -173,7 +173,7 @@ silently allow an expired credential to remain in use.
 | SSH deploy keys | 365 days | 30 days before expiry |
 | TLS certificates | Per CA (≤ 398 days) | 30 days before expiry |
 
-Override defaults in the project's `AGENTS.md` with a written rationale.
+Override defaults in the project's `CLAUDE.md` (or `AGENTS/CLAUDE.md` per RULES.md §12) with a written rationale.
 
 ### Detecting Expiry
 
