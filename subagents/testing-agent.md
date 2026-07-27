@@ -1,7 +1,7 @@
 # Testing Agent Instructions
 
-This file extends `AGENTS.md` with instructions specific to **writing,
-organizing, and maintaining tests** for Python projects. Read root `AGENTS.md`
+This file extends `CLAUDE.md` with instructions specific to **writing,
+organizing, and maintaining tests** for Python projects. Read root `CLAUDE.md`
 first.
 
 ---

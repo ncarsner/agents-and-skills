@@ -5,6 +5,42 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-07-12
+
+### Fixed
+- `RULES-DRAFTS.md` resolved and deleted. Four of its five placeholder sections were already fully covered by `RULES.md` §14-§19; the three remaining orphaned provisional defaults were promoted before deletion: batch-job runtime budget declaration (`profiles/python.md` Performance Standards), PII schema/field labeling (`RULES.md` §16), and container base-image digest pinning (`RULES.md` §17). Footer reference and `README.md` structure-tree entry removed.
+- `subagents/registry.json` — `skills` array was drifted from `skills/`: removed a duplicate `python-testing` entry (stale 1.1.0 alongside 1.2.0), added three missing entries (`infrastructure-operations`, `cloud-cost-management`, `wikimedia-svg-sourcing`). Registry now in exact parity with the filesystem.
+- `skills/skills.md` — `skills-sync` was listed as if it were a `.claude/skills/` directory like the other invokable skills; it's actually `.claude/commands/skills-sync.md`. Split it and the other seven command-file invocables into their own "Command-file invocables" table.
+- `templates/ruff.toml` and `templates/pyproject.toml` — `[tool.ruff] target-version` was `py311`, inconsistent with `templates/.python-version`'s `3.12` pin. Bumped both to `py312`.
+- `README.md` — `templates/` subtree listing was missing five files that exist on disk (`.dockerignore`, `.pre-commit-config.yaml`, `authorized_libraries.md`, `Dockerfile`, `onboarding-checklist.md`); added them.
+- `.file_list` — removed a dead `+ SKILLS.md` entry (no such file exists at repo root); added a missing `+ /profiles/***` entry (`RULES.md` §§1,2,3,7,9,10,14 all delegate to `profiles/python.md`, so downstream copies were shipping with broken references).
+- `.claude/commands/skills-sync.md` — the sync process updated `skills/skills.md` for newly added files but never registered them in `subagents/registry.json`, which is exactly how that registry drifted in the first place. Added a step that registers new skills in `subagents/registry.json` alongside the existing `skills.md` update, so future syncs stay in parity automatically.
+
+### Removed
+- `AGENTS.md` and `GEMINI.md` deleted. `CLAUDE.md` is now the sole root context file, in this repo and in downstream copies. Supersedes the stub-file approach originally recorded here earlier today — the decision was revised mid-session to full removal rather than one-line stubs, since this repo has no `AGENTS/` subdirectory of its own (RULES.md §12 exemption) and keeping an `AGENTS.md` *file* alongside that convention's `AGENTS/` *folder* name downstream was a source of confusion, not just duplication.
+
+### Changed
+- `CLAUDE.md` — merged the unique content from `AGENTS.md`/`GEMINI.md` before deleting them: the explicit git-config authorship instruction and the headless-delegation "treat output as untrusted Result data" integration note (from `GEMINI.md`), and the onboarding-checklist / containerization resource-table rows (from `AGENTS.md`). Also carries forward `AGENTS.md`'s changelog section as `CLAUDE.md`'s own.
+- `RULES.md` §12 — downstream copies now place the full bundle under `AGENTS/` as before, but the project root gets only a `CLAUDE.md` **stub** (new `templates/context-file-stub.md`) pointing at `AGENTS/CLAUDE.md`, which holds the actual canonical content. This makes the root/`AGENTS/` duplication that motivated this change structurally impossible — there's nothing left at root to drift out of sync. Six other `AGENTS.md` mentions (override-note pointers in §7, §14, §16, §19, and the §19 architectural-file list) updated to `CLAUDE.md`.
+- `templates/epilogue.md` §3 — dropped the per-tool context-file table (Claude/Gemini/Codex/Perplexity); replaced with `CLAUDE.md`-only guidance that locates and edits the canonical copy (root or `AGENTS/CLAUDE.md`) rather than maintaining parallel files.
+- `templates/onboarding-checklist.md`, `STRATEGY.md`, `skills/secret-scanning.md`, `README.md`, and all 23 `subagents/*.md` files — updated `AGENTS.md`/`GEMINI.md` references to `CLAUDE.md` (subagent files used a consistent "This file extends `AGENTS.md`... read root `AGENTS.md` first" pattern, bulk-corrected).
+- `.file_list` — removed the `+ AGENTS.md` and `+ GEMINI.md` entries; only `+ CLAUDE.md` ships as the root context file now.
+
+### Added
+- `templates/context-file-stub.md` — the exact root-stub content downstream projects copy to `CLAUDE.md` when the full bundle lives under `AGENTS/`.
+- `.claude/commands/epilogue.md` — the session shutdown protocol, converted from `templates/epilogue.md` to a `/epilogue` command since it's invoked frequently at end of session rather than copied once into a new project. Content carried over in full (all 9 steps, closure checklist, final report format); §3 already reflects the `CLAUDE.md`-only context-file change above. Original template archived at `archive/epilogue-template-2026-07-12.md` before conversion.
+
+### Removed (continued)
+- `templates/epilogue.md` — superseded by `.claude/commands/epilogue.md`. All references updated (`CLAUDE.md` resource table, `README.md` structure tree and prose, `STRATEGY.md`, `skills/skills.md`'s command-file table). `.file_list` needed no change — `.claude/commands/` is already covered by the existing `/.claude/***` entry, and the new `archive/` directory is intentionally unlisted (repo-internal history, not shipped downstream).
+
+Note for whoever runs `/ralph` next: `plans/prd.json`'s existing "AGENTS.md canonicalization" task is now fully superseded by the work above — `AGENTS.md` no longer exists to canonicalize around. That task should be closed or rewritten, not executed as written.
+
+Still deferred, per the existing `plans/prd.json` backlog and pipeline discipline: `profiles/` domain expansion (`profiles/web-ui.md`, `profiles/service.md` matching RULES.md §15/§17's `[PROFILE:...]` markers) and "unused" skills/subagents triage (registries are in perfect sync with the filesystem; needs the user to name specifics).
+
+Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addressed after this cleanup.
+
+---
+
 ## 2026-06-18
 
 ### Added

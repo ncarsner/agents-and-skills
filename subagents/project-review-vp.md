@@ -1,7 +1,7 @@
 # VP Review Agent Instructions
 
-This file extends `AGENTS.md` with instructions for ad hoc code review from
-the perspective of a Vice President of Engineering. Read root `AGENTS.md` first.
+This file extends `CLAUDE.md` with instructions for ad hoc code review from
+the perspective of a Vice President of Engineering. Read root `CLAUDE.md` first.
 
 ---
 

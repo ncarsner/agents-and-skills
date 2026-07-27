@@ -41,7 +41,19 @@ For each newly added file:
   Legal/Fiscal → Dashboards → Automation. Insert within the correct domain group.
 - Keep "When to load" phrasing concise: short noun phrases, semicolon-separated.
 
-## Step 4: Update CHANGELOG.md
+## Step 4: Update subagents/registry.json for new files only
+
+For each newly added file:
+- Add one entry to the `skills` array in `subagents/registry.json`:
+  `{"file": "skills/<basename>", "name": "<basename without .md>", "domain": "<domain>", "version": "1.0.0", "status": "active"}`.
+- Use the same domain determined in Step 3, translated to the registry's lowercase
+  hyphenated convention (e.g. "Data/Web" → `data-web`, "Legal/Fiscal" → `legal-fiscal`,
+  "DevOps" → `devops`).
+- If a file with the same `name` already exists in the array (should only happen if
+  Step 2 misclassified something as new), do not add a duplicate — update its `version`
+  instead and note the correction in the sync report.
+
+## Step 5: Update CHANGELOG.md
 
 Add a `## YYYY-MM-DD` entry at the top (use today's date). Include:
 - **Added** — one bullet per new skill file, with the source project path in parentheses.
@@ -49,7 +61,7 @@ Add a `## YYYY-MM-DD` entry at the top (use today's date). Include:
   names and source project path.
 - Omit the section entirely if there are no changes of that type.
 
-## Step 5: Print a sync report
+## Step 6: Print a sync report
 
 ```
 Skills sync complete

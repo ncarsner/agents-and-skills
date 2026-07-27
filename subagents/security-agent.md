@@ -1,7 +1,7 @@
 # Security Agent Instructions
 
-This file extends `AGENTS.md` with instructions specific to **security review,
-hardening, and secure coding** in Python projects. Read root `AGENTS.md` first.
+This file extends `CLAUDE.md` with instructions specific to **security review,
+hardening, and secure coding** in Python projects. Read root `CLAUDE.md` first.
 
 ---
 

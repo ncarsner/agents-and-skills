@@ -1,8 +1,8 @@
 # Process Modernization Agent Instructions
 
-This file extends `AGENTS.md` with instructions specific to **modernizing
+This file extends `CLAUDE.md` with instructions specific to **modernizing
 legacy processes** through dynamic, data-driven Python automation. Read root
-`AGENTS.md` first.
+`CLAUDE.md` first.
 
 ---
 
@@ -62,7 +62,7 @@ process-modernization/
 │   ├── settings.toml          # user-editable configuration
 │   └── settings.example.toml
 ├── README.md
-├── AGENTS.md
+├── CLAUDE.md
 ├── src/
 │   └── my_process/
 │       ├── __init__.py

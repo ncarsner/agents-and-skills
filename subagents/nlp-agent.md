@@ -1,7 +1,7 @@
 # NLP Agent Instructions
 
-This file extends `AGENTS.md` with instructions specific to **natural language
-processing (NLP)** projects in Python. Read root `AGENTS.md` first.
+This file extends `CLAUDE.md` with instructions specific to **natural language
+processing (NLP)** projects in Python. Read root `CLAUDE.md` first.
 
 ---
 
@@ -49,7 +49,7 @@ my-nlp-project/
 ├── uv.lock
 ├── .python-version
 ├── README.md
-├── AGENTS.md
+├── CLAUDE.md
 ├── data/
 │   ├── raw/                   # original documents (not committed if large)
 │   └── processed/             # cleaned/tokenized data

@@ -226,13 +226,6 @@
       "status": "active"
     },
     {
-      "file": "skills/python-testing.md",
-      "name": "python-testing",
-      "domain": "all",
-      "version": "1.1.0",
-      "status": "active"
-    },
-    {
       "file": "skills/python-uv-workflow.md",
       "name": "python-uv-workflow",
       "domain": "all",
@@ -370,6 +363,27 @@
       "name": "python-testing",
       "domain": "all",
       "version": "1.2.0",
+      "status": "active"
+    },
+    {
+      "file": "skills/infrastructure-operations.md",
+      "name": "infrastructure-operations",
+      "domain": "devops",
+      "version": "1.0.0",
+      "status": "active"
+    },
+    {
+      "file": "skills/cloud-cost-management.md",
+      "name": "cloud-cost-management",
+      "domain": "devops",
+      "version": "1.0.0",
+      "status": "active"
+    },
+    {
+      "file": "skills/wikimedia-svg-sourcing.md",
+      "name": "wikimedia-svg-sourcing",
+      "domain": "data-web",
+      "version": "1.0.0",
       "status": "active"
     }
   ]
