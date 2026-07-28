@@ -8,7 +8,7 @@ One-line summary per section. Load [RULES.md](RULES.md) in full only when the ta
 | 2 | Python executable: `python3` via `uv run`. See [profiles/python.md](profiles/python.md). | Env/subprocess issues |
 | 3 | Code quality: ruff + mypy + type hints + minimal docstrings. See [profiles/python.md](profiles/python.md). | Code review, new modules |
 | 4 | README: update in same commit whenever public-facing behavior changes. | Any feature/CLI/config change |
-| 5 | Third-party libs: check `authorized_libraries.md` before adding; stop and ask if unlisted. | Adding new dependency |
+| 5 | Third-party libs: check `authorized_libraries.md` before adding; stop and ask if unlisted; 48h cooling period before commit once approved. | Adding new dependency |
 | 6 | Commits: Conventional Commits format, feature branch only, no agent authorship ever. | All commits/PRs |
 | 7 | Testing: pytest, 100% coverage target. See [profiles/python.md](profiles/python.md). | Writing or reviewing tests |
 | 8 | Secrets: env vars only, `.env` gitignored, pre-commit + detect-secrets mandatory. | Any credential/config work |
