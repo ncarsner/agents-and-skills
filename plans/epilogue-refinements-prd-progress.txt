@@ -1,6 +1,0 @@
-2026-05-14 iter=1 task=epilogue-changelog-step — inserted Step 4.5 (conditional CHANGELOG update) between Step 4 and old Step 5; renumbered Steps 5–8 to 6–9 in templates/epilogue.md
-2026-05-14 iter=2 task=epilogue-step1-local-only — updated filename format to yyyy-mm-dd-<descriptor>-session.md, added local-only/do-not-stage note citing .gitignore, updated naming examples table in templates/epilogue.md
-2026-05-14 iter=3 task=epilogue-checklist-audit — removed 'Git repository exists locally' and 'origin remote exists and is reachable' items; added CHANGELOG.md and .gitignore *-session.md checklist items; reworded commit-message item to reference Conventional Commits (RULES.md §6); reworded summary item to local-only language
-2026-05-14 iter=4 task=epilogue-final-report — replaced Summary field with CHANGELOG field, reordered Final Report fields to: Session closed → Branch → Commit → Remote → CHANGELOG → Skills → Context files → Status → Next steps in templates/epilogue.md
-2026-05-14 iter=5 task=gitignore-session-pattern — added *-session.md to Project-specific section of .gitignore
-2026-05-14 iter=6 task=remove-dated-root-files — removed 6 tracked dated analysis files (2026-05-10/11 *.md) from repo root via git rm

@@ -43,7 +43,7 @@ for ((i=1; i<=ITERATIONS; i++)); do
     result=$(claude \
         --model "$MODEL" \
         --permission-mode acceptEdits \
-        -p "@plans/test-coverage-plan.md @plans/test-coverage-progress.txt @RULES.md
+        -p "@plans/test-coverage-plan.md @log.md @RULES.md
 PROCESS — follow exactly, one step at a time:
 
 1. ASSESS coverage.
@@ -83,11 +83,11 @@ PROCESS — follow exactly, one step at a time:
    If the tested module now has 100% coverage, mark it:
      Coverage status: COMPLETE
 
-8. APPEND to plans/test-coverage-progress.txt:
-   $(date +%Y-%m-%d) iter=$i — tested: <behavior>, coverage: <N>%, file: <test-file>
+8. APPEND to log.md under '## Entries', following its documented schema:
+   [\$(date -u +%Y-%m-%dT%H:%M:%SZ)] [test-coverage-iter-$i] [done] [0] tested: <behavior>, coverage: <N>%, file: <test-file>
 
 9. COMMIT.
-   git add tests/ plans/test-coverage-plan.md plans/test-coverage-progress.txt
+   git add tests/ plans/test-coverage-plan.md log.md
    git commit -m 'test(<module>): <describe the user behavior being tested>'
 
 CONSTRAINTS:
@@ -108,5 +108,5 @@ CONSTRAINTS:
 done
 
 echo ""
-echo "Reached $ITERATIONS iteration(s). Run again or check test-coverage-progress.txt."
+echo "Reached $ITERATIONS iteration(s). Run again or check log.md."
 exit 0
