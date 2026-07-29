@@ -30,16 +30,21 @@ Never rely on conversational memory across session boundaries.
 
 **Opening ritual (< 5 minutes):**
 
-1. Read the most recent dated session summary (`yyyy-mm-dd-session-summary.md`).
+1. Grep `index.md` for pages matching today's task domain; load only the
+   matching `sessions/` pages (closes 12-Factor Agents F13 pre-fetch — see
+   `.12-FACTOR-AGENTS.md`).
 2. Read `CLAUDE.md` (root stub or `AGENTS/CLAUDE.md` canonical copy, per RULES.md §12) for current project state.
-3. Read the `Next Steps` section only — ignore the rest of the summary.
+3. Read each loaded page's `Subagent Plan — Next Session` section only — ignore the rest.
 
 **Closing ritual (< 10 minutes):**
 
-1. Invoke `/epilogue` (`.claude/commands/epilogue.md`).
-2. Write a dated session summary using the naming convention
-   `yyyy-mm-dd-<phase>-summary.md` (e.g., `2026-04-29-morning-summary.md`).
-3. Commit and push.
+1. Invoke `/epilogue` (`.claude/commands/epilogue.md`) for the routine
+   session-shutdown steps (skills, `CLAUDE.md`, `CHANGELOG.md`, commit).
+2. Write a session wiki page using `sessions/yyyy-mm-dd-<phase>.md` (see
+   `sessions/README.md` for the required format) — replaces the old
+   `yyyy-mm-dd-<phase>-summary.md` convention.
+3. Add a row to `index.md`'s Session Wiki Pages table pointing to the new page.
+4. Commit and push.
 
 This keeps every session startup under 5 minutes and eliminates re-explanation.
 
@@ -94,7 +99,8 @@ improvement automatically.
 
 At the end of each session, decompose the next session's work into discrete
 subtasks and assign each to a named subagent. Write these assignments into
-the session summary under a `Subagent Plan` heading.
+the session wiki page (`sessions/yyyy-mm-dd-<phase>.md`) under its
+`Subagent Plan — Next Session` heading.
 
 **Example (end of morning session):**
 
@@ -114,12 +120,12 @@ attached. This avoids a bloated single prompt that wastes the context window.
 
 ## Strategy 5 — Progressive Documentation as a Project Asset
 
-At the end of each day, the aggregate session summaries, updated skills files,
-and context documents form a reusable asset for the next project.
+At the end of each day, the aggregate session wiki pages, updated skills
+files, and context documents form a reusable asset for the next project.
 
 **End-of-day actions:**
 
-1. Consolidate the three phase summaries into a single
+1. Consolidate the three session wiki pages into a single
    `yyyy-mm-dd-project-retrospective.md` at the project root.
 2. Extract any new patterns into a new or updated `skills/` document.
 3. Update `CLAUDE.md` if a new agent or workflow was used successfully.
@@ -138,25 +144,25 @@ knowledge rather than from zero.
 ## Daily Execution Checklist
 
 ### Morning Session
-- [ ] Read current context file and most recent retrospective
+- [ ] Grep `index.md` for pages matching today's task domain; read current context file and most recent retrospective
 - [ ] Confirm session scope (architecture layer only)
 - [ ] Attach relevant skills documents; deploy specialist subagent
 - [ ] Produce: scaffold, models, core logic
-- [ ] Write `yyyy-mm-dd-morning-summary.md`; commit and push
+- [ ] Write `sessions/yyyy-mm-dd-morning.md`; add row to `index.md`; commit and push
 
 ### Afternoon Session
-- [ ] Read morning summary (`Next Steps` section only)
-- [ ] Execute subagent plan from morning summary
+- [ ] Read morning session page (`Subagent Plan — Next Session` section only)
+- [ ] Execute subagent plan from morning session page
 - [ ] Attach relevant skills documents per subtask
 - [ ] Produce: I/O layer, tests, integration
-- [ ] Write `yyyy-mm-dd-afternoon-summary.md`; commit and push
+- [ ] Write `sessions/yyyy-mm-dd-afternoon.md`; add row to `index.md`; commit and push
 
 ### Evening Session
-- [ ] Read afternoon summary (`Next Steps` section only)
-- [ ] Execute subagent plan from afternoon summary
+- [ ] Read afternoon session page (`Subagent Plan — Next Session` section only)
+- [ ] Execute subagent plan from afternoon session page
 - [ ] Run full CI checks; invoke review agents
 - [ ] Produce: hardened, documented, deployable artifact
-- [ ] Write `yyyy-mm-dd-evening-summary.md`; commit and push
+- [ ] Write `sessions/yyyy-mm-dd-evening.md`; add row to `index.md`; commit and push
 - [ ] Consolidate into `yyyy-mm-dd-project-retrospective.md`
 - [ ] Extract new patterns into `skills/`; update `CLAUDE.md` if needed
 - [ ] Tag commit; push tags
