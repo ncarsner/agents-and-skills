@@ -27,6 +27,23 @@ When an agent receives a task, it must follow this sequence:
 
 ---
 
+## 2.1. Pre-fetch Context (Index Query)
+
+Before invoking a subagent, grep `index.md` for pages relevant to the task
+domain and include the matching pages in the subagent's prompt. This is a
+pre-fetch, not a fallback — do it deterministically for every delegation,
+not only when the orchestrator suspects relevant history exists. Closes
+12-Factor Agents F13 (pre-fetch context); see `.12-FACTOR-AGENTS.md`.
+
+```bash
+grep -i "<task-domain-keyword>" index.md
+```
+
+If no page matches, proceed without attaching one — do not delay
+delegation searching for a match that isn't there.
+
+---
+
 ## 3. Decision-Making Rules
 
 Agents must abide by the following rules at all times:
