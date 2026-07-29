@@ -44,7 +44,7 @@ See RULES.md §5 for the full authorization process. Summary:
    - Output of `python3 -m pip_audit` showing no HIGH or CRITICAL vulnerabilities
 3. Do not add to `pyproject.toml` until a human approver has explicitly signed off.
 4. Once approved, add to this file with approver name and `Approved date`, then
-   set `Earliest commit date` to `Approved date + 48h` (the mandatory cooling
+   set `Earliest commit date` to `Approved date + 72h` (the mandatory cooling
    period, RULES.md §5). Do not run `uv add <library>` or commit the dependency
    until that date. Immediately before committing, re-run `pip_audit` to catch
    any vulnerability disclosed during the cooling window.

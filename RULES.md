@@ -151,7 +151,7 @@ before the library may be added.
 
 Supply-chain attacks often target the gap between approval and deployment.
 After a library is approved and added to `authorized_libraries.md`, a minimum
-**48-hour cooling period** must elapse before the dependency may be committed
+**72-hour cooling period** must elapse before the dependency may be committed
 to production code.
 
 During the cooling period:
@@ -166,7 +166,7 @@ During the cooling period:
   halt and escalate to the human approver before proceeding.
 
 Record the approval date in `authorized_libraries.md`'s `Approved date` column;
-the dependency may not appear in a commit until `Approved date + 48h` has
+the dependency may not appear in a commit until `Approved date + 72h` has
 passed. Hotfixes for an active incident may bypass the cooling period only
 with explicit human approval documented in the PR.
 
@@ -713,7 +713,7 @@ Architectural decisions require:
 
 | Date | Change |
 |------|--------|
-| 2026-07-28 | §5 added: dependency cooling period. A 48-hour minimum wait now applies between adding an approved library to `authorized_libraries.md` and committing it to production code; `pip-audit` must be re-run immediately before commit. `authorized_libraries.md` template gained `Approved date` and `Earliest commit date` columns. §19 review checklist updated to verify the cooling period elapsed and the re-audit passed. Resolves #69. |
+| 2026-07-28 | §5 added: dependency cooling period. A 72-hour minimum wait now applies between adding an approved library to `authorized_libraries.md` and committing it to production code; `pip-audit` must be re-run immediately before commit. `authorized_libraries.md` template gained `Approved date` and `Earliest commit date` columns. §19 review checklist updated to verify the cooling period elapsed and the re-audit passed. Resolves #69. |
 | 2026-07-12 | `RULES-DRAFTS.md` resolved and deleted — four of its five placeholder sections were already fully covered by §14-§19 and `profiles/python.md`; the three remaining orphaned provisional defaults were promoted: batch-job runtime budget declaration (`profiles/python.md` Performance Standards), PII schema labeling (§16), and container base-image digest pinning (§17). Footer reference to `RULES-DRAFTS.md` removed. |
 | 2026-06-18 | §18 added: Authorship and Attribution — blanket prohibition on all agent attribution in file content, comments, documentation, and version control artifacts; prohibited forms enumerated; enforcement note added (human removes Co-Authored-By trailers, no hook); old §18 renumbered to §19; §6 authorship subsection trimmed to reference §18; §13 cross-reference updated; §19 review checklist and escalation path scope updated to include §18; subagents.md §7 version-stamp rule removed. |
 | 2026-05-17 | Structural refactor: added scope markers (`[CORE]`, `[LANG:PYTHON]`, `[PROFILE:WEB-UI]`, `[PROFILE:SERVICE]`, `[CONFIGURABLE]`) to all section headers; extracted §1, §2, §3, §7, §9, §10, §14 to `profiles/python.md`; added Active Profile declaration before ToC; rewrote §12 to clarify master-source exemption for downstream copies; deduplicated §6/§13 authorship rule (§6 authoritative, §13 references); added `[CONFIGURABLE]` override notes with example syntax to §7, §16, §18; generalized language-specific CI/CD check commands in §17 and §18. |
