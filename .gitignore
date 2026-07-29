@@ -1,6 +1,7 @@
 # Project-specific
 .file_list
 *-session.md
+.claude/worktrees/
 
 # Python
 __pycache__/
