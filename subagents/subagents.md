@@ -129,6 +129,14 @@ NOTES (optional):
 - Agents **must not** modify files outside their declared scope without explicit human approval.
 - Agents **must not** store, log, or transmit sensitive data (credentials, PII, proprietary content).
 - Agents **must not** invoke other agents directly; all cross-agent coordination must go through the orchestrator.
+- Background agents operating in a worktree **must not** modify files in
+  `skills/`, `subagents/`, or `templates/` unless that modification is the
+  explicit, sole scope of the task. These are shared reference libraries;
+  a worktree edit is isolated to that branch until merged, and concurrent
+  worktrees touching the same reference file produce avoidable merge
+  conflicts. Improvements to reference libraries discovered incidentally
+  during a background task belong in a dedicated feature branch, noted in
+  the task's output, not applied in-flight.
 
 ---
 
