@@ -65,6 +65,9 @@ new feature, begin at `/ideate`.
 | Language profile + domain-specific profiles | [profiles/](profiles/) |
 | Session shutdown protocol | `/epilogue` ([.claude/commands/epilogue.md](.claude/commands/epilogue.md)) |
 | 12-factor agents analysis + Karpathy wiki lens | [.12-FACTOR-AGENTS.md](.12-FACTOR-AGENTS.md) |
+| Content catalog (grep before loading context; pre-fetch) | [index.md](index.md) |
+| Append-only ralph.sh execution record | [log.md](log.md) |
+| Session wiki pages (STRATEGY.md multi-phase ritual) | [sessions/](sessions/README.md) |
 
 ## Subagent Delegation
 
@@ -98,6 +101,7 @@ Delegate a subtask when it:
 
 | Date | Change |
 |------|--------|
+| 2026-07-29 | Triaged all 7 open GitHub issues deferred from the 2026-07-12 cleanup. Merged: #69 (RULES.md §5 dependency cooling period, 72h as merged — see RULES.md changelog), #57/#58/#60 (worktree hygiene: `.gitignore`, `STRATEGY.md` anti-pattern, `subagents/subagents.md` read-only policy), #61 (Karpathy wiki primitives: root `log.md` replaces `plans/*-progress.txt`; root `index.md` content catalog; `sessions/` wiki pages replace `STRATEGY.md`'s ad hoc phase summaries; pre-fetch query added to `/orient` and `subagents/subagents.md` §2.1; `.12-FACTOR-AGENTS.md` F5/F13 status upgraded). Closed as stale/outmoded: #59 (branch-naming convention was never actually enforced), #10 (referenced deleted `AGENTS.md`; collided with #69's PR). Also corrected `plans/prd.json`'s `consolidate-root-docs` task (marked done, superseded — its premise was the inverse of what the 2026-07-12 consolidation actually did). Added an issue-triage/closure pattern to `skills/github-issue-creation.md`. |
 | 2026-07-12 | `templates/epilogue.md` converted to `.claude/commands/epilogue.md` (invoked as `/epilogue`), since it's a frequently-invoked end-of-session action rather than a copy-once template. Original archived at `archive/epilogue-template-2026-07-12.md`. |
 | 2026-07-12 | Root-doc consolidation completed. `AGENTS.md` and `GEMINI.md` deleted — `CLAUDE.md` is now the sole root context file, in this repo and in downstream copies (`RULES.md` §12 stub pattern). Unique content merged in first: the git-config authorship detail and headless-delegation integration note (from `GEMINI.md`), and the onboarding/containerization resource-table rows (from `AGENTS.md`). |
 | 2026-06-10 | Added Pipeline Discipline section to all three root context files. Added PIPELINE GATE blocks to `/ideate`, `/grill-me`, and `/prd` skills. Fixed `epilogue.md` §3 to discover context files from inside `AGENTS/` subdirectory. |

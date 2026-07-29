@@ -22,7 +22,7 @@ recipes, and code cookbooks. They are read on demand when an agent needs to know
 | [`error-handling.md`](error-handling.md) | All | Exception handling patterns |
 | [`logging-observability.md`](logging-observability.md) | All | structlog, logging levels, audit trails |
 | [`configuration-management.md`](configuration-management.md) | All | Config file handling patterns |
-| [`github-issue-creation.md`](github-issue-creation.md) | All | GitHub issue authorization rules and `gh` commands |
+| [`github-issue-creation.md`](github-issue-creation.md) | All | GitHub issue authorization rules, `gh` commands, and stale-premise triage/closure pattern |
 | [`secret-scanning.md`](secret-scanning.md) | All | Pre-commit hook setup, baseline management, credential rotation, incident remediation |
 | [`multi-agent.md`](multi-agent.md) | All | Handoff payload schema, context passing, loop detection, logging |
 | [`prompt-engineering.md`](prompt-engineering.md) | All | Prompt structure standards, injection defense, token efficiency |
