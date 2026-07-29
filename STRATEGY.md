@@ -170,3 +170,7 @@ knowledge rather than from zero.
 - Attaching all skills files at once — attach only what the session needs.
 - Skipping the closing ritual — one missed summary breaks the next session's startup.
 - Mixing architectural layers in one session — context bloat stalls progress.
+- Delegating to a background agent while work-in-progress files are untracked
+  — a worktree only contains committed content, so uncommitted files in the
+  main checkout are invisible to it. Commit or stash the in-progress files to
+  a scratch branch first so the worktree can access them.
