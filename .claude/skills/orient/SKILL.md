@@ -5,7 +5,7 @@ disable-model-invocation: true
 allowed-tools: Read Bash
 ---
 
-Orient yourself to this repository before acting. Complete all four steps in order.
+Orient yourself to this repository before acting. Complete all five steps in order.
 
 ## Step 1 — Core identity and rules
 
@@ -29,7 +29,21 @@ Read both index files:
 - `subagents/subagents.md` — agent identity protocol, delegation rules, registered agents
 - `skills/skills.md` — available reference files and invokable slash commands
 
-## Step 3 — Repo structure survey
+## Step 3 — Content catalog query (pre-fetch)
+
+Grep `index.md` for pages matching the incoming task's domain keywords
+(if $ARGUMENTS is non-empty). Load only the matching `sessions/` pages —
+do not read the whole catalog into context. This closes 12-Factor Agents
+F13 (pre-fetch context); see `.12-FACTOR-AGENTS.md`.
+
+```bash
+grep -i "<keyword>" index.md
+```
+
+If no keywords match, or $ARGUMENTS is empty, skip loading any pages and
+proceed to Step 4.
+
+## Step 4 — Repo structure survey
 
 ```bash
 find . -maxdepth 3 \
@@ -46,13 +60,14 @@ Also run:
 ls -1 subagents/ && ls -1 skills/
 ```
 
-## Step 4 — Orientation summary
+## Step 5 — Orientation summary
 
 Report a concise summary covering:
 1. Agent identity (from CLAUDE.md §Identity)
 2. Which subagents are registered and which to delegate to for the current task
 3. Repo layout — top-level directories and their purpose
 4. Any RULES.md constraints directly relevant to the current task (if one was provided via $ARGUMENTS)
+5. Any `index.md` pages loaded in Step 3, and a one-line note on their relevance
 
 If $ARGUMENTS is non-empty, treat it as the incoming task description and note which
 registered subagent(s) and skills are relevant before proceeding.
