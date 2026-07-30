@@ -5,6 +5,33 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-07-29
+
+### Added
+- Root `log.md` — Karpathy-wiki append-only execution record (bracket schema documented in the file itself), replacing the fragmented `plans/*-progress.txt` convention.
+- Root `index.md` — content catalog with a Session Wiki Pages table and a Repo Reference Docs table indexing existing dated docs/`_SOLUTIONS` notes by keyword.
+- `sessions/` — session wiki page format (`sessions/README.md`: Outcomes, Decisions, Cross-References, Subagent Plan), used by `STRATEGY.md`'s multi-phase (morning/afternoon/evening) closing ritual.
+- `skills/github-issue-creation.md` — Issue Triage and Closure section: verify an issue's factual claims against current repo state before acting on or closing it, plus a closure-comment command pattern.
+- `RULES.md` §5 — dependency cooling period (72h, as merged) between a library's approval and its first commit, with a mandatory `pip-audit` re-run before commit. `templates/authorized_libraries.md` gained `Approved date` / `Earliest commit date` columns; §19 checklist updated to match.
+
+### Changed
+- `ralph.sh` and `plans/test-coverage-ralph.sh` — append structured entries to `log.md` instead of per-PRD `*-progress.txt` files; general (non-PRD) `ralph.sh` mode now logs execution state too, which it previously did not at all.
+- `STRATEGY.md` §1, Strategy 4/5, Daily Execution Checklist — opening ritual greps `index.md` for task-domain pages; closing ritual writes a `sessions/yyyy-mm-dd-<phase>.md` page instead of the old `yyyy-mm-dd-<phase>-summary.md` file.
+- `.claude/skills/orient/SKILL.md` — new Step 3 greps `index.md` for task-domain pages before the repo survey; remaining steps renumbered (4, 5).
+- `subagents/subagents.md` — new §2.1 Pre-fetch Context: grep `index.md` before invoking a subagent; §7 Constraints gained a rule that background agents in a worktree must not edit `skills/`, `subagents/`, or `templates/` unless the task is explicitly scoped to those files.
+- `.gitignore` — added `.claude/worktrees/` so editors/search tools don't descend into worktree copies.
+- `.12-FACTOR-AGENTS.md` — F5 (Unify Execution + Business State) upgraded ❌→⚠️, F13 (Pre-fetch Context) upgraded ⚠️→✅; added an Implementation Status note documenting what shipped and what was deliberately left out of scope.
+
+### Removed
+- `plans/epilogue-refinements-prd-progress.txt` and `plans/test-coverage-progress.txt` — migrated into `log.md`; both retired.
+
+All 7 GitHub issues deferred from the 2026-07-12 cleanup are now resolved:
+#69, #57, #58, #60, #61 merged via PRs #72/#73/#74; #59 and #10 closed as
+outmoded/stale — their cited conventions/files (a never-enforced branch
+naming scheme, a deleted `AGENTS.md`) no longer held.
+
+---
+
 ## 2026-07-12
 
 ### Fixed

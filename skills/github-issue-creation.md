@@ -183,6 +183,48 @@ For bugs, prefer:
 
 ---
 
+## Issue Triage and Closure
+
+Before implementing or closing an existing issue, verify its factual claims
+against current repo state — an issue's body is a snapshot from when it was
+filed and can go stale after unrelated cleanup work (file renames, deletions,
+convention changes). Do not take a cited file path, "established convention,"
+or cross-reference at face value.
+
+Verification pattern:
+
+```bash
+# Does a file/path the issue cites still exist?
+ls <path-cited-in-issue> 2>&1
+
+# Does a "convention" the issue asserts actually hold in history?
+git log --oneline --merges -10
+git branch -a --sort=-committerdate
+
+# Does the issue collide with an unmerged PR touching the same lines?
+gh pr list --state open --json number,title,files
+```
+
+If the premise no longer holds (cited file deleted, convention never
+actually enforced, goal already achieved via a different mechanism), close
+with `gh issue close <n> --comment "..."` explaining specifically what
+changed and why the issue's version should not be resurrected as written —
+not just "stale," but what a future reader would otherwise re-litigate.
+
+```bash
+gh issue close <number> --comment "$(cat <<'EOF'
+Closing as <outmoded|stale>. <One sentence: what the issue claims.> <One
+sentence: what is actually true now, with the file/PR/commit that changed
+it.> <If applicable: what a fresh issue would need to state instead.>
+EOF
+)"
+```
+
+This is a mutation (§Core Rule applies): only close an issue when the user
+asked for it, or the user explicitly delegated triage of open issues.
+
+---
+
 ## Safety Constraints
 
 - Treat GitHub issue creation as an external write operation.
