@@ -5,6 +5,21 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-07-31
+
+### Added
+- `skills/bundle-distribution.md` — rsync include-list rules (first-match-wins ordering, parent-directory inclusion), clean-slate pruning, subtree merging without nesting, idempotent `.gitignore` appending, source-repo refusal guard, and the alias-shadows-function trap. Registered in `skills/skills.md`.
+
+### Fixed
+- Corrected an inaccurate claim recorded in issue #76 during this session: bare `index.md` greps do resolve in downstream copies, since the copy wrapper seeds `index.md` at the project root (grep returns exit 1, no match, rather than exit 2, no such file). The genuine path defect is `sessions/`, tracked separately as #77.
+
+Filed #76 (`index.md` catalog integrity and `/epilogue` wiring), #77 (`sessions/`
+resolving to two directories downstream), #78 (`CLAUDE.md` opening paragraph
+claiming to be the root context file), and #79 (rename `CLAUDE.md` to
+`AGENTS.md`, blocked on the other three). Added a `blocked` label.
+
+---
+
 ## 2026-07-29
 
 ### Added
