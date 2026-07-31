@@ -82,7 +82,7 @@ Command-file invocables (`.claude/commands/`, not `.claude/skills/`):
 | Command | Invocation | What it does |
 |---------|-----------|--------------|
 | epilogue | `/epilogue` | Session shutdown protocol — capture session, refresh CLAUDE.md, update CHANGELOG, commit, push, closure report |
-| skills-sync | `/skills-sync` | Scan all ~/Code project AGENTS/skills/ dirs and merge new files/sections into this repo |
+| skills-sync | `/skills-sync` | Scan sibling projects' AGENTS/skills/ dirs and merge new files/sections into this repo |
 | debt-scan | `/debt-scan` | Scan for technical debt patterns and prioritize remediation |
 | dissect | `/dissect [path]` | Deep structural review of a file or module |
 | migrate-draft | `/migrate-draft` | Draft a database migration with rollback plan |
