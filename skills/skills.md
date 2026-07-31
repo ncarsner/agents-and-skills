@@ -75,6 +75,7 @@ Run these in order to take a raw idea through to automated implementation:
 | stress-test | `/stress-test [topic]` | Stress-test a design, code, or proposal with hard questions |
 | write-a-skill | `/write-a-skill [name]` | Scaffold a new slash command skill with correct frontmatter and repo conventions |
 | caveman | `/caveman` | Ultra-compressed responses (~75% fewer tokens) |
+| pr | `/pr` | Commit, push, and open a PR; enforces RULES.md §6 and §18 |
 
 Command-file invocables (`.claude/commands/`, not `.claude/skills/`):
 
