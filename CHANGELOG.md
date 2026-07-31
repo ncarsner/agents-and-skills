@@ -5,6 +5,21 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-07-31
+
+### Added
+- `skills/bundle-distribution.md` — rsync include-list rules (first-match-wins ordering, parent-directory inclusion), clean-slate pruning, subtree merging without nesting, idempotent `.gitignore` appending, source-repo refusal guard, and the alias-shadows-function trap. Registered in `skills/skills.md`.
+
+### Fixed
+- Corrected an inaccurate claim recorded in issue #76 during this session: bare `index.md` greps do resolve in downstream copies, since the copy wrapper seeds `index.md` at the project root (grep returns exit 1, no match, rather than exit 2, no such file). The genuine path defect is `sessions/`, tracked separately as #77.
+
+Filed #76 (`index.md` catalog integrity and `/epilogue` wiring), #77 (`sessions/`
+resolving to two directories downstream), #78 (`CLAUDE.md` opening paragraph
+claiming to be the root context file), and #79 (rename `CLAUDE.md` to
+`AGENTS.md`, blocked on the other three). Added a `blocked` label.
+
+---
+
 ## 2026-07-29
 
 ### Added
@@ -40,7 +55,7 @@ naming scheme, a deleted `AGENTS.md`) no longer held.
 - `skills/skills.md` — `skills-sync` was listed as if it were a `.claude/skills/` directory like the other invokable skills; it's actually `.claude/commands/skills-sync.md`. Split it and the other seven command-file invocables into their own "Command-file invocables" table.
 - `templates/ruff.toml` and `templates/pyproject.toml` — `[tool.ruff] target-version` was `py311`, inconsistent with `templates/.python-version`'s `3.12` pin. Bumped both to `py312`.
 - `README.md` — `templates/` subtree listing was missing five files that exist on disk (`.dockerignore`, `.pre-commit-config.yaml`, `authorized_libraries.md`, `Dockerfile`, `onboarding-checklist.md`); added them.
-- `.file_list` — removed a dead `+ SKILLS.md` entry (no such file exists at repo root); added a missing `+ /profiles/***` entry (`RULES.md` §§1,2,3,7,9,10,14 all delegate to `profiles/python.md`, so downstream copies were shipping with broken references).
+- Downstream bundle contents — dropped a dead `SKILLS.md` entry (no such file exists at repo root); added the missing `profiles/` directory (`RULES.md` §§1,2,3,7,9,10,14 all delegate to `profiles/python.md`, so downstream copies were shipping with broken references).
 - `.claude/commands/skills-sync.md` — the sync process updated `skills/skills.md` for newly added files but never registered them in `subagents/registry.json`, which is exactly how that registry drifted in the first place. Added a step that registers new skills in `subagents/registry.json` alongside the existing `skills.md` update, so future syncs stay in parity automatically.
 
 ### Removed
@@ -51,14 +66,14 @@ naming scheme, a deleted `AGENTS.md`) no longer held.
 - `RULES.md` §12 — downstream copies now place the full bundle under `AGENTS/` as before, but the project root gets only a `CLAUDE.md` **stub** (new `templates/context-file-stub.md`) pointing at `AGENTS/CLAUDE.md`, which holds the actual canonical content. This makes the root/`AGENTS/` duplication that motivated this change structurally impossible — there's nothing left at root to drift out of sync. Six other `AGENTS.md` mentions (override-note pointers in §7, §14, §16, §19, and the §19 architectural-file list) updated to `CLAUDE.md`.
 - `templates/epilogue.md` §3 — dropped the per-tool context-file table (Claude/Gemini/Codex/Perplexity); replaced with `CLAUDE.md`-only guidance that locates and edits the canonical copy (root or `AGENTS/CLAUDE.md`) rather than maintaining parallel files.
 - `templates/onboarding-checklist.md`, `STRATEGY.md`, `skills/secret-scanning.md`, `README.md`, and all 23 `subagents/*.md` files — updated `AGENTS.md`/`GEMINI.md` references to `CLAUDE.md` (subagent files used a consistent "This file extends `AGENTS.md`... read root `AGENTS.md` first" pattern, bulk-corrected).
-- `.file_list` — removed the `+ AGENTS.md` and `+ GEMINI.md` entries; only `+ CLAUDE.md` ships as the root context file now.
+- Downstream bundle contents — `AGENTS.md` and `GEMINI.md` no longer ship; only `CLAUDE.md` goes downstream as the root context file now.
 
 ### Added
 - `templates/context-file-stub.md` — the exact root-stub content downstream projects copy to `CLAUDE.md` when the full bundle lives under `AGENTS/`.
 - `.claude/commands/epilogue.md` — the session shutdown protocol, converted from `templates/epilogue.md` to a `/epilogue` command since it's invoked frequently at end of session rather than copied once into a new project. Content carried over in full (all 9 steps, closure checklist, final report format); §3 already reflects the `CLAUDE.md`-only context-file change above. Original template archived at `archive/epilogue-template-2026-07-12.md` before conversion.
 
 ### Removed (continued)
-- `templates/epilogue.md` — superseded by `.claude/commands/epilogue.md`. All references updated (`CLAUDE.md` resource table, `README.md` structure tree and prose, `STRATEGY.md`, `skills/skills.md`'s command-file table). `.file_list` needed no change — `.claude/commands/` is already covered by the existing `/.claude/***` entry, and the new `archive/` directory is intentionally unlisted (repo-internal history, not shipped downstream).
+- `templates/epilogue.md` — superseded by `.claude/commands/epilogue.md`. All references updated (`CLAUDE.md` resource table, `README.md` structure tree and prose, `STRATEGY.md`, `skills/skills.md`'s command-file table). The downstream bundle needed no change — `.claude/commands/` is already covered by the existing `.claude/` glob, and the new `archive/` directory is intentionally unlisted (repo-internal history, not shipped downstream).
 
 Note for whoever runs `/ralph` next: `plans/prd.json`'s existing "AGENTS.md canonicalization" task is now fully superseded by the work above — `AGENTS.md` no longer exists to canonicalize around. That task should be closed or rewritten, not executed as written.
 
@@ -116,7 +131,7 @@ Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addres
 - `.claude/commands/ship.md` — `/ship`: validates tests, assesses diff size, and generates a PR description (Summary, Changes, How to test, Risk assessment, Related issues) ready to paste into GitHub.
 - `.claude/commands/migrate-draft.md` — `/migrate-draft <description>`: detects the migration system in use, generates a migration file with UP and DOWN logic matching project conventions, and outputs a safety checklist.
 - `.claude/commands/debt-scan.md` — `/debt-scan`: scans for technical debt across code complexity, dependency health, test coverage gaps, code smells, and architectural smells; findings grouped High / Medium / Low.
-- `.claude/commands/skills-sync.md` — `/skills-sync`: scans all `~/Code/*/AGENTS/skills/` directories, merges new skill files and missing sections into `skills/`, updates `skills/skills.md` index, and appends a CHANGELOG entry.
+- `.claude/commands/skills-sync.md` — `/skills-sync`: scans sibling projects' `AGENTS/skills/` directories, merges new skill files and missing sections into `skills/`, updates `skills/skills.md` index, and appends a CHANGELOG entry.
 
 ### Changed
 - `skills/legal-fiscal-analysis.md` — added "Pattern: State-Machine Parsing of PDF-Extracted Legal Code" section: two-region PDF structure (TOC block → body block), four design rules (case-sensitive patterns, explicit state machine, emitted-key dedup, skip on context mismatch), `LegalCodeParser` skeleton. Validated against 69 TCA files, ~37k entries. Sourced from `frc-tools` TCA TSV converter session (2026-05-25).

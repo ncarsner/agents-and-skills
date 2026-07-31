@@ -22,6 +22,7 @@ recipes, and code cookbooks. They are read on demand when an agent needs to know
 | [`error-handling.md`](error-handling.md) | All | Exception handling patterns |
 | [`logging-observability.md`](logging-observability.md) | All | structlog, logging levels, audit trails |
 | [`configuration-management.md`](configuration-management.md) | All | Config file handling patterns |
+| [`bundle-distribution.md`](bundle-distribution.md) | All | rsync include-lists, clean-slate pruning, openrsync delete-flag pitfalls, alias-shadows-function |
 | [`github-issue-creation.md`](github-issue-creation.md) | All | GitHub issue authorization rules, `gh` commands, and stale-premise triage/closure pattern |
 | [`secret-scanning.md`](secret-scanning.md) | All | Pre-commit hook setup, baseline management, credential rotation, incident remediation |
 | [`multi-agent.md`](multi-agent.md) | All | Handoff payload schema, context passing, loop detection, logging |
@@ -74,13 +75,14 @@ Run these in order to take a raw idea through to automated implementation:
 | stress-test | `/stress-test [topic]` | Stress-test a design, code, or proposal with hard questions |
 | write-a-skill | `/write-a-skill [name]` | Scaffold a new slash command skill with correct frontmatter and repo conventions |
 | caveman | `/caveman` | Ultra-compressed responses (~75% fewer tokens) |
+| pr | `/pr` | Commit, push, and open a PR; enforces RULES.md §6 and §18 |
 
 Command-file invocables (`.claude/commands/`, not `.claude/skills/`):
 
 | Command | Invocation | What it does |
 |---------|-----------|--------------|
 | epilogue | `/epilogue` | Session shutdown protocol — capture session, refresh CLAUDE.md, update CHANGELOG, commit, push, closure report |
-| skills-sync | `/skills-sync` | Scan all ~/Code project AGENTS/skills/ dirs and merge new files/sections into this repo |
+| skills-sync | `/skills-sync` | Scan sibling projects' AGENTS/skills/ dirs and merge new files/sections into this repo |
 | debt-scan | `/debt-scan` | Scan for technical debt patterns and prioritize remediation |
 | dissect | `/dissect [path]` | Deep structural review of a file or module |
 | migrate-draft | `/migrate-draft` | Draft a database migration with rollback plan |

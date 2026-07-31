@@ -20,7 +20,7 @@ The harness creates worktrees under `.claude/worktrees/<name>/` inside the main 
 This session's worktree lives at:
 
 ```
-/Users/carsner/Code/agents-and-skills/.claude/worktrees/12-factor-karpathy-extension/
+<repo-root>/.claude/worktrees/12-factor-karpathy-extension/
 ```
 
 Branch: `feat-20260517-karpathy-wiki` (renamed from the auto-generated `worktree-12-factor-karpathy-extension`).

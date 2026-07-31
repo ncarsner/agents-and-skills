@@ -1,14 +1,18 @@
 ---
-description: Sync skills from all ~/Code project AGENTS/skills/ directories into agents-and-skills/skills/
+description: Sync skills from sibling projects' AGENTS/skills/ directories into this repo's skills/
 allowed-tools: Bash(find *), Bash(grep *), Read, Edit, Write
 ---
 
-Scan every project under `~/Code/` for skill files in `AGENTS/skills/` and merge any new
-content into this repo's `skills/` directory.
+Scan every sibling project of this repository for skill files in `AGENTS/skills/` and
+merge any new content into this repo's `skills/` directory.
 
 ## Step 1: Discover all project-specific skill files
 
-!`find ~/Code -path "*/AGENTS/skills/*.md" -not -path "*/agents-and-skills/*" -type f | sort`
+The search root is derived from this repository's own location rather than hardcoded, so
+no machine-specific path appears in the file. It assumes projects are siblings of this
+repo under a common parent. If a project lives elsewhere, its skills will not be found.
+
+!`find "$(dirname "$(git rev-parse --show-toplevel)")" -maxdepth 4 -path "*/AGENTS/skills/*.md" -not -path "*/agents-and-skills/*" -type f | sort`
 
 ## Step 2: For each discovered file, classify it
 
