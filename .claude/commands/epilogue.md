@@ -108,10 +108,18 @@ canonical copy per the check above.** That directory is gitignored and
 untracked. **Do not create new lowercase files** (`claude.md`) or
 reintroduce `GEMINI.md`/`AGENTS.md` as separate root files.
 
-Update the canonical `CLAUDE.md` to reflect the repository as it stands
-after this session: current phase and status, important files added or
-changed today with their purpose, decisions made today (dated), known
-blockers or risks, and next steps (replacing any stale items).
+`CLAUDE.md` holds instructions, not history. Update it only where this
+session changed what a future agent must *do*: identity, the on-demand
+resource table, writing style, pipeline discipline, delegation rules, or a
+resource path that moved. If nothing about the standing instructions changed,
+leave the file alone and record that in the checklist.
+
+**Do not add a changelog table, a dated entry, or a session recap to
+`CLAUDE.md`.** `CHANGELOG.md` is the single record for what changed and when
+(Step 5), and the session summary (Step 1) holds decisions, blockers, and next
+steps. `CLAUDE.md` carried a duplicate changelog from 2026-07-12 until
+2026-08-01, inherited from the deleted `AGENTS.md`; every row of it was already
+in `CHANGELOG.md`. Do not recreate it.
 
 ## Step 4: Confirm Git and Remote
 
@@ -228,9 +236,10 @@ Report each item as done, skipped with reason, or blocked:
 - [ ] `.gitignore` includes `*-session.md` pattern.
 - [ ] `CLAUDE.md` located via the discovery command (root stub vs.
       `AGENTS/CLAUDE.md` canonical copy) and updated in the correct
-      location; no files created inside `AGENTS/` beyond the canonical
-      copy; no new lowercase copies or `GEMINI.md`/`AGENTS.md` files
-      created.
+      location, or left unchanged because the standing instructions did not
+      change; no changelog table, dated entry, or session recap added to it;
+      no files created inside `AGENTS/` beyond the canonical copy; no new
+      lowercase copies or `GEMINI.md`/`AGENTS.md` files created.
 - [ ] Secrets and local-only files were checked before staging.
 - [ ] Intended changes were committed using Conventional Commits format
       (RULES.md §6), or there was nothing to commit.
