@@ -214,11 +214,24 @@ def get_top_spenders(session: Session, *, top_n: int = 10) -> list[dict]:
         JOIN orders o ON o.user_id = u.id
         GROUP BY u.id, u.email
         ORDER BY total_spent DESC
-        LIMIT :top_n
+        FETCH FIRST :top_n ROWS ONLY
     """)
     rows = session.execute(stmt, {"top_n": top_n}).mappings().all()
     return [dict(row) for row in rows]
 ```
+
+Raw SQL is dialect-specific. `FETCH FIRST n ROWS ONLY` is the SQL-standard
+spelling and works on PostgreSQL, Oracle 12c+, and SQL Server 2012+ (as
+`OFFSET 0 ROWS FETCH NEXT n ROWS ONLY`). `LIMIT` is PostgreSQL and MySQL only:
+it is a syntax error on both SQL Server and Oracle, so it must not appear in
+SQL presented as portable.
+
+Prefer `select()` over `text()` wherever the query can be expressed in it;
+SQLAlchemy then emits the correct dialect spelling. Where raw SQL is
+unavoidable, the binding rules are in the active dialect profile:
+[`profiles/postgres.md`](../profiles/postgres.md),
+[`profiles/tsql.md`](../profiles/tsql.md), or
+[`profiles/plsql.md`](../profiles/plsql.md).
 
 ---
 
@@ -305,13 +318,21 @@ def test_create_and_fetch_user(db_session: Session) -> None:
 | PostgreSQL | `postgresql+psycopg2://user:pass@host:5432/dbname` |
 | MySQL | `mysql+pymysql://user:pass@host:3306/dbname` |
 | SQL Server | `mssql+pyodbc://user:pass@host/dbname?driver=ODBC+Driver+17+for+SQL+Server` |
+| Oracle | `oracle+oracledb://user:pass@host:1521/?service_name=DBNAME` |
 
-Always load connection strings from environment variables — never hard-code them.
+Always load connection strings from environment variables, never hard-code them.
+
+The SQL Server and Oracle rows document the DSN format only. Neither `pyodbc`
+nor `python-oracledb` is currently authorized under RULES.md §5, so connecting
+to either requires the authorization and cooling process first. See
+[`profiles/tsql.md`](../profiles/tsql.md) and
+[`profiles/plsql.md`](../profiles/plsql.md) Connectivity.
 
 ---
 
 ## See Also
 
+- [`profiles/postgres.md`](../profiles/postgres.md), [`profiles/tsql.md`](../profiles/tsql.md), [`profiles/plsql.md`](../profiles/plsql.md): normative dialect rules. This file is the how-to, those are the must.
 - [`agents/data-engineering-agent.md`](../agents/data-engineering-agent.md)
 - [`agents/security-agent.md`](../agents/security-agent.md) — SQL injection prevention
 - [`skills/configuration-management.md`](configuration-management.md) — secrets via env vars

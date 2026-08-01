@@ -31,7 +31,7 @@ recipes, and code cookbooks. They are read on demand when an agent needs to know
 | [`containerization.md`](containerization.md) | DevOps | Docker multi-stage builds, non-root user, .dockerignore, trivy scanning |
 | [`infrastructure-operations.md`](infrastructure-operations.md) | DevOps | Feature flags, canary/blue-green validation, rollback procedure |
 | [`cloud-cost-management.md`](cloud-cost-management.md) | DevOps | Resource tagging, budget alerts, right-sizing, cost-review checklist |
-| [`cli-development.md`](cli-development.md) | CLI | Click/Typer patterns, terminal UI |
+| [`cli-development.md`](cli-development.md) | CLI | argparse patterns, boundary validation, exit codes, NO_COLOR testing, terminal UI |
 | [`web-development.md`](web-development.md) | Web | FastAPI, Flask, Django patterns |
 | [`api-integration.md`](api-integration.md) | Data/Web | HTTP clients, retry, pagination |
 | [`wikimedia-svg-sourcing.md`](wikimedia-svg-sourcing.md) | Data/Web | Downloading public-domain SVGs from Wikimedia Commons; MD5 URL computation; rate-limit handling |

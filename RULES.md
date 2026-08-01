@@ -8,11 +8,45 @@ non-negotiable unless explicitly overridden in writing by a human reviewer.
 
 ## Active Profile
 
-Language: [profiles/python.md](profiles/python.md)
+| Declaration | Value |
+|-------------|-------|
+| Language | [profiles/python.md](profiles/python.md) |
+| Framework | none (set to a file in [profiles/](profiles/) when one applies) |
+| Domain | none (set to a file in [profiles/](profiles/) when one applies) |
 
 Sections tagged `[LANG:PYTHON]` delegate their full content to the active
 language profile. When adapting this template to a different language, replace
 the profile file and update this declaration.
+
+Framework profiles are additive. They do not replace any section here; they add
+framework-specific constraints on top of the language profile, and name the
+sections they extend. Available framework profiles:
+
+| Framework | Profile |
+|-----------|---------|
+| Django | [profiles/django.md](profiles/django.md) |
+| Flask | [profiles/flask.md](profiles/flask.md) |
+| FastAPI | [profiles/fastapi.md](profiles/fastapi.md) |
+
+Set `Framework:` to at most one profile. A repository serving two frameworks
+should be split, not dual-profiled. A framework profile is warranted only where
+a third-party framework imposes constraints the language profile does not
+cover; stdlib usage belongs in [profiles/python.md](profiles/python.md) or in
+the relevant `skills/` reference, not in a profile of its own.
+
+Domain profiles cover a concern that is orthogonal to the framework, most often
+a second language present in the codebase. Available domain profiles:
+
+| Domain | Profile |
+|--------|---------|
+| SQL dialect: PostgreSQL | [profiles/postgres.md](profiles/postgres.md) |
+| SQL dialect: T-SQL (SQL Server) | [profiles/tsql.md](profiles/tsql.md) |
+| SQL dialect: PL/SQL (Oracle) | [profiles/plsql.md](profiles/plsql.md) |
+
+`Domain:` accepts a list, but at most one profile per concern; a repository
+does not have two primary SQL dialects. Domain profiles are additive in the
+same way framework profiles are, and stack with them: a Django service on
+PostgreSQL declares both.
 
 ---
 
@@ -713,6 +747,8 @@ Architectural decisions require:
 
 | Date | Change |
 |------|--------|
+| 2026-07-31 | Active Profile block gained a `Domain:` declaration and a domain profile table, for concerns orthogonal to the framework (most often a second language in the codebase). Added SQL dialect profiles `profiles/postgres.md`, `profiles/tsql.md`, and `profiles/plsql.md`. Domain and framework profiles stack; `Domain:` accepts a list but at most one profile per concern. |
+| 2026-07-31 | Active Profile block extended with a `Framework:` declaration and a table of available framework profiles. Framework profiles are additive on top of the language profile and name the sections they extend; no section content moved out of this file. Added `profiles/django.md`, `profiles/flask.md`, and `profiles/fastapi.md`. A profile is warranted only where a third-party framework imposes constraints the language profile does not cover: stdlib usage such as `argparse` belongs in `profiles/python.md` or a `skills/` reference, not in a profile. |
 | 2026-07-28 | §5 added: dependency cooling period. A 72-hour minimum wait now applies between adding an approved library to `authorized_libraries.md` and committing it to production code; `pip-audit` must be re-run immediately before commit. `authorized_libraries.md` template gained `Approved date` and `Earliest commit date` columns. §19 review checklist updated to verify the cooling period elapsed and the re-audit passed. Resolves #69. |
 | 2026-07-12 | `RULES-DRAFTS.md` resolved and deleted — four of its five placeholder sections were already fully covered by §14-§19 and `profiles/python.md`; the three remaining orphaned provisional defaults were promoted: batch-job runtime budget declaration (`profiles/python.md` Performance Standards), PII schema labeling (§16), and container base-image digest pinning (§17). Footer reference to `RULES-DRAFTS.md` removed. |
 | 2026-06-18 | §18 added: Authorship and Attribution — blanket prohibition on all agent attribution in file content, comments, documentation, and version control artifacts; prohibited forms enumerated; enforcement note added (human removes Co-Authored-By trailers, no hook); old §18 renumbered to §19; §6 authorship subsection trimmed to reference §18; §13 cross-reference updated; §19 review checklist and escalation path scope updated to include §18; subagents.md §7 version-stamp rule removed. |

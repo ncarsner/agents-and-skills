@@ -220,8 +220,7 @@ Use these stdlib modules before reaching for a third-party package.
 | Purpose | Preferred | Alternatives |
 |---------|-----------|--------------|
 | Argument parsing (simple) | stdlib `argparse` ★ | — |
-| Rich CLI with types | `click` ★ | `typer` |
-| Modern CLI with type hints | `typer` ★ | `click` |
+| Multi-command tools | stdlib `argparse` subparsers ★ | `click` (existing codebases) |
 | Terminal UI / TUI | `rich` ★ | `textual`, `blessed` |
 | Interactive prompts | `questionary` ★ | `prompt-toolkit` |
 | Progress bars | `rich` ★ | `tqdm` |

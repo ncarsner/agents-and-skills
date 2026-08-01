@@ -2,6 +2,11 @@
 
 One-line summary per section. Load [RULES.md](RULES.md) in full only when the task requires the detail.
 
+**Active framework profile: none. Active domain profile: none.** When [RULES.md](RULES.md) Active Profile declares a `Framework:` or `Domain:` value, load every profile it names at session start alongside [profiles/python.md](profiles/python.md). Both kinds are additive: they add constraints to the sections below, they never replace them, and they stack (a Django service on PostgreSQL declares one of each).
+
+- Framework: [profiles/django.md](profiles/django.md), [profiles/flask.md](profiles/flask.md), [profiles/fastapi.md](profiles/fastapi.md)
+- Domain, SQL dialect: [profiles/postgres.md](profiles/postgres.md), [profiles/tsql.md](profiles/tsql.md), [profiles/plsql.md](profiles/plsql.md)
+
 | § | Rule | When to load full section |
 |---|------|--------------------------|
 | 1 | Package mgmt: `uv` only, no pip/poetry. See [profiles/python.md](profiles/python.md). | Adding/removing deps |

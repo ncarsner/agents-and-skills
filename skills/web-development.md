@@ -438,6 +438,9 @@ def _check_db() -> bool:
 
 ## See Also
 
+- [`profiles/fastapi.md`](../profiles/fastapi.md): normative FastAPI rules. This file is the how-to, that file is the must.
+- [`profiles/django.md`](../profiles/django.md): normative Django rules. This file is the how-to, that file is the must.
+- [`profiles/flask.md`](../profiles/flask.md): normative Flask rules. This file is the how-to, that file is the must.
 - [`agents/web-dev-agent.md`](../agents/web-dev-agent.md)
 - [`skills/python-testing.md`](python-testing.md)
 - [`templates/pyproject.toml`](../templates/pyproject.toml)
