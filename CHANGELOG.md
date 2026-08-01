@@ -8,9 +8,19 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## 2026-07-31
 
 ### Added
+- `profiles/django.md`, `profiles/flask.md`, `profiles/fastapi.md`: normative framework profiles (Rule / Prohibited / Rationale, matching `profiles/python.md`), additive on top of the language profile. They link to `skills/web-development.md` for implementation rather than restating it.
+- `profiles/postgres.md`, `profiles/tsql.md`, `profiles/plsql.md`: normative SQL dialect profiles covering the surface SQLAlchemy does not abstract, namely raw SQL, DDL, DSNs, and error handling. Each names its dialect's divergences (identifier folding, `NULL` sort order, transactional versus implicitly committing DDL, upsert idiom) rather than restating shared SQL.
+- `RULES.md` Active Profile block: `Framework:` and `Domain:` declarations plus profile tables. Both axes are additive and stack, so a Django service on PostgreSQL declares one of each. `RULES-BRIEF.md` gained the matching session-start discovery line, since the brief is the documented session-start path.
+- `skills/cli-development.md`: argparse boundary-validation recipes (`type=` callables raising `ArgumentTypeError`, `choices=` with an `Enum`), the `parser.error()`-exits-2 collision with the `EXIT_APP_ERROR` convention, `main(argv)` tests using `capsys`, and a stdlib `pty` helper for the RULES.md §15 `NO_COLOR` assertion.
 - `skills/bundle-distribution.md` — rsync include-list rules (first-match-wins ordering, parent-directory inclusion), clean-slate pruning, subtree merging without nesting, idempotent `.gitignore` appending, source-repo refusal guard, and the alias-shadows-function trap. Registered in `skills/skills.md`.
 
+### Changed
+- `skills/approved-packages.md` §13 and the `skills/skills.md` registry row: argparse is the default for new CLI tools, being stdlib and so carrying no §5 dependency. Click sections are retained for codebases already using it.
+- Rules that would have mandated an unauthorized dependency now defer to the §5 authorization process instead: `pytest-django`, `flask-wtf`, `pyodbc`, `python-oracledb`. Only PostgreSQL has an authorized driver, so `profiles/tsql.md` and `profiles/plsql.md` gate connectivity behind §5.
+- `CLAUDE.md` changelog: same-day entries consolidated into a single dated row.
+
 ### Fixed
+- `skills/database-access.md` "Raw Query Pattern" used `LIMIT :top_n` while presenting itself as generic. `LIMIT` is a syntax error on both SQL Server and Oracle; replaced with `FETCH FIRST ... ROWS ONLY` plus a note on the SQL Server `OFFSET 0 ROWS` prefix. Added an Oracle DSN row and a note that neither the SQL Server nor the Oracle connection string implies driver authorization.
 - Corrected an inaccurate claim recorded in issue #76 during this session: bare `index.md` greps do resolve in downstream copies, since the copy wrapper seeds `index.md` at the project root (grep returns exit 1, no match, rather than exit 2, no such file). The genuine path defect is `sessions/`, tracked separately as #77.
 
 Filed #76 (`index.md` catalog integrity and `/epilogue` wiring), #77 (`sessions/`
