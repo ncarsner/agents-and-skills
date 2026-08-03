@@ -32,10 +32,10 @@ Extends [RULES.md §8](../RULES.md#8-security-and-secrets).
 | TLS | `sslmode=require` or stricter for any non-local host |
 | Pooling | Explicit `pool_size` and `max_overflow`; never the driver defaults in a service |
 
-`templates/authorized_libraries.md` is the file RULES.md §5 names as
-authoritative and its runtime table is empty, so confirm the driver is recorded
-there before adding it, even though `skills/approved-packages.md` already
-stars both.
+Both drivers are listed in `skills/approved-packages.md`, the authoritative §5
+list, so no approval proposal is needed. Record the one you adopt in the
+project's `authorized_libraries.md` and serve the 72-hour cooling period before
+committing it.
 
 ### Prohibited
 

@@ -117,7 +117,7 @@ agents-and-skills/
     ├── .dockerignore                  # Copy-to-root dockerignore for uv-managed Python projects
     ├── .pre-commit-config.yaml        # Pre-commit hook config using detect-secrets
     ├── .python-version                # Pin Python 3.12 for uv/pyenv
-    ├── authorized_libraries.md        # Template for the approved third-party library list
+    ├── authorized_libraries.md        # Template for a project's dependency approval record (dates, cooling period)
     ├── context-file-stub.md           # Root CLAUDE.md stub for downstream AGENTS/ copies
     ├── Dockerfile                     # Two-stage (build/runtime) Dockerfile for uv-managed projects
     ├── onboarding-checklist.md        # New-agent onboarding checklist for downstream projects

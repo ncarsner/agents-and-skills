@@ -5,6 +5,20 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-08-01
+
+### Changed
+- `RULES.md` §5: `skills/approved-packages.md` is now the authoritative list of what may be used. A library absent from it is unauthorized, and amending that list is a human decision, not an agent one. `<project-root>/authorized_libraries.md` keeps a distinct role as the per-project record of when a library was approved and when its 72h cooling period elapses. Previously §5 named only the latter, whose template runtime table is empty, so read strictly it authorized nothing, including `psycopg2`. `RULES-BRIEF.md` §5 row, the §19 dependency checklist, `skills/approved-packages.md`, `templates/authorized_libraries.md`, and `templates/onboarding-checklist.md` all updated to state the split.
+- `RULES.md` §5 gained a stdlib clause: the standard library needs no authorization and no entry in either file. The inline table template was replaced with a pointer to `templates/authorized_libraries.md`, which already carried the current six-column set, rather than maintaining a third copy that had already drifted to five.
+- `profiles/postgres.md`, `profiles/tsql.md`, `profiles/plsql.md`: driver-authorization notes now cite the single authority. Gating is unchanged and still correct, since `pyodbc` and `python-oracledb` remain absent from `skills/approved-packages.md`; only the citation changed. PostgreSQL's `psycopg2-binary` and `asyncpg` are listed, so that profile no longer carries a caveat about an empty table.
+- `.claude/commands/epilogue.md` Step 3: `CLAUDE.md` is updated only where a session changed the standing instructions, and explicitly must not receive a changelog table, dated entry, or session recap. Step 8's checklist item matches. This was the mechanism that regenerated the duplicate every session.
+
+### Removed
+- `CLAUDE.md`'s `## Changelog` section. It was inherited from `AGENTS.md` on 2026-07-12 ("carries forward `AGENTS.md`'s changelog section as `CLAUDE.md`'s own") and was never reconciled against this file, which had existed since 2026-05-14. It then drifted from a per-file edit log into full session recaps. Every date it recorded (2026-07-29, 2026-07-12, 2026-06-10, 2026-06-01, 2026-05-17, 2026-05-14) already has a section here, so nothing was lost. `CHANGELOG.md` is the single record for what changed and when; `CLAUDE.md` holds instructions only, and now links here from its resource table.
+- The prohibition on `click.testing.CliRunner` recorded on 2026-07-31 is withdrawn. It rested on the runner being absent from `templates/authorized_libraries.md`, which is no longer the authority; `click` is listed in `skills/approved-packages.md` and is therefore authorized. The stdlib testing approach in `skills/cli-development.md` (direct calls, `subprocess`, `pty`) stands on its own merits for coverage and mocking, not as a §5 requirement. The Click `CliRunner` recipes in `skills/cli-development.md`, `subagents/cli-agent.md`, and `subagents/testing-agent.md` are valid as written.
+
+---
+
 ## 2026-07-31
 
 ### Added

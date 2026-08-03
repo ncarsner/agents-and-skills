@@ -19,11 +19,12 @@ strings, stored procedures, and error handling.
 ## Connectivity
 
 **Rule:** No SQL Server driver is currently authorized. `pyodbc`, `pymssql`, and
-the Microsoft ODBC driver appear in neither
-[`templates/authorized_libraries.md`](../templates/authorized_libraries.md) nor
-[`skills/approved-packages.md`](../skills/approved-packages.md). Adding one
-requires the [RULES.md §5](../RULES.md#5-third-party-library-authorization)
-authorization and 72-hour cooling process before any connection code is
+the Microsoft ODBC driver are absent from
+[`skills/approved-packages.md`](../skills/approved-packages.md), the
+authoritative list for
+[RULES.md §5](../RULES.md#5-third-party-library-authorization). Adding one
+requires the §5 approval process, and then the 72-hour cooling period recorded
+in the project's `authorized_libraries.md`, before any connection code is
 committed.
 
 Note that `skills/database-access.md` Connection String Reference already
