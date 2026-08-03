@@ -1,8 +1,17 @@
 # Approved Packages — Preferred Libraries by Category
 
-This document lists approved and preferred packages for use in all code
-projects governed by these agent instructions. Agents MUST prefer packages
-from this list over arbitrary third-party alternatives.
+This document is the authoritative list for
+[RULES.md §5](../RULES.md#5-third-party-library-authorization): a third-party
+library is authorized for use in projects governed by these agent instructions
+if and only if it appears here. A library absent from this file is
+unauthorized, whatever any other file says, and adding one is a human decision
+rather than an agent one.
+
+Within a category, prefer the `★` entry over the alternatives listed alongside
+it. Being listed here permits use but does not by itself permit a commit: §5's
+72-hour cooling period still applies and is tracked per project in that
+project's `authorized_libraries.md`. The standard library needs no entry here
+and no authorization.
 
 **Legend**
 
@@ -220,8 +229,7 @@ Use these stdlib modules before reaching for a third-party package.
 | Purpose | Preferred | Alternatives |
 |---------|-----------|--------------|
 | Argument parsing (simple) | stdlib `argparse` ★ | — |
-| Rich CLI with types | `click` ★ | `typer` |
-| Modern CLI with type hints | `typer` ★ | `click` |
+| Multi-command tools | stdlib `argparse` subparsers ★ | `click` (existing codebases) |
 | Terminal UI / TUI | `rich` ★ | `textual`, `blessed` |
 | Interactive prompts | `questionary` ★ | `prompt-toolkit` |
 | Progress bars | `rich` ★ | `tqdm` |

@@ -26,9 +26,12 @@ derived from these templates. Complete all items before acting on any task.
 
 - [ ] Run the following to understand the layout:
       `find . -maxdepth 3 -not -path './.git/*' -not -path './.venv/*' | sort`
+- [ ] Read `skills/approved-packages.md`, the authoritative list of what may be used
+      (RULES.md §5). Anything absent from it needs human approval before use.
 - [ ] Confirm `authorized_libraries.md` exists in the project root. If not, copy from
-      `templates/authorized_libraries.md` and request human sign-off before adding
-      any dependencies.
+      `templates/authorized_libraries.md`. It records when each dependency was
+      approved and when its 72h cooling period elapses; request human sign-off
+      before adding any dependencies.
 - [ ] Confirm `.pre-commit-config.yaml` exists. If not, copy from
       `templates/.pre-commit-config.yaml`, then run:
       `uv add --dev pre-commit detect-secrets && pre-commit install`

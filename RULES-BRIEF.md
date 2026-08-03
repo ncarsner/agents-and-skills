@@ -2,13 +2,18 @@
 
 One-line summary per section. Load [RULES.md](RULES.md) in full only when the task requires the detail.
 
+**Active framework profile: none. Active domain profile: none.** When [RULES.md](RULES.md) Active Profile declares a `Framework:` or `Domain:` value, load every profile it names at session start alongside [profiles/python.md](profiles/python.md). Both kinds are additive: they add constraints to the sections below, they never replace them, and they stack (a Django service on PostgreSQL declares one of each).
+
+- Framework: [profiles/django.md](profiles/django.md), [profiles/flask.md](profiles/flask.md), [profiles/fastapi.md](profiles/fastapi.md)
+- Domain, SQL dialect: [profiles/postgres.md](profiles/postgres.md), [profiles/tsql.md](profiles/tsql.md), [profiles/plsql.md](profiles/plsql.md)
+
 | § | Rule | When to load full section |
 |---|------|--------------------------|
 | 1 | Package mgmt: `uv` only, no pip/poetry. See [profiles/python.md](profiles/python.md). | Adding/removing deps |
 | 2 | Python executable: `python3` via `uv run`. See [profiles/python.md](profiles/python.md). | Env/subprocess issues |
 | 3 | Code quality: ruff + mypy + type hints + minimal docstrings. See [profiles/python.md](profiles/python.md). | Code review, new modules |
 | 4 | README: update in same commit whenever public-facing behavior changes. | Any feature/CLI/config change |
-| 5 | Third-party libs: check `authorized_libraries.md` before adding; stop and ask if unlisted; 72h cooling period before commit once approved. | Adding new dependency |
+| 5 | Third-party libs: check [skills/approved-packages.md](skills/approved-packages.md) (authoritative) before adding; stop and ask if unlisted; record the approval in the project's `authorized_libraries.md` and wait the 72h cooling period before commit. Stdlib needs neither. | Adding new dependency |
 | 6 | Commits: Conventional Commits format, feature branch only, no agent authorship ever. | All commits/PRs |
 | 7 | Testing: pytest, 100% coverage target. See [profiles/python.md](profiles/python.md). | Writing or reviewing tests |
 | 8 | Secrets: env vars only, `.env` gitignored, pre-commit + detect-secrets mandatory. | Any credential/config work |

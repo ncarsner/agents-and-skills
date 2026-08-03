@@ -10,9 +10,18 @@ Python.
 | Use Case | Library |
 |----------|---------|
 | Simple scripts with a few flags | `argparse` (stdlib) |
-| Multi-command tools with groups | `click` |
-| Complex tools needing auto-completion | `click` + `click-completion` |
+| Multi-command tools with groups | `argparse` subparsers |
 | Quick prototypes | `argparse` |
+| Pre-existing Click codebase | `click` (see Click Patterns below) |
+
+`argparse` is the default for new CLI tools here: it is stdlib, so it adds no
+dependency to authorize under RULES.md §5. The Click section is retained for
+codebases that already use it.
+
+The binding rules that apply to CLI work live in `RULES.md`: §9 error handling,
+§10 logging, §14 CLI latency and memory budgets, and §15 the `NO_COLOR`
+requirement. Everything in this file is a recipe for meeting them, not a rule in
+its own right.
 
 ---
 
@@ -137,6 +146,92 @@ def status(ctx: click.Context) -> None:
     """Show system status."""
     debug = ctx.obj["debug"]
     click.echo(f"Debug mode: {debug}")
+```
+
+---
+
+## Validating Arguments at the Boundary
+
+`argparse` accepts any string it is not told to reject. Push validation into
+`type=` and `choices=` so bad input fails as a usage message, not as a
+traceback from deep in the logic layer.
+
+```python
+import argparse
+from enum import Enum
+from pathlib import Path
+
+
+def existing_file(raw: str) -> Path:
+    """Parse a CLI argument into a path that is known to exist."""
+    path = Path(raw)
+    if not path.is_file():
+        raise argparse.ArgumentTypeError(f"not a file: {raw}")
+    return path
+
+
+def writable_dir(raw: str) -> Path:
+    """Parse a CLI argument into a directory that can be written to."""
+    path = Path(raw)
+    if not path.is_dir() or not os.access(path, os.W_OK):
+        raise argparse.ArgumentTypeError(f"not a writable directory: {raw}")
+    return path
+
+
+class Format(Enum):
+    """Supported output formats."""
+
+    csv = "csv"
+    json = "json"
+
+    def __str__(self) -> str:            # controls how choices render in --help
+        return self.value
+
+
+parser.add_argument("input", type=existing_file, help="Path to the input file")
+parser.add_argument("--output", "-o", type=writable_dir, default=Path("."))
+parser.add_argument(
+    "--format",
+    type=Format,
+    choices=list(Format),
+    default=Format.csv,
+    help="Output format (default: %(default)s)",
+)
+```
+
+`ArgumentTypeError` is rendered by `argparse` as `error: argument input: not a
+file: ...` followed by usage, and exits `2`. See `## Environment Variable
+Defaults` for the env layer of option resolution.
+
+### Exit code collision
+
+`parser.error()`, an unknown option, and a failed `type=` callable all exit
+`2`, which is `EXIT_APP_ERROR` in `## Exit Code Standards`. Either reserve `2`
+for usage errors and move application failures to another code, or override
+`ArgumentParser.error` to exit `1`. Do not ship both meanings undocumented.
+
+---
+
+## Color That Honors NO_COLOR
+
+RULES.md §15 requires output to stay readable with color disabled. Hand-rolled
+ANSI ignores both `NO_COLOR` and non-terminal output; `rich.console.Console`
+honors both and strips styling while keeping the text.
+
+```python
+from rich.console import Console
+
+stdout_console = Console()               # results
+stderr_console = Console(stderr=True)    # diagnostics
+
+
+def fail(message: str) -> None:
+    """Print an error that stays readable under NO_COLOR=1."""
+    stderr_console.print(f"[red]Error:[/red] {message}")   # "Error:" carries the meaning
+```
+
+```python
+print(f"\033[31m{msg}\033[0m")           # NEVER: raw ANSI, ignores NO_COLOR
 ```
 
 ---
@@ -325,6 +420,107 @@ def test_cli_via_subprocess(tmp_path) -> None:
     )
     assert result.returncode == 0
 ```
+
+### Argparse: call main() directly
+
+With `main(argv: list[str] | None = None) -> int`, the whole interface is an
+ordinary function. No runner, no subprocess, no `SystemExit`, and every line
+stays inside the coverage measurement. Use `capsys` to assert the stream split.
+
+```python
+"""Argparse CLI tests: interface."""
+
+import pytest
+
+from my_tool.cli import main
+from my_tool.exit_codes import EXIT_EXT_ERROR
+
+
+def test_help_exits_zero(capsys) -> None:
+    """--help should exit 0 and list the options."""
+    with pytest.raises(SystemExit) as exc:     # argparse exits on --help
+        main(["--help"])
+    assert exc.value.code == 0
+    assert "--output" in capsys.readouterr().out
+
+
+def test_upstream_failure_uses_external_exit_code(capsys, monkeypatch) -> None:
+    """An unreachable upstream should return 3, not 1 or 2."""
+    monkeypatch.setattr("my_tool.core.report.fetch", _raise_upstream)
+    assert main(["report", "--since", "2026-01-01"]) == EXIT_EXT_ERROR
+    captured = capsys.readouterr()
+    assert "Error:" in captured.err            # diagnostics on stderr,
+    assert captured.out == ""                  # nothing on stdout
+
+
+def test_rejects_missing_input_file(capsys) -> None:
+    """A bad path should be a usage error, not a traceback."""
+    with pytest.raises(SystemExit) as exc:
+        main(["process", "/nope/missing.csv"])
+    assert exc.value.code == 2
+    assert "not a file" in capsys.readouterr().err
+```
+
+`--help` and usage errors raise `SystemExit` from inside `argparse` itself, so
+those two cases need `pytest.raises`; everything else returns a code normally.
+
+Reserve `subprocess` (the recipe above) for asserting that the installed entry
+point and `python3 -m my_tool` actually work. Business-rule tests should not use
+it: a subprocess runs in a separate interpreter, so its lines miss the parent's
+coverage data and `monkeypatch` in the test process has no effect on it.
+
+### Asserting NO_COLOR compliance
+
+Color detection only engages on a terminal, so a plain `subprocess.run` proves
+nothing: its pipes are not a tty and every library emits plain text. Attach a
+pty (stdlib `pty`) to get an honest answer.
+
+```python
+import os
+import pty
+import subprocess
+import sys
+
+
+def run_on_tty(*args: str, **env_extra: str) -> str:
+    """Run the tool with stderr on a pty and return what a terminal would see."""
+    primary, secondary = pty.openpty()
+    proc = subprocess.Popen(
+        [sys.executable, "-m", "my_tool", *args],
+        stdout=subprocess.DEVNULL,
+        stderr=secondary,
+        env={**os.environ, **env_extra},
+    )
+    os.close(secondary)
+    chunks = []
+    while True:
+        try:
+            data = os.read(primary, 4096)
+        except OSError:
+            break
+        if not data:
+            break
+        chunks.append(data)
+    os.close(primary)
+    proc.wait()
+    return b"".join(chunks).decode()
+
+
+def test_output_is_plain_under_no_color() -> None:
+    """RULES.md §15: output must stay readable with color disabled."""
+    assert "\x1b[" in run_on_tty("report", "build")            # colors on a tty
+    assert "\x1b[" not in run_on_tty("report", "build", NO_COLOR="1")
+```
+
+Both assertions matter. The first proves the test can detect color at all; the
+second is the §15 requirement. Output routed through `rich.console.Console`
+passes both; hand-rolled ANSI passes the first and fails the second, which is
+the difference the test exists to catch. Do not substitute `FORCE_COLOR=1` for
+the pty: rich gives `FORCE_COLOR` precedence over `NO_COLOR`, so the compliant
+path fails too.
+
+The pty helper is POSIX-only. Skip it on Windows with
+`@pytest.mark.skipif(os.name == "nt", ...)`.
 
 ---
 

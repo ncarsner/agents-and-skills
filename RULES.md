@@ -8,11 +8,45 @@ non-negotiable unless explicitly overridden in writing by a human reviewer.
 
 ## Active Profile
 
-Language: [profiles/python.md](profiles/python.md)
+| Declaration | Value |
+|-------------|-------|
+| Language | [profiles/python.md](profiles/python.md) |
+| Framework | none (set to a file in [profiles/](profiles/) when one applies) |
+| Domain | none (set to a file in [profiles/](profiles/) when one applies) |
 
 Sections tagged `[LANG:PYTHON]` delegate their full content to the active
 language profile. When adapting this template to a different language, replace
 the profile file and update this declaration.
+
+Framework profiles are additive. They do not replace any section here; they add
+framework-specific constraints on top of the language profile, and name the
+sections they extend. Available framework profiles:
+
+| Framework | Profile |
+|-----------|---------|
+| Django | [profiles/django.md](profiles/django.md) |
+| Flask | [profiles/flask.md](profiles/flask.md) |
+| FastAPI | [profiles/fastapi.md](profiles/fastapi.md) |
+
+Set `Framework:` to at most one profile. A repository serving two frameworks
+should be split, not dual-profiled. A framework profile is warranted only where
+a third-party framework imposes constraints the language profile does not
+cover; stdlib usage belongs in [profiles/python.md](profiles/python.md) or in
+the relevant `skills/` reference, not in a profile of its own.
+
+Domain profiles cover a concern that is orthogonal to the framework, most often
+a second language present in the codebase. Available domain profiles:
+
+| Domain | Profile |
+|--------|---------|
+| SQL dialect: PostgreSQL | [profiles/postgres.md](profiles/postgres.md) |
+| SQL dialect: T-SQL (SQL Server) | [profiles/tsql.md](profiles/tsql.md) |
+| SQL dialect: PL/SQL (Oracle) | [profiles/plsql.md](profiles/plsql.md) |
+
+`Domain:` accepts a list, but at most one profile per concern; a repository
+does not have two primary SQL dialects. Domain profiles are additive in the
+same way framework profiles are, and stack with them: a Django service on
+PostgreSQL declares both.
 
 ---
 
@@ -92,48 +126,51 @@ steps, the `README.md` MUST be updated in the same commit or PR.
 ## 5. Third-Party Library Authorization `[CORE]`
 
 **Rule:** Before adding any third-party library to a project, verify it is
-listed in the project's **authorized library file**. If it is not listed,
-**stop and request human approval** before proceeding.
+listed in [skills/approved-packages.md](skills/approved-packages.md). If it is
+not listed there, **stop and request human approval** before proceeding.
 
-### Authorized library file
+### The two files, and what each decides
 
-The authorized library file is located at:
+| File | Decides | Scope |
+|------|---------|-------|
+| [skills/approved-packages.md](skills/approved-packages.md) | **What** may be used. Authoritative | Repository-wide, ships with the bundle |
+| `<project-root>/authorized_libraries.md` | **When** a library was approved, by whom, and the earliest date it may be committed | Per project |
 
-```
-<project-root>/authorized_libraries.md   # preferred location
-```
+`skills/approved-packages.md` is the authority on whether a library is
+permitted. A library absent from it is unauthorized, whatever any other file
+says. Being listed there does not by itself permit a commit: the cooling period
+below still applies, and it is tracked per project.
 
-If no such file exists in the project, create one using the template below and
-request human sign-off before populating it.
-
-### Authorized libraries template
-
-```markdown
-# Authorized Third-Party Libraries
-
-Last updated: YYYY-MM-DD
-Approved by: <name or team>
-
-| Library | Version constraint | Purpose | Approved by | Date |
-|---------|--------------------|---------|-------------|------|
-| requests | >=2.31,<3 | HTTP client | <name> | YYYY-MM-DD |
-| pydantic | >=2.0,<3 | Data validation | <name> | YYYY-MM-DD |
-```
+`authorized_libraries.md` is the per-project record, not a second authority. It
+exists so that a project can show when each dependency was approved and when the
+cooling period elapsed. Create it from
+[templates/authorized_libraries.md](templates/authorized_libraries.md), which
+holds the current column set; do not hand-roll the table.
 
 ### Process for adding a new library
 
-1. Check `authorized_libraries.md` — if the library is already listed,
-   proceed with `uv add <library>`.
-2. If the library is **not** listed, create a proposal comment in the PR or
-   issue that includes:
+1. Check [skills/approved-packages.md](skills/approved-packages.md). If the
+   library is listed, it is approved for use. Note the `★` entry in its
+   category and prefer it over the alternatives listed alongside.
+2. Record it in the project's `authorized_libraries.md` with the approver's
+   name, `Approved date`, and `Earliest commit date` (approval + 72h), then
+   wait out the cooling period below before running `uv add <library>`.
+3. If the library is **not** listed in `skills/approved-packages.md`, stop.
+   Open a proposal in the PR or issue that includes:
    - Library name and link to PyPI
    - Proposed version constraint
-   - Purpose and justification
+   - Purpose and justification, including why a listed alternative will not do
    - Any known security advisories (check via `pip-audit` or GitHub Advisory DB)
-3. **Do not add the library to `pyproject.toml` until a human approver has
-   explicitly approved the proposal.**
-4. Once approved, add the library to `authorized_libraries.md` with the
-   approver's name and date, then run `uv add <library>`.
+4. **Do not add the library to `pyproject.toml`, and do not add it to
+   `skills/approved-packages.md`, until a human approver has explicitly
+   approved the proposal.** Amending the authoritative list is a human
+   decision, not an agent one.
+
+### Stdlib
+
+The standard library needs no authorization and no entry in either file. A rule
+elsewhere in this repository that mandates a stdlib module imposes no §5
+obligation.
 
 ### Security check (mandatory for new libraries)
 
@@ -150,9 +187,11 @@ before the library may be added.
 ### Dependency cooling period (mandatory for new libraries)
 
 Supply-chain attacks often target the gap between approval and deployment.
-After a library is approved and added to `authorized_libraries.md`, a minimum
-**72-hour cooling period** must elapse before the dependency may be committed
-to production code.
+Once a library is listed in `skills/approved-packages.md` and recorded in the
+project's `authorized_libraries.md`, a minimum **72-hour cooling period** must
+elapse before the dependency may be committed to production code. The period is
+tracked per project, so a library long-listed in `approved-packages.md` still
+serves its 72 hours the first time a given project adopts it.
 
 During the cooling period:
 
@@ -682,7 +721,7 @@ Reviewers must verify each item before approving:
 - [ ] **Authorship** — No file headers, inline comments, commit trailers, or VC artifact text attributes content to an agent (§18).
 - [ ] **Scope** — PR is atomic; unrelated changes are absent.
 - [ ] **Documentation** — README updated if public-facing behavior changed (§4).
-- [ ] **Dependencies** — Any new library is listed in `authorized_libraries.md` (§5); the §5 cooling period has elapsed and `pip-audit` was re-run immediately before commit.
+- [ ] **Dependencies**: Any new library is listed in `skills/approved-packages.md`, the authoritative §5 list; its approval is recorded in the project's `authorized_libraries.md`; the §5 cooling period has elapsed and `pip-audit` was re-run immediately before commit.
 
 ### Handling Disagreements
 
@@ -713,6 +752,9 @@ Architectural decisions require:
 
 | Date | Change |
 |------|--------|
+| 2026-08-01 | §5 authority resolved: `skills/approved-packages.md` is authoritative for what may be used; `<project-root>/authorized_libraries.md` is the per-project record of when a library was approved and when its cooling period elapses. Previously §5 named only the latter, whose template runtime table is empty, so read strictly it authorized nothing. The inline table template was replaced with a pointer to `templates/authorized_libraries.md` rather than maintaining a third copy. Added a stdlib clause: stdlib needs no authorization and no entry in either file. §19 dependency checklist updated to check both files for their respective facts. |
+| 2026-07-31 | Active Profile block gained a `Domain:` declaration and a domain profile table, for concerns orthogonal to the framework (most often a second language in the codebase). Added SQL dialect profiles `profiles/postgres.md`, `profiles/tsql.md`, and `profiles/plsql.md`. Domain and framework profiles stack; `Domain:` accepts a list but at most one profile per concern. |
+| 2026-07-31 | Active Profile block extended with a `Framework:` declaration and a table of available framework profiles. Framework profiles are additive on top of the language profile and name the sections they extend; no section content moved out of this file. Added `profiles/django.md`, `profiles/flask.md`, and `profiles/fastapi.md`. A profile is warranted only where a third-party framework imposes constraints the language profile does not cover: stdlib usage such as `argparse` belongs in `profiles/python.md` or a `skills/` reference, not in a profile. |
 | 2026-07-28 | §5 added: dependency cooling period. A 72-hour minimum wait now applies between adding an approved library to `authorized_libraries.md` and committing it to production code; `pip-audit` must be re-run immediately before commit. `authorized_libraries.md` template gained `Approved date` and `Earliest commit date` columns. §19 review checklist updated to verify the cooling period elapsed and the re-audit passed. Resolves #69. |
 | 2026-07-12 | `RULES-DRAFTS.md` resolved and deleted — four of its five placeholder sections were already fully covered by §14-§19 and `profiles/python.md`; the three remaining orphaned provisional defaults were promoted: batch-job runtime budget declaration (`profiles/python.md` Performance Standards), PII schema labeling (§16), and container base-image digest pinning (§17). Footer reference to `RULES-DRAFTS.md` removed. |
 | 2026-06-18 | §18 added: Authorship and Attribution — blanket prohibition on all agent attribution in file content, comments, documentation, and version control artifacts; prohibited forms enumerated; enforcement note added (human removes Co-Authored-By trailers, no hook); old §18 renumbered to §19; §6 authorship subsection trimmed to reference §18; §13 cross-reference updated; §19 review checklist and escalation path scope updated to include §18; subagents.md §7 version-stamp rule removed. |

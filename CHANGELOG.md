@@ -5,12 +5,36 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-08-01
+
+### Changed
+- `RULES.md` §5: `skills/approved-packages.md` is now the authoritative list of what may be used. A library absent from it is unauthorized, and amending that list is a human decision, not an agent one. `<project-root>/authorized_libraries.md` keeps a distinct role as the per-project record of when a library was approved and when its 72h cooling period elapses. Previously §5 named only the latter, whose template runtime table is empty, so read strictly it authorized nothing, including `psycopg2`. `RULES-BRIEF.md` §5 row, the §19 dependency checklist, `skills/approved-packages.md`, `templates/authorized_libraries.md`, and `templates/onboarding-checklist.md` all updated to state the split.
+- `RULES.md` §5 gained a stdlib clause: the standard library needs no authorization and no entry in either file. The inline table template was replaced with a pointer to `templates/authorized_libraries.md`, which already carried the current six-column set, rather than maintaining a third copy that had already drifted to five.
+- `profiles/postgres.md`, `profiles/tsql.md`, `profiles/plsql.md`: driver-authorization notes now cite the single authority. Gating is unchanged and still correct, since `pyodbc` and `python-oracledb` remain absent from `skills/approved-packages.md`; only the citation changed. PostgreSQL's `psycopg2-binary` and `asyncpg` are listed, so that profile no longer carries a caveat about an empty table.
+- `.claude/commands/epilogue.md` Step 3: `CLAUDE.md` is updated only where a session changed the standing instructions, and explicitly must not receive a changelog table, dated entry, or session recap. Step 8's checklist item matches. This was the mechanism that regenerated the duplicate every session.
+
+### Removed
+- `CLAUDE.md`'s `## Changelog` section. It was inherited from `AGENTS.md` on 2026-07-12 ("carries forward `AGENTS.md`'s changelog section as `CLAUDE.md`'s own") and was never reconciled against this file, which had existed since 2026-05-14. It then drifted from a per-file edit log into full session recaps. Every date it recorded (2026-07-29, 2026-07-12, 2026-06-10, 2026-06-01, 2026-05-17, 2026-05-14) already has a section here, so nothing was lost. `CHANGELOG.md` is the single record for what changed and when; `CLAUDE.md` holds instructions only, and now links here from its resource table.
+- The prohibition on `click.testing.CliRunner` recorded on 2026-07-31 is withdrawn. It rested on the runner being absent from `templates/authorized_libraries.md`, which is no longer the authority; `click` is listed in `skills/approved-packages.md` and is therefore authorized. The stdlib testing approach in `skills/cli-development.md` (direct calls, `subprocess`, `pty`) stands on its own merits for coverage and mocking, not as a §5 requirement. The Click `CliRunner` recipes in `skills/cli-development.md`, `subagents/cli-agent.md`, and `subagents/testing-agent.md` are valid as written.
+
+---
+
 ## 2026-07-31
 
 ### Added
+- `profiles/django.md`, `profiles/flask.md`, `profiles/fastapi.md`: normative framework profiles (Rule / Prohibited / Rationale, matching `profiles/python.md`), additive on top of the language profile. They link to `skills/web-development.md` for implementation rather than restating it.
+- `profiles/postgres.md`, `profiles/tsql.md`, `profiles/plsql.md`: normative SQL dialect profiles covering the surface SQLAlchemy does not abstract, namely raw SQL, DDL, DSNs, and error handling. Each names its dialect's divergences (identifier folding, `NULL` sort order, transactional versus implicitly committing DDL, upsert idiom) rather than restating shared SQL.
+- `RULES.md` Active Profile block: `Framework:` and `Domain:` declarations plus profile tables. Both axes are additive and stack, so a Django service on PostgreSQL declares one of each. `RULES-BRIEF.md` gained the matching session-start discovery line, since the brief is the documented session-start path.
+- `skills/cli-development.md`: argparse boundary-validation recipes (`type=` callables raising `ArgumentTypeError`, `choices=` with an `Enum`), the `parser.error()`-exits-2 collision with the `EXIT_APP_ERROR` convention, `main(argv)` tests using `capsys`, and a stdlib `pty` helper for the RULES.md §15 `NO_COLOR` assertion.
 - `skills/bundle-distribution.md` — rsync include-list rules (first-match-wins ordering, parent-directory inclusion), clean-slate pruning, subtree merging without nesting, idempotent `.gitignore` appending, source-repo refusal guard, and the alias-shadows-function trap. Registered in `skills/skills.md`.
 
+### Changed
+- `skills/approved-packages.md` §13 and the `skills/skills.md` registry row: argparse is the default for new CLI tools, being stdlib and so carrying no §5 dependency. Click sections are retained for codebases already using it.
+- Rules that would have mandated an unauthorized dependency now defer to the §5 authorization process instead: `pytest-django`, `flask-wtf`, `pyodbc`, `python-oracledb`. Only PostgreSQL has an authorized driver, so `profiles/tsql.md` and `profiles/plsql.md` gate connectivity behind §5.
+- `CLAUDE.md` changelog: same-day entries consolidated into a single dated row.
+
 ### Fixed
+- `skills/database-access.md` "Raw Query Pattern" used `LIMIT :top_n` while presenting itself as generic. `LIMIT` is a syntax error on both SQL Server and Oracle; replaced with `FETCH FIRST ... ROWS ONLY` plus a note on the SQL Server `OFFSET 0 ROWS` prefix. Added an Oracle DSN row and a note that neither the SQL Server nor the Oracle connection string implies driver authorization.
 - Corrected an inaccurate claim recorded in issue #76 during this session: bare `index.md` greps do resolve in downstream copies, since the copy wrapper seeds `index.md` at the project root (grep returns exit 1, no match, rather than exit 2, no such file). The genuine path defect is `sessions/`, tracked separately as #77.
 
 Filed #76 (`index.md` catalog integrity and `/epilogue` wiring), #77 (`sessions/`
