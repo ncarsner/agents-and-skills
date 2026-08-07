@@ -76,9 +76,9 @@ All of the following must pass on the release commit before tagging:
 
 ```bash
 pre-commit run --all-files          # secret scanning (RULES.md §8)
-ruff check .                        # no lint errors
-mypy src/                           # no type errors
-python3 -m pytest --cov=src --cov-fail-under=100   # 100% coverage
+uv run ruff check .                 # no lint errors
+uv run mypy src/                    # no type errors
+uv run pytest --cov=src --cov-fail-under=100      # 100% coverage
 pip-audit                           # no known dependency vulnerabilities
 ```
 

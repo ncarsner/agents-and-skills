@@ -43,7 +43,7 @@ my-cli-tool/
 ├── src/
 │   └── my_cli_tool/
 │       ├── __init__.py
-│       ├── __main__.py       # enables `python3 -m my_cli_tool`
+│       ├── __main__.py       # enables `uv run python -m my_cli_tool`
 │       ├── cli.py            # click/argparse entry point(s)
 │       ├── core.py           # business logic (no I/O dependencies)
 │       └── utils.py          # shared utilities
@@ -67,7 +67,8 @@ my-cli-tool/
 my-tool = "my_cli_tool.cli:main"
 ```
 
-After `uv pip install -e .`, users can run `my-tool` directly.
+After `uv sync` (which installs the project editable), users can run
+`uv run my-tool` directly.
 
 ---
 

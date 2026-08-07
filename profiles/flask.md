@@ -327,7 +327,7 @@ authorization-failure path.
 
 | Requirement | Detail |
 |---|---|
-| Runner | `uv run python3 -m pytest` |
+| Runner | `uv run pytest` |
 | App fixture | Calls `create_app(TestSettings())`, function or module scoped |
 | Client | `app.test_client()` from that fixture |
 | Database | A transaction rolled back per test, or a per-test schema |
@@ -335,7 +335,7 @@ authorization-failure path.
 | Migrations | A test asserting `alembic upgrade head` succeeds from empty |
 
 ```bash
-uv run python3 -m pytest --cov=src --cov-fail-under=100
+uv run pytest --cov=src --cov-fail-under=100
 ```
 
 ### Prohibited

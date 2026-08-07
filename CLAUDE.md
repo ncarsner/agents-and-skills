@@ -28,9 +28,9 @@ artifacts. See [RULES.md §18](RULES.md#18-authorship-and-attribution).
 
 ## After every Python edit
 ```bash
-ruff format <file> && ruff check --fix <file>
-mypy src/
-python3 -m pytest -x
+uv run ruff format <file> && uv run ruff check --fix <file>
+uv run mypy src/
+uv run pytest -x
 ```
 
 ## Pipeline Discipline

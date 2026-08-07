@@ -29,6 +29,7 @@ select = [
     "S",     # flake8-bandit (security)
     "N",     # pep8-naming
     "ANN",   # flake8-annotations
+    "D",     # pydocstyle (enforces the docstring rule in profiles/python.md)
     "RUF",   # ruff-specific rules
     "PT",    # flake8-pytest-style
     "SIM",   # flake8-simplify
@@ -41,8 +42,7 @@ ignore = [
     "D104",    # missing docstring in public package
     "D203",    # one-blank-line-before-class (conflicts with D211)
     "D213",    # multi-line-summary-second-line (conflicts with D212)
-    "ANN101",  # missing-type-self (self annotation not required)
-    "ANN102",  # missing-type-cls (cls annotation not required)
+    "D107",    # __init__ is documented by its class docstring
 ]
 
 fixable = ["ALL"]
@@ -73,5 +73,5 @@ convention = "google"  # "google", "numpy", or "pep257"
 [format]
 quote-style = "double"       # "double" or "single"
 indent-style = "space"       # "space" or "tab"
-magic-trailing-comma = true  # preserve intentional trailing commas
+skip-magic-trailing-comma = false  # preserve intentional trailing commas
 line-ending = "auto"         # "auto", "lf", or "crlf"

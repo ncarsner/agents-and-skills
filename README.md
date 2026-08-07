@@ -241,8 +241,10 @@ Slash commands are invokable skills that live in `.claude/skills/` and appear as
 
 | Setting | Value |
 |---------|-------|
-| Python executable | `python3` |
+| Python baseline | 3.12 |
+| Python invocation | `uv run` (never a bare `python3`) |
 | Package manager | `uv` |
+| Dev dependencies | `[dependency-groups]` (PEP 735) |
 | Linter + formatter | `ruff` |
 | Type checker | `mypy` |
 | Test runner | `pytest` |
@@ -257,16 +259,16 @@ Slash commands are invokable skills that live in `.claude/skills/` and appear as
 uv venv && uv sync
 
 # Run tests with 100% coverage check
-python3 -m pytest --cov=src --cov-fail-under=100
+uv run pytest --cov=src --cov-fail-under=100
 
 # Lint
-ruff check .
+uv run ruff check .
 
 # Format
-ruff format .
+uv run ruff format .
 
 # Type check
-mypy src/
+uv run mypy src/
 ```
 
 ---
