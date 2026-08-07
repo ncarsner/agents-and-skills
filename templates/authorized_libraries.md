@@ -52,7 +52,7 @@ See RULES.md §5 for the full authorization process. Summary:
    - Library name and PyPI link
    - Proposed version constraint
    - Purpose and justification
-   - Output of `python3 -m pip_audit` showing no HIGH or CRITICAL vulnerabilities
+   - Output of `uv run pip-audit` showing no HIGH or CRITICAL vulnerabilities
 4. Do not add to `pyproject.toml`, or to `skills/approved-packages.md`, until a
    human approver has explicitly signed off. Amending the authoritative list is
    a human decision.

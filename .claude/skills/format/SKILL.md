@@ -11,8 +11,8 @@ allowed-tools: Bash(ruff *) Bash(git diff *)
 Run the full format + lint cycle on the project:
 
 ```bash
-ruff format .
-ruff check --fix .
+uv run ruff format .
+uv run ruff check --fix .
 ```
 
 Report which files changed and any lint errors that could not be auto-fixed.

@@ -465,7 +465,7 @@ def test_rejects_missing_input_file(capsys) -> None:
 those two cases need `pytest.raises`; everything else returns a code normally.
 
 Reserve `subprocess` (the recipe above) for asserting that the installed entry
-point and `python3 -m my_tool` actually work. Business-rule tests should not use
+point and `uv run python -m my_tool` actually work. Business-rule tests should not use
 it: a subprocess runs in a separate interpreter, so its lines miss the parent's
 coverage data and `monkeypatch` in the test process has no effect on it.
 

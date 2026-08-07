@@ -20,16 +20,16 @@ Testing agents design, implement, and maintain test suites that:
 ## Quick Reference: Test Commands
 
 ```bash
-python3 -m pytest                              # run all tests
-python3 -m pytest tests/unit/                 # unit tests only
-python3 -m pytest tests/integration/          # integration tests only
-python3 -m pytest -x                          # stop on first failure
-python3 -m pytest -v                          # verbose (show test names)
-python3 -m pytest -k "tax"                    # filter by name fragment
-python3 -m pytest --cov=src --cov-report=term-missing   # coverage report
-python3 -m pytest --cov=src --cov-fail-under=100        # enforce 100%
-python3 -m pytest --tb=short                  # shorter traceback format
-python3 -m pytest --durations=10              # show 10 slowest tests
+uv run pytest                              # run all tests
+uv run pytest tests/unit/                 # unit tests only
+uv run pytest tests/integration/          # integration tests only
+uv run pytest -x                          # stop on first failure
+uv run pytest -v                          # verbose (show test names)
+uv run pytest -k "tax"                    # filter by name fragment
+uv run pytest --cov=src --cov-report=term-missing   # coverage report
+uv run pytest --cov=src --cov-fail-under=100        # enforce 100%
+uv run pytest --tb=short                  # shorter traceback format
+uv run pytest --durations=10              # show 10 slowest tests
 ```
 
 ---

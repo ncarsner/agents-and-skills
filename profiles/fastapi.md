@@ -306,7 +306,7 @@ its authorization-failure path (401 or 403).
 
 | Requirement | Detail |
 |---|---|
-| Runner | `uv run python3 -m pytest` |
+| Runner | `uv run pytest` |
 | Async tests | `pytest-asyncio` |
 | Sync client | `TestClient`, per `skills/web-development.md` Testing |
 | Async client | `httpx.AsyncClient` with `ASGITransport` for async paths |
@@ -315,7 +315,7 @@ its authorization-failure path (401 or 403).
 | External I/O | Mocked per `profiles/python.md` Testing and Coverage |
 
 ```bash
-uv run python3 -m pytest --cov=src --cov-fail-under=100
+uv run pytest --cov=src --cov-fail-under=100
 ```
 
 ### Prohibited

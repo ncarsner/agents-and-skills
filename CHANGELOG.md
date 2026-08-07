@@ -5,6 +5,32 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-08-07
+
+### Fixed
+- `templates/pyproject.toml` and `templates/ruff.toml` set `magic-trailing-comma = true`, which is not a valid `[tool.ruff.format]` field (the real one is `skip-magic-trailing-comma`, inverted). `ruff check` errored outright on the shipped template, so every project scaffolded from it had a broken lint gate. Found by materializing the template and running it, not by reading it. Corrected to `skip-magic-trailing-comma = false`, which preserves the intended behavior.
+- `RULES.md` §5 ran its mandatory vulnerability scan as `pip_audit --requirement <(uv pip compile pyproject.toml)`. That command resolves `[project] dependencies` only. With dev dependencies moved to `[dependency-groups]` it would have silently stopped covering them: measured on a probe project, `uv pip compile` resolved 5 packages where `uv export --all-groups` resolved 19. Both occurrences now export from `uv.lock` with hashes. `--no-deps` is justified on the merits (the export is already a complete pinned resolution); `--disable-pip` is documented as a fallback for machines where pip-audit cannot bootstrap its resolution environment, not as part of the canonical command.
+- `templates/pyproject.toml` and `templates/ruff.toml` ignored `D100`/`D104`/`D203`/`D213` without ever selecting `D`, so the profile's docstring rule had no tooling behind it. `D` is now selected with `convention = "google"`. Verified that `D101`, `D102`, and `D103` fire and that `D107` (missing `__init__` docstring) is ignored, since the class docstring documents construction.
+- Both templates ignored `ANN101` and `ANN102`, removed from ruff in 0.8.0. Dropped, along with the same pair in `skills/python-linting.md`.
+
+### Changed
+- `profiles/python.md` Package Management: dev dependencies are declared in `[dependency-groups]` (PEP 735), never in `[project.optional-dependencies]` and never in the pre-standard `[tool.uv] dev-dependencies` table. The `uv pip install -e ".[dev]"` row was a pip shim inside a profile whose own rule is "never use pip"; it is now prohibited. `uv sync` installs the project editable on its own, verified by importing the package from outside its directory and confirming the path resolves into `src/`. `templates/pyproject.toml` and `skills/python-uv-workflow.md` carried the same deprecated table plus a duplicate `dev` extra; both now declare one `[dependency-groups] dev`.
+- `profiles/python.md` Python Executable: every invocation goes through `uv run`. Bare `python3` is prohibited alongside `python` and `py`, because it resolves against `$PATH` and can pick up a system interpreter, which PEP 668 marks as externally managed for that reason. This contradiction had been sitting between the profile and `RULES-BRIEF.md` §2, which already said "`python3` via `uv run`". The sweep touched 20 files, including `CLAUDE.md`'s "After every Python edit" block, the profile's own Enforcement block, `.claude/skills/{test,format}`, `subagents/testing-agent.md`, and `skills/python-{testing,linting,formatting}.md`.
+- `profiles/python.md` Type hints: the Python baseline is stated once as 3.12 and the compatibility hedges are gone. Built-in generics (PEP 585) and `X | None` (PEP 604) are unconditional; `typing.List`, `Dict`, `Tuple`, `Set`, `Optional`, and `Union` are prohibited. `requires-python`, `[tool.mypy] python_version`, `skills/python-formatting.md`, and `skills/python-linting.md` moved from 3.11 to match `.python-version` and ruff's `target-version`, which were already 3.12.
+- `profiles/python.md` no longer mandates `from __future__ import annotations`. A blanket mandate breaks anything reading annotations at runtime (Pydantic, FastAPI route signatures, `dataclasses`, `get_type_hints`), which conflicts with this repo's own FastAPI and Django profiles. PEP 563 is Superseded and PEP 649/749 make deferred evaluation the default in 3.14 without it. Quoted forward references are the replacement, with the `if TYPE_CHECKING:` `NameError` trap called out explicitly, since the coverage config blesses that idiom. `skills/python-formatting.md` and `skills/process-modernization.md` had the import as a routine example and now agree.
+- `templates/pyproject.toml` and `skills/python-uv-workflow.md`: `license = { text = "MIT" }` replaced with an SPDX string plus `license-files` (PEP 639). Confirmed the `LICENSE` file lands in the wheel's `dist-info/licenses/`.
+- The dev-group mypy floor moved from `>=1.10` to `>=1.12`, the release that enables PEP 695 type-parameter syntax by default rather than behind `--enable-incomplete-feature=NewGenericSyntax`.
+- The CI example in `skills/python-uv-workflow.md` installed with `uv sync --all-extras`, which resolves to nothing once dev deps are a group. Changed to plain `uv sync`, which includes the dev group, rather than `--all-groups`, which would newly install every group a project defines.
+
+### Added
+- `profiles/python.md` Error Handling: `raise ... from exc` (PEP 3134) is now a rule with an example, including `from None` for deliberate suppression. The section previously said "re-raise with context" while omitting the one syntax that preserves it. `exc.add_note()` (PEP 678) and `ExceptionGroup`/`except*` for concurrent fan-out (PEP 654) added as rules.
+- `profiles/python.md` Code Quality: a `py.typed` subsection (PEP 561). Verified that hatchling's `packages = ["src/<name>"]` ships the marker with no extra build configuration, so the profile documents that rather than adding a no-op include line.
+- `profiles/python.md` and `skills/python-uv-workflow.md`: PEP 723 inline script metadata as the pattern for one-off scripts, replacing `python3 src/<entry>.py`.
+- `profiles/python.md`: PEP 695 type parameters, PEP 692 `Unpack[TypedDict]`, and PEP 698 `@override` documented as available at 3.12 and explicitly not mandatory, since runtime introspection of `type` aliases is still uneven.
+- `skills/python-uv-workflow.md`: a lock-export section covering the audit requirements export and PEP 751 `pylock.toml`. `uv.lock` remains the source of truth.
+
+---
+
 ## 2026-08-01
 
 ### Changed

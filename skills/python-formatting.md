@@ -18,10 +18,10 @@ uv add --dev ruff
 
 ### Usage
 ```bash
-ruff format .               # format all Python files in place
-ruff format src/ tests/     # format specific directories
-ruff format . --check       # exit non-zero if any file would change (CI)
-ruff format path/to/file.py # format a single file
+uv run ruff format .               # format all Python files in place
+uv run ruff format src/ tests/     # format specific directories
+uv run ruff format . --check       # exit non-zero if any file would change (CI)
+uv run ruff format path/to/file.py # format a single file
 ```
 
 ---
@@ -31,13 +31,13 @@ ruff format path/to/file.py # format a single file
 ```toml
 [tool.ruff]
 line-length = 88              # Black-compatible default
-target-version = "py311"      # minimum supported Python version
+target-version = "py312"      # minimum supported Python version
 src = ["src"]                 # treat src/ as first-party for import ordering
 
 [tool.ruff.format]
 quote-style = "double"        # "double" or "single"
 indent-style = "space"        # "space" or "tab"
-magic-trailing-comma = true   # respect trailing commas in collections
+skip-magic-trailing-comma = false  # respect trailing commas in collections
 line-ending = "auto"          # "auto", "lf", or "crlf"
 ```
 
@@ -60,10 +60,13 @@ Import order enforced by ruff:
 4. First-party (your package)
 5. Local relative imports
 
+`__future__` sorts first when present, but do not add
+`from __future__ import annotations` by default. See the deferred-annotations
+rule in [profiles/python.md](../profiles/python.md): it breaks libraries that
+read annotations at runtime, and PEP 649 makes it unnecessary at Python 3.14.
+
 ```python
 # Correct import order
-from __future__ import annotations
-
 import os
 import sys
 from pathlib import Path
@@ -106,7 +109,7 @@ Add a formatting check step to your GitHub Actions workflow:
 
 ```yaml
 - name: Check formatting
-  run: ruff format . --check
+  run: uv run ruff format . --check
 ```
 
 ---

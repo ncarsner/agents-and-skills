@@ -24,38 +24,38 @@ for all new code.
 
 ```bash
 # Run all tests
-python3 -m pytest
+uv run pytest
 
 # Run specific file or directory
-python3 -m pytest tests/unit/test_core.py
-python3 -m pytest tests/unit/
+uv run pytest tests/unit/test_core.py
+uv run pytest tests/unit/
 
 # Run with coverage (terminal report)
-python3 -m pytest --cov=src --cov-report=term-missing
+uv run pytest --cov=src --cov-report=term-missing
 
 # Run with coverage (HTML report — open htmlcov/index.html)
-python3 -m pytest --cov=src --cov-report=html
+uv run pytest --cov=src --cov-report=html
 
 # Enforce 100% coverage (fails build if below threshold)
-python3 -m pytest --cov=src --cov-fail-under=100
+uv run pytest --cov=src --cov-fail-under=100
 
 # Stop on first failure
-python3 -m pytest -x
+uv run pytest -x
 
 # Verbose output
-python3 -m pytest -v
+uv run pytest -v
 
 # Run only tests matching a keyword
-python3 -m pytest -k "tax or invoice"
+uv run pytest -k "tax or invoice"
 
 # Run tests marked as "unit"
-python3 -m pytest -m unit
+uv run pytest -m unit
 
 # Show locals on failure
-python3 -m pytest -l
+uv run pytest -l
 
 # Re-run failed tests from last run
-python3 -m pytest --lf
+uv run pytest --lf
 ```
 
 ---
@@ -317,7 +317,7 @@ def test_pipeline_writes_to_database(test_db_url: str) -> None:
 Run integration tests in isolation:
 
 ```bash
-python3 -m pytest tests/integration/ -m integration
+uv run pytest tests/integration/ -m integration
 ```
 
 ### Coverage Minimum

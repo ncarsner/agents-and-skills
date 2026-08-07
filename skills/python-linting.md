@@ -18,12 +18,12 @@ Reusable patterns and configuration for Python static analysis using `ruff`
 
 ### Commands
 ```bash
-ruff check .                  # lint all Python files
-ruff check . --fix            # auto-fix safe issues
-ruff check . --fix --unsafe-fixes  # also apply unsafe fixes (review changes)
-ruff check src/               # lint a specific directory
-ruff check path/to/file.py    # lint a single file
-ruff check . --output-format=github  # GitHub Actions annotation format
+uv run ruff check .                  # lint all Python files
+uv run ruff check . --fix            # auto-fix safe issues
+uv run ruff check . --fix --unsafe-fixes  # also apply unsafe fixes (review changes)
+uv run ruff check src/               # lint a specific directory
+uv run ruff check path/to/file.py    # lint a single file
+uv run ruff check . --output-format=github  # GitHub Actions annotation format
 ```
 
 ### Rule Selection (in `pyproject.toml`)
@@ -56,8 +56,7 @@ ignore = [
     "D104",  # allow missing docstring in public package (__init__.py)
     "D203",  # conflicts with D211
     "D213",  # conflicts with D212
-    "ANN101", # `self` type annotation not required
-    "ANN102", # `cls` type annotation not required
+    "D107",  # __init__ is documented by its class docstring
 ]
 fixable = ["ALL"]
 unfixable = ["ERA"]            # never auto-delete commented code
@@ -87,17 +86,17 @@ unfixable = ["ERA"]            # never auto-delete commented code
 
 ### Commands
 ```bash
-mypy src/                     # type-check the src directory
-mypy src/ --strict            # enable all optional error codes
-mypy src/ --ignore-missing-imports  # suppress missing stub warnings
-mypy src/ --html-report reports/mypy/  # generate HTML report
+uv run mypy src/                     # type-check the src directory
+uv run mypy src/ --strict            # enable all optional error codes
+uv run mypy src/ --ignore-missing-imports  # suppress missing stub warnings
+uv run mypy src/ --html-report reports/mypy/  # generate HTML report
 ```
 
 ### Configuration (in `pyproject.toml`)
 
 ```toml
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
@@ -166,7 +165,7 @@ if user is None:
     raise ValueError("user must not be None")
 ```
 
-### `UP006` / `UP007` — Use modern type hints (Python 3.10+)
+### `UP006` / `UP007`: use modern type hints (PEP 585, PEP 604)
 ```python
 # Bad (old style)
 from typing import List, Optional, Union
@@ -242,22 +241,22 @@ items: list = []  # type: ignore[assignment]  -- legacy API returns untyped list
 ```yaml
 # .github/workflows/lint.yml
 - name: Run ruff lint
-  run: ruff check . --output-format=github
+  run: uv run ruff check . --output-format=github
 
 - name: Run ruff format check
-  run: ruff format . --check
+  run: uv run ruff format . --check
 
 - name: Run mypy
-  run: mypy src/
+  run: uv run mypy src/
 ```
 
 ---
 
 ## Lint Checklist
 
-- [ ] `ruff check .` passes with no errors
-- [ ] `ruff format . --check` passes (no formatting changes needed)
-- [ ] `mypy src/` passes with no errors
+- [ ] `uv run ruff check .` passes with no errors
+- [ ] `uv run ruff format . --check` passes (no formatting changes needed)
+- [ ] `uv run mypy src/` passes with no errors
 - [ ] No bare `# noqa` without a specific rule code
 - [ ] No `# type: ignore` without a comment explaining why
 - [ ] All public functions have type annotations

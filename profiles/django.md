@@ -306,7 +306,7 @@ authorization-failure path.
 
 | Requirement | Detail |
 |---|---|
-| Runner | `uv run python3 -m pytest` |
+| Runner | `uv run pytest` |
 | DB access | Opt in per test, never enabled globally for the suite |
 | Fixtures | `pytest` fixtures and factory functions |
 | Query counts | Assert an exact query count on every list endpoint |
@@ -318,7 +318,7 @@ Django, no extra dependency) unless the pytest integration plugin has been
 authorized under §5.
 
 ```bash
-uv run python3 -m pytest --cov=src --cov-fail-under=100
+uv run pytest --cov=src --cov-fail-under=100
 uv run python3 manage.py makemigrations --check --dry-run
 ```
 
@@ -383,7 +383,7 @@ uv run python3 manage.py collectstatic --no-input
 ### Prohibited
 
 ```bash
-python3 manage.py runserver 0.0.0.0:8000     # NEVER in any deployed environment
+uv run python manage.py runserver 0.0.0.0:8000     # NEVER in any deployed environment
 ```
 
 `runserver` is single-threaded, auto-reloading, and explicitly documented as

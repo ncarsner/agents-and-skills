@@ -41,9 +41,9 @@ derived from these templates. Complete all items before acting on any task.
 ## Step 4 — Confirm Toolchain
 
 - [ ] Run `uv sync` to install all dependencies.
-- [ ] Run `python3 -m pytest -x` to confirm the test suite passes.
-- [ ] Run `ruff check .` to confirm no lint errors.
-- [ ] Run `mypy src/` to confirm type correctness (if `src/` exists).
+- [ ] Run `uv run pytest -x` to confirm the test suite passes.
+- [ ] Run `uv run ruff check .` to confirm no lint errors.
+- [ ] Run `uv run mypy src/` to confirm type correctness (if `src/` exists).
 
 ## Step 5 — Understand Current State
 

@@ -19,10 +19,15 @@ Sections here correspond to `[LANG:PYTHON]` sections in `RULES.md`.
 | Create virtual environment | `uv venv` |
 | Add a runtime dependency | `uv add <package>` |
 | Add a dev-only dependency | `uv add --dev <package>` |
+| Add to a named dependency group | `uv add --group <group> <package>` |
 | Remove a dependency | `uv remove <package>` |
-| Install all dependencies | `uv sync` |
+| Install project and default groups | `uv sync` |
+| Install a specific group | `uv sync --group <group>` |
 | Regenerate lock file | `uv lock` |
-| Install project in editable mode | `uv pip install -e ".[dev]"` |
+| Export pinned requirements | `uv export --all-groups --no-emit-project --format requirements-txt` |
+
+`uv sync` installs the project itself in editable mode. There is no separate
+editable-install step.
 
 ### Prohibited commands
 
@@ -32,28 +37,73 @@ pip install <package>
 pip3 install <package>
 conda install <package>
 poetry add <package>
+uv pip install -e ".[dev]"   # pip shim; dev deps belong in a dependency group
 ```
+
+### Dependency groups vs. optional dependencies
+
+Declare development dependencies in `[dependency-groups]` (PEP 735), never in
+`[project.optional-dependencies]` and never in the pre-standard
+`[tool.uv] dev-dependencies` table.
+
+```toml
+# Correct: local-only, not published in package metadata
+[dependency-groups]
+dev = ["pytest>=8.0", "ruff>=0.4", "mypy>=1.12"]
+
+# Wrong: deprecated pre-standard form
+[tool.uv]
+dev-dependencies = [...]
+```
+
+| Table | Purpose |
+|-------|---------|
+| `[dependency-groups]` | Local development and CI tooling. Not published to an index. |
+| `[project.optional-dependencies]` | Optional *runtime* features consumers opt into via `package[extra]`. |
+
+Dev tooling is never a published extra. Reserve extras for features a consumer
+of the package can actually enable.
 
 ### Rationale
 
 `uv` provides deterministic installs via `uv.lock`, is significantly faster
 than pip, and is the single source of truth for dependency management across
-all projects in this repository.
+all projects in this repository. `[dependency-groups]` is the standard
+(PEP 735) replacement for tool-specific dev-dependency tables.
 
 ---
 
 ## Python Executable
 
-**Rule:** Always invoke Python using `python3`. Never use `python` (which may
-resolve to Python 2 on some systems) or a bare `py` alias.
+**Rule:** Always invoke Python and its tooling through `uv run`. Never call a
+bare `python`, `python3`, or `py` from `$PATH`.
 
 ### Correct usage
 
 ```bash
-python3 -m pytest              # run tests
-python3 -m <package_name>      # run package as module
-python3 src/<entry>.py         # run script directly
-python3 --version              # verify interpreter version
+uv run pytest                  # run tests
+uv run python -m <package>     # run package as module
+uv run ruff check .            # run a dev-group tool
+uv run python --version        # verify interpreter version
+```
+
+### Standalone scripts
+
+For a one-off script outside a project, declare its dependencies inline with
+PEP 723 metadata and run it directly. `uv` builds the environment on demand,
+so no virtual environment or `requirements.txt` is needed.
+
+```python
+# /// script
+# requires-python = ">=3.12"
+# dependencies = ["httpx>=0.27"]
+# ///
+
+import httpx
+```
+
+```bash
+uv run report.py               # uv reads the PEP 723 header
 ```
 
 ### Prohibited usage
@@ -62,13 +112,19 @@ python3 --version              # verify interpreter version
 # NEVER use these:
 python script.py
 py script.py
+python3 -m pytest              # may resolve outside the project environment
 ```
 
 ### Rationale
 
-Using `python3` ensures the correct interpreter is always invoked, regardless
-of system-level alias configuration. This prevents silent failures caused by
-Python 2 being picked up from `$PATH`.
+`uv run` guarantees the project's locked environment and pinned interpreter,
+so a command behaves identically on every machine and in CI. A bare `python3`
+resolves against `$PATH` and can silently pick up a system interpreter with a
+different version and different packages installed.
+
+PEP 668 marks system Python installations as externally managed precisely
+because installing into them is unsafe. Routing every invocation through
+`uv run` means the project never touches one.
 
 ---
 
@@ -106,15 +162,24 @@ Rules:
   that can propagate (`Raises:`).
 - Private helpers (`_name`) should have at minimum a one-line docstring.
 
+This rule is enforced, not advisory. The project ruff config selects the `D`
+(pydocstyle) rule set with `convention = "google"`, so a missing or malformed
+docstring fails `ruff check`. A config that ignores `D1xx` codes without
+selecting `D` enforces nothing.
+
 ### Type hints
+
+Baseline interpreter is **Python 3.12** (`.python-version`, `requires-python`,
+ruff `target-version`, and mypy `python_version` all state 3.12). Write for that
+version without compatibility hedges.
 
 - Annotate every function/method signature, including `self`-less methods and
   standalone functions.
-- Use `from __future__ import annotations` at the top of modules that reference
-  forward-declared types.
-- Prefer built-in generics (`list[str]`, `dict[str, int]`) over `typing.List`
-  and `typing.Dict` (Python ≥ 3.9).
-- Use `Optional[X]` only for clarity; prefer `X | None` in Python ≥ 3.10.
+- Use built-in generics: `list[str]`, `dict[str, int]`, `tuple[int, ...]`
+  (PEP 585). `typing.List`, `typing.Dict`, `typing.Tuple`, and `typing.Set` are
+  prohibited.
+- Use `X | None` and `X | Y` (PEP 604). `typing.Optional` and `typing.Union` are
+  prohibited.
 
 ```python
 # Good
@@ -124,7 +189,73 @@ def fetch_records(limit: int, offset: int = 0) -> list[dict[str, str]]:
 # Bad — missing annotations
 def fetch_records(limit, offset=0):
     ...
+
+# Bad: legacy typing aliases
+def fetch_records(limit: int) -> List[Optional[Dict[str, str]]]:
+    ...
 ```
+
+#### Deferred annotations
+
+Do **not** add `from __future__ import annotations` by default.
+
+The import turns every annotation into a string, which breaks any library that
+reads annotations at runtime: Pydantic models, FastAPI route signatures,
+`dataclasses` with resolved field types, and anything calling
+`typing.get_type_hints()` on a type it cannot resolve from the module namespace.
+PEP 563 (which introduced the import) is Superseded, and PEP 649/749 make
+deferred evaluation the default in Python 3.14 without it.
+
+For a genuine import cycle, quote the individual annotation instead:
+
+```python
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from myapp.billing import Invoice
+
+
+def summarize(invoice: "Invoice") -> str:
+    """Render a one-line summary of an invoice."""
+```
+
+The quotes are mandatory here. Without the blanket future import, an unquoted
+`Invoice` in a signature raises `NameError` at import time, because the
+`TYPE_CHECKING` block never executed. Coverage configs exclude
+`if TYPE_CHECKING:` blocks, so this pattern is common and the failure is easy
+to introduce.
+
+Add the future import to a specific module only when that module has a cycle
+that quoting cannot resolve, and note the reason in a comment.
+
+#### Modern typing constructs (available, not mandatory)
+
+Python 3.12 supports these. Use them where they read more clearly than the
+older spelling; none is required.
+
+| Construct | PEP | Use for |
+|-----------|-----|---------|
+| `def f[T](x: T) -> T`, `class Box[T]`, `type Alias = ...` | 695 | Generics without a module-level `TypeVar` |
+| `**kwargs: Unpack[ParamsDict]` | 692 | Precisely typing `**kwargs` |
+| `@override` | 698 | Marking an intentional base-class override |
+
+PEP 695 requires `mypy>=1.12`, which is the floor set in the project template.
+Runtime introspection of `type` aliases is still uneven across libraries, so
+prefer explicit `TypeVar` in code that reflects over its own annotations.
+
+### Distributing types (`py.typed`)
+
+Any package that is installed or published MUST ship a `py.typed` marker so
+downstream type checkers use its inline annotations (PEP 561). Without it, an
+otherwise fully annotated package is treated as untyped by consumers.
+
+```
+src/<package_name>/py.typed      # empty file
+```
+
+With the standard `src/` layout and hatchling's
+`packages = ["src/<package_name>"]`, the marker is included in the wheel
+automatically. No extra build configuration is required.
 
 ### Inline comments
 
@@ -148,9 +279,9 @@ counter += 1
 Run the following after every edit:
 
 ```bash
-ruff format <file_path>        # auto-format
-ruff check --fix <file_path>   # auto-fix lint issues
-mypy src/                      # verify type correctness
+uv run ruff format <file_path>        # auto-format
+uv run ruff check --fix <file_path>   # auto-fix lint issues
+uv run mypy src/                      # verify type correctness
 ```
 
 ---
@@ -172,7 +303,7 @@ coverage.
 - Run the full suite before every PR:
 
 ```bash
-python3 -m pytest --cov=src --cov-fail-under=100
+uv run pytest --cov=src --cov-fail-under=100
 ```
 
 ### Prohibited practices
@@ -203,6 +334,27 @@ except:          # catches KeyboardInterrupt, SystemExit, etc.
     pass
 ```
 
+### Exception chaining
+
+When translating an exception into a domain-specific type, always chain it with
+`raise ... from exc` (PEP 3134). This preserves the original traceback under
+"The above exception was the direct cause of the following exception". A bare
+`raise NewError(...)` inside an `except` block reports the original as an
+incidental "During handling of the above exception", which reads as a bug in the
+handler rather than the real cause.
+
+```python
+# Good: cause is explicit
+try:
+    payload = json.loads(raw)
+except json.JSONDecodeError as exc:
+    raise InvoiceParseError(f"malformed invoice payload: {exc}") from exc
+
+# Deliberately suppressing the cause is also explicit
+except LookupError:
+    raise InvoiceParseError("unknown invoice schema") from None
+```
+
 ### Additional rules
 
 - Use custom exception classes (subclasses of `Exception`) for domain-specific
@@ -212,6 +364,11 @@ except:          # catches KeyboardInterrupt, SystemExit, etc.
   reason.
 - Propagate errors upward to a defined error boundary; do not let errors leak
   silently across layers.
+- Attach diagnostic context with `exc.add_note(...)` (PEP 678) rather than
+  rebuilding the exception message, when re-raising the same exception type.
+- For concurrent fan-out where several tasks can fail independently
+  (`asyncio.TaskGroup`, batch workers), raise an `ExceptionGroup` and handle it
+  with `except*` (PEP 654). Do not discard all but the first failure.
 
 ---
 

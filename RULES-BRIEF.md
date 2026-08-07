@@ -9,9 +9,9 @@ One-line summary per section. Load [RULES.md](RULES.md) in full only when the ta
 
 | § | Rule | When to load full section |
 |---|------|--------------------------|
-| 1 | Package mgmt: `uv` only, no pip/poetry. See [profiles/python.md](profiles/python.md). | Adding/removing deps |
-| 2 | Python executable: `python3` via `uv run`. See [profiles/python.md](profiles/python.md). | Env/subprocess issues |
-| 3 | Code quality: ruff + mypy + type hints + minimal docstrings. See [profiles/python.md](profiles/python.md). | Code review, new modules |
+| 1 | Package mgmt: `uv` only, no pip/poetry. Dev deps in `[dependency-groups]` (PEP 735), never extras. See [profiles/python.md](profiles/python.md). | Adding/removing deps |
+| 2 | Python executable: always `uv run`, never a bare `python3`. Baseline 3.12. See [profiles/python.md](profiles/python.md). | Env/subprocess issues |
+| 3 | Code quality: ruff + mypy + type hints + minimal docstrings. PEP 585/604 spellings; no blanket `from __future__ import annotations`. See [profiles/python.md](profiles/python.md). | Code review, new modules |
 | 4 | README: update in same commit whenever public-facing behavior changes. | Any feature/CLI/config change |
 | 5 | Third-party libs: check [skills/approved-packages.md](skills/approved-packages.md) (authoritative) before adding; stop and ask if unlisted; record the approval in the project's `authorized_libraries.md` and wait the 72h cooling period before commit. Stdlib needs neither. | Adding new dependency |
 | 6 | Commits: Conventional Commits format, feature branch only, no agent authorship ever. | All commits/PRs |

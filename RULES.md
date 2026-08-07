@@ -178,11 +178,26 @@ Before requesting approval, run a vulnerability scan:
 
 ```bash
 uv add --dev pip-audit
-python3 -m pip_audit --requirement <(uv pip compile pyproject.toml)
+uv export --all-groups --no-emit-project \
+  --format requirements-txt > audit-requirements.txt
+uv run pip-audit --requirement audit-requirements.txt --no-deps
 ```
 
 Any HIGH or CRITICAL vulnerabilities must be resolved or explicitly accepted
 before the library may be added.
+
+> **Why not `uv pip compile pyproject.toml`:** that command resolves
+> `[project] dependencies` only. Development dependencies live in
+> `[dependency-groups]` (PEP 735) and would be silently excluded from the scan.
+> `uv export --all-groups` reads `uv.lock`, so it audits exactly what is
+> installed, dev tooling included. Delete `audit-requirements.txt` afterwards or
+> add it to `.gitignore`; it is a scan artifact, not a lock file.
+>
+> **Why `--no-deps`:** the export is already a complete, hash-pinned resolution
+> from `uv.lock`. Letting pip-audit re-resolve would be redundant and could
+> reach the network for versions the lock does not use. If pip-audit cannot
+> build its isolated resolution environment on your machine (an `ensurepip`
+> failure), add `--disable-pip` to use its internal resolver instead.
 
 ### Dependency cooling period (mandatory for new libraries)
 
@@ -199,7 +214,9 @@ During the cooling period:
   (unexpected new releases, maintainer changes, yanked versions).
 - Re-run `pip-audit` immediately before committing, not only at approval time:
   ```bash
-  python3 -m pip_audit --requirement <(uv pip compile pyproject.toml)
+  uv export --all-groups --no-emit-project \
+    --format requirements-txt > audit-requirements.txt
+  uv run pip-audit --requirement audit-requirements.txt --no-deps
   ```
 - If a new vulnerability or supply-chain event is detected during the window,
   halt and escalate to the human approver before proceeding.

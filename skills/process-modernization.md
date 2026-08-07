@@ -48,8 +48,6 @@ smtp_port = 587
 ```python
 """Load TOML configuration with validation."""
 
-from __future__ import annotations
-
 import tomllib
 from pathlib import Path
 from typing import Any

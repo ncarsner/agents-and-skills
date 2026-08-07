@@ -10,8 +10,8 @@ using spaCy, Transformers, and related libraries.
 ```bash
 # Install spaCy and download English model
 uv add spacy
-python3 -m spacy download en_core_web_sm    # small, fast
-python3 -m spacy download en_core_web_trf   # transformer-based, accurate
+uv run python -m spacy download en_core_web_sm    # small, fast
+uv run python -m spacy download en_core_web_trf   # transformer-based, accurate
 ```
 
 ---
