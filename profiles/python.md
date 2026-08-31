@@ -130,9 +130,9 @@ because installing into them is unsafe. Routing every invocation through
 
 ## Code Quality
 
-**Rule:** Every public module, class, function, and method MUST include a
-docstring, type hints on all parameters and return values, and inline comments
-where the logic is non-obvious.
+**Rule:** Every public module, class, function, and method under `src/` MUST
+include a docstring, type hints on all parameters and return values, and
+inline comments where the logic is non-obvious.
 
 ### Docstrings
 
@@ -166,6 +166,28 @@ This rule is enforced, not advisory. The project ruff config selects the `D`
 (pydocstyle) rule set with `convention = "google"`, so a missing or malformed
 docstring fails `ruff check`. A config that ignores `D1xx` codes without
 selecting `D` enforces nothing.
+
+**Scope: `src/`.** The rule exists to protect the package's public API, so that
+is where it is enforced. `tests/` is already exempt via `per-file-ignores` in
+`templates/pyproject.toml` and `templates/ruff.toml`.
+
+The CI examples in `skills/python-linting.md` and `skills/python-formatting.md`
+run `ruff check .` from the repository root, so a project that also keeps
+Python outside `src/` and `tests/` (`scripts/`, `noxfile.py`, `conftest.py`,
+`docs/conf.py`) will see `D` fire there too. None of that is public API. Add
+what the project actually has, rather than carrying entries for a layout it
+does not use:
+
+```toml
+[tool.ruff.lint.per-file-ignores]
+"scripts/**/*.py" = ["D"]
+"noxfile.py"      = ["D"]
+"conftest.py"     = ["D"]
+"docs/conf.py"    = ["D"]
+```
+
+The templates deliberately ship none of these. An unused ignore is its own kind
+of noise, and it hides the moment a directory starts holding real API.
 
 ### Type hints
 
