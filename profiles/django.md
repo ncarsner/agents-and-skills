@@ -19,7 +19,7 @@ force. Where this file is silent, the language profile governs.
 root URLconf, ASGI/WSGI entry points) from feature apps. Business logic MUST
 live in a service layer, not in views or model methods.
 
-Extends [RULES.md §11](../RULES.md#11-architecture-boundaries) (External Input
+Extends [RULES.md §11](../RULES.md#11-architecture-boundaries-core) (External Input
 -> Validation -> Logic -> I/O -> Output).
 
 ### Required structure
@@ -85,8 +85,8 @@ environment-specific value from environment variables. `DEBUG = True` MUST
 never be committed in a production settings module, and `SECRET_KEY` MUST never
 appear as a literal in any tracked file.
 
-Extends [RULES.md §8](../RULES.md#8-security-and-secrets) and
-[RULES.md §17](../RULES.md#17-deployment-and-environment-parity).
+Extends [RULES.md §8](../RULES.md#8-security-and-secrets-core) and
+[RULES.md §17](../RULES.md#17-deployment-and-environment-parity-profileservice).
 
 ### Mandatory practices
 
@@ -137,8 +137,8 @@ raw SQL. Every queryset that crosses a relation in a loop MUST use
 `select_related` or `prefetch_related`. Read queries belong in `selectors.py`;
 writes belong in `services.py`.
 
-Extends [RULES.md §11](../RULES.md#11-architecture-boundaries) and
-[RULES.md §14](../RULES.md#14-performance-standards).
+Extends [RULES.md §11](../RULES.md#11-architecture-boundaries-core) and
+[RULES.md §14](../RULES.md#14-performance-standards-langpython-configurable).
 
 ### Mandatory practices
 
@@ -192,8 +192,8 @@ layer flow.
 commit. Migrations MUST be reviewed before commit, MUST NOT be edited after
 merge, and destructive operations MUST be split across releases.
 
-Extends [RULES.md §6](../RULES.md#6-version-control-and-commits) and
-[RULES.md §17](../RULES.md#17-deployment-and-environment-parity).
+Extends [RULES.md §6](../RULES.md#6-version-control-and-commits-core) and
+[RULES.md §17](../RULES.md#17-deployment-and-environment-parity-profileservice).
 
 ### Mandatory commands
 
@@ -247,8 +247,8 @@ using it, MUST return a defined error response for every failure path, and MUST
 NOT catch bare exceptions. CSRF protection and authentication MUST NOT be
 disabled on a per-view basis without a documented reason in the same file.
 
-Extends [RULES.md §9](../RULES.md#9-error-handling) and
-[RULES.md §8](../RULES.md#8-security-and-secrets).
+Extends [RULES.md §9](../RULES.md#9-error-handling-langpython) and
+[RULES.md §8](../RULES.md#8-security-and-secrets-core).
 
 ### Mandatory practices
 
@@ -298,7 +298,7 @@ misconfigured.
 in [`skills/approved-packages.md`](../skills/approved-packages.md); adding it
 requires the §5 authorization and cooling-period process before it is used.
 The coverage target in
-[RULES.md §7](../RULES.md#7-testing-and-coverage) applies unchanged. Every view
+[RULES.md §7](../RULES.md#7-testing-and-coverage-langpython-configurable) applies unchanged. Every view
 MUST have a test for its success path, its validation-failure path, and its
 authorization-failure path.
 
@@ -345,7 +345,7 @@ no migration updates.
 `manage.py runserver`. `manage.py check --deploy` MUST pass with zero warnings
 before any production release.
 
-Extends [RULES.md §17](../RULES.md#17-deployment-and-environment-parity) and
+Extends [RULES.md §17](../RULES.md#17-deployment-and-environment-parity-profileservice) and
 [`skills/containerization.md`](../skills/containerization.md).
 
 ### Mandatory pre-release gate

@@ -240,8 +240,8 @@ Before submitting tests for review:
 
 - [ ] Every test has a one-line docstring stating what it asserts
 - [ ] No test depends on execution order (each test is self-contained)
-- [ ] No `time.sleep()` in tests — use monkeypatching or faketime
-- [ ] No network calls in unit tests — mock all HTTP/database I/O
+- [ ] No `time.sleep()` in tests: use monkeypatching or faketime
+- [ ] No network calls in unit tests, mock all HTTP/database I/O
 - [ ] Parametrize repeated similar assertions instead of duplicating tests
 - [ ] Fixtures use the narrowest required scope (`function` > `class` > `module` > `session`)
 - [ ] Temporary files use `tmp_path` fixture (never hard-coded paths)
@@ -262,6 +262,6 @@ Before submitting tests for review:
 
 ## See Also
 
-- [`skills/python-testing.md`](../skills/python-testing.md) — detailed testing recipes
-- [`skills/python-linting.md`](../skills/python-linting.md) — linting and coverage CI setup
-- [`templates/pytest.ini`](../templates/pytest.ini) — pytest configuration template
+- [`skills/python-testing.md`](../skills/python-testing.md): detailed testing recipes
+- [`skills/python-linting.md`](../skills/python-linting.md): linting and coverage CI setup
+- [`templates/pytest.ini`](../templates/pytest.ini): pytest configuration template

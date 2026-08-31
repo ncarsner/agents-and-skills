@@ -4,11 +4,11 @@
     "category": "docs",
     "priority": 1,
     "done": true,
-    "description": "Add Step 4.5 to templates/epilogue.md — conditional CHANGELOG update between Step 4 and Step 5",
+    "description": "Add Step 4.5 to templates/epilogue.md, conditional CHANGELOG update between Step 4 and Step 5",
     "files_affected": ["templates/epilogue.md"],
     "acceptance_criteria": [
       "Step 4.5 section exists between Step 4 and Step 5",
-      "Step 4.5 is conditional — skip with documented reason if nothing notable",
+      "Step 4.5 is conditional, skip with documented reason if nothing notable",
       "Step 4.5 specifies Added/Changed/Fixed format matching existing CHANGELOG.md",
       "Step 4.5 entry is 3–8 bullets drawn from session context",
       "Step numbering for Steps 5–8 updated to 6–9 accordingly"
@@ -38,7 +38,7 @@
     "steps": [
       "Read templates/epilogue.md Step 1 section",
       "Reword filename format to yyyy-mm-dd-<descriptor>-session.md",
-      "Add explicit note: 'Do not stage this file — it is covered by .gitignore'",
+      "Add explicit note: 'Do not stage this file; it is covered by .gitignore'",
       "Remove any commit instruction from Step 1",
       "Commit: docs(epilogue): mark session summary as local-only with *-session.md naming"
     ]
@@ -53,11 +53,11 @@
     "acceptance_criteria": [
       "Checklist no longer contains 'Git repository exists locally' item",
       "Checklist no longer contains 'origin remote exists and is reachable' item",
-      "Checklist contains 'CHANGELOG.md updated with session entry, or skipped — nothing notable'",
+      "Checklist contains 'CHANGELOG.md updated with session entry, or skipped, nothing notable'",
       "Checklist contains '.gitignore includes *-session.md pattern'",
       "Commit-message item references Conventional Commits per RULES.md §6",
       "Commit-message item does not use the phrase 'dated message'",
-      "Summary item reworded to 'written locally (not staged — gitignored)'"
+      "Summary item reworded to 'written locally (not staged, gitignored)'"
     ],
     "steps": [
       "Read templates/epilogue.md Step 7 in full",
@@ -67,7 +67,7 @@
       "Add .gitignore item after CHANGELOG item",
       "Reword commit-message item to reference Conventional Commits",
       "Reword summary item to local-only language",
-      "Commit: docs(epilogue): audit closure checklist — drop stale items, add changelog and gitignore checks"
+      "Commit: docs(epilogue): audit closure checklist, drop stale items, add changelog and gitignore checks"
     ]
   },
   {
@@ -78,7 +78,7 @@
     "description": "Update epilogue Step 8 Final Report template: add CHANGELOG field, remove Summary path field",
     "files_affected": ["templates/epilogue.md"],
     "acceptance_criteria": [
-      "Final Report template contains 'CHANGELOG: <updated | skipped — reason>' field",
+      "Final Report template contains 'CHANGELOG: <updated | skipped, reason>' field",
       "Final Report template does not contain 'Summary: <path-to-summary>' field",
       "All other existing fields (Branch, Commit, Remote, Skills, Context files, Status, Next steps) are preserved",
       "Field order is logical: Session closed → Branch → Commit → Remote → CHANGELOG → Skills → Context files → Status → Next steps"

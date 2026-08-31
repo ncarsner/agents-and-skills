@@ -5,11 +5,11 @@ dates and times. Uses only the standard library: `datetime`, `zoneinfo`, and
 `calendar`.
 
 All functions with a `tz` parameter default to UTC. Naive datetimes are never
-created — callers should always pass or receive timezone-aware values.
+created, callers should always pass or receive timezone-aware values.
 
 ---
 
-## parse_iso — parse ISO 8601 string to aware datetime
+## parse_iso: parse ISO 8601 string to aware datetime
 
 ```python
 from datetime import datetime, timezone
@@ -50,7 +50,7 @@ def parse_iso(timestamp: str) -> datetime:
 
 ---
 
-## format_iso — format aware datetime to ISO 8601
+## format_iso: format aware datetime to ISO 8601
 
 ```python
 from datetime import datetime
@@ -61,7 +61,7 @@ def format_iso(dt: datetime, *, timespec: str = "seconds") -> str:
 
     Args:
         dt: A timezone-aware datetime.
-        timespec: Precision level — "seconds", "milliseconds", "microseconds".
+        timespec: Precision level, "seconds", "milliseconds", "microseconds".
 
     Returns:
         ISO 8601 string with timezone offset, e.g. "2024-03-15T14:30:00+00:00".
@@ -83,7 +83,7 @@ def format_iso(dt: datetime, *, timespec: str = "seconds") -> str:
 
 ---
 
-## date_range — generate list of dates between two boundaries
+## date_range: generate list of dates between two boundaries
 
 ```python
 from datetime import date, timedelta
@@ -118,7 +118,7 @@ def date_range(start: date, end: date, *, inclusive: bool = True) -> list[date]:
 
 ---
 
-## days_between — integer number of days between two dates
+## days_between: integer number of days between two dates
 
 ```python
 from datetime import date
@@ -147,7 +147,7 @@ def days_between(a: date, b: date) -> int:
 
 ---
 
-## start_of_week / end_of_week — week boundaries
+## start_of_week / end_of_week: week boundaries
 
 ```python
 from datetime import date, timedelta
@@ -191,7 +191,7 @@ def end_of_week(d: date) -> date:
 
 ---
 
-## month_boundaries — first and last day of a month
+## month_boundaries: first and last day of a month
 
 ```python
 import calendar
@@ -222,7 +222,7 @@ def month_boundaries(year: int, month: int) -> tuple[date, date]:
 
 ---
 
-## convert_tz — convert aware datetime to a target timezone
+## convert_tz: convert aware datetime to a target timezone
 
 ```python
 from datetime import datetime
@@ -257,7 +257,7 @@ def convert_tz(dt: datetime, target_tz: str) -> datetime:
 
 ---
 
-## humanize_duration — seconds to human-readable string
+## humanize_duration: seconds to human-readable string
 
 ```python
 def humanize_duration(seconds: int | float) -> str:
@@ -306,6 +306,6 @@ def humanize_duration(seconds: int | float) -> str:
 
 ## See Also
 
-- [`tools/string-processing.md`](string-processing.md) — regex-based date extraction from text
-- [`tools/serialization.md`](serialization.md) — serialize datetimes to/from JSON
-- [`skills/configuration-management.md`](../skills/configuration-management.md) — timezone config from env
+- [`tools/string-processing.md`](string-processing.md): regex-based date extraction from text
+- [`tools/serialization.md`](serialization.md): serialize datetimes to/from JSON
+- [`skills/configuration-management.md`](../skills/configuration-management.md): timezone config from env

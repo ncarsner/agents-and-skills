@@ -1,4 +1,4 @@
-# STRATEGY.md — Multi-Agent Project Execution Within Subscription Windows
+# STRATEGY.md: Multi-Agent Project Execution Within Subscription Windows
 
 A practical guide for completing a full project in one day using three phased
 agent sessions, each constrained to a 5-hour subscription window.
@@ -23,7 +23,7 @@ requires zero verbal re-orientation.
 
 ---
 
-## Strategy 1 — Session-Scoped Context Documents
+## Strategy 1: Session-Scoped Context Documents
 
 Each session opens by reading one short context file and closes by updating it.
 Never rely on conversational memory across session boundaries.
@@ -31,10 +31,10 @@ Never rely on conversational memory across session boundaries.
 **Opening ritual (< 5 minutes):**
 
 1. Grep `index.md` for pages matching today's task domain; load only the
-   matching `sessions/` pages (closes 12-Factor Agents F13 pre-fetch — see
+   matching `sessions/` pages (closes 12-Factor Agents F13 pre-fetch, see
    `.12-FACTOR-AGENTS.md`).
 2. Read `AGENTS.md` (or `AGENTS/AGENTS.md` per RULES.md §12) for current project state. The root `CLAUDE.md` is a stub; it holds nothing to read.
-3. Read each loaded page's `Subagent Plan — Next Session` section only — ignore the rest.
+3. Read each loaded page's `Subagent Plan: Next Session` section only, ignore the rest.
 
 **Closing ritual (< 10 minutes):**
 
@@ -52,7 +52,7 @@ This keeps every session startup under 5 minutes and eliminates re-explanation.
 
 ---
 
-## Strategy 2 — Narrow Scope Per Session, Broad Goals Per Day
+## Strategy 2: Narrow Scope Per Session, Broad Goals Per Day
 
 Assign each session a single architectural layer. Crossing layers within one
 session inflates context and wastes tokens.
@@ -74,7 +74,7 @@ One specialist agent per task keeps prompts lean and outputs deterministic.
 
 ---
 
-## Strategy 3 — Skills Caching: Attach, Don't Repeat
+## Strategy 3: Skills Caching: Attach, Don't Repeat
 
 Skills documents (`skills/`) are pre-written, condensed knowledge. Pass them
 as attached context at session start instead of describing patterns inline.
@@ -92,22 +92,22 @@ Then complete the task: <one-sentence task description>
 
 Only attach skills relevant to the current session's scope. Attaching
 unrelated skills wastes context budget. Update or extend a skills document
-whenever a session discovers a better pattern — future sessions inherit the
+whenever a session discovers a better pattern, future sessions inherit the
 improvement automatically.
 
 ---
 
-## Strategy 4 — Subagent Decomposition at Session Boundaries
+## Strategy 4: Subagent Decomposition at Session Boundaries
 
 At the end of each session, decompose the next session's work into discrete
 subtasks and assign each to a named subagent. Write these assignments into
 the project-root session wiki page (`sessions/yyyy-mm-dd-<phase>.md`) under its
-`Subagent Plan — Next Session` heading.
+`Subagent Plan, Next Session` heading.
 
 **Example (end of morning session):**
 
 ```markdown
-## Subagent Plan — Afternoon Session
+## Subagent Plan: Afternoon Session
 
 1. testing-agent: write unit tests for `src/pipeline/transform.py`; target 100% coverage.
 2. security-agent: audit `src/api/routes.py` for injection and auth gaps.
@@ -120,7 +120,7 @@ attached. This avoids a bloated single prompt that wastes the context window.
 
 ---
 
-## Strategy 5 — Progressive Documentation as a Project Asset
+## Strategy 5: Progressive Documentation as a Project Asset
 
 At the end of each day, the aggregate session wiki pages, updated skills
 files, and context documents form a reusable asset for the next project.
@@ -153,14 +153,14 @@ knowledge rather than from zero.
 - [ ] Write `sessions/yyyy-mm-dd-morning.md`; add row to `index.md`; commit and push
 
 ### Afternoon Session
-- [ ] Read morning session page (`Subagent Plan — Next Session` section only)
+- [ ] Read morning session page (`Subagent Plan, Next Session` section only)
 - [ ] Execute subagent plan from morning session page
 - [ ] Attach relevant skills documents per subtask
 - [ ] Produce: I/O layer, tests, integration
 - [ ] Write `sessions/yyyy-mm-dd-afternoon.md`; add row to `index.md`; commit and push
 
 ### Evening Session
-- [ ] Read afternoon session page (`Subagent Plan — Next Session` section only)
+- [ ] Read afternoon session page (`Subagent Plan, Next Session` section only)
 - [ ] Execute subagent plan from afternoon session page
 - [ ] Run full CI checks; invoke review agents
 - [ ] Produce: hardened, documented, deployable artifact
@@ -173,12 +173,12 @@ knowledge rather than from zero.
 
 ## Anti-Patterns to Avoid
 
-- Carrying context verbally across sessions — always write it down.
-- Assigning a generalist agent to a specialist task — use the `subagents/` roster.
-- Attaching all skills files at once — attach only what the session needs.
-- Skipping the closing ritual — one missed summary breaks the next session's startup.
-- Mixing architectural layers in one session — context bloat stalls progress.
+- Carrying context verbally across sessions: always write it down.
+- Assigning a generalist agent to a specialist task, use the `subagents/` roster.
+- Attaching all skills files at once: attach only what the session needs.
+- Skipping the closing ritual: one missed summary breaks the next session's startup.
+- Mixing architectural layers in one session: context bloat stalls progress.
 - Delegating to a background agent while work-in-progress files are untracked
-  — a worktree only contains committed content, so uncommitted files in the
+, a worktree only contains committed content, so uncommitted files in the
   main checkout are invisible to it. Commit or stash the in-progress files to
   a scratch branch first so the worktree can access them.

@@ -24,7 +24,7 @@ Use `logging` for all diagnostic output in library code. Never use `print()`.
 
 import logging
 
-# Always use __name__ — gives the full dotted module path
+# Always use __name__: gives the full dotted module path
 logger = logging.getLogger(__name__)
 
 
@@ -46,7 +46,7 @@ def process_records(records: list[dict]) -> list[dict]:
 
 ## Application Entry Point: Logging Configuration
 
-Configure logging once at application startup — never inside library modules.
+Configure logging once at application startup, never inside library modules.
 
 ```python
 """Logging configuration for application entry points."""
@@ -90,7 +90,7 @@ def configure_logging(*, level: str = "INFO", json_format: bool = False) -> None
         handler.setFormatter(JsonFormatter())
     else:
         handler.setFormatter(
-            logging.Formatter("%(asctime)s %(levelname)-8s %(name)s — %(message)s")
+            logging.Formatter("%(asctime)s %(levelname)-8s %(name)s, %(message)s")
         )
 
     root.addHandler(handler)
@@ -247,7 +247,7 @@ class AuditLogger:
 
 ## Performance Timing Pattern
 
-Use `time.monotonic()` for all durations — never `time.time()`.
+Use `time.monotonic()` for all durations, never `time.time()`.
 
 ```python
 """Timing utilities for performance observability."""
@@ -315,6 +315,6 @@ Never log the following, even at DEBUG level:
 
 ## See Also
 
-- [`agents/security-agent.md`](../agents/security-agent.md) — what not to log
-- [`agents/legal-fiscal-agent.md`](../agents/legal-fiscal-agent.md) — audit trail requirements
-- [`skills/configuration-management.md`](configuration-management.md) — environment-based config
+- [`agents/security-agent.md`](../agents/security-agent.md): what not to log
+- [`agents/legal-fiscal-agent.md`](../agents/legal-fiscal-agent.md): audit trail requirements
+- [`skills/configuration-management.md`](configuration-management.md): environment-based config

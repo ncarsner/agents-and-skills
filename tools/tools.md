@@ -4,7 +4,7 @@ This directory contains **deterministic code tools** for Python agents: ready-to
 functions and patterns where the same inputs always produce the same outputs. No LLM
 calls, no network I/O, no non-deterministic state.
 
-Use these when a task calls for precision over inference — parsing, formatting,
+Use these when a task calls for precision over inference, parsing, formatting,
 transforming, hashing, sorting, or computing known quantities.
 
 ---
@@ -39,7 +39,7 @@ transforming, hashing, sorting, or computing known quantities.
 
 1. **Locate** the topic file that covers your need.
 2. **Copy** the relevant function(s) verbatim into your module.
-3. **Import** only what you use — no tool file should be imported as a module.
+3. **Import** only what you use: no tool file should be imported as a module.
 4. **Test** the copied function against the examples in its docstring.
 5. **Adapt** only the parameters, never the algorithm, unless you verify correctness.
 
@@ -106,6 +106,6 @@ def function_name(param: type) -> return_type:
 
 ## See Also
 
-- [`skills/skills.md`](../skills/skills.md) — skill registry and invocation protocol
-- [`RULES.md`](../RULES.md) — coding standards all generated code must meet
-- [`subagents/testing-agent.md`](../subagents/testing-agent.md) — writing tests for tool functions
+- [`skills/skills.md`](../skills/skills.md): skill registry and invocation protocol
+- [`RULES.md`](../RULES.md): coding standards all generated code must meet
+- [`subagents/testing-agent.md`](../subagents/testing-agent.md): writing tests for tool functions

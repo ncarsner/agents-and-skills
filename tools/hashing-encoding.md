@@ -9,7 +9,7 @@ functions here are pure given the same input.
 
 ---
 
-## sha256 — hex digest of a string or bytes
+## sha256: hex digest of a string or bytes
 
 ```python
 import hashlib
@@ -37,7 +37,7 @@ def sha256(data: str | bytes, encoding: str = "utf-8") -> str:
 
 ---
 
-## hmac_sha256 — keyed message authentication code
+## hmac_sha256: keyed message authentication code
 
 ```python
 import hashlib
@@ -70,7 +70,7 @@ def hmac_sha256(key: str | bytes, message: str | bytes, encoding: str = "utf-8")
 
 ---
 
-## base64_encode / base64_decode — standard Base64
+## base64_encode / base64_decode: standard Base64
 
 ```python
 import base64
@@ -121,7 +121,7 @@ def base64_decode(encoded: str, encoding: str = "utf-8") -> str:
 
 ---
 
-## urlsafe_base64_encode / decode — URL-safe Base64
+## urlsafe_base64_encode / decode: URL-safe Base64
 
 ```python
 import base64
@@ -175,7 +175,7 @@ def urlsafe_base64_decode(encoded: str, encoding: str = "utf-8") -> str:
 
 ---
 
-## uuid4 — random UUID string
+## uuid4: random UUID string
 
 ```python
 import uuid
@@ -184,7 +184,7 @@ import uuid
 def uuid4() -> str:
     """Generate a random UUID4 as a lowercase hyphenated string.
 
-    Non-deterministic — each call returns a unique value.
+    Non-deterministic, each call returns a unique value.
 
     Returns:
         UUID4 string, e.g. "550e8400-e29b-41d4-a716-446655440000".
@@ -202,7 +202,7 @@ def uuid4() -> str:
 
 ---
 
-## uuid5 — deterministic namespace UUID
+## uuid5: deterministic namespace UUID
 
 ```python
 import uuid
@@ -232,7 +232,7 @@ def uuid5(namespace: str, name: str) -> str:
 
 ---
 
-## secure_token — URL-safe random token
+## secure_token: URL-safe random token
 
 ```python
 import secrets
@@ -241,7 +241,7 @@ import secrets
 def secure_token(nbytes: int = 32) -> str:
     """Generate a cryptographically secure random URL-safe token.
 
-    Non-deterministic — uses `secrets.token_urlsafe` which draws from the
+    Non-deterministic, uses `secrets.token_urlsafe` which draws from the
     OS CSPRNG.
 
     Args:
@@ -262,7 +262,7 @@ def secure_token(nbytes: int = 32) -> str:
 
 ---
 
-## constant_time_compare — timing-safe string comparison
+## constant_time_compare: timing-safe string comparison
 
 ```python
 import hmac
@@ -296,6 +296,6 @@ def constant_time_compare(a: str, b: str, encoding: str = "utf-8") -> bool:
 
 ## See Also
 
-- [`tools/file-io.md`](file-io.md) — `file_checksum` for hashing file contents
-- [`tools/string-processing.md`](string-processing.md) — normalize strings before hashing
-- [`skills/security-agent.md`](../subagents/security-agent.md) — security guidelines for key management
+- [`tools/file-io.md`](file-io.md): `file_checksum` for hashing file contents
+- [`tools/string-processing.md`](string-processing.md): normalize strings before hashing
+- [`skills/security-agent.md`](../subagents/security-agent.md): security guidelines for key management

@@ -31,19 +31,19 @@ determining what must be logged or traced.
 
 ## Review Priorities
 
-1. Log completeness — Are request entry/exit, errors, and significant state
+1. Log completeness: Are request entry/exit, errors, and significant state
    transitions logged at the correct level (DEBUG / INFO / WARNING / ERROR)?
    Are logs structured (JSON) and include a correlation ID?
-2. Metrics coverage — Are SLI-relevant metrics emitted (latency, error rate,
+2. Metrics coverage: Are SLI-relevant metrics emitted (latency, error rate,
    saturation)? Are new code paths covered by existing dashboards or do new
    metrics need to be defined?
-3. Distributed tracing — Are new service calls, queue publishes, and async
+3. Distributed tracing: Are new service calls, queue publishes, and async
    operations wrapped in trace spans with required attributes (service name,
    operation name, status)?
-4. Audit logging — Do actions that create, modify, or delete data or
+4. Audit logging: Do actions that create, modify, or delete data or
    permissions produce an immutable audit log entry with actor, action,
    target, timestamp, and outcome?
-5. Alerting — Are alert thresholds defined for new failure modes introduced
+5. Alerting: Are alert thresholds defined for new failure modes introduced
    by this change? Are on-call runbooks updated?
 
 ---
@@ -76,23 +76,23 @@ Audit log entries must additionally include:
 
 ```
 AGENT: project-review-observability
-TASK:  Observability review of PR #<number> — <title>
+TASK:  Observability review of PR #<number>, <title>
 STATUS: <completed | escalated>
 
 LOGGING:
   Structured logging used: <yes | no>
-  Required fields present: <yes | no — list missing fields>
-  Log levels appropriate: <yes | no — list violations>
-  Sensitive data in logs: <none detected | detected — describe>
+  Required fields present: <yes | no, list missing fields>
+  Log levels appropriate: <yes | no, list violations>
+  Sensitive data in logs: <none detected | detected, describe>
 
 METRICS:
   SLI metrics emitted: <yes | no | not required>
   New metrics defined: <list or "none">
-  Dashboard coverage: <adequate | gaps — describe>
+  Dashboard coverage: <adequate | gaps, describe>
 
 TRACING:
   New spans instrumented: <yes | no | not required>
-  Required span attributes present: <yes | no — list gaps>
+  Required span attributes present: <yes | no, list gaps>
 
 AUDIT LOGGING:
   Audit-relevant actions identified: <list or "none">
@@ -123,6 +123,6 @@ Escalate to the VP review agent when:
 
 ## See Also
 
-- [`security-agent.md`](security-agent.md) — security review (complements audit logging)
-- [`project-review-enterprise-architect.md`](project-review-enterprise-architect.md) — platform standards
-- [`accounting-agent.md`](accounting-agent.md) — token and cost monitoring
+- [`security-agent.md`](security-agent.md): security review (complements audit logging)
+- [`project-review-enterprise-architect.md`](project-review-enterprise-architect.md): platform standards
+- [`accounting-agent.md`](accounting-agent.md): token and cost monitoring

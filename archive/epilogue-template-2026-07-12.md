@@ -6,7 +6,7 @@
 
 ---
 
-# Epilogue — Session Shutdown Protocol
+# Epilogue: Session Shutdown Protocol
 
 Use this protocol when the user asks to close a session, run the epilogue, or
 prepare the repository for handoff. Work through the steps in order. The goal is
@@ -37,7 +37,7 @@ Rules:
 - Default to `yyyy-mm-dd-summary-session.md` unless a more specific descriptor
   makes the file easier to find later.
 
-**Write locally — do not stage this file.** Session files match the
+**Write locally, do not stage this file.** Session files match the
 `*-session.md` pattern in `.gitignore` and must never be committed. Write the
 file, then continue to the next step.
 
@@ -120,14 +120,14 @@ Add a row to the skill registry table with the skill name, file path, and a
 one-line description. If a skill was updated, verify the description still
 matches the expanded content.
 
-If no new patterns emerged this session, skip this step entirely — do not create
+If no new patterns emerged this session, skip this step entirely, do not create
 placeholder or empty skill files.
 
 ---
 
 ## 3. Refresh the Context File
 
-`CLAUDE.md` is the only root context file this project produces — there is no
+`CLAUDE.md` is the only root context file this project produces; there is no
 `GEMINI.md` or `AGENTS.md`. It serves as the agent's persistent memory across
 sessions. Update it in place rather than creating new lowercase copies.
 
@@ -136,7 +136,7 @@ sessions. Update it in place rather than creating new lowercase copies.
 When the agent materials have been copied into an `AGENTS/` subdirectory of a
 downstream project (per RULES.md §12), the project root holds only a short
 `CLAUDE.md` **stub** (see `templates/context-file-stub.md`). The full,
-canonical content lives at `AGENTS/CLAUDE.md`. Edit that file — never the
+canonical content lives at `AGENTS/CLAUDE.md`. Edit that file, never the
 root stub.
 
 Run this discovery command from the project root or from within `AGENTS/` to
@@ -154,7 +154,7 @@ find . -maxdepth 1 -name "CLAUDE.md" | sort
 If `AGENTS/CLAUDE.md` exists, edit that file and leave the root stub
 untouched (it should never contain more than the template). If no `AGENTS/`
 directory exists, this is the master-source repository or a project without
-the local-only bundle — edit the root `CLAUDE.md` directly. If neither exists
+the local-only bundle, edit the root `CLAUDE.md` directly. If neither exists
 yet, create the root `CLAUDE.md` from `templates/context-file-stub.md` if an
 `AGENTS/` bundle is present, or from scratch at the project root otherwise.
 
@@ -175,7 +175,7 @@ layout) should reflect the repository as it stands after this session:
 
 **Do not create new lowercase files** (`claude.md`) or reintroduce
 `GEMINI.md`/`AGENTS.md` as separate root files. There is exactly one
-canonical copy per project — the root `CLAUDE.md` in the master-source
+canonical copy per project, the root `CLAUDE.md` in the master-source
 layout, or `AGENTS/CLAUDE.md` behind a root stub in the local-only layout.
 
 ---
@@ -218,13 +218,13 @@ do not replace it.
 
 ## 5. Update CHANGELOG (if applicable)
 
-If the session produced anything a future reader would consider notable — a new
-feature, a bug fix, a breaking change, or a significant refactor — add an entry
+If the session produced anything a future reader would consider notable, a new
+feature, a bug fix, a breaking change, or a significant refactor, add an entry
 to `CHANGELOG.md` now, before the commit step.
 
 **When to skip:** If nothing this session would appear under Added, Changed, or
 Fixed in a public changelog, skip this step and document the reason in the
-Closure Checklist (e.g., "skipped — internal refactor only, nothing user-facing").
+Closure Checklist (e.g., "skipped, internal refactor only, nothing user-facing").
 
 **Format (match existing `CHANGELOG.md`):**
 
@@ -321,11 +321,11 @@ report why they must remain uncommitted. Do not hide unresolved state.
 
 Report each item as done, skipped with reason, or blocked:
 
-- [ ] Session summary written locally (not staged — gitignored), with completed
+- [ ] Session summary written locally (not staged, gitignored), with completed
       work, decisions, current state, blockers, and next steps.
 - [ ] New or updated skill files written to `skills/` and registered in
-      `skills/skills.md` (or skipped — no new patterns this session).
-- [ ] CHANGELOG.md updated with session entry, or skipped — nothing notable.
+      `skills/skills.md` (or skipped, no new patterns this session).
+- [ ] CHANGELOG.md updated with session entry, or skipped, nothing notable.
 - [ ] `.gitignore` includes `*-session.md` pattern.
 - [ ] `CLAUDE.md` located via the discovery command (root stub vs.
       `AGENTS/CLAUDE.md` canonical copy) and updated in the correct location;
@@ -347,10 +347,10 @@ End with a compact report the user can scan quickly:
 ```text
 Session closed: yyyy-mm-dd
 Branch: <branch-name>
-Commit: <short-sha> — <commit message, or "no commit needed">
+Commit: <short-sha>, <commit message, or "no commit needed">
 Remote: <origin-url, or blocker>
-CHANGELOG: <updated | skipped — reason>
-Skills: <files created or updated, or "none — no new patterns this session">
+CHANGELOG: <updated | skipped, reason>
+Skills: <files created or updated, or "none, no new patterns this session">
 Context file: <CLAUDE.md updated, or "none present">
 Status: <clean / not clean with reason>
 

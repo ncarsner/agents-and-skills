@@ -1,4 +1,4 @@
-# profiles/python.md — Python Language Profile
+# profiles/python.md: Python Language Profile
 
 Active profile for repositories using Python as the primary language.
 Load this file when `RULES.md` declares `Language: profiles/python.md`.
@@ -208,7 +208,7 @@ version without compatibility hedges.
 def fetch_records(limit: int, offset: int = 0) -> list[dict[str, str]]:
     ...
 
-# Bad — missing annotations
+# Bad: missing annotations
 def fetch_records(limit, offset=0):
     ...
 
@@ -286,12 +286,12 @@ automatically. No extra build configuration is required.
 - Do **not** add comments that merely restate what the code already says.
 
 ```python
-# Good — explains the "why"
+# Good: explains the "why"
 # Retry up to 3 times with exponential back-off to handle transient HTTP 429s.
 for attempt in range(MAX_RETRIES):
     ...
 
-# Bad — restates the "what"
+# Bad: restates the "what"
 # Add 1 to counter
 counter += 1
 ```
@@ -475,7 +475,7 @@ Approved caching libraries:
 | `redis-py` | Distributed cache / message broker |
 
 Do not cache secrets, PII, or session tokens (RULES.md §16). Cache TTLs must be
-explicit — never cache indefinitely without a documented reason.
+explicit, never cache indefinitely without a documented reason.
 
 ### Regression Escalation
 

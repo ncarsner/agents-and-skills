@@ -1,5 +1,5 @@
 ---
-description: Session shutdown protocol — capture the session, refresh AGENTS.md, update CHANGELOG, commit, push, and produce a closure report
+description: Session shutdown protocol: capture the session, refresh AGENTS.md, update CHANGELOG, commit, push, and produce a closure report
 allowed-tools: Bash(git *), Bash(gh *), Bash(find *), Read, Edit, Write, Glob
 ---
 
@@ -18,11 +18,11 @@ project root; use `docs/` only when that directory already exists and is
 where the project keeps session notes.
 
 Filename format: `yyyy-mm-dd-<descriptor>-session.md` (ISO 8601 date, short
-kebab-case descriptor — e.g. `api-cleanup`, `test-hardening`,
+kebab-case descriptor, e.g. `api-cleanup`, `test-hardening`,
 `schema-migration`; default to `yyyy-mm-dd-summary-session.md` if nothing
 more specific fits).
 
-**Write locally — do not stage this file.** Session files match the
+**Write locally, do not stage this file.** Session files match the
 `*-session.md` pattern in `.gitignore` and must never be committed.
 
 Required content:
@@ -72,7 +72,7 @@ one or more `## Pattern: <name>` sections.
 `skills/skills.md`.** Add a row to the reference table with the skill name,
 file path, and a one-line description.
 
-If no new patterns emerged this session, skip this step entirely — do not
+If no new patterns emerged this session, skip this step entirely, do not
 create placeholder or empty skill files.
 
 ## Step 3: Refresh the Context File
@@ -100,7 +100,7 @@ find . -maxdepth 2 -path "./AGENTS/AGENTS.md" | sort
 
 If `AGENTS/AGENTS.md` exists, edit that file and leave the root stub
 untouched. If no `AGENTS/` directory exists, this is the master-source
-repository or a project without the local-only bundle — edit the root
+repository or a project without the local-only bundle, edit the root
 `AGENTS.md` directly. If neither exists yet, create `AGENTS/AGENTS.md` if an
 `AGENTS/` bundle is present, or a root `AGENTS.md` otherwise, and in the
 bundle case seed the root `CLAUDE.md` from `templates/context-file-stub.md`.
@@ -158,8 +158,8 @@ exists, do not replace it.
 
 ## Step 5: Update CHANGELOG (if applicable)
 
-If the session produced anything a future reader would consider notable — a
-new feature, a bug fix, a breaking change, or a significant refactor — add
+If the session produced anything a future reader would consider notable, a
+new feature, a bug fix, a breaking change, or a significant refactor, add
 an entry to `CHANGELOG.md` now, before the commit step.
 
 **When to skip:** if nothing this session would appear under Added, Changed,
@@ -251,18 +251,18 @@ git remote -v
 ```
 
 Expected `git status` result: `nothing to commit, working tree clean`. If
-the worktree is not clean, identify why — commit intentional leftovers or
+the worktree is not clean, identify why, commit intentional leftovers or
 report why they must remain uncommitted. Do not hide unresolved state.
 
 ## Step 8: Closure Checklist
 
 Report each item as done, skipped with reason, or blocked:
 
-- [ ] Session summary written locally (not staged — gitignored), with
+- [ ] Session summary written locally (not staged, gitignored), with
       completed work, decisions, current state, blockers, and next steps.
 - [ ] New or updated skill files written to `skills/` and registered in
-      `skills/skills.md` (or skipped — no new patterns this session).
-- [ ] CHANGELOG.md updated with session entry, or skipped — nothing notable.
+      `skills/skills.md` (or skipped, no new patterns this session).
+- [ ] CHANGELOG.md updated with session entry, or skipped, nothing notable.
 - [ ] `.gitignore` includes `*-session.md` pattern.
 - [ ] `index.md` row added for this session, pointing at a git-tracked
       target and verified with `git ls-files --error-unmatch`, or
@@ -288,11 +288,11 @@ End with a compact report the user can scan quickly:
 ```text
 Session closed: yyyy-mm-dd
 Branch: <branch-name>
-Commit: <short-sha> — <commit message, or "no commit needed">
+Commit: <short-sha>, <commit message, or "no commit needed">
 Remote: <origin-url, or blocker>
-CHANGELOG: <updated | skipped — reason>
+CHANGELOG: <updated | skipped, reason>
 index.md: <row added | skipped, reason>
-Skills: <files created or updated, or "none — no new patterns this session">
+Skills: <files created or updated, or "none, no new patterns this session">
 Context file: <AGENTS.md updated, or "none present">
 Status: <clean / not clean with reason>
 

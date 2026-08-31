@@ -14,7 +14,7 @@ Ultra-compressed communication mode. Activate now and persist every response unt
 - Keep exact technical terms and code blocks unchanged
 - Acronyms must be defined at first use
 
-**Exceptions** — revert to full clarity for:
+**Exceptions**: revert to full clarity for:
 - Security warnings or irreversible action confirmations
 - Multi-step sequences where fragment order risks misunderstanding
 - User requests clarification (Resume caveman mode immediately after)

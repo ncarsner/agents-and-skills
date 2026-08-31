@@ -20,7 +20,7 @@ configuration-management
    constitute unauthorized access.
 5. Confirm the legal basis before collecting data from human subjects. Escalate to a
    human if the legal basis is ambiguous (RULES.md §13).
-6. Use parameterized queries for all database writes — never pass raw collected data
+6. Use parameterized queries for all database writes: never pass raw collected data
    directly into a SQL string (RULES.md §9, skills/database-access.md).
 
 ---
@@ -83,7 +83,7 @@ def detect_pii_fields(columns: list[str]) -> list[str]:
     return [c for c in columns if any(pat in c.lower() for pat in PII_PATTERNS)]
 ```
 
-Detection is advisory — a human must confirm and document the legal basis before
+Detection is advisory, a human must confirm and document the legal basis before
 any flagged field may be stored.
 
 ---
@@ -136,7 +136,7 @@ Follow the retry patterns in `skills/api-integration.md`. Additionally:
 
 **Task:** Collect daily exchange rate data from a public API and store in SQLite.
 1. Validate response schema before writing.
-2. Run `detect_pii_fields` — confirm no PII present.
+2. Run `detect_pii_fields`: confirm no PII present.
 3. Log provenance: endpoint, timestamp, row count.
 4. Write via parameterized INSERT.
 

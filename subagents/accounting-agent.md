@@ -245,7 +245,7 @@ When the accounting agent runs, it must:
 Reports are written to `reports/usage/<YYYY-MM-DD>_usage_report.txt`.
 
 ```
-Usage Report — 2025-09-15
+Usage Report, 2025-09-15
 Period: 2025-09-15 00:00 UTC to 2025-09-15 23:59 UTC
 
 Agent                  Prompt Tokens  Completion Tokens  Cost (USD)
@@ -256,7 +256,7 @@ data-engineering-agent         5 500              1 900       $0.057
 ---------------------  -------------  -----------------  ----------
 TOTAL                         26 000              7 930       $0.250
 
-Budget status (daily limit $10.00): 2.5% used — OK
+Budget status (daily limit $10.00): 2.5% used, OK
 ```
 
 Rules:
@@ -269,6 +269,6 @@ Rules:
 
 ## See Also
 
-- [`skills/logging-observability.md`](../skills/logging-observability.md) — structured logging
-- [`skills/configuration-management.md`](../skills/configuration-management.md) — TOML config loading
-- [`skills/error-handling.md`](../skills/error-handling.md) — handling missing config or malformed log entries
+- [`skills/logging-observability.md`](../skills/logging-observability.md): structured logging
+- [`skills/configuration-management.md`](../skills/configuration-management.md): TOML config loading
+- [`skills/error-handling.md`](../skills/error-handling.md): handling missing config or malformed log entries

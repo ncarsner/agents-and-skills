@@ -1,4 +1,4 @@
-# sessions/ — Session Wiki Pages
+# sessions/: Session Wiki Pages
 
 Append-only, git-tracked session records for `STRATEGY.md`'s multi-phase
 (morning/afternoon/evening) closing ritual (Strategy 1). Replaces that
@@ -25,7 +25,7 @@ project state and `AGENTS/` is never committed, so a page written under
 ## Required sections
 
 ```markdown
-# Session — yyyy-mm-dd <phase>
+# Session: yyyy-mm-dd <phase>
 
 ## Outcomes
 - What shipped, landed, or was verified this session.
@@ -38,7 +38,7 @@ project state and `AGENTS/` is never committed, so a page written under
 - Files in `skills/`, `subagents/`, or elsewhere that were touched, or that
   should be read alongside this page.
 
-## Subagent Plan — Next Session
+## Subagent Plan: Next Session
 1. <subagent-name>: <one subtask, one sentence>
 2. <subagent-name>: <one subtask, one sentence>
 ```

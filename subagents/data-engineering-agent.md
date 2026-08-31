@@ -364,8 +364,8 @@ def test_pipeline_quarantines_invalid_rows(tmp_path: Path) -> None:
 
 ## See Also
 
-- [`skills/database-access.md`](../skills/database-access.md) — SQLAlchemy patterns
-- [`skills/api-integration.md`](../skills/api-integration.md) — HTTP client patterns
-- [`skills/error-handling.md`](../skills/error-handling.md) — retry and exception handling
-- [`skills/python-testing.md`](../skills/python-testing.md) — testing cookbook
-- [`templates/pyproject.toml`](../templates/pyproject.toml) — starter config
+- [`skills/database-access.md`](../skills/database-access.md): SQLAlchemy patterns
+- [`skills/api-integration.md`](../skills/api-integration.md): HTTP client patterns
+- [`skills/error-handling.md`](../skills/error-handling.md): retry and exception handling
+- [`skills/python-testing.md`](../skills/python-testing.md): testing cookbook
+- [`templates/pyproject.toml`](../templates/pyproject.toml): starter config

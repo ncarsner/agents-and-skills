@@ -133,14 +133,14 @@ from sqlalchemy.orm import Session
 from my_app.db.models import User
 
 
-# CORRECT — parameterized via ORM
+# CORRECT: parameterized via ORM
 def get_user_by_email(session: Session, email: str) -> User | None:
     """Fetch a user by email address using a parameterized ORM query."""
     stmt = select(User).where(User.email == email)
     return session.scalar(stmt)
 
 
-# CORRECT — parameterized via text() with bindparams
+# CORRECT: parameterized via text() with bindparams
 def search_users_by_name(session: Session, name_fragment: str) -> list[User]:
     """Search users by partial name match using a safe parameterized query."""
     stmt = text("SELECT * FROM users WHERE name ILIKE :pattern")
@@ -148,7 +148,7 @@ def search_users_by_name(session: Session, name_fragment: str) -> list[User]:
     return list(rows)
 
 
-# WRONG — string interpolation (SQL injection risk)
+# WRONG: string interpolation (SQL injection risk)
 # NEVER DO THIS:
 # session.execute(f"SELECT * FROM users WHERE email = '{email}'")
 ```
@@ -184,7 +184,7 @@ def run_script(script_path: Path, arg: str) -> str:
         raise ValueError(f"Argument contains forbidden characters: {arg!r}")
 
     result = subprocess.run(
-        [str(script_path), arg],  # list form — no shell expansion
+        [str(script_path), arg],  # list form, no shell expansion
         capture_output=True,
         text=True,
         check=True,
@@ -222,7 +222,7 @@ Run `pip-audit` in CI on every pull request:
 Before marking any PR as reviewed, confirm:
 
 - [ ] No secrets or credentials in source code or test fixtures
-- [ ] All SQL queries use ORM or parameterized `text()` — no string concatenation
+- [ ] All SQL queries use ORM or parameterized `text()`: no string concatenation
 - [ ] `subprocess` calls use list form with `shell=False`
 - [ ] User-supplied file paths are validated against an allowed root
 - [ ] External HTTP calls use default SSL verification (no `verify=False`)
@@ -314,7 +314,7 @@ def test_secrets_from_env_raises_on_missing(monkeypatch: pytest.MonkeyPatch) -> 
 
 ## See Also
 
-- [`skills/error-handling.md`](../skills/error-handling.md) — exception handling patterns
-- [`skills/logging-observability.md`](../skills/logging-observability.md) — audit logging
-- [`skills/configuration-management.md`](../skills/configuration-management.md) — secrets via env vars
-- [`skills/python-testing.md`](../skills/python-testing.md) — testing cookbook
+- [`skills/error-handling.md`](../skills/error-handling.md): exception handling patterns
+- [`skills/logging-observability.md`](../skills/logging-observability.md): audit logging
+- [`skills/configuration-management.md`](../skills/configuration-management.md): secrets via env vars
+- [`skills/python-testing.md`](../skills/python-testing.md): testing cookbook

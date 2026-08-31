@@ -30,17 +30,17 @@ This agent does not review business logic unrelated to integration boundaries.
 
 ## Review Priorities
 
-1. Contract compliance — Does the change conform to the published or agreed
+1. Contract compliance: Does the change conform to the published or agreed
    API/event contract? Are any fields added, removed, or renamed in a
    breaking way?
-2. Versioning — Is the contract versioned? Is the version bumped appropriately
+2. Versioning: Is the contract versioned? Is the version bumped appropriately
    for the scope of change (patch, minor, major)?
-3. Protocol correctness — Are standard HTTP methods, status codes, headers,
+3. Protocol correctness: Are standard HTTP methods, status codes, headers,
    and pagination conventions followed? Are message queue semantics correct
    (idempotency, ordering, retry)?
-4. Data format integrity — Do serialized payloads match declared schemas?
+4. Data format integrity: Do serialized payloads match declared schemas?
    Are nullable fields, required fields, and type constraints correctly enforced?
-5. Authentication surface — Are new endpoints or event consumers protected
+5. Authentication surface: Are new endpoints or event consumers protected
    with the approved authentication mechanism? Are credentials handled
    according to `RULES.md` §8?
 
@@ -64,12 +64,12 @@ This agent does not review business logic unrelated to integration boundaries.
 
 ```
 AGENT: project-review-interoperability
-TASK:  Interoperability review of PR #<number> — <title>
+TASK:  Interoperability review of PR #<number>, <title>
 STATUS: <completed | escalated>
 
 CONTRACT COMPLIANCE:
   Contract affected: <name / path or "none">
-  Breaking changes detected: <yes — list | no>
+  Breaking changes detected: <yes, list | no>
   Contract tests present: <yes | no | not required>
 
 VERSIONING:
@@ -78,17 +78,17 @@ VERSIONING:
   Version bump applied: <yes | no | not required>
 
 PROTOCOL CORRECTNESS:
-  HTTP / message queue conventions followed: <yes | no — list violations>
+  HTTP / message queue conventions followed: <yes | no, list violations>
   Idempotency handled: <yes | no | not applicable>
   Pagination / cursor conventions followed: <yes | no | not applicable>
 
 DATA FORMAT:
-  Payloads match declared schema: <yes | no — list mismatches>
+  Payloads match declared schema: <yes | no, list mismatches>
   Nullable / required constraints enforced: <yes | no>
 
 AUTHENTICATION:
   New surfaces protected: <yes | no | not applicable>
-  Approved auth mechanism used: <yes | no — specify>
+  Approved auth mechanism used: <yes | no, specify>
 
 RECOMMENDATION: <APPROVE | APPROVE WITH CONDITIONS | BLOCK>
   Conditions: <list or "none">
@@ -109,6 +109,6 @@ Escalate to the enterprise architect review agent when:
 
 ## See Also
 
-- [`project-review-enterprise-architect.md`](project-review-enterprise-architect.md) — org-wide architecture governance
-- [`project-review-senior-dev.md`](project-review-senior-dev.md) — code-level findings
-- [`security-agent.md`](security-agent.md) — authentication and credential handling
+- [`project-review-enterprise-architect.md`](project-review-enterprise-architect.md): org-wide architecture governance
+- [`project-review-senior-dev.md`](project-review-senior-dev.md): code-level findings
+- [`security-agent.md`](security-agent.md): authentication and credential handling

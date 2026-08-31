@@ -26,34 +26,34 @@ agents-and-skills/
 ├── RULES.md                           # Mandatory compliance rules for all agents
 ├── CHANGELOG.md                       # Notable changes by date
 ├── STRATEGY.md                        # Repository strategy notes
-├── ralph.sh                           # Agent loop script — runs Claude tasks until success
+├── ralph.sh                           # Agent loop script, runs Claude tasks until success
 ├── _SCRIPTS/                          # Root-level utility and automation scripts
 ├── _SOLUTIONS/                        # Root-level solution and reference materials
 │
 ├── .claude/
 │   └── skills/                        # Invokable slash commands (Claude Code)
-│       ├── ideate/                    # /ideate  — surface risks and edge cases
-│       ├── grill-me/                  # /grill-me — interview to shared understanding
-│       ├── prd/                       # /prd      — write a Product Requirements Document
-│       ├── prd-to-issues/             # /prd-to-issues — convert PRD to GitHub issues
-│       ├── ralph/                     # /ralph    — invoke ralph.sh agent loop
-│       ├── orient/                    # /orient   — bootstrap agent context
-│       ├── format/                    # /format   — ruff format + lint
-│       ├── test/                      # /test     — pytest with coverage
-│       ├── project-review/            # /project-review — multi-lens project audit
-│       ├── stress-test/               # /stress-test — stress-test a design or proposal
-│       ├── write-a-skill/             # /write-a-skill — scaffold a new skill
-│       └── caveman/                   # /caveman  — ultra-compressed responses
+│       ├── ideate/                    # /ideate, surface risks and edge cases
+│       ├── grill-me/                  # /grill-me, interview to shared understanding
+│       ├── prd/                       # /prd, write a Product Requirements Document
+│       ├── prd-to-issues/             # /prd-to-issues, convert PRD to GitHub issues
+│       ├── ralph/                     # /ralph, invoke ralph.sh agent loop
+│       ├── orient/                    # /orient, bootstrap agent context
+│       ├── format/                    # /format, ruff format + lint
+│       ├── test/                      # /test, pytest with coverage
+│       ├── project-review/            # /project-review, multi-lens project audit
+│       ├── stress-test/               # /stress-test, stress-test a design or proposal
+│       ├── write-a-skill/             # /write-a-skill, scaffold a new skill
+│       └── caveman/                   # /caveman, ultra-compressed responses
 │   └── commands/                      # Command-file invocables (not skill dirs)
-│       ├── epilogue.md                # /epilogue — session shutdown protocol
-│       ├── skills-sync.md             # /skills-sync — pull skills from other project copies
-│       ├── debt-scan.md               # /debt-scan — scan for technical debt
-│       ├── dissect.md                 # /dissect  — deep structural review of a file
-│       ├── migrate-draft.md           # /migrate-draft — draft a DB migration + rollback
-│       ├── preflight.md               # /preflight — pre-commit scan for debug artifacts
-│       ├── rebuild.md                 # /rebuild  — rebuild context after /clear
-│       ├── refactor-safe.md           # /refactor-safe — refactor without changing public API
-│       └── ship.md                    # /ship     — validate + generate PR description
+│       ├── epilogue.md                # /epilogue, session shutdown protocol
+│       ├── skills-sync.md             # /skills-sync, pull skills from other project copies
+│       ├── debt-scan.md               # /debt-scan, scan for technical debt
+│       ├── dissect.md                 # /dissect, deep structural review of a file
+│       ├── migrate-draft.md           # /migrate-draft, draft a DB migration + rollback
+│       ├── preflight.md               # /preflight, pre-commit scan for debug artifacts
+│       ├── rebuild.md                 # /rebuild, rebuild context after /clear
+│       ├── refactor-safe.md           # /refactor-safe, refactor without changing public API
+│       └── ship.md                    # /ship, validate + generate PR description
 │
 ├── plans/                             # PRD and task-list files for ralph loops
 │   ├── prd.json                       # Active PRD task list (consumed by ralph --prd)
@@ -145,10 +145,10 @@ implementation via a series of Claude Code commands:
 | 1 | `/ideate [idea]` | Surfaces risks, edge cases, and gaps using SWOT, premortem, and 5 Whys |
 | 2 | `/grill-me [topic]` | Interviews you one question at a time until reaching shared design understanding |
 | 3 | `/prd [project-name]` | Writes a structured PRD to `plans/<project>-prd.md` + task JSON to `plans/<project>-prd.json` |
-| 4 | `/prd-to-issues [prd-path]` | Converts the PRD into GitHub issues — previews before creating |
+| 4 | `/prd-to-issues [prd-path]` | Converts the PRD into GitHub issues, previews before creating |
 | 5 | `/ralph --prd plans/<project>-prd.json` | Runs the `ralph.sh` agent loop to work through PRD tasks iteratively |
 
-### ralph.sh — agent loop
+### ralph.sh: agent loop
 
 `ralph.sh` at the repo root is a general-purpose agent loop that runs Claude
 against a task until it succeeds (or a max iteration cap is reached).
@@ -194,10 +194,10 @@ Session shutdown protocol."
 
 Agents should load and internalize these files before executing any task:
 
-1. `subagents/subagents.md` — defines the base agent protocol all agents must follow.
-2. `RULES.md` — mandatory compliance rules every agent must obey.
-3. `skills/skills.md` — lists all registered skills with their input/output contracts.
-4. `AGENTS.md` — Python-specific toolchain defaults, coding standards, and domain links.
+1. `subagents/subagents.md`: defines the base agent protocol all agents must follow.
+2. `RULES.md`: mandatory compliance rules every agent must obey.
+3. `skills/skills.md`: lists all registered skills with their input/output contracts.
+4. `AGENTS.md`: Python-specific toolchain defaults, coding standards, and domain links.
 
 ### Adding a New Agent
 
@@ -210,7 +210,7 @@ subagents/
 
 ### Adding a New Reference Skill
 
-Reference skills are markdown docs in `skills/` loaded by agents on demand — they are not invokable by users.
+Reference skills are markdown docs in `skills/` loaded by agents on demand; they are not invokable by users.
 
 1. Create `skills/<name>.md` following the pattern of an existing file.
 2. Add a row to the reference table in `skills/skills.md`.

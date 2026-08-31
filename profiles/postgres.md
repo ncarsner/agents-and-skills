@@ -22,7 +22,7 @@ strings, and error handling.
 variable. Credentials MUST NOT appear in a connection string literal, a
 `.pgpass` file committed to the repository, or a log record.
 
-Extends [RULES.md §8](../RULES.md#8-security-and-secrets).
+Extends [RULES.md §8](../RULES.md#8-security-and-secrets-core).
 
 | Concern | Requirement |
 |---|---|
@@ -88,7 +88,7 @@ are the single largest source of portability breakage between the two.
 formatting into a SQL string is prohibited without exception, including for
 values the agent believes are internally generated.
 
-Extends [RULES.md §8](../RULES.md#8-security-and-secrets).
+Extends [RULES.md §8](../RULES.md#8-security-and-secrets-core).
 
 | Layer | Placeholder |
 |---|---|
@@ -121,7 +121,7 @@ cur.execute("SELECT * FROM users WHERE email = %s", (email,))
 accompany every `LIMIT`, and `NULL` ordering MUST be stated explicitly wherever
 it affects results.
 
-Extends [RULES.md §14](../RULES.md#14-performance-standards).
+Extends [RULES.md §14](../RULES.md#14-performance-standards-langpython-configurable).
 
 ### Pagination
 
@@ -175,7 +175,7 @@ SELECT a || b FROM t;                       -- careful: NULL operand yields NULL
 defined boundary. Timeouts MUST be set; a statement MUST NOT be able to run or
 idle indefinitely.
 
-Extends [RULES.md §14](../RULES.md#14-performance-standards).
+Extends [RULES.md §14](../RULES.md#14-performance-standards-langpython-configurable).
 
 ### Mandatory settings
 
@@ -237,7 +237,7 @@ operation in that revision.
 
 **Rule:** Database errors MUST be caught by specific exception type or SQLSTATE
 and mapped to a domain error. Bare `except` is prohibited
-([RULES.md §9](../RULES.md#9-error-handling)). Tests MUST run against a real
+([RULES.md §9](../RULES.md#9-error-handling-langpython)). Tests MUST run against a real
 PostgreSQL instance.
 
 ### SQLSTATE mapping

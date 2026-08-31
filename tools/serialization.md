@@ -2,11 +2,11 @@
 
 Deterministic functions for reading and writing structured data in JSON, CSV,
 and TOML formats. All functions are pure transformations over strings or file
-paths — given the same input they always produce the same output.
+paths, given the same input they always produce the same output.
 
 ---
 
-## json_loads — parse JSON string with error context
+## json_loads: parse JSON string with error context
 
 ```python
 import json
@@ -38,7 +38,7 @@ def json_loads(text: str) -> Any:
 
 ---
 
-## json_dumps — serialize to pretty-printed JSON string
+## json_dumps: serialize to pretty-printed JSON string
 
 ```python
 import json
@@ -81,7 +81,7 @@ def json_dumps(obj: Any, *, indent: int = 2, sort_keys: bool = False) -> str:
 
 ---
 
-## read_json_file — load JSON from a Path
+## read_json_file: load JSON from a Path
 
 ```python
 import json
@@ -118,7 +118,7 @@ def read_json_file(path: Path, encoding: str = "utf-8") -> Any:
 
 ---
 
-## write_json_file — serialize and write JSON to a Path
+## write_json_file: serialize and write JSON to a Path
 
 ```python
 import json
@@ -149,7 +149,7 @@ def write_json_file(path: Path, obj: Any, *, indent: int = 2) -> None:
 
 ---
 
-## read_csv — parse CSV file to list of dicts
+## read_csv: parse CSV file to list of dicts
 
 ```python
 import csv
@@ -193,7 +193,7 @@ def read_csv(
 
 ---
 
-## write_csv — write list of dicts to CSV
+## write_csv: write list of dicts to CSV
 
 ```python
 import csv
@@ -237,7 +237,7 @@ def write_csv(
 
 ---
 
-## parse_toml — read TOML string to dict (Python 3.11+)
+## parse_toml: read TOML string to dict (Python 3.11+)
 
 ```python
 import tomllib
@@ -268,7 +268,7 @@ def parse_toml(text: str) -> dict[str, Any]:
 
 ---
 
-## read_toml_file — load TOML from a Path
+## read_toml_file: load TOML from a Path
 
 ```python
 import tomllib
@@ -308,7 +308,7 @@ def read_toml_file(path: Path) -> dict[str, Any]:
 
 ## See Also
 
-- [`tools/file-io.md`](file-io.md) — low-level file read/write primitives
-- [`tools/string-processing.md`](string-processing.md) — regex extraction before parsing
-- [`tools/datetime.md`](datetime.md) — serialize datetime values in JSON payloads
-- [`skills/database-access.md`](../skills/database-access.md) — structured data in SQL
+- [`tools/file-io.md`](file-io.md): low-level file read/write primitives
+- [`tools/string-processing.md`](string-processing.md): regex extraction before parsing
+- [`tools/datetime.md`](datetime.md): serialize datetime values in JSON payloads
+- [`skills/database-access.md`](../skills/database-access.md): structured data in SQL

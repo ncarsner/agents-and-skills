@@ -434,7 +434,7 @@ def get_with_rate_limit(client: httpx.Client, url: str) -> dict:
 - Always read the `Retry-After` header before deciding sleep duration.
 - Maximum backoff cap: 120 seconds per attempt.
 - Log every retry at `WARNING` level with the status code and sleep duration.
-- After all attempts exhausted, raise the original exception — do not swallow it.
+- After all attempts exhausted, raise the original exception, do not swallow it.
 
 ---
 
@@ -447,13 +447,13 @@ def get_with_rate_limit(client: httpx.Client, url: str) -> dict:
 | Basic auth | `auth=httpx.BasicAuth(username, password)` |
 | OAuth2 client credentials | Use `httpx-oauth` or implement token refresh manually |
 
-Always load credentials from environment variables — never hard-code them.
+Always load credentials from environment variables, never hard-code them.
 
 ---
 
 ## See Also
 
-- [`agents/data-engineering-agent.md`](../agents/data-engineering-agent.md) — ingestion patterns
-- [`agents/security-agent.md`](../agents/security-agent.md) — credential safety
-- [`skills/error-handling.md`](error-handling.md) — retry and exception patterns
-- [`skills/configuration-management.md`](configuration-management.md) — loading API keys
+- [`agents/data-engineering-agent.md`](../agents/data-engineering-agent.md): ingestion patterns
+- [`agents/security-agent.md`](../agents/security-agent.md): credential safety
+- [`skills/error-handling.md`](error-handling.md): retry and exception patterns
+- [`skills/configuration-management.md`](configuration-management.md): loading API keys

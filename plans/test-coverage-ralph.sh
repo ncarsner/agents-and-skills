@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# plans/test-coverage-ralph.sh — Test coverage Ralph loop for this repo.
+# plans/test-coverage-ralph.sh: Test coverage Ralph loop for this repo.
 #
 # Each iteration: Claude reads test-coverage-plan.md, identifies the most
 # important untested user-facing behavior, writes ONE test, verifies it
@@ -44,7 +44,7 @@ for ((i=1; i<=ITERATIONS; i++)); do
         --model "$MODEL" \
         --permission-mode acceptEdits \
         -p "@plans/test-coverage-plan.md @log.md @RULES.md
-PROCESS — follow exactly, one step at a time:
+PROCESS, follow exactly, one step at a time:
 
 1. ASSESS coverage.
    Run: python3 -m pytest --cov=src --cov-report=term-missing -q 2>&1 || true
@@ -61,7 +61,7 @@ PROCESS — follow exactly, one step at a time:
 
 3. WRITE one test.
    - File: tests/test_<module>.py (create if absent)
-   - Function: test_<behavior_under_test> — name must describe the behavior
+   - Function: test_<behavior_under_test>: name must describe the behavior
    - Use pytest fixtures for shared setup
    - Mock all external I/O (network, filesystem, subprocess) with unittest.mock
    - Follow RULES.md §7 testing conventions

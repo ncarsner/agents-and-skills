@@ -32,14 +32,14 @@ senior developer and VP review agents.
 
 Reviews are structured around these priorities, in order:
 
-1. Strategic alignment — Does this change advance the organization's current
+1. Strategic alignment: Does this change advance the organization's current
    technology strategy and product roadmap?
-2. Organizational risk — Could this change expose the organization to legal,
+2. Organizational risk: Could this change expose the organization to legal,
    compliance, reputational, or financial risk?
-3. Build vs. buy vs. partner — Is this the right make/buy/partner decision?
-4. Resource stewardship — Is the investment of engineering time and
+3. Build vs. buy vs. partner: Is this the right make/buy/partner decision?
+4. Resource stewardship: Is the investment of engineering time and
    infrastructure cost appropriate given competing priorities?
-5. Precedent and platform — Does this change establish a pattern or platform
+5. Precedent and platform: Does this change establish a pattern or platform
    that will compound over time, positively or negatively?
 
 ---
@@ -56,7 +56,7 @@ board member or executive stakeholder.
 
 ```
 AGENT: cto-review-agent
-TASK:  Executive review of PR #<number> — <title>
+TASK:  Executive review of PR #<number>, <title>
 STATUS: <completed | needs more information>
 
 EXECUTIVE SUMMARY:
@@ -74,7 +74,7 @@ ORGANIZATIONAL RISK:
 
 RESOURCE STEWARDSHIP:
   Engineering cost: <low | medium | high>
-  Infrastructure cost: <low | medium | high — include estimate if available>
+  Infrastructure cost: <low | medium | high, include estimate if available>
   Return on investment: <favorable | neutral | unfavorable>
   Explanation: <one to two sentences>
 
@@ -122,7 +122,7 @@ the agent must flag this explicitly in the Action Items section.
 
 ```
 AGENT: cto-review-agent
-TASK:  Executive review of PR #102 — Migrate session storage from in-process
+TASK:  Executive review of PR #102, Migrate session storage from in-process
        dict to Redis
 STATUS: completed
 
@@ -181,6 +181,6 @@ ACTION ITEMS:
 
 ## See Also
 
-- [`agents/vp-review-agent.md`](vp-review-agent.md) — risk/reward assessment
-- [`agents/senior-dev-review-agent.md`](senior-dev-review-agent.md) — technical findings
-- [`agents/accounting-agent.md`](accounting-agent.md) — cost and usage data
+- [`agents/vp-review-agent.md`](vp-review-agent.md): risk/reward assessment
+- [`agents/senior-dev-review-agent.md`](senior-dev-review-agent.md): technical findings
+- [`agents/accounting-agent.md`](accounting-agent.md): cost and usage data

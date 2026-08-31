@@ -32,15 +32,15 @@ the senior developer review agent's findings as input.
 
 Reviews are structured around these priorities, in order:
 
-1. Risk/reward tradeoff — Does the value of this change outweigh its risk,
+1. Risk/reward tradeoff: Does the value of this change outweigh its risk,
    cost, and complexity?
-2. Delivery confidence — Is the change scoped appropriately? Are dependencies
+2. Delivery confidence: Is the change scoped appropriately? Are dependencies
    clear? Is the rollout reversible?
-3. Team and resource impact — Does the change require skills or capacity the
+3. Team and resource impact: Does the change require skills or capacity the
    team does not currently have?
-4. Alignment with roadmap — Does the change move the project toward its stated
+4. Alignment with roadmap: Does the change move the project toward its stated
    goals, or does it introduce scope creep?
-5. Operational readiness — Are monitoring, alerting, and rollback procedures
+5. Operational readiness: Are monitoring, alerting, and rollback procedures
    in place?
 
 ---
@@ -89,7 +89,7 @@ For each change, the agent must state:
 
 ```
 AGENT: vp-review-agent
-TASK:  Risk/reward review of PR #<number> — <title>
+TASK:  Risk/reward review of PR #<number>, <title>
 STATUS: <completed | escalated>
 
 RISK ASSESSMENT:
@@ -103,7 +103,7 @@ RISK ASSESSMENT:
 
 REWARD ASSESSMENT:
   Business value: <description>
-  Value measurable: <yes | no — explanation>
+  Value measurable: <yes | no, explanation>
   Time to value: <immediate | short-term | long-term>
   Alternatives considered: <description or "none identified">
 
@@ -140,7 +140,7 @@ Escalate to the CTO review agent when:
 
 ```
 AGENT: vp-review-agent
-TASK:  Risk/reward review of PR #102 — Migrate session storage from in-process
+TASK:  Risk/reward review of PR #102, Migrate session storage from in-process
        dict to Redis
 STATUS: completed
 
@@ -157,14 +157,14 @@ RISK ASSESSMENT:
 REWARD ASSESSMENT:
   Business value: Enables horizontal scaling of the auth service across multiple
                   instances without sticky-session routing.
-  Value measurable: yes — can track session-related 5xx errors before and after
+  Value measurable: yes, can track session-related 5xx errors before and after
   Time to value: short-term (requires load balancer reconfiguration to realize)
   Alternatives considered: JWT stateless tokens could eliminate shared session
                             storage entirely at the cost of token revocation complexity.
 
 RESOURCE AND DELIVERY ASSESSMENT:
   Scope: well-defined
-  Team readiness: gaps identified — no current Redis operational runbook
+  Team readiness: gaps identified, no current Redis operational runbook
   Delivery confidence: medium
 
 RECOMMENDATION: APPROVE WITH CONDITIONS
@@ -179,6 +179,6 @@ RECOMMENDATION: APPROVE WITH CONDITIONS
 
 ## See Also
 
-- [`agents/senior-dev-review-agent.md`](senior-dev-review-agent.md) — detailed code findings
-- [`agents/cto-review-agent.md`](cto-review-agent.md) — executive escalation
-- [`agents/accounting-agent.md`](accounting-agent.md) — cost and token usage data
+- [`agents/senior-dev-review-agent.md`](senior-dev-review-agent.md): detailed code findings
+- [`agents/cto-review-agent.md`](cto-review-agent.md): executive escalation
+- [`agents/accounting-agent.md`](accounting-agent.md): cost and token usage data

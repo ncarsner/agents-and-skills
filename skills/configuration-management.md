@@ -16,7 +16,7 @@ The rule is simple:
 
 | Type | Source |
 |------|--------|
-| **Secrets** (passwords, keys, tokens) | Environment variables only — never files |
+| **Secrets** (passwords, keys, tokens) | Environment variables only, never files |
 | **Parameters** (timeouts, paths, feature flags) | TOML file (committed) or env vars |
 | **Defaults** | Hard-coded in the settings class/dataclass |
 
@@ -74,7 +74,7 @@ class Settings(BaseSettings):
         return Path(str(v))
 
 
-# Module-level singleton — import this in other modules
+# Module-level singleton: import this in other modules
 _settings: Settings | None = None
 
 
@@ -286,6 +286,6 @@ def test_load_config_parses_valid_toml(tmp_path: Path) -> None:
 
 ## See Also
 
-- [`agents/security-agent.md`](../agents/security-agent.md) — secrets management
-- [`skills/logging-observability.md`](logging-observability.md) — logging configuration
-- [`templates/pyproject.toml`](../templates/pyproject.toml) — project config template
+- [`agents/security-agent.md`](../agents/security-agent.md): secrets management
+- [`skills/logging-observability.md`](logging-observability.md): logging configuration
+- [`templates/pyproject.toml`](../templates/pyproject.toml): project config template

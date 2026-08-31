@@ -69,7 +69,7 @@ class TaxBracket:
     rate: Decimal
 
 
-# 2024 MFJ brackets (example — always verify against current IRS tables)
+# 2024 MFJ brackets (example: always verify against current IRS tables)
 FEDERAL_BRACKETS_MFJ_2024: list[TaxBracket] = [
     TaxBracket(Decimal("0"), Decimal("23200"), Decimal("0.10")),
     TaxBracket(Decimal("23200"), Decimal("94300"), Decimal("0.12")),
@@ -112,7 +112,7 @@ def compute_bracket_tax(
 
 ---
 
-## Document Parsing — Invoice
+## Document Parsing: Invoice
 
 ```python
 """Invoice data extraction from structured text."""
@@ -409,10 +409,10 @@ def test_quarter_for_date() -> None:
 ## Pattern: State-Machine Parsing of PDF-Extracted Legal Code
 
 PDF-extracted statutory text has a predictable two-region structure that
-requires a state machine — not a simple line-by-line regex pass — because
+requires a state machine, not a simple line-by-line regex pass, because
 headers appear in two forms:
 
-- **Named** (TOC entries): `Chapter 3 Inspection of Volatile Oils` — on one line.
+- **Named** (TOC entries): `Chapter 3 Inspection of Volatile Oils`: on one line.
 - **Bare** (body section headers): `Chapter 3` alone, name on the next line.
 
 Body text also contains cross-references and session law citations that match
@@ -431,7 +431,7 @@ section-number patterns and must be silently discarded.
    first occurrence (from the TOC pass) wins.
 4. **Skip on context mismatch.** When a section number's encoded title/chapter
    doesn't match current context, skip silently. Mismatches are either PDF
-   line-split artifacts (e.g. `6\n0-1-101`) or inline cross-references — never
+   line-split artifacts (e.g. `6\n0-1-101`) or inline cross-references, never
    legitimate new entries, because the TOC pass captured them first.
 
 ```python
@@ -445,7 +445,7 @@ class LegalCodeParser:
     def __init__(self):
         self.state = self._LOOKING_TITLE
         self.emitted_keys: set[str] = set()
-        # Case-sensitive — body text references use lowercase
+        # Case-sensitive, body text references use lowercase
         self.chapter_named_re = re.compile(r'^Chapter\s+(\d+)\s+(.+)$')
         self.chapter_bare_re  = re.compile(r'^Chapter\s+(\d+)$')
 
@@ -455,7 +455,7 @@ class LegalCodeParser:
             return
 
         if self.state == self._CHAPTER_NAME:
-            # Name line after bare header — already emitted from TOC; skip.
+            # Name line after bare header, already emitted from TOC; skip.
             self.state = self._PARSING
             return
 

@@ -28,14 +28,14 @@ This agent does not evaluate code correctness or architectural choices.
 
 ## Review Priorities
 
-1. Definition of Done — Does the change satisfy all items in the team's DoD
+1. Definition of Done: Does the change satisfy all items in the team's DoD
    (tests written, docs updated, reviewed, merged within sprint)?
-2. Cycle time — Is the PR aging beyond the team's agreed review window?
+2. Cycle time: Is the PR aging beyond the team's agreed review window?
    Is it blocking other work?
-3. Work-in-progress limits — Does merging this change cause the team to
+3. Work-in-progress limits: Does merging this change cause the team to
    exceed WIP limits on any workflow stage?
-4. Impediments — Are there unresolved blockers preventing completion?
-5. Process adherence — Does the PR follow agreed branching, commit message,
+4. Impediments: Are there unresolved blockers preventing completion?
+5. Process adherence: Does the PR follow agreed branching, commit message,
    and review conventions?
 
 ---
@@ -44,7 +44,7 @@ This agent does not evaluate code correctness or architectural choices.
 
 ```
 AGENT: project-review-scrum-master
-TASK:  Scrum review of PR #<number> — <title>
+TASK:  Scrum review of PR #<number>, <title>
 STATUS: <completed | blocked>
 
 DEFINITION OF DONE:
@@ -56,8 +56,8 @@ DEFINITION OF DONE:
 
 CYCLE TIME:
   PR age: <N days>
-  Within team SLA: <yes | no — SLA: <N> days>
-  Blocking other items: <yes — list | no>
+  Within team SLA: <yes | no, SLA: <N> days>
+  Blocking other items: <yes, list | no>
 
 WIP:
   WIP limit impact: <within limits | approaching limit | over limit>
@@ -89,5 +89,5 @@ Escalate to the VP review agent when:
 
 ## See Also
 
-- [`project-review-pm.md`](project-review-pm.md) — product value and acceptance criteria
-- [`project-review-vp.md`](project-review-vp.md) — delivery risk escalation
+- [`project-review-pm.md`](project-review-pm.md): product value and acceptance criteria
+- [`project-review-vp.md`](project-review-vp.md): delivery risk escalation

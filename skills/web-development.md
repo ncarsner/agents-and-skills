@@ -9,12 +9,12 @@ FastAPI, Flask, and Django.
 
 | Criteria | FastAPI | Flask | Django |
 |----------|---------|-------|--------|
-| REST API (new project) | ✅ Default choice | ✓ | — |
+| REST API (new project) | ✅ Default choice | ✓ | n/a |
 | Async support | ✅ Native | Partial | Partial |
 | Auto-generated OpenAPI docs | ✅ Built-in | Manual | Manual |
-| Full-featured app (auth, admin, ORM) | — | — | ✅ |
-| Quick prototype / script serving | — | ✅ | — |
-| Existing codebase | Match existing | — | — |
+| Full-featured app (auth, admin, ORM) | n/a |, | ✅ |
+| Quick prototype / script serving | n/a | ✅ | n/a |
+| Existing codebase | Match existing | n/a |, |
 
 ---
 
@@ -316,7 +316,7 @@ def decode_access_token(token: str, secret: str) -> dict:
 ## CORS and Headers
 
 ```python
-# FastAPI CORS (development — restrict in production)
+# FastAPI CORS (development: restrict in production)
 from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
@@ -381,12 +381,12 @@ def register_health_routes(app: FastAPI, version: str) -> None:
 
     @app.get("/health", response_model=HealthResponse, tags=["ops"])
     def liveness() -> HealthResponse:
-        """Liveness probe — returns 200 when the process is running."""
+        """Liveness probe, returns 200 when the process is running."""
         return HealthResponse(status="ok", version=version)
 
     @app.get("/ready", response_model=HealthResponse, tags=["ops"])
     def readiness(db: bool = True) -> HealthResponse:
-        """Readiness probe — returns 200 only when dependencies are reachable.
+        """Readiness probe, returns 200 only when dependencies are reachable.
 
         Raises:
             HTTPException 503: When a required dependency is unavailable.
@@ -421,7 +421,7 @@ def _check_db() -> bool:
 | `/ready` | Readiness | All dependencies reachable | Any dependency down |
 
 - Both endpoints must respond in < 200 ms.
-- `/health` must never call external services — it only proves the process is running.
+- `/health` must never call external services: it only proves the process is running.
 - `/ready` must check every dependency the service needs to serve traffic (DB, cache, upstream APIs).
 - Exclude `/health` and `/ready` from authentication middleware.
 - In Docker Compose, declare as:

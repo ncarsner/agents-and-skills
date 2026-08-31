@@ -33,7 +33,7 @@ uv run pytest tests/unit/
 # Run with coverage (terminal report)
 uv run pytest --cov=src --cov-report=term-missing
 
-# Run with coverage (HTML report — open htmlcov/index.html)
+# Run with coverage (HTML report: open htmlcov/index.html)
 uv run pytest --cov=src --cov-report=html
 
 # Enforce 100% coverage (fails build if below threshold)
@@ -254,7 +254,7 @@ asyncio_mode = "auto"
 
 ## Coverage Exclusions
 
-Use `# pragma: no cover` sparingly — only for code that is genuinely untestable
+Use `# pragma: no cover` sparingly, only for code that is genuinely untestable
 (e.g., `__main__` blocks, abstract method stubs):
 
 ```python
@@ -334,7 +334,7 @@ uv run pytest tests/integration/ -m integration
 | `pytest-httpx` | `uv add --dev pytest-httpx` | `httpx`-based clients (recommended) |
 | `responses` | `uv add --dev responses` | `requests`-based clients |
 
-Do not use `httpretty` — it patches at the socket level and can cause test
+Do not use `httpretty`: it patches at the socket level and can cause test
 isolation failures when run alongside other mocking tools.
 
 #### pytest-httpx example
@@ -393,7 +393,7 @@ boundary only.
 - [ ] Every public function has at least one test
 - [ ] Every exception path has a test verifying the exception type and message
 - [ ] Parametrize is used for data-driven tests (not repeated test functions)
-- [ ] No hardcoded file paths — use `tmp_path` fixture
+- [ ] No hardcoded file paths: use `tmp_path` fixture
 - [ ] External HTTP calls are mocked
 - [ ] Database calls are mocked or use an in-memory test database
 - [ ] `--cov-fail-under=100` is set in CI
@@ -475,9 +475,9 @@ mutmut show <id>
 
 | Score | Interpretation |
 |-------|---------------|
-| 90–100% | Excellent — tests catch most logic errors |
-| 75–89% | Acceptable — review surviving mutants for assertion gaps |
-| < 75% | Investigate — surviving mutants indicate under-tested branches |
+| 90–100% | Excellent, tests catch most logic errors |
+| 75–89% | Acceptable, review surviving mutants for assertion gaps |
+| < 75% | Investigate, surviving mutants indicate under-tested branches |
 
 ### CI Integration
 

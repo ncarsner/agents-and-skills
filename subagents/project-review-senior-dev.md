@@ -31,13 +31,13 @@ This agent does not approve or merge code; it produces findings only.
 
 Reviews are structured around these priorities, in order:
 
-1. Architectural efficiency — Does the design avoid unnecessary complexity,
+1. Architectural efficiency: Does the design avoid unnecessary complexity,
    duplication, and coupling? Are the right abstractions chosen?
-2. Correctness — Does the code do what it claims? Are edge cases handled?
-3. Performance — Are there obvious O(n^2) patterns, redundant I/O, or
+2. Correctness: Does the code do what it claims? Are edge cases handled?
+3. Performance: Are there obvious O(n^2) patterns, redundant I/O, or
    avoidable allocations?
-4. Test coverage — Are new behaviors tested? Are tests meaningful?
-5. Code clarity — Is the code readable without excessive comments?
+4. Test coverage: Are new behaviors tested? Are tests meaningful?
+5. Code clarity: Is the code readable without excessive comments?
 
 ---
 
@@ -78,17 +78,17 @@ does, why it is a problem, and a concrete suggestion for improvement.
 
 ```
 AGENT: senior-dev-review-agent
-TASK:  Review PR #<number> — <title>
+TASK:  Review PR #<number>, <title>
 STATUS: <completed | escalated>
 
 ARCHITECTURAL FINDINGS:
-  [<level>] <file>:<line> — <concise description>
+  [<level>] <file>:<line>, <concise description>
     Current: <what the code does>
     Problem: <why it is an issue>
     Suggestion: <what to do instead>
 
 CODE QUALITY FINDINGS:
-  [<level>] <file>:<line> — <concise description>
+  [<level>] <file>:<line>, <concise description>
     ...
 
 TEST COVERAGE FINDINGS:
@@ -122,18 +122,18 @@ Escalate to the VP review agent when:
 
 ```
 AGENT: senior-dev-review-agent
-TASK:  Review PR #88 — Refactor user session handling
+TASK:  Review PR #88, Refactor user session handling
 STATUS: completed
 
 ARCHITECTURAL FINDINGS:
-  [MAJOR] src/auth/session.py:42 — Session state stored in a module-level dict
+  [MAJOR] src/auth/session.py:42, Session state stored in a module-level dict
     Current: A module-level dictionary caches active sessions across requests.
     Problem: Module-level mutable state is shared across threads and makes unit
              testing require global teardown between tests.
     Suggestion: Move session storage into a SessionStore class injected as a
                 dependency so each test and each request context owns its store.
 
-  [MINOR] src/auth/session.py:80 — Token expiry check duplicated in two places
+  [MINOR] src/auth/session.py:80, Token expiry check duplicated in two places
     Current: Expiry logic appears in both validate_token() and refresh_token().
     Problem: Any change to expiry rules must be made in two places.
     Suggestion: Extract a single _is_expired(token) helper and call it from both.
@@ -150,7 +150,7 @@ SUMMARY:
 
 ## See Also
 
-- [`agents/vp-review-agent.md`](vp-review-agent.md) — risk/reward escalation
-- [`agents/cto-review-agent.md`](cto-review-agent.md) — executive overview
-- [`agents/security-agent.md`](security-agent.md) — security-focused review
-- [`agents/testing-agent.md`](testing-agent.md) — test coverage review
+- [`agents/vp-review-agent.md`](vp-review-agent.md): risk/reward escalation
+- [`agents/cto-review-agent.md`](cto-review-agent.md): executive overview
+- [`agents/security-agent.md`](security-agent.md): security-focused review
+- [`agents/testing-agent.md`](testing-agent.md): test coverage review

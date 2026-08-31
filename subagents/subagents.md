@@ -8,9 +8,9 @@ This document defines the protocol and directives that agents must follow when o
 
 Every agent must declare:
 
-- **Name** — a unique, lowercase, hyphenated identifier (e.g., `code-review-agent`).
-- **Role** — a single sentence describing what the agent is responsible for.
-- **Scope** — the set of tasks, files, or domains the agent is permitted to act on.
+- **Name**: a unique, lowercase, hyphenated identifier (e.g., `code-review-agent`).
+- **Role**: a single sentence describing what the agent is responsible for.
+- **Scope**: the set of tasks, files, or domains the agent is permitted to act on.
 
 ---
 
@@ -18,12 +18,12 @@ Every agent must declare:
 
 When an agent receives a task, it must follow this sequence:
 
-1. **Parse the task** — Extract the intent, target, and any constraints from the input.
-2. **Validate scope** — Confirm the task falls within the agent's declared scope. Reject out-of-scope tasks immediately with a clear explanation. Also check pipeline stage: if `plans/*.json` exists with `done:false` tasks, the correct action is `/ralph`, not direct implementation or `/ideate`. If no `plans/*.json` exists and the task is a new feature, begin at `/ideate` and do not implement until issues exist.
-3. **Identify required skills** — Determine which registered skills are needed to complete the task (see `skills/` directory).
-4. **Plan before acting** — Produce a short ordered list of steps before executing any action.
-5. **Execute step-by-step** — Carry out each planned step in order. Do not skip steps.
-6. **Report outcome** — Return a structured result (see Section 5).
+1. **Parse the task**: Extract the intent, target, and any constraints from the input.
+2. **Validate scope**: Confirm the task falls within the agent's declared scope. Reject out-of-scope tasks immediately with a clear explanation. Also check pipeline stage: if `plans/*.json` exists with `done:false` tasks, the correct action is `/ralph`, not direct implementation or `/ideate`. If no `plans/*.json` exists and the task is a new feature, begin at `/ideate` and do not implement until issues exist.
+3. **Identify required skills**: Determine which registered skills are needed to complete the task (see `skills/` directory).
+4. **Plan before acting**: Produce a short ordered list of steps before executing any action.
+5. **Execute step-by-step**: Carry out each planned step in order. Do not skip steps.
+6. **Report outcome**: Return a structured result (see Section 5).
 
 ---
 
@@ -31,7 +31,7 @@ When an agent receives a task, it must follow this sequence:
 
 Before invoking a subagent, grep `index.md` for pages relevant to the task
 domain and include the matching pages in the subagent's prompt. This is a
-pre-fetch, not a fallback — do it deterministically for every delegation,
+pre-fetch, not a fallback, do it deterministically for every delegation,
 not only when the orchestrator suspects relevant history exists. Closes
 12-Factor Agents F13 (pre-fetch context); see `.12-FACTOR-AGENTS.md`.
 
@@ -39,7 +39,7 @@ not only when the orchestrator suspects relevant history exists. Closes
 grep -i "<task-domain-keyword>" index.md
 ```
 
-If no page matches, proceed without attaching one — do not delay
+If no page matches, proceed without attaching one, do not delay
 delegation searching for a match that isn't there.
 
 ---
@@ -48,11 +48,11 @@ delegation searching for a match that isn't there.
 
 Agents must abide by the following rules at all times:
 
-- **Least-privilege action** — Take the smallest action necessary to fulfill the task. Do not modify anything outside the declared scope.
-- **No hallucination** — If the agent lacks sufficient context or data, it must say so rather than guess or fabricate output.
-- **Determinism** — Given the same input and context, an agent must produce the same output. Avoid randomness unless explicitly instructed.
-- **Explainability** — Every non-trivial decision must be accompanied by a brief rationale.
-- **Human escalation** — If a task is ambiguous, potentially destructive, or outside defined scope, pause and request human clarification before proceeding.
+- **Least-privilege action**: Take the smallest action necessary to fulfill the task. Do not modify anything outside the declared scope.
+- **No hallucination**: If the agent lacks sufficient context or data, it must say so rather than guess or fabricate output.
+- **Determinism**: Given the same input and context, an agent must produce the same output. Avoid randomness unless explicitly instructed.
+- **Explainability**: Every non-trivial decision must be accompanied by a brief rationale.
+- **Human escalation**: If a task is ambiguous, potentially destructive, or outside defined scope, pause and request human clarification before proceeding.
 
 ---
 
@@ -61,7 +61,7 @@ Agents must abide by the following rules at all times:
 When calling a skill:
 
 1. Reference the skill by its canonical name as defined in `skills/skills.md`.
-2. Pass only the data the skill explicitly requires — do not expose unrelated context.
+2. Pass only the data the skill explicitly requires, do not expose unrelated context.
 3. Validate the skill's output before using it in downstream steps.
 4. If a skill returns an error, log it and halt unless a fallback is defined.
 
@@ -79,7 +79,7 @@ from any agent:
 - Name the skill file by its canonical path: `skills/<name>.md`.
 - In a headless prompt, include the relevant excerpt directly rather than assuming
   the subagent can read files.
-- Never duplicate skill content inside an agent definition file — reference the
+- Never duplicate skill content inside an agent definition file, reference the
   canonical `skills/` file to prevent drift between copies.
 - If a skill needs to be extended for a specific agent's domain, add a new section
   to the skill file under a clearly labeled heading (e.g., `## For data-engineering-agent`).
@@ -125,7 +125,7 @@ NOTES (optional):
   conversational or status responses.
 - Never underline text.
 - No emojis unless the user explicitly requests them.
-- No em dashes (`—`) in any documentation, comments, or agent-generated text. Use commas, colons, or rewrite the sentence.
+- No em dashes (`: `) in any documentation, comments, or agent-generated text. Use commas, colons, or rewrite the sentence.
 
 ---
 

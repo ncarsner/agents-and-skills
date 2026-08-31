@@ -86,7 +86,7 @@ pre-commit run --all-files
 
 When `detect-secrets` flags a false positive:
 
-1. Audit the flagged line — confirm it is not a real secret.
+1. Audit the flagged line: confirm it is not a real secret.
 2. Update the baseline to mark it as allowed:
 
 ```bash
@@ -126,7 +126,7 @@ This scan must pass before any other job may proceed.
 
 ## If a Secret Is Accidentally Committed
 
-**This is a security incident. Act immediately — do not delay to finish other work.**
+**This is a security incident. Act immediately, do not delay to finish other work.**
 
 1. **Rotate the credential.** Revoke and reissue before anything else. Assume it is
    already compromised.
@@ -149,11 +149,11 @@ git push --force-with-lease
 
 3. **Force-push** requires human approval (RULES.md §6). Do not proceed unilaterally.
 
-4. **Notify all parties** with a clone — they may have the secret cached locally.
+4. **Notify all parties** with a clone: they may have the secret cached locally.
 
-5. **Audit access logs** — determine whether the exposed credential was used.
+5. **Audit access logs**: determine whether the exposed credential was used.
 
-6. **Document the incident** — add a timestamped entry to the project's incident log or PR.
+6. **Document the incident**: add a timestamped entry to the project's incident log or PR.
 
 ---
 
@@ -178,7 +178,7 @@ Override defaults in the project's `AGENTS.md` (or `AGENTS/AGENTS.md` per RULES.
 ### Detecting Expiry
 
 Where the credential provider exposes an expiry date, record it in a
-`.credential-manifest.json` at project root (never committed — add to `.gitignore`):
+`.credential-manifest.json` at project root (never committed, add to `.gitignore`):
 
 ```json
 {

@@ -8,7 +8,7 @@
     "files_affected": ["path/to/file.md", "path/to/other.json"],
     "acceptance_criteria": [
       "Specific, verifiable condition that must be true when task is done",
-      "Another condition — written so an agent can check it without human input",
+      "Another condition, written so an agent can check it without human input",
       "File X contains section Y",
       "Command Z exits 0"
     ],
@@ -45,7 +45,7 @@
     "category": "feature",
     "priority": 3,
     "done": true,
-    "description": "Example completed Python task — shows done:true for agent to skip.",
+    "description": "Example completed Python task, shows done:true for agent to skip.",
     "files_affected": ["src/example.py", "tests/test_example.py"],
     "acceptance_criteria": [
       "ruff format src/example.py exits 0",
