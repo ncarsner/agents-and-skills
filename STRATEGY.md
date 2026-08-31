@@ -40,8 +40,10 @@ Never rely on conversational memory across session boundaries.
 
 1. Invoke `/epilogue` (`.claude/commands/epilogue.md`) for the routine
    session-shutdown steps (skills, `CLAUDE.md`, `CHANGELOG.md`, commit).
-2. Write a session wiki page using `sessions/yyyy-mm-dd-<phase>.md` (see
-   `sessions/README.md` for the required format) — replaces the old
+2. Write a session wiki page at the project root:
+   `sessions/yyyy-mm-dd-<phase>.md`. The format spec is `sessions/README.md`
+   in the bundle, which is `AGENTS/sessions/README.md` downstream and
+   `sessions/README.md` here (RULES.md §12). Replaces the old
    `yyyy-mm-dd-<phase>-summary.md` convention.
 3. Add a row to `index.md`'s Session Wiki Pages table pointing to the new page.
 4. Commit and push.
@@ -99,7 +101,7 @@ improvement automatically.
 
 At the end of each session, decompose the next session's work into discrete
 subtasks and assign each to a named subagent. Write these assignments into
-the session wiki page (`sessions/yyyy-mm-dd-<phase>.md`) under its
+the project-root session wiki page (`sessions/yyyy-mm-dd-<phase>.md`) under its
 `Subagent Plan — Next Session` heading.
 
 **Example (end of morning session):**

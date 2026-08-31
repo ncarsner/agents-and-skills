@@ -23,8 +23,10 @@ are gitignored and must never be cited as a row target; cite the corresponding
 
 ## Session Wiki Pages
 
-Pages follow the `sessions/yyyy-mm-dd-<phase>.md` format defined in
-`sessions/README.md`. Add one row here when writing a page at session close.
+Pages live at the project root as `sessions/yyyy-mm-dd-<phase>.md`. The
+format spec is `sessions/README.md` in the bundle, which is
+`AGENTS/sessions/README.md` downstream and `sessions/README.md` here
+(RULES.md §12). Add one row here when writing a page at session close.
 
 Empty by design: no tracked session wiki page exists yet. The first page
 written under `sessions/` gets the first row.

@@ -366,6 +366,27 @@ project root, and never edit the root stub beyond the template above. Tools
 other than Claude Code (Gemini CLI, Codex, etc.) should be pointed at
 `AGENTS/CLAUDE.md` explicitly rather than given their own root file.
 
+### Path references inside bundle documents
+
+A path written inside a bundle document must resolve under both layouts: this
+repository, where the materials sit at the root, and a downstream project,
+where they sit in `AGENTS/`. Two classes, handled differently:
+
+| Class | Examples | How to write it |
+|-------|----------|-----------------|
+| Project state, created or updated by an agent | `index.md`, `log.md`, `plans/`, `sessions/*.md` pages, `ralph.sh`, `.claude/` | Bare and root-relative. These live at the project root in both layouts, so a bare path already resolves. |
+| Bundle-owned documents | `RULES.md`, `skills/`, `subagents/`, `sessions/README.md` | A Markdown link resolves correctly on its own, because it resolves relative to the citing document. In prose, name the prefix explicitly: "`sessions/README.md` in the bundle, `AGENTS/sessions/README.md` downstream." |
+
+The failure mode is a bundle-owned document cited as a bare root-relative path
+in prose. Downstream that path points at the project root, where the file does
+not exist, while the file itself sits one directory down.
+
+Session wiki pages are project state, not bundle content: they are git-tracked
+per `sessions/README.md`, and `AGENTS/` must never be committed, so pages
+written under `AGENTS/sessions/` would be untracked and lost. Pages belong at
+`<project-root>/sessions/`. Only the format spec, `sessions/README.md`, ships
+with the bundle.
+
 This rule applies to **downstream copies only**. This repository is the master
 source and is exempt — its agent materials (`CLAUDE.md`, `RULES.md`, `skills/`,
 `subagents/`, etc.) are intentionally tracked at the root level with no

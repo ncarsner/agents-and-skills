@@ -13,7 +13,14 @@ and unaffected.
 
 ## Filename
 
-`sessions/yyyy-mm-dd-<phase>.md` — e.g. `sessions/2026-07-29-morning.md`.
+Pages are written to the **project root**, never beside this file:
+`<project-root>/sessions/yyyy-mm-dd-<phase>.md`, e.g.
+`sessions/2026-07-29-morning.md`.
+
+Downstream this spec ships inside the bundle at `AGENTS/sessions/README.md`
+while pages go to `./sessions/`. That is deliberate: pages are git-tracked
+project state and `AGENTS/` is never committed, so a page written under
+`AGENTS/sessions/` would be lost. See RULES.md §12.
 
 ## Required sections
 

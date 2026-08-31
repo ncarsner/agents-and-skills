@@ -32,8 +32,8 @@ Read both index files:
 ## Step 3 — Content catalog query (pre-fetch)
 
 Grep `index.md` for pages matching the incoming task's domain keywords
-(if $ARGUMENTS is non-empty). Load only the matching `sessions/` pages —
-do not read the whole catalog into context. This closes 12-Factor Agents
+(if $ARGUMENTS is non-empty). Load only the matching `sessions/` pages from
+the project root; do not read the whole catalog into context. This closes 12-Factor Agents
 F13 (pre-fetch context); see `.12-FACTOR-AGENTS.md`.
 
 ```bash
