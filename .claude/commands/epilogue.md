@@ -183,6 +183,33 @@ sections with no entries, place the new entry under `## [Unreleased]` if it
 exists (otherwise above the most recent dated heading), and use
 present-tense imperative phrasing ("Add …", "Fix …", "Remove …").
 
+## Step 5a: Update the Content Catalog
+
+`index.md` is the pre-fetch content catalog agents grep at session open and
+before invoking a subagent. `CHANGELOG.md` records what changed and when;
+`index.md` records where to look for depth on topic X. Keeping them wired is
+part of session close, not an optional ritual.
+
+If this session produced a durable reference point a future agent would want
+to find by keyword, add one row to `index.md`:
+
+- Wrote a page under `sessions/`: add a row to the **Session Wiki Pages**
+  table.
+- Otherwise: add a row to **Repo Reference Docs** pointing at the
+  `CHANGELOG.md` date heading written in Step 5, e.g.
+  `` `CHANGELOG.md` [2026-08-30](CHANGELOG.md#2026-08-30) ``.
+
+Row targets must be tracked in git. Never cite a `*-session.md` summary from
+Step 1: those match `.gitignore` and will not resolve in a fresh clone. Verify
+before finishing:
+
+```bash
+git ls-files --error-unmatch <path-cited-in-the-new-row>
+```
+
+**When to skip:** if Step 5 was skipped because nothing notable happened,
+skip this step too and record the reason in the Closure Checklist.
+
 ## Step 6: Review, Stage, Commit, and Push
 
 Inspect the worktree before staging:
@@ -234,6 +261,9 @@ Report each item as done, skipped with reason, or blocked:
       `skills/skills.md` (or skipped — no new patterns this session).
 - [ ] CHANGELOG.md updated with session entry, or skipped — nothing notable.
 - [ ] `.gitignore` includes `*-session.md` pattern.
+- [ ] `index.md` row added for this session, pointing at a git-tracked
+      target and verified with `git ls-files --error-unmatch`, or
+      skipped because Step 5 was skipped.
 - [ ] `CLAUDE.md` located via the discovery command (root stub vs.
       `AGENTS/CLAUDE.md` canonical copy) and updated in the correct
       location, or left unchanged because the standing instructions did not
@@ -257,6 +287,7 @@ Branch: <branch-name>
 Commit: <short-sha> — <commit message, or "no commit needed">
 Remote: <origin-url, or blocker>
 CHANGELOG: <updated | skipped — reason>
+index.md: <row added | skipped, reason>
 Skills: <files created or updated, or "none — no new patterns this session">
 Context file: <CLAUDE.md updated, or "none present">
 Status: <clean / not clean with reason>
