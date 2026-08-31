@@ -2,10 +2,14 @@
 
 This file is the single, canonical set of instructions for every coding agent
 working in this repository, or any project derived from it: Claude Code,
-Gemini CLI, Codex, or any other tool. The filename stays `CLAUDE.md` because
-Claude Code auto-loads it by convention; every other tool should be pointed
-at this file explicitly (e.g. in an opening prompt or the project README).
-There is no `AGENTS.md` or `GEMINI.md` — this is the only root context file.
+Gemini CLI, Codex, or any other tool. There is no `AGENTS.md` or `GEMINI.md`:
+this is the only context file, wherever it sits. The filename stays
+`CLAUDE.md` because agent tools auto-load that name from the project root;
+downstream, that root file is a stub pointing here. Every other tool should be
+pointed at this file explicitly (e.g. in an opening prompt or the project
+README). For where this file lives in each layout, master source versus
+downstream copy, see
+[RULES.md §12](RULES.md#12-local-only-agent-directory-core).
 
 Python engineering agent. Comply with [RULES-BRIEF.md](RULES-BRIEF.md) at session start.
 Load [RULES.md](RULES.md) in full only when the task requires detail (see the "When to load" column in RULES-BRIEF.md).
