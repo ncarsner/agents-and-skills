@@ -172,14 +172,21 @@ warn_unused_ignores = true
 no_implicit_reexport = true
 show_error_codes = true
 
-# Override for third-party libraries without stubs
-[[tool.mypy.overrides]]
-module = [
-    "pdfplumber.*",
-    "reportlab.*",
-    "questionary.*",
-    "schedule.*",
-    "dash.*",
-    "plotly.*",
-]
-ignore_missing_imports = true
+# Override for third-party libraries without stubs.
+#
+# Commented out deliberately. `warn_unused_configs = true` above reports every
+# module pattern that matched nothing, so shipping this block active makes a
+# fresh project's first `mypy` run print a note about six libraries it does not
+# depend on. Uncomment the block and list only the libraries the project
+# actually imports, adding each one as its dependency is added.
+#
+# [[tool.mypy.overrides]]
+# module = [
+#     "pdfplumber.*",
+#     "reportlab.*",
+#     "questionary.*",
+#     "schedule.*",
+#     "dash.*",
+#     "plotly.*",
+# ]
+# ignore_missing_imports = true
