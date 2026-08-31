@@ -1,7 +1,7 @@
 # Senior Developer Review Agent Instructions
 
-This file extends `CLAUDE.md` with instructions for ad hoc code review from
-the perspective of a senior software engineer. Read root `CLAUDE.md` first.
+This file extends `AGENTS.md` with instructions for ad hoc code review from
+the perspective of a senior software engineer. Read root `AGENTS.md` first.
 
 ---
 
@@ -56,7 +56,7 @@ When evaluating architecture, the agent must assess:
 - Coupling: components communicate through narrow, well-defined interfaces;
   changing one component does not ripple unexpectedly through others.
 - Layer separation: business logic, I/O, and presentation are in distinct
-  layers (see Architecture Boundaries in root CLAUDE.md).
+  layers (see Architecture Boundaries in root AGENTS.md).
 
 For each criterion that fails, the agent must state what the current code
 does, why it is a problem, and a concrete suggestion for improvement.

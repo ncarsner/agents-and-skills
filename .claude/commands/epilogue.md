@@ -1,5 +1,5 @@
 ---
-description: Session shutdown protocol — capture the session, refresh CLAUDE.md, update CHANGELOG, commit, push, and produce a closure report
+description: Session shutdown protocol — capture the session, refresh AGENTS.md, update CHANGELOG, commit, push, and produce a closure report
 allowed-tools: Bash(git *), Bash(gh *), Bash(find *), Read, Edit, Write, Glob
 ---
 
@@ -77,47 +77,50 @@ create placeholder or empty skill files.
 
 ## Step 3: Refresh the Context File
 
-`CLAUDE.md` is the only root context file this project produces — there is
-no `GEMINI.md` or `AGENTS.md`. It serves as the agent's persistent memory
-across sessions. Update it in place rather than creating new lowercase
-copies.
+`AGENTS.md` is the only context file this project produces; there is no
+`GEMINI.md`. It serves as the agent's persistent memory across sessions.
+Update it in place rather than creating new lowercase copies.
+
+The root `CLAUDE.md` is a stub (see `templates/context-file-stub.md`) that
+exists only so Claude Code auto-loads something. Never write session content
+into it.
 
 **Locating the canonical content when operating inside AGENTS/:** when the
 agent materials have been copied into an `AGENTS/` subdirectory of a
-downstream project (per `RULES.md` §12), the project root holds only a short
-`CLAUDE.md` stub (see `templates/context-file-stub.md`). The full, canonical
-content lives at `AGENTS/CLAUDE.md`. Edit that file — never the root stub.
+downstream project (per `RULES.md` §12), the canonical content lives at
+`AGENTS/AGENTS.md`. Edit that file, never the root stub.
 
 Run this discovery command from the project root to confirm which layout is
 in play:
 
 ```bash
-find . -maxdepth 1 -name "CLAUDE.md" | sort
-find . -maxdepth 2 -path "./AGENTS/CLAUDE.md" | sort
+find . -maxdepth 1 -name "AGENTS.md" | sort
+find . -maxdepth 2 -path "./AGENTS/AGENTS.md" | sort
 ```
 
-If `AGENTS/CLAUDE.md` exists, edit that file and leave the root stub
+If `AGENTS/AGENTS.md` exists, edit that file and leave the root stub
 untouched. If no `AGENTS/` directory exists, this is the master-source
 repository or a project without the local-only bundle — edit the root
-`CLAUDE.md` directly. If neither exists yet, create the root `CLAUDE.md`
-from `templates/context-file-stub.md` if an `AGENTS/` bundle is present, or
-from scratch at the project root otherwise.
+`AGENTS.md` directly. If neither exists yet, create `AGENTS/AGENTS.md` if an
+`AGENTS/` bundle is present, or a root `AGENTS.md` otherwise, and in the
+bundle case seed the root `CLAUDE.md` from `templates/context-file-stub.md`.
 
 **Never create or modify context files inside `AGENTS/` unless that is the
 canonical copy per the check above.** That directory is gitignored and
-untracked. **Do not create new lowercase files** (`claude.md`) or
-reintroduce `GEMINI.md`/`AGENTS.md` as separate root files.
+untracked. **Do not create new lowercase files** (`agents.md`, `claude.md`)
+or reintroduce `GEMINI.md` as a separate root file, and never expand the root
+`CLAUDE.md` stub into a second copy of the instructions.
 
-`CLAUDE.md` holds instructions, not history. Update it only where this
+`AGENTS.md` holds instructions, not history. Update it only where this
 session changed what a future agent must *do*: identity, the on-demand
 resource table, writing style, pipeline discipline, delegation rules, or a
 resource path that moved. If nothing about the standing instructions changed,
 leave the file alone and record that in the checklist.
 
 **Do not add a changelog table, a dated entry, or a session recap to
-`CLAUDE.md`.** `CHANGELOG.md` is the single record for what changed and when
+`AGENTS.md`.** `CHANGELOG.md` is the single record for what changed and when
 (Step 5), and the session summary (Step 1) holds decisions, blockers, and next
-steps. `CLAUDE.md` carried a duplicate changelog from 2026-07-12 until
+steps. The file carried a duplicate changelog from 2026-07-12 until
 2026-08-01, inherited from the deleted `AGENTS.md`; every row of it was already
 in `CHANGELOG.md`. Do not recreate it.
 
@@ -183,6 +186,33 @@ sections with no entries, place the new entry under `## [Unreleased]` if it
 exists (otherwise above the most recent dated heading), and use
 present-tense imperative phrasing ("Add …", "Fix …", "Remove …").
 
+## Step 5a: Update the Content Catalog
+
+`index.md` is the pre-fetch content catalog agents grep at session open and
+before invoking a subagent. `CHANGELOG.md` records what changed and when;
+`index.md` records where to look for depth on topic X. Keeping them wired is
+part of session close, not an optional ritual.
+
+If this session produced a durable reference point a future agent would want
+to find by keyword, add one row to `index.md`:
+
+- Wrote a page under `sessions/`: add a row to the **Session Wiki Pages**
+  table.
+- Otherwise: add a row to **Repo Reference Docs** pointing at the
+  `CHANGELOG.md` date heading written in Step 5, e.g.
+  `` `CHANGELOG.md` [2026-08-30](CHANGELOG.md#2026-08-30) ``.
+
+Row targets must be tracked in git. Never cite a `*-session.md` summary from
+Step 1: those match `.gitignore` and will not resolve in a fresh clone. Verify
+before finishing:
+
+```bash
+git ls-files --error-unmatch <path-cited-in-the-new-row>
+```
+
+**When to skip:** if Step 5 was skipped because nothing notable happened,
+skip this step too and record the reason in the Closure Checklist.
+
 ## Step 6: Review, Stage, Commit, and Push
 
 Inspect the worktree before staging:
@@ -234,12 +264,16 @@ Report each item as done, skipped with reason, or blocked:
       `skills/skills.md` (or skipped — no new patterns this session).
 - [ ] CHANGELOG.md updated with session entry, or skipped — nothing notable.
 - [ ] `.gitignore` includes `*-session.md` pattern.
-- [ ] `CLAUDE.md` located via the discovery command (root stub vs.
-      `AGENTS/CLAUDE.md` canonical copy) and updated in the correct
+- [ ] `index.md` row added for this session, pointing at a git-tracked
+      target and verified with `git ls-files --error-unmatch`, or
+      skipped because Step 5 was skipped.
+- [ ] `AGENTS.md` located via the discovery command (root `AGENTS.md` vs.
+      `AGENTS/AGENTS.md` canonical copy) and updated in the correct
       location, or left unchanged because the standing instructions did not
       change; no changelog table, dated entry, or session recap added to it;
       no files created inside `AGENTS/` beyond the canonical copy; no new
-      lowercase copies or `GEMINI.md`/`AGENTS.md` files created.
+      lowercase copies or `GEMINI.md` file created; the root `CLAUDE.md`
+      stub was left as a stub.
 - [ ] Secrets and local-only files were checked before staging.
 - [ ] Intended changes were committed using Conventional Commits format
       (RULES.md §6), or there was nothing to commit.
@@ -257,8 +291,9 @@ Branch: <branch-name>
 Commit: <short-sha> — <commit message, or "no commit needed">
 Remote: <origin-url, or blocker>
 CHANGELOG: <updated | skipped — reason>
+index.md: <row added | skipped, reason>
 Skills: <files created or updated, or "none — no new patterns this session">
-Context file: <CLAUDE.md updated, or "none present">
+Context file: <AGENTS.md updated, or "none present">
 Status: <clean / not clean with reason>
 
 Next steps:

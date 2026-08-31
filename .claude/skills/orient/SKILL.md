@@ -1,6 +1,6 @@
 ---
 name: orient
-description: Bootstrap agent context by reading CLAUDE.md, RULES.md, the subagent registry, and the skills index, then surveying the repo structure. Run at the start of every new session before acting on any task.
+description: Bootstrap agent context by reading AGENTS.md, RULES.md, the subagent registry, and the skills index, then surveying the repo structure. Run at the start of every new session before acting on any task.
 disable-model-invocation: true
 allowed-tools: Read Bash
 ---
@@ -11,7 +11,7 @@ Orient yourself to this repository before acting. Complete all five steps in ord
 
 Read both files in full:
 
-- `CLAUDE.md` — agent identity, toolchain, post-edit checklist, and on-demand resource table
+- `AGENTS.md` — agent identity, toolchain, post-edit checklist, and on-demand resource table
 - `RULES.md` — mandatory compliance rules (all 12 enforced sections + placeholders)
 
 Key rules to internalize:
@@ -32,8 +32,8 @@ Read both index files:
 ## Step 3 — Content catalog query (pre-fetch)
 
 Grep `index.md` for pages matching the incoming task's domain keywords
-(if $ARGUMENTS is non-empty). Load only the matching `sessions/` pages —
-do not read the whole catalog into context. This closes 12-Factor Agents
+(if $ARGUMENTS is non-empty). Load only the matching `sessions/` pages from
+the project root; do not read the whole catalog into context. This closes 12-Factor Agents
 F13 (pre-fetch context); see `.12-FACTOR-AGENTS.md`.
 
 ```bash
@@ -63,7 +63,7 @@ ls -1 subagents/ && ls -1 skills/
 ## Step 5 — Orientation summary
 
 Report a concise summary covering:
-1. Agent identity (from CLAUDE.md §Identity)
+1. Agent identity (from AGENTS.md §Identity)
 2. Which subagents are registered and which to delegate to for the current task
 3. Repo layout — top-level directories and their purpose
 4. Any RULES.md constraints directly relevant to the current task (if one was provided via $ARGUMENTS)

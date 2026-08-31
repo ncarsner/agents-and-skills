@@ -1,7 +1,7 @@
 # Legal and Fiscal Analysis Agent Instructions
 
-This file extends `CLAUDE.md` with instructions specific to **legal and fiscal
-data analysis** projects in Python. Read root `CLAUDE.md` first.
+This file extends `AGENTS.md` with instructions specific to **legal and fiscal
+data analysis** projects in Python. Read root `AGENTS.md` first.
 
 ---
 

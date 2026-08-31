@@ -29,7 +29,7 @@ An include list that ends in `- *` ships only what is listed:
 
 ```
 - /.claude/worktrees/***
-+ CLAUDE.md
++ AGENTS.md
 + /skills/***
 + /sessions/
 + /sessions/README.md
@@ -113,6 +113,13 @@ absent:
 ```bash
 [ -f index.md ] || printf '# index.md\n' > index.md
 ```
+
+Ship a spec without shipping the directory its output belongs in. The bundle
+carries `sessions/README.md` (the page format), but the pages it describes are
+git-tracked project state and belong at the destination project's root, not
+under the gitignored bundle directory. Ship the README, leave the root
+`sessions/` for the agent to create on first write, and never seed a second
+copy of the README at the root. See RULES.md §12.
 
 ---
 

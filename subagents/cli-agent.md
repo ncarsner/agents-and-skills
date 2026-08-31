@@ -1,7 +1,7 @@
 # CLI Agent Instructions
 
-This file extends `CLAUDE.md` with instructions specific to building
-**terminal-based (CLI) applications** in Python. Read root `CLAUDE.md` first.
+This file extends `AGENTS.md` with instructions specific to building
+**terminal-based (CLI) applications** in Python. Read root `AGENTS.md` first.
 
 ---
 
@@ -39,7 +39,7 @@ my-cli-tool/
 ├── uv.lock
 ├── .python-version
 ├── README.md
-├── CLAUDE.md
+├── AGENTS.md
 ├── src/
 │   └── my_cli_tool/
 │       ├── __init__.py

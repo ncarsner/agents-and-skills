@@ -8,9 +8,10 @@ derived from these templates. Complete all items before acting on any task.
 ## Step 1 — Read Core Rules (required, no exceptions)
 
 - [ ] Read `RULES.md` in full. Note which placeholder sections (§14–§18) remain unfilled.
-- [ ] Read `CLAUDE.md` — the sole root context file. If agent materials were
-      copied into `AGENTS/` (per RULES.md §12), the root `CLAUDE.md` is a
-      stub; read `AGENTS/CLAUDE.md` for the full content. Internalize the
+- [ ] Read `AGENTS.md`, the sole context file. If agent materials were
+      copied into `AGENTS/` (per RULES.md §12), read `AGENTS/AGENTS.md`; the
+      root `CLAUDE.md` is a Claude Code auto-load stub with nothing in it.
+      Internalize the
       identity, stack, and post-edit checklist.
 - [ ] Confirm the Python executable rule: always `python3`, never bare `python`.
 - [ ] Confirm the package manager rule: always `uv`, never `pip` or `conda`.

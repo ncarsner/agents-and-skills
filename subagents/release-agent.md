@@ -1,7 +1,7 @@
 # Release Agent Instructions
 
-This file extends `CLAUDE.md` with instructions specific to publishing
-**Python packages to PyPI**. Read root `CLAUDE.md` and `RULES.md` first.
+This file extends `AGENTS.md` with instructions specific to publishing
+**Python packages to PyPI**. Read root `AGENTS.md` and `RULES.md` first.
 
 ---
 

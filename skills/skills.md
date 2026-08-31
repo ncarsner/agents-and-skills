@@ -68,7 +68,7 @@ Run these in order to take a raw idea through to automated implementation:
 
 | Skill | Invocation | What it does |
 |-------|-----------|--------------|
-| orient | `/orient [task]` | Bootstrap context: reads CLAUDE.md, RULES.md, subagent registry, skills index, and surveys repo structure |
+| orient | `/orient [task]` | Bootstrap context: reads AGENTS.md, RULES.md, subagent registry, skills index, and surveys repo structure |
 | format | `/format [path]` | `ruff format` + `ruff check --fix` |
 | test | `/test [flags]` | `pytest --cov=src --cov-fail-under=100` |
 | project-review | `/project-review [perspective]` | Structured multi-lens project audit |
@@ -81,7 +81,7 @@ Command-file invocables (`.claude/commands/`, not `.claude/skills/`):
 
 | Command | Invocation | What it does |
 |---------|-----------|--------------|
-| epilogue | `/epilogue` | Session shutdown protocol — capture session, refresh CLAUDE.md, update CHANGELOG, commit, push, closure report |
+| epilogue | `/epilogue` | Session shutdown protocol — capture session, refresh AGENTS.md, update CHANGELOG, commit, push, closure report |
 | skills-sync | `/skills-sync` | Scan sibling projects' AGENTS/skills/ dirs and merge new files/sections into this repo |
 | debt-scan | `/debt-scan` | Scan for technical debt patterns and prioritize remediation |
 | dissect | `/dissect [path]` | Deep structural review of a file or module |

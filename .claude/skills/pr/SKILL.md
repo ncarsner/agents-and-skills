@@ -57,7 +57,7 @@ grep -inE "co-authored-by|generated with|ai-generated|written by (claude|chatgpt
 ```
 
 The emoji is a detection pattern for a known footer format, the one deliberate
-exception to `CLAUDE.md`'s no-emoji rule.
+exception to `AGENTS.md`'s no-emoji rule.
 
 **Review, do not auto-remove.** Bare vendor names hit constantly in this tree,
 where `CLAUDE.md` is a tracked filename, `.claude/` a tracked directory, and
@@ -69,7 +69,7 @@ grep -inE "claude|anthropic|copilot|chatgpt" /tmp/pr-scan.txt | head -20
 
 Filenames, paths, documented rules, and detection patterns are legitimate.
 Signatures, bylines, trailers, and "assisted by" notes are not. **Never delete
-a `CLAUDE.md` reference to satisfy this grep.** Then `rm -f /tmp/pr-scan.txt`.
+a `CLAUDE.md` or `AGENTS.md` reference to satisfy this grep.** Then `rm -f /tmp/pr-scan.txt`.
 
 ## Step 3: Commit
 
@@ -118,7 +118,7 @@ EOF
 ```
 
 Hyphens, not em dashes: a PR body is agent-generated text that outlives the
-session (`CLAUDE.md` Writing Style). Append no "Generated with" footer. If a PR
+session (`AGENTS.md` Writing Style). Append no "Generated with" footer. If a PR
 already exists for the branch, use `gh pr edit <number> --repo "$REPO" --body`.
 
 ## Step 5: Verify
