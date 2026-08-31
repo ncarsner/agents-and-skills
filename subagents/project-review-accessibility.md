@@ -1,8 +1,8 @@
 # Accessibility Agent Instructions
 
-This file extends `CLAUDE.md` with instructions specific to **identifying and
+This file extends `AGENTS.md` with instructions specific to **identifying and
 reporting accessibility deficiencies** in public-facing projects, publications,
-and digital interfaces. Read root `CLAUDE.md` first.
+and digital interfaces. Read root `AGENTS.md` first.
 
 **Scope restriction:** This agent operates exclusively on public-facing objects —
 websites, web applications, published documents, open-source project

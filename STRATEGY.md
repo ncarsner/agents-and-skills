@@ -33,13 +33,13 @@ Never rely on conversational memory across session boundaries.
 1. Grep `index.md` for pages matching today's task domain; load only the
    matching `sessions/` pages (closes 12-Factor Agents F13 pre-fetch — see
    `.12-FACTOR-AGENTS.md`).
-2. Read `CLAUDE.md` (root stub or `AGENTS/CLAUDE.md` canonical copy, per RULES.md §12) for current project state.
+2. Read `AGENTS.md` (or `AGENTS/AGENTS.md` per RULES.md §12) for current project state. The root `CLAUDE.md` is a stub; it holds nothing to read.
 3. Read each loaded page's `Subagent Plan — Next Session` section only — ignore the rest.
 
 **Closing ritual (< 10 minutes):**
 
 1. Invoke `/epilogue` (`.claude/commands/epilogue.md`) for the routine
-   session-shutdown steps (skills, `CLAUDE.md`, `CHANGELOG.md`, commit).
+   session-shutdown steps (skills, `AGENTS.md`, `CHANGELOG.md`, commit).
 2. Write a session wiki page at the project root:
    `sessions/yyyy-mm-dd-<phase>.md`. The format spec is `sessions/README.md`
    in the bundle, which is `AGENTS/sessions/README.md` downstream and
@@ -130,7 +130,7 @@ files, and context documents form a reusable asset for the next project.
 1. Consolidate the three session wiki pages into a single
    `yyyy-mm-dd-project-retrospective.md` at the project root.
 2. Extract any new patterns into a new or updated `skills/` document.
-3. Update `CLAUDE.md` if a new agent or workflow was used successfully.
+3. Update `AGENTS.md` if a new agent or workflow was used successfully.
 4. Tag the commit with the project name:
    ```bash
    git tag project/<project-name>-complete
@@ -166,7 +166,7 @@ knowledge rather than from zero.
 - [ ] Produce: hardened, documented, deployable artifact
 - [ ] Write `sessions/yyyy-mm-dd-evening.md`; add row to `index.md`; commit and push
 - [ ] Consolidate into `yyyy-mm-dd-project-retrospective.md`
-- [ ] Extract new patterns into `skills/`; update `CLAUDE.md` if needed
+- [ ] Extract new patterns into `skills/`; update `AGENTS.md` if needed
 - [ ] Tag commit; push tags
 
 ---

@@ -5,6 +5,26 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-08-30
+
+### Changed
+- Renamed the canonical instruction file from `CLAUDE.md` to `AGENTS.md`, reversing the 2026-07-12 consolidation's choice of filename. That consolidation was right to collapse three drifting root files into one and wrong about which name to keep: `AGENTS.md` is the cross-agent convention multiple tools read, while `CLAUDE.md` is vendor-specific. The single-file structure is unchanged; only the name moved. Do not re-litigate this in the opposite direction without reading both entries.
+- The root `CLAUDE.md` is now a stub pointing at `AGENTS.md`, matching what downstream projects already do. Auto-load-by-filename is the one capability the rename gives up, and Claude Code reads `CLAUDE.md` and no other name, so the stub is what preserves it.
+- Resolved the file-versus-directory objection that motivated deleting `AGENTS.md` in the first place: `AGENTS.md` the file and `AGENTS/` the directory are never in the same place. Downstream only the directory sits at the root, with the file inside it as `AGENTS/AGENTS.md`; here, with no `AGENTS/` directory, only the file exists. `RULES.md` §12 gained a "File versus directory" subsection stating this.
+- `RULES.md` §12 stub pattern, `templates/context-file-stub.md`, `/epilogue` Step 3 and its discovery command, `README.md`, `templates/onboarding-checklist.md`, `skills/bundle-distribution.md`, and 22 `subagents/*.md` files updated to the new name. Historical `CHANGELOG.md` entries and `archive/` were deliberately left alone: they record what was true on their date.
+- `sessions/` paths in `STRATEGY.md` and `/orient` now resolve under both layouts. Pages are project-root state, since they are git-tracked and `AGENTS/` is never committed; only the format spec ships with the bundle. `RULES.md` §12 gained a "Path references inside bundle documents" subsection recording the general constraint.
+- `index.md`'s Repo Reference Docs rows point at `CHANGELOG.md` date headings instead of gitignored `*-session.md` files, and `/epilogue` gained Step 5a so a routine session close keeps the catalog current.
+
+### Fixed
+- `AGENTS.md`'s opening paragraph asserted it was "the only root context file" and that Claude Code auto-loads it by convention. Both were false in a downstream copy, where the file ships to `AGENTS/AGENTS.md` and the root holds the stub. Rewritten to hold in both layouts, pointing at `RULES.md` §12 rather than restating it.
+- Six of eight `index.md` Repo Reference Docs rows pointed at gitignored paths, so a keyword grep reported a hit and then routed the agent to a file absent from any fresh clone, CI checkout, or worktree.
+- `STRATEGY.md` and `/orient` cited `sessions/README.md` as a bare root-relative path. Downstream that pointed at the project root while the spec sat at `AGENTS/sessions/README.md`.
+
+### Note
+- The copy mechanism that seeds downstream projects lives outside this repository and still names the old file. It has to be updated to ship `AGENTS.md`, install the root `CLAUDE.md` stub, and match the new stub body; its stub-detection check keyed on the literal string `See AGENTS/CLAUDE.md`, which no longer appears anywhere.
+
+---
+
 ## 2026-08-07
 
 ### Fixed

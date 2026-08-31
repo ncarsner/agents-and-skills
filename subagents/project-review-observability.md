@@ -1,7 +1,7 @@
 # Observability Review Agent Instructions
 
-This file extends `CLAUDE.md` with instructions for project review focused on
-observability, auditing, and compliance reporting. Read root `CLAUDE.md` first.
+This file extends `AGENTS.md` with instructions for project review focused on
+observability, auditing, and compliance reporting. Read root `AGENTS.md` first.
 
 ---
 

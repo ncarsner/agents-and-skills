@@ -21,7 +21,8 @@ projects or referenced directly, these files encode best practices for:
 ```
 agents-and-skills/
 │
-├── CLAUDE.md                          # Universal root agent instructions (start here)
+├── AGENTS.md                          # Universal agent instructions (start here)
+├── CLAUDE.md                          # Stub; Claude Code auto-load only
 ├── RULES.md                           # Mandatory compliance rules for all agents
 ├── CHANGELOG.md                       # Notable changes by date
 ├── STRATEGY.md                        # Repository strategy notes
@@ -118,7 +119,7 @@ agents-and-skills/
     ├── .pre-commit-config.yaml        # Pre-commit hook config using detect-secrets
     ├── .python-version                # Pin Python 3.12 for uv/pyenv
     ├── authorized_libraries.md        # Template for a project's dependency approval record (dates, cooling period)
-    ├── context-file-stub.md           # Root CLAUDE.md stub for downstream AGENTS/ copies
+    ├── context-file-stub.md           # Root CLAUDE.md stub pointing at AGENTS/AGENTS.md
     ├── Dockerfile                     # Two-stage (build/runtime) Dockerfile for uv-managed projects
     ├── onboarding-checklist.md        # New-agent onboarding checklist for downstream projects
     ├── pyproject.toml                 # Full project config (pytest, ruff, mypy)
@@ -181,7 +182,7 @@ context files, and leave the repo in a clean state:
 ```
 
 The protocol covers: session summary, skill updates, context file refresh,
-git commit and push, and a final clean-state verification. `CLAUDE.md`, the
+git commit and push, and a final clean-state verification. `AGENTS.md`, the
 sole root context file, links to this file under "On-demand resources →
 Session shutdown protocol."
 
@@ -196,7 +197,7 @@ Agents should load and internalize these files before executing any task:
 1. `subagents/subagents.md` — defines the base agent protocol all agents must follow.
 2. `RULES.md` — mandatory compliance rules every agent must obey.
 3. `skills/skills.md` — lists all registered skills with their input/output contracts.
-4. `CLAUDE.md` — Python-specific toolchain defaults, coding standards, and domain links.
+4. `AGENTS.md` — Python-specific toolchain defaults, coding standards, and domain links.
 
 ### Adding a New Agent
 
@@ -225,12 +226,13 @@ Slash commands are invokable skills that live in `.claude/skills/` and appear as
 
 ## Quick Start (Python Projects)
 
-1. **Copy this repo's agentic materials** (`CLAUDE.md`, `RULES.md`, `skills/`,
+1. **Copy this repo's agentic materials** (`AGENTS.md`, `RULES.md`, `skills/`,
    `subagents/`, etc.) into an `AGENTS/` directory in your new project and add
    `AGENTS/` to `.gitignore` (RULES.md §12).
 2. **Copy `templates/context-file-stub.md`** to `CLAUDE.md` at the project
-   root — this stub is all Claude Code needs to auto-load; the full content
-   lives at `AGENTS/CLAUDE.md`.
+   root. That stub is all Claude Code needs to auto-load; the full content
+   lives at `AGENTS/AGENTS.md`, which is the file every other agent reads
+   directly.
 3. **Copy the relevant `subagents/` file** for your domain (e.g., `subagents/cli-agent.md`).
 4. **Copy `templates/pyproject.toml`** and fill in the `<PLACEHOLDER>` values.
 5. **Run `uv venv && uv sync`** to set up the development environment.

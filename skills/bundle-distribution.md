@@ -29,7 +29,7 @@ An include list that ends in `- *` ships only what is listed:
 
 ```
 - /.claude/worktrees/***
-+ CLAUDE.md
++ AGENTS.md
 + /skills/***
 + /sessions/
 + /sessions/README.md

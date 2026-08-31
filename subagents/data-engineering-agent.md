@@ -1,8 +1,8 @@
 # Data Engineering Agent Instructions
 
-This file extends `CLAUDE.md` with instructions specific to **data engineering**
+This file extends `AGENTS.md` with instructions specific to **data engineering**
 projects in Python: ETL pipelines, database integrations, data validation, and
-scheduled batch processing. Read root `CLAUDE.md` first.
+scheduled batch processing. Read root `AGENTS.md` first.
 
 ---
 
@@ -70,7 +70,7 @@ my-pipeline/
 ├── .python-version
 ├── .env.example
 ├── README.md
-├── CLAUDE.md
+├── AGENTS.md
 ├── config/
 │   ├── settings.toml          # pipeline parameters (not secrets)
 │   └── settings.example.toml

@@ -1,7 +1,7 @@
 # Product Manager Review Agent Instructions
 
-This file extends `CLAUDE.md` with instructions for project review from the
-perspective of a Product Manager. Read root `CLAUDE.md` first.
+This file extends `AGENTS.md` with instructions for project review from the
+perspective of a Product Manager. Read root `AGENTS.md` first.
 
 ---
 
