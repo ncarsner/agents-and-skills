@@ -722,8 +722,37 @@ Agents must not author any text that appears in a version control artifact. Ever
 
 ### Enforcement
 
+Human review does not catch this. The trailer is appended by tooling at commit
+time, so it is not part of the change a reviewer is reading. Eight commits in
+this repository's own history carried one before any check existed.
+
+Install the `commit-msg` hook from
+[templates/.pre-commit-config.yaml](templates/.pre-commit-config.yaml):
+
+```bash
+uv add --dev pre-commit
+pre-commit install --hook-type pre-commit --hook-type commit-msg
+```
+
+A bare `pre-commit install` wires only the `pre-commit` stage, which never sees
+the commit message. Without `--hook-type commit-msg` the check silently does
+not run.
+
+The hook matches a trailer or footer **line**, anchored, naming an agent
+vendor. It does not match the phrase appearing in prose, so a commit may still
+describe this rule, and it does not match a `Co-Authored-By:` trailer naming a
+human, which stays legitimate.
+
+**A local hook cannot cover every path.** Commits created in the GitHub web UI,
+including accepting a Copilot Autofix suggestion, are built server side and
+never run local hooks. Five of the eight historical violations arrived that
+way. Reviewers must still reject those on the pull request, and a CI check on
+the PR's commit range is the only mechanical backstop.
+
+Alongside the hook:
+
 - Human review must confirm no attribution markers are present before merging. See §19 review checklist.
-- When an AI tool adds a `Co-Authored-By:` trailer by default (as many do), the human must remove it before committing. Do not rely on a hook to strip these: trailer formats change across tool versions.
+- When an AI tool adds a `Co-Authored-By:` trailer by default (as many do), the human must remove it before committing.
 - The git author identity must always reflect the human who owns the work.
 
 ### What agents may do

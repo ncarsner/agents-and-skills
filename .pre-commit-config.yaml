@@ -1,16 +1,11 @@
-# Pre-commit hook configuration for projects derived from agents-and-skills templates.
+# Pre-commit hooks for this repository.
 #
 # Setup:
-#   uv add --dev pre-commit detect-secrets
+#   uv add --dev pre-commit
 #   pre-commit install --hook-type pre-commit --hook-type commit-msg
-#   detect-secrets scan > .secrets.baseline
-#   git add .pre-commit-config.yaml .secrets.baseline
 #
-# Run manually against all files:
-#   pre-commit run --all-files
-#
-# Update hook versions:
-#   pre-commit autoupdate
+# The commit-msg hook is not installed by a bare `pre-commit install`.
+# Without --hook-type commit-msg the attribution check never runs.
 
 repos:
   - repo: local
@@ -25,18 +20,3 @@ repos:
         stages: [commit-msg]
         args: [--multiline, -i]
         entry: "^(?:[ \t>]*)(?:co-authored-by:[^\n]*(?:claude|anthropic|openai|chatgpt|gpt-[0-9]|copilot|gemini|codex|cursor|devin)|generated (?:with|by)[^\n]*(?:claude|anthropic|chatgpt|copilot|gemini|codex|cursor)|ai-generated|written by (?:claude|chatgpt|copilot|gemini|codex)|\U0001F916)"
-
-  - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.4.0
-    hooks:
-      - id: detect-secrets
-        args: ["--baseline", ".secrets.baseline"]
-        exclude: (\.secrets\.baseline|uv\.lock|poetry\.lock)$
-
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
-    hooks:
-      - id: detect-private-key
-      - id: check-added-large-files
-        args: ["--maxkb=500"]
-      - id: check-merge-conflict
