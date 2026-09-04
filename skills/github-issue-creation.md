@@ -225,6 +225,58 @@ asked for it, or the user explicitly delegated triage of open issues.
 
 ---
 
+## Closing Keywords and Stacked Pull Requests
+
+Two failure modes, both observed closing real issues in this repository.
+
+### A closing keyword fires even when negated
+
+GitHub's parser scans a PR body for `close`, `fixes`, `resolves` and friends
+adjacent to an issue number. It has no notion of negation, so writing a
+sentence explaining that a PR does *not* close an issue is what closes it:
+
+```
+Does not close #91: the CI backstop remains open.   <- closes #91 on merge
+Leaves #91 open: the CI backstop remains.           <- safe
+```
+
+Never put a closing keyword next to an issue number unless you intend the
+close. Phrase the negative as "leaves #N open" or "#N remains open". A `Refs
+#N` header does not protect you; the prose is scanned too.
+
+Use `Closes` only for issues the PR actually resolves. A PR that finishes half
+an issue carries `Refs`, and the remaining tasks are recorded on the issue
+before merge, otherwise the merge buries them.
+
+### Merging a stack deletes the wrong things
+
+When PR B is based on PR A's branch, merging A with `--delete-branch` removes
+B's base branch, and GitHub **closes** B. A closed PR cannot be retargeted and
+cannot be reopened while its base is missing, so the recovery is awkward:
+
+```bash
+git push origin <sha>:refs/heads/<deleted-base>   # restore the base
+gh pr reopen <B> --repo OWNER/REPO
+gh pr edit <B> --repo OWNER/REPO --base main
+```
+
+Merge a stack bottom-up, retargeting before each merge, and delete branches
+only for the leaf:
+
+```bash
+gh pr merge <A> --repo OWNER/REPO --merge                 # base of another PR
+gh pr edit  <B> --repo OWNER/REPO --base main             # retarget first
+gh pr merge <B> --repo OWNER/REPO --merge --delete-branch # leaf
+```
+
+Verify what actually closed rather than assuming the keywords behaved:
+
+```bash
+gh issue view <N> --repo OWNER/REPO --json state,closedByPullRequestsReferences
+```
+
+---
+
 ## Safety Constraints
 
 - Treat GitHub issue creation as an external write operation.
