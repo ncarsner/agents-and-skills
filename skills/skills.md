@@ -15,6 +15,7 @@ recipes, and code cookbooks. They are read on demand when an agent needs to know
 | File | Domain | When to load |
 |------|--------|--------------|
 | [`python-formatting.md`](python-formatting.md) | All | ruff format configuration and usage |
+| [`pre-commit-hooks.md`](pre-commit-hooks.md) | All | pre-commit and commit-msg hook authoring, pygrep traps, install pitfalls |
 | [`python-linting.md`](python-linting.md) | All | ruff lint rules and mypy configuration |
 | [`python-testing.md`](python-testing.md) | All | pytest, coverage, fixtures, mocking cookbook |
 | [`python-uv-workflow.md`](python-uv-workflow.md) | All | uv package manager complete reference |

@@ -5,6 +5,31 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-09-04
+
+### Added
+- `skills/pre-commit-hooks.md`: authoring `pre-commit` and `commit-msg` hooks. Covers the `pygrep` local-hook form that needs no external dependency, why `--multiline` enabling `re.DOTALL` makes `.*` cross newlines, anchoring a pattern so a repository can still commit its own documentation of a prohibited string, `core.hooksPath` blocking installation even when set to the default path, and the limit that no local hook sees a commit created in the GitHub web UI. Registered in `skills/skills.md`.
+- `.pre-commit-config.yaml` and a matching block in `templates/.pre-commit-config.yaml`: a `commit-msg` hook rejecting agent attribution trailers, so downstream projects inherit the enforcement rather than only the prohibition. `RULES.md` §18 gained an Enforcement section replacing the sentence that declined a hook. Verified by replaying every commit in the repository's history: all 8 real violations blocked, prose mentions and human co-author trailers allowed.
+- `skills/github-issue-creation.md`: a section on closing keywords and stacked pull requests. GitHub's parser matches a closing keyword next to an issue number even when the sentence negates it, and merging a stacked PR with `--delete-branch` closes every PR based on the deleted branch. Both are recorded because both closed real issues here.
+
+### Changed
+- Canonical instruction file renamed from `CLAUDE.md` to `AGENTS.md`, the cross-agent convention. The root `CLAUDE.md` is now a stub. 37 files, 175 references. Resolves the file-versus-directory objection by establishing that `AGENTS.md` and `AGENTS/` are never in the same place.
+- `RULES.md` §5 audit command carries `--disable-pip`. It is required by the interpreter uv installs by default, not a fallback for a broken machine: pip-audit creates its environment with `venv.EnvBuilder(with_pip=True)`, which copies rather than symlinks the interpreter, and python-build-standalone builds are not relocatable by copy. Both forms report identical findings; the flagged form runs 13x faster.
+- Docker base image guidance unified on `python:3.12-slim` across all 17 references, tracking the language baseline rather than diverging from it.
+- `profiles/python.md` docstring rule scoped to `src/`, with the per-file-ignores a project may need documented rather than shipped unused.
+- `templates/pyproject.toml` mypy overrides commented out, so a fresh project's first `mypy` run no longer reports unused sections for six libraries it does not depend on.
+
+### Fixed
+- All 906 em dashes removed across 93 files, applied retroactively without exemption. Only the `AGENTS.md` Writing Style line that quotes the character survives.
+- 77 broken markdown anchors repaired, a pre-existing defect surfaced while checking that the em dash scrub would not break the `RULES.md` table of contents. All 19 TOC links and 58 cross-file links into `RULES.md` omitted the scope marker (`[CORE]`, `[LANG:PYTHON]`) that GitHub folds into the anchor. `RULES-BRIEF.md` also pointed "Code Review and Approval Workflow" at §18, which is Authorship and Attribution; it is §19.
+- `index.md` Repo Reference Docs rows pointed at gitignored paths, so a keyword grep reported a hit and then routed the agent to a file absent from any fresh clone. Repointed at `CHANGELOG.md` date headings, and `/epilogue` gained Step 5a so a routine close keeps the catalog current.
+- `sessions/` resolved to two directories downstream. Pages are project-root state, since they are git-tracked and `AGENTS/` is never committed; only the format spec ships with the bundle. `RULES.md` §12 gained "Path references inside bundle documents" recording the general constraint.
+
+### Note
+- Two items remain out of reach from this repository. The copy mechanism that seeds downstream projects still ships `CLAUDE.md` and keys its stub detection on `See AGENTS/CLAUDE.md`, which no longer appears in the tree (#79). Local hooks cannot see commits created in the GitHub web UI, which produced five of the eight historical attribution violations, so a CI check over each pull request's commit range is still needed (#91).
+
+---
+
 ## 2026-08-30
 
 ### Changed

@@ -2,6 +2,7 @@
 .file_list
 *-session.md
 .claude/worktrees/
+writing-styles/
 
 # Python
 __pycache__/
