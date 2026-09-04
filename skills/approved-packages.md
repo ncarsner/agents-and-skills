@@ -394,10 +394,17 @@ Use these stdlib modules before reaching for a third-party package.
 |---------|-----------|--------------|
 | Pre-commit hooks | `pre-commit` ★ | — |
 | CI/CD platform | GitHub Actions ★ | GitLab CI |
-| Docker base image | `python:3.13-slim` ★ | `python:3.13-alpine` |
+| Docker base image | `python:3.12-slim` ★ | `python:3.12-alpine` |
 | Environment variable injection | GitHub Secrets ★ | `.env` (local only) |
 | Code coverage service | `codecov` ★ | `coveralls` |
 | Dependency vulnerability scanning | `pip-audit` ★ | `safety` |
+
+The base image tracks the language baseline in `profiles/python.md`, currently
+Python 3.12 (`requires-python = ">=3.12"`, `target-version = "py312"`,
+`.python-version`). A newer image is legal, since `>=3.12` permits it, but the
+worked examples in `skills/containerization.md`,
+`subagents/containerization-agent.md`, `templates/Dockerfile`, and `RULES.md`
+all pin the baseline. Change this row only together with those.
 
 ---
 
