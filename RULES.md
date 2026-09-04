@@ -180,7 +180,7 @@ Before requesting approval, run a vulnerability scan:
 uv add --dev pip-audit
 uv export --all-groups --no-emit-project \
   --format requirements-txt > audit-requirements.txt
-uv run pip-audit --requirement audit-requirements.txt --no-deps
+uv run pip-audit --requirement audit-requirements.txt --no-deps --disable-pip
 ```
 
 Any HIGH or CRITICAL vulnerabilities must be resolved or explicitly accepted
@@ -195,9 +195,37 @@ before the library may be added.
 >
 > **Why `--no-deps`:** the export is already a complete, hash-pinned resolution
 > from `uv.lock`. Letting pip-audit re-resolve would be redundant and could
-> reach the network for versions the lock does not use. If pip-audit cannot
-> build its isolated resolution environment on your machine (an `ensurepip`
-> failure), add `--disable-pip` to use its internal resolver instead.
+> reach the network for versions the lock does not use.
+>
+> **Why `--disable-pip`:** pip-audit builds a throwaway virtual environment
+> containing pip in order to resolve dependencies. It creates that environment
+> with `venv.EnvBuilder(with_pip=True)`, whose default is to **copy** the
+> interpreter binary rather than symlink it. The interpreters uv installs by
+> default are python-build-standalone builds, which are not relocatable that
+> way, so the copied interpreter aborts as soon as it runs `ensurepip`:
+>
+> ```
+> subprocess.CalledProcessError: Command '[..., '-m', 'ensurepip', '--upgrade',
+> '--default-pip']' died with <Signals.SIGABRT: 6>.
+> ```
+>
+> This is not a local misconfiguration. It is the default path for any project
+> following §2, and it makes a mandatory security gate fail closed in a way
+> that is easy to mistake for unrelated tooling noise. `--disable-pip` skips
+> building that environment.
+>
+> Nothing is traded away. `--no-deps` already said there is no resolution to
+> perform, so the environment is built and then unused. Measured against three
+> deliberately vulnerable pins (`jinja2==2.11.3`, `pyyaml==5.3.1`,
+> `urllib3==1.26.4`), both forms reported the same 18 advisories, byte for
+> byte, in 260 ms with the flag versus 3373 ms without. The speed matters
+> because the cooling period below requires re-running this scan immediately
+> before every commit.
+>
+> **Expected output noise:** pip-audit prints `--no-deps is supported, but
+> users are encouraged to fully hash their pinned dependencies` on every run.
+> That warning fires on the flag alone and never inspects the file, which does
+> carry hashes. Ignore it.
 
 ### Dependency cooling period (mandatory for new libraries)
 
@@ -216,7 +244,7 @@ During the cooling period:
   ```bash
   uv export --all-groups --no-emit-project \
     --format requirements-txt > audit-requirements.txt
-  uv run pip-audit --requirement audit-requirements.txt --no-deps
+  uv run pip-audit --requirement audit-requirements.txt --no-deps --disable-pip
   ```
 - If a new vulnerability or supply-chain event is detected during the window,
   halt and escalate to the human approver before proceeding.
