@@ -4,7 +4,7 @@ This file extends `AGENTS.md` with instructions specific to **identifying and
 reporting accessibility deficiencies** in public-facing projects, publications,
 and digital interfaces. Read root `AGENTS.md` first.
 
-**Scope restriction:** This agent operates exclusively on public-facing objects —
+**Scope restriction:** This agent operates exclusively on public-facing objects, 
 websites, web applications, published documents, open-source project
 documentation, public APIs with developer portals, and any digital publication
 intended for a general audience. It does not review internal tooling,
@@ -47,9 +47,9 @@ If a task targets out-of-scope content, reject it with a clear explanation.
 
 | Level | Meaning | Target |
 |-------|---------|--------|
-| **A** | Minimum accessibility — barriers that block access entirely | Must fix |
-| **AA** | Standard conformance — required by most accessibility laws and policies | Must fix |
-| **AAA** | Enhanced accessibility — aspirational best practices | Recommend |
+| **A** | Minimum accessibility, barriers that block access entirely | Must fix |
+| **AA** | Standard conformance, required by most accessibility laws and policies | Must fix |
+| **AAA** | Enhanced accessibility, aspirational best practices | Recommend |
 
 Default audit target: **WCAG 2.2 Level AA**.
 
@@ -63,15 +63,15 @@ Deficiencies that prevent users from perceiving content through any sensory chan
 
 | Issue | WCAG Criterion | Severity |
 |-------|---------------|----------|
-| Images missing `alt` text | 1.1.1 Non-text Content | A — Must fix |
-| Decorative images not marked `alt=""` | 1.1.1 Non-text Content | A — Must fix |
-| Videos missing captions | 1.2.2 Captions (Prerecorded) | A — Must fix |
-| Audio content missing transcript | 1.2.1 Audio-only | A — Must fix |
-| Color contrast ratio below 4.5:1 (normal text) | 1.4.3 Contrast (Minimum) | AA — Must fix |
-| Color contrast ratio below 3:1 (large text ≥18pt) | 1.4.3 Contrast (Minimum) | AA — Must fix |
-| Color is the sole means of conveying information | 1.4.1 Use of Color | A — Must fix |
-| Text cannot be resized to 200% without loss of content | 1.4.4 Resize Text | AA — Must fix |
-| Content disappears or truncates at 400% zoom | 1.4.10 Reflow | AA — Must fix |
+| Images missing `alt` text | 1.1.1 Non-text Content | A, Must fix |
+| Decorative images not marked `alt=""` | 1.1.1 Non-text Content | A, Must fix |
+| Videos missing captions | 1.2.2 Captions (Prerecorded) | A, Must fix |
+| Audio content missing transcript | 1.2.1 Audio-only | A, Must fix |
+| Color contrast ratio below 4.5:1 (normal text) | 1.4.3 Contrast (Minimum) | AA, Must fix |
+| Color contrast ratio below 3:1 (large text ≥18pt) | 1.4.3 Contrast (Minimum) | AA, Must fix |
+| Color is the sole means of conveying information | 1.4.1 Use of Color | A, Must fix |
+| Text cannot be resized to 200% without loss of content | 1.4.4 Resize Text | AA, Must fix |
+| Content disappears or truncates at 400% zoom | 1.4.10 Reflow | AA, Must fix |
 
 ### 2. Operable
 
@@ -79,14 +79,14 @@ Deficiencies that prevent users from interacting with content or navigating a pa
 
 | Issue | WCAG Criterion | Severity |
 |-------|---------------|----------|
-| Interactive elements not keyboard-accessible | 2.1.1 Keyboard | A — Must fix |
-| Keyboard focus trap with no escape path | 2.1.2 No Keyboard Trap | A — Must fix |
-| No visible keyboard focus indicator | 2.4.7 Focus Visible | AA — Must fix |
-| No skip-navigation link for repeated content | 2.4.1 Bypass Blocks | A — Must fix |
-| Page lacks a descriptive `<title>` | 2.4.2 Page Titled | A — Must fix |
-| Link text is non-descriptive ("click here", "read more") | 2.4.4 Link Purpose | A — Must fix |
-| Animations play without a pause/stop control | 2.2.2 Pause, Stop, Hide | A — Must fix |
-| Touch targets smaller than 24×24 CSS pixels | 2.5.8 Target Size (Minimum) | AA — Must fix |
+| Interactive elements not keyboard-accessible | 2.1.1 Keyboard | A, Must fix |
+| Keyboard focus trap with no escape path | 2.1.2 No Keyboard Trap | A, Must fix |
+| No visible keyboard focus indicator | 2.4.7 Focus Visible | AA, Must fix |
+| No skip-navigation link for repeated content | 2.4.1 Bypass Blocks | A, Must fix |
+| Page lacks a descriptive `<title>` | 2.4.2 Page Titled | A, Must fix |
+| Link text is non-descriptive ("click here", "read more") | 2.4.4 Link Purpose | A, Must fix |
+| Animations play without a pause/stop control | 2.2.2 Pause, Stop, Hide | A, Must fix |
+| Touch targets smaller than 24×24 CSS pixels | 2.5.8 Target Size (Minimum) | AA, Must fix |
 
 ### 3. Understandable
 
@@ -94,11 +94,11 @@ Deficiencies that make content difficult to comprehend.
 
 | Issue | WCAG Criterion | Severity |
 |-------|---------------|----------|
-| Page `lang` attribute missing or incorrect | 3.1.1 Language of Page | A — Must fix |
-| Error messages do not identify the field in error | 3.3.1 Error Identification | A — Must fix |
-| Form fields missing visible labels | 3.3.2 Labels or Instructions | A — Must fix |
-| Technical jargon used without plain-language alternatives | 3.1.3 Unusual Words | AAA — Recommend |
-| Reading level exceeds Grade 9 without a simpler summary | 3.1.5 Reading Level | AAA — Recommend |
+| Page `lang` attribute missing or incorrect | 3.1.1 Language of Page | A, Must fix |
+| Error messages do not identify the field in error | 3.3.1 Error Identification | A, Must fix |
+| Form fields missing visible labels | 3.3.2 Labels or Instructions | A, Must fix |
+| Technical jargon used without plain-language alternatives | 3.1.3 Unusual Words | AAA, Recommend |
+| Reading level exceeds Grade 9 without a simpler summary | 3.1.5 Reading Level | AAA, Recommend |
 
 ### 4. Robust
 
@@ -106,10 +106,10 @@ Deficiencies that prevent assistive technologies from parsing or interpreting co
 
 | Issue | WCAG Criterion | Severity |
 |-------|---------------|----------|
-| Invalid or malformed HTML | 4.1.1 Parsing | A — Must fix |
-| ARIA roles applied to incorrect element types | 4.1.2 Name, Role, Value | A — Must fix |
-| Dynamic content updates not announced to screen readers | 4.1.3 Status Messages | AA — Must fix |
-| Interactive widgets missing accessible name | 4.1.2 Name, Role, Value | A — Must fix |
+| Invalid or malformed HTML | 4.1.1 Parsing | A, Must fix |
+| ARIA roles applied to incorrect element types | 4.1.2 Name, Role, Value | A, Must fix |
+| Dynamic content updates not announced to screen readers | 4.1.3 Status Messages | AA, Must fix |
+| Interactive widgets missing accessible name | 4.1.2 Name, Role, Value | A, Must fix |
 
 ---
 
@@ -145,7 +145,7 @@ Beyond WCAG technical compliance, evaluate content against these principles:
    context changes.
 
 4. **Support multiple input modalities.** All interactions must be completable via
-   keyboard, touch, voice, and switch access — not pointer-device only.
+   keyboard, touch, voice, and switch access, not pointer-device only.
 
 5. **Design for internationalization.** Avoid idioms, colloquialisms, or cultural
    references that exclude non-native speakers. Ensure layouts accommodate text
@@ -214,11 +214,11 @@ STEPS TAKEN:
   5. Reviewed against inclusive design principles.
 
 RESULT:
-  CRITICAL (WCAG A violations — block publication):
+  CRITICAL (WCAG A violations, block publication):
     - [1.1.1] Hero image at /about.html missing alt text.
     - [2.1.1] "Subscribe" button not reachable via Tab key.
 
-  HIGH (WCAG AA violations — fix before next release):
+  HIGH (WCAG AA violations, fix before next release):
     - [1.4.3] Button text (#fff on #6c757d) has contrast ratio 3.1:1; minimum is 4.5:1.
     - [2.4.4] Footer link "here" does not describe its destination.
 
@@ -231,7 +231,7 @@ RESULT:
 
 NOTES:
   Automated scan covered 100% of page elements. Manual keyboard test conducted on
-  Chrome 124 / macOS. Screen reader test not yet performed — recommend NVDA/Firefox
+  Chrome 124 / macOS. Screen reader test not yet performed, recommend NVDA/Firefox
   test before final sign-off.
 ```
 
@@ -373,8 +373,8 @@ Before publishing or merging public-facing content:
 
 ## See Also
 
-- [`agents/security-agent.md`](security-agent.md) — security review (complements accessibility for public surfaces)
-- [`agents/web-dev-agent.md`](web-dev-agent.md) — FastAPI/Flask application patterns
-- [WCAG 2.2 Quick Reference](https://www.w3.org/WAI/WCAG22/quickref/) — authoritative criterion reference
-- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) — color contrast tool
-- [axe-core](https://github.com/dequelabs/axe-core) — automated accessibility testing engine
+- [`agents/security-agent.md`](security-agent.md): security review (complements accessibility for public surfaces)
+- [`agents/web-dev-agent.md`](web-dev-agent.md): FastAPI/Flask application patterns
+- [WCAG 2.2 Quick Reference](https://www.w3.org/WAI/WCAG22/quickref/): authoritative criterion reference
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/): color contrast tool
+- [axe-core](https://github.com/dequelabs/axe-core): automated accessibility testing engine

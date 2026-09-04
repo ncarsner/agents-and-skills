@@ -56,14 +56,14 @@ else:
 - Every flag must have a declared **owner** (person or team) and a **removal date**
   in a comment adjacent to its usage:
   ```python
-  # FLAG: ENABLE_NEW_PARSER — owner: @ncarsner — remove after: 2026-08-01
+  # FLAG: ENABLE_NEW_PARSER, owner: @ncarsner, remove after: 2026-08-01
   if feature_enabled("ENABLE_NEW_PARSER"):
   ```
 - Flags older than their removal date are stale and must be cleaned up in the next
   sprint. The default behavior (feature fully on or fully off) must be committed
   before the flag is deleted.
 - Never nest feature flags more than one level deep.
-- Do not use feature flags to hide broken code indefinitely — flags are not a
+- Do not use feature flags to hide broken code indefinitely; flags are not a
   substitute for fixing the underlying issue.
 
 ---
@@ -79,7 +79,7 @@ the **success metrics agents must validate** before a full cutover and the
 Run against the green environment before switching the load balancer:
 
 ```bash
-# 1. Liveness — process is running
+# 1. Liveness: process is running
 curl -sf http://<green-host>/health | python3 -c "
 import json, sys
 d = json.load(sys.stdin)
@@ -87,7 +87,7 @@ assert d['status'] == 'ok', f'health check failed: {d}'
 print('liveness OK')
 "
 
-# 2. Readiness — dependencies reachable
+# 2. Readiness: dependencies reachable
 curl -sf http://<green-host>/ready | python3 -c "
 import json, sys
 d = json.load(sys.stdin)
@@ -134,10 +134,10 @@ curl -sf http://<blue-host>/health
 
 # 3. Open incident issue
 gh issue create \
-  --title "Rollback: <service> vX.Y.Z — <date>" \
+  --title "Rollback: <service> vX.Y.Z, <date>" \
   --body "Rolled back from green (vX.Y.Z) to blue (vX.Y.Z-1). Trigger: <metric that breached>."
 
-# 4. Keep green running for post-mortem analysis — do not tear it down yet
+# 4. Keep green running for post-mortem analysis: do not tear it down yet
 ```
 
 Agents must not trigger a rollback without logging the triggering metric and
@@ -148,7 +148,7 @@ database migration rollback.
 
 ## See Also
 
-- [`RULES.md §17`](../RULES.md#17-deployment-and-environment-parity) — deployment standards
-- [`skills/containerization.md`](containerization.md) — Docker and health check setup
-- [`skills/web-development.md`](web-development.md) — `/health` and `/ready` endpoint pattern
-- [`skills/secret-scanning.md`](secret-scanning.md) — credential rotation
+- [`RULES.md §17`](../RULES.md#17-deployment-and-environment-parity-profileservice): deployment standards
+- [`skills/containerization.md`](containerization.md): Docker and health check setup
+- [`skills/web-development.md`](web-development.md): `/health` and `/ready` endpoint pattern
+- [`skills/secret-scanning.md`](secret-scanning.md): credential rotation

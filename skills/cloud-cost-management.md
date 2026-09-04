@@ -21,7 +21,7 @@ attribution by workload, owner, and environment.
 | `workload` | `api` · `batch` · `etl` · `cli` · `infra` | Workload type for right-sizing |
 | `cost-center` | `<department or project code>` | Finance attribution |
 
-Add tags at resource creation — retrofitting tags is error-prone and misses
+Add tags at resource creation, retrofitting tags is error-prone and misses
 historical spend.
 
 ### Terraform/IaC Example
@@ -103,7 +103,7 @@ aws budgets create-budget \
 | Relational DB (RDS, Cloud SQL) | Transactional data | Use db.t3.micro for dev; reserved instances for production |
 | Managed cache (ElastiCache) | Session cache, rate-limit counters | Eviction policy: `allkeys-lru`; size to fit working set |
 
-Enable storage lifecycle rules at bucket/volume creation — do not add them later.
+Enable storage lifecycle rules at bucket/volume creation, do not add them later.
 
 ---
 
@@ -139,6 +139,6 @@ Cost estimated using: [AWS Pricing Calculator](https://calculator.aws) /
 
 ## See Also
 
-- [`skills/containerization.md`](containerization.md) — right-sizing in Docker/Kubernetes context
-- [`skills/cost-management.md`](cost-management.md) — LLM API token cost tracking
-- [`RULES.md §17`](../RULES.md#17-deployment-and-environment-parity) — deployment standards
+- [`skills/containerization.md`](containerization.md): right-sizing in Docker/Kubernetes context
+- [`skills/cost-management.md`](cost-management.md): LLM API token cost tracking
+- [`RULES.md §17`](../RULES.md#17-deployment-and-environment-parity-profileservice): deployment standards

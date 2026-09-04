@@ -223,7 +223,7 @@ Catch and categorize all errors at the outermost boundary to return meaningful
 exit codes or HTTP status codes.
 
 ```python
-"""CLI error boundary — translate exceptions to exit codes."""
+"""CLI error boundary, translate exceptions to exit codes."""
 
 import logging
 import sys
@@ -312,21 +312,21 @@ def test_load_data_preserves_original_cause(tmp_path) -> None:
 
 | Code | Meaning | Constant |
 |------|---------|---------|
-| `0` | Success | — |
-| `1` | Generic error | — |
+| `0` | Success | n/a |
+| `1` | Generic error | n/a |
 | `64` | Bad usage (wrong arguments) | `EX_USAGE` |
 | `65` | Bad input data | `EX_DATAERR` |
 | `66` | Input file not found | `EX_NOINPUT` |
 | `73` | Cannot create output file | `EX_CANTCREAT` |
 | `74` | I/O error | `EX_IOERR` |
 | `78` | Configuration error | `EX_CONFIG` |
-| `130` | Interrupted by Ctrl-C | — |
+| `130` | Interrupted by Ctrl-C | n/a |
 
 ---
 
 ## See Also
 
-- [`agents/security-agent.md`](../agents/security-agent.md) — error messages must not leak internals
-- [`skills/logging-observability.md`](logging-observability.md) — log before suppressing errors
-- [`skills/api-integration.md`](api-integration.md) — retry patterns for HTTP clients
-- [`skills/python-testing.md`](python-testing.md) — testing error paths
+- [`agents/security-agent.md`](../agents/security-agent.md): error messages must not leak internals
+- [`skills/logging-observability.md`](logging-observability.md): log before suppressing errors
+- [`skills/api-integration.md`](api-integration.md): retry patterns for HTTP clients
+- [`skills/python-testing.md`](python-testing.md): testing error paths

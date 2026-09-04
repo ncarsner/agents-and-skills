@@ -334,6 +334,6 @@ to either requires the authorization and cooling process first. See
 
 - [`profiles/postgres.md`](../profiles/postgres.md), [`profiles/tsql.md`](../profiles/tsql.md), [`profiles/plsql.md`](../profiles/plsql.md): normative dialect rules. This file is the how-to, those are the must.
 - [`agents/data-engineering-agent.md`](../agents/data-engineering-agent.md)
-- [`agents/security-agent.md`](../agents/security-agent.md) — SQL injection prevention
-- [`skills/configuration-management.md`](configuration-management.md) — secrets via env vars
-- [`skills/python-testing.md`](python-testing.md) — testing cookbook
+- [`agents/security-agent.md`](../agents/security-agent.md): SQL injection prevention
+- [`skills/configuration-management.md`](configuration-management.md): secrets via env vars
+- [`skills/python-testing.md`](python-testing.md): testing cookbook

@@ -30,15 +30,15 @@ structural and cross-system concerns.
 
 ## Review Priorities
 
-1. Standards compliance — Does the change conform to approved architectural
+1. Standards compliance: Does the change conform to approved architectural
    patterns (naming, layering, protocol choices, data formats)?
-2. Integration impact — Does the change alter any shared API contract, event
+2. Integration impact: Does the change alter any shared API contract, event
    schema, or data model that other systems depend on?
-3. Platform fit — Does the change use approved infrastructure, approved
+3. Platform fit: Does the change use approved infrastructure, approved
    libraries, and approved deployment targets?
-4. Architectural debt — Does the change introduce a new deviation that must be
+4. Architectural debt: Does the change introduce a new deviation that must be
    tracked and remediated, or does it reduce existing debt?
-5. Governance — Should this change require an ADR, architecture review board
+5. Governance: Should this change require an ADR, architecture review board
    sign-off, or cross-team notification?
 
 ---
@@ -47,7 +47,7 @@ structural and cross-system concerns.
 
 ```
 AGENT: project-review-enterprise-architect
-TASK:  EA review of PR #<number> — <title>
+TASK:  EA review of PR #<number>, <title>
 STATUS: <completed | escalated>
 
 STANDARDS COMPLIANCE:
@@ -60,8 +60,8 @@ INTEGRATION IMPACT:
   Breaking change: <yes | no | unknown>
 
 PLATFORM FIT:
-  Approved infrastructure: <yes | no — specify violations>
-  Approved libraries: <yes | no — specify violations>
+  Approved infrastructure: <yes | no, specify violations>
+  Approved libraries: <yes | no, specify violations>
 
 ARCHITECTURAL DEBT:
   Net debt change: <reduced | neutral | increased>
@@ -91,6 +91,6 @@ Escalate to the CTO review agent when:
 
 ## See Also
 
-- [`project-review-cto.md`](project-review-cto.md) — executive escalation
-- [`project-review-interoperability.md`](project-review-interoperability.md) — integration and protocol review
-- [`project-review-senior-dev.md`](project-review-senior-dev.md) — code-level findings
+- [`project-review-cto.md`](project-review-cto.md): executive escalation
+- [`project-review-interoperability.md`](project-review-interoperability.md): integration and protocol review
+- [`project-review-senior-dev.md`](project-review-senior-dev.md): code-level findings

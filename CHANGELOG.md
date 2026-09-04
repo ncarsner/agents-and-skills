@@ -72,7 +72,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `profiles/postgres.md`, `profiles/tsql.md`, `profiles/plsql.md`: normative SQL dialect profiles covering the surface SQLAlchemy does not abstract, namely raw SQL, DDL, DSNs, and error handling. Each names its dialect's divergences (identifier folding, `NULL` sort order, transactional versus implicitly committing DDL, upsert idiom) rather than restating shared SQL.
 - `RULES.md` Active Profile block: `Framework:` and `Domain:` declarations plus profile tables. Both axes are additive and stack, so a Django service on PostgreSQL declares one of each. `RULES-BRIEF.md` gained the matching session-start discovery line, since the brief is the documented session-start path.
 - `skills/cli-development.md`: argparse boundary-validation recipes (`type=` callables raising `ArgumentTypeError`, `choices=` with an `Enum`), the `parser.error()`-exits-2 collision with the `EXIT_APP_ERROR` convention, `main(argv)` tests using `capsys`, and a stdlib `pty` helper for the RULES.md §15 `NO_COLOR` assertion.
-- `skills/bundle-distribution.md` — rsync include-list rules (first-match-wins ordering, parent-directory inclusion), clean-slate pruning, subtree merging without nesting, idempotent `.gitignore` appending, source-repo refusal guard, and the alias-shadows-function trap. Registered in `skills/skills.md`.
+- `skills/bundle-distribution.md`: rsync include-list rules (first-match-wins ordering, parent-directory inclusion), clean-slate pruning, subtree merging without nesting, idempotent `.gitignore` appending, source-repo refusal guard, and the alias-shadows-function trap. Registered in `skills/skills.md`.
 
 ### Changed
 - `skills/approved-packages.md` §13 and the `skills/skills.md` registry row: argparse is the default for new CLI tools, being stdlib and so carrying no §5 dependency. Click sections are retained for codebases already using it.
@@ -93,26 +93,26 @@ claiming to be the root context file), and #79 (rename `CLAUDE.md` to
 ## 2026-07-29
 
 ### Added
-- Root `log.md` — Karpathy-wiki append-only execution record (bracket schema documented in the file itself), replacing the fragmented `plans/*-progress.txt` convention.
-- Root `index.md` — content catalog with a Session Wiki Pages table and a Repo Reference Docs table indexing existing dated docs/`_SOLUTIONS` notes by keyword.
-- `sessions/` — session wiki page format (`sessions/README.md`: Outcomes, Decisions, Cross-References, Subagent Plan), used by `STRATEGY.md`'s multi-phase (morning/afternoon/evening) closing ritual.
-- `skills/github-issue-creation.md` — Issue Triage and Closure section: verify an issue's factual claims against current repo state before acting on or closing it, plus a closure-comment command pattern.
-- `RULES.md` §5 — dependency cooling period (72h, as merged) between a library's approval and its first commit, with a mandatory `pip-audit` re-run before commit. `templates/authorized_libraries.md` gained `Approved date` / `Earliest commit date` columns; §19 checklist updated to match.
+- Root `log.md`: Karpathy-wiki append-only execution record (bracket schema documented in the file itself), replacing the fragmented `plans/*-progress.txt` convention.
+- Root `index.md`: content catalog with a Session Wiki Pages table and a Repo Reference Docs table indexing existing dated docs/`_SOLUTIONS` notes by keyword.
+- `sessions/`: session wiki page format (`sessions/README.md`: Outcomes, Decisions, Cross-References, Subagent Plan), used by `STRATEGY.md`'s multi-phase (morning/afternoon/evening) closing ritual.
+- `skills/github-issue-creation.md`: Issue Triage and Closure section: verify an issue's factual claims against current repo state before acting on or closing it, plus a closure-comment command pattern.
+- `RULES.md` §5: dependency cooling period (72h, as merged) between a library's approval and its first commit, with a mandatory `pip-audit` re-run before commit. `templates/authorized_libraries.md` gained `Approved date` / `Earliest commit date` columns; §19 checklist updated to match.
 
 ### Changed
-- `ralph.sh` and `plans/test-coverage-ralph.sh` — append structured entries to `log.md` instead of per-PRD `*-progress.txt` files; general (non-PRD) `ralph.sh` mode now logs execution state too, which it previously did not at all.
-- `STRATEGY.md` §1, Strategy 4/5, Daily Execution Checklist — opening ritual greps `index.md` for task-domain pages; closing ritual writes a `sessions/yyyy-mm-dd-<phase>.md` page instead of the old `yyyy-mm-dd-<phase>-summary.md` file.
-- `.claude/skills/orient/SKILL.md` — new Step 3 greps `index.md` for task-domain pages before the repo survey; remaining steps renumbered (4, 5).
-- `subagents/subagents.md` — new §2.1 Pre-fetch Context: grep `index.md` before invoking a subagent; §7 Constraints gained a rule that background agents in a worktree must not edit `skills/`, `subagents/`, or `templates/` unless the task is explicitly scoped to those files.
-- `.gitignore` — added `.claude/worktrees/` so editors/search tools don't descend into worktree copies.
-- `.12-FACTOR-AGENTS.md` — F5 (Unify Execution + Business State) upgraded ❌→⚠️, F13 (Pre-fetch Context) upgraded ⚠️→✅; added an Implementation Status note documenting what shipped and what was deliberately left out of scope.
+- `ralph.sh` and `plans/test-coverage-ralph.sh`: append structured entries to `log.md` instead of per-PRD `*-progress.txt` files; general (non-PRD) `ralph.sh` mode now logs execution state too, which it previously did not at all.
+- `STRATEGY.md` §1, Strategy 4/5, Daily Execution Checklist: opening ritual greps `index.md` for task-domain pages; closing ritual writes a `sessions/yyyy-mm-dd-<phase>.md` page instead of the old `yyyy-mm-dd-<phase>-summary.md` file.
+- `.claude/skills/orient/SKILL.md`: new Step 3 greps `index.md` for task-domain pages before the repo survey; remaining steps renumbered (4, 5).
+- `subagents/subagents.md`: new §2.1 Pre-fetch Context: grep `index.md` before invoking a subagent; §7 Constraints gained a rule that background agents in a worktree must not edit `skills/`, `subagents/`, or `templates/` unless the task is explicitly scoped to those files.
+- `.gitignore`: added `.claude/worktrees/` so editors/search tools don't descend into worktree copies.
+- `.12-FACTOR-AGENTS.md`: F5 (Unify Execution + Business State) upgraded ❌→⚠️, F13 (Pre-fetch Context) upgraded ⚠️→✅; added an Implementation Status note documenting what shipped and what was deliberately left out of scope.
 
 ### Removed
-- `plans/epilogue-refinements-prd-progress.txt` and `plans/test-coverage-progress.txt` — migrated into `log.md`; both retired.
+- `plans/epilogue-refinements-prd-progress.txt` and `plans/test-coverage-progress.txt`: migrated into `log.md`; both retired.
 
 All 7 GitHub issues deferred from the 2026-07-12 cleanup are now resolved:
 #69, #57, #58, #60, #61 merged via PRs #72/#73/#74; #59 and #10 closed as
-outmoded/stale — their cited conventions/files (a never-enforced branch
+outmoded/stale, their cited conventions/files (a never-enforced branch
 naming scheme, a deleted `AGENTS.md`) no longer held.
 
 ---
@@ -121,68 +121,68 @@ naming scheme, a deleted `AGENTS.md`) no longer held.
 
 ### Fixed
 - `RULES-DRAFTS.md` resolved and deleted. Four of its five placeholder sections were already fully covered by `RULES.md` §14-§19; the three remaining orphaned provisional defaults were promoted before deletion: batch-job runtime budget declaration (`profiles/python.md` Performance Standards), PII schema/field labeling (`RULES.md` §16), and container base-image digest pinning (`RULES.md` §17). Footer reference and `README.md` structure-tree entry removed.
-- `subagents/registry.json` — `skills` array was drifted from `skills/`: removed a duplicate `python-testing` entry (stale 1.1.0 alongside 1.2.0), added three missing entries (`infrastructure-operations`, `cloud-cost-management`, `wikimedia-svg-sourcing`). Registry now in exact parity with the filesystem.
-- `skills/skills.md` — `skills-sync` was listed as if it were a `.claude/skills/` directory like the other invokable skills; it's actually `.claude/commands/skills-sync.md`. Split it and the other seven command-file invocables into their own "Command-file invocables" table.
-- `templates/ruff.toml` and `templates/pyproject.toml` — `[tool.ruff] target-version` was `py311`, inconsistent with `templates/.python-version`'s `3.12` pin. Bumped both to `py312`.
-- `README.md` — `templates/` subtree listing was missing five files that exist on disk (`.dockerignore`, `.pre-commit-config.yaml`, `authorized_libraries.md`, `Dockerfile`, `onboarding-checklist.md`); added them.
-- Downstream bundle contents — dropped a dead `SKILLS.md` entry (no such file exists at repo root); added the missing `profiles/` directory (`RULES.md` §§1,2,3,7,9,10,14 all delegate to `profiles/python.md`, so downstream copies were shipping with broken references).
-- `.claude/commands/skills-sync.md` — the sync process updated `skills/skills.md` for newly added files but never registered them in `subagents/registry.json`, which is exactly how that registry drifted in the first place. Added a step that registers new skills in `subagents/registry.json` alongside the existing `skills.md` update, so future syncs stay in parity automatically.
+- `subagents/registry.json`: `skills` array was drifted from `skills/`: removed a duplicate `python-testing` entry (stale 1.1.0 alongside 1.2.0), added three missing entries (`infrastructure-operations`, `cloud-cost-management`, `wikimedia-svg-sourcing`). Registry now in exact parity with the filesystem.
+- `skills/skills.md`: `skills-sync` was listed as if it were a `.claude/skills/` directory like the other invokable skills; it's actually `.claude/commands/skills-sync.md`. Split it and the other seven command-file invocables into their own "Command-file invocables" table.
+- `templates/ruff.toml` and `templates/pyproject.toml`: `[tool.ruff] target-version` was `py311`, inconsistent with `templates/.python-version`'s `3.12` pin. Bumped both to `py312`.
+- `README.md`: `templates/` subtree listing was missing five files that exist on disk (`.dockerignore`, `.pre-commit-config.yaml`, `authorized_libraries.md`, `Dockerfile`, `onboarding-checklist.md`); added them.
+- Downstream bundle contents: dropped a dead `SKILLS.md` entry (no such file exists at repo root); added the missing `profiles/` directory (`RULES.md` §§1,2,3,7,9,10,14 all delegate to `profiles/python.md`, so downstream copies were shipping with broken references).
+- `.claude/commands/skills-sync.md`: the sync process updated `skills/skills.md` for newly added files but never registered them in `subagents/registry.json`, which is exactly how that registry drifted in the first place. Added a step that registers new skills in `subagents/registry.json` alongside the existing `skills.md` update, so future syncs stay in parity automatically.
 
 ### Removed
-- `AGENTS.md` and `GEMINI.md` deleted. `CLAUDE.md` is now the sole root context file, in this repo and in downstream copies. Supersedes the stub-file approach originally recorded here earlier today — the decision was revised mid-session to full removal rather than one-line stubs, since this repo has no `AGENTS/` subdirectory of its own (RULES.md §12 exemption) and keeping an `AGENTS.md` *file* alongside that convention's `AGENTS/` *folder* name downstream was a source of confusion, not just duplication.
+- `AGENTS.md` and `GEMINI.md` deleted. `CLAUDE.md` is now the sole root context file, in this repo and in downstream copies. Supersedes the stub-file approach originally recorded here earlier today, the decision was revised mid-session to full removal rather than one-line stubs, since this repo has no `AGENTS/` subdirectory of its own (RULES.md §12 exemption) and keeping an `AGENTS.md` *file* alongside that convention's `AGENTS/` *folder* name downstream was a source of confusion, not just duplication.
 
 ### Changed
-- `CLAUDE.md` — merged the unique content from `AGENTS.md`/`GEMINI.md` before deleting them: the explicit git-config authorship instruction and the headless-delegation "treat output as untrusted Result data" integration note (from `GEMINI.md`), and the onboarding-checklist / containerization resource-table rows (from `AGENTS.md`). Also carries forward `AGENTS.md`'s changelog section as `CLAUDE.md`'s own.
-- `RULES.md` §12 — downstream copies now place the full bundle under `AGENTS/` as before, but the project root gets only a `CLAUDE.md` **stub** (new `templates/context-file-stub.md`) pointing at `AGENTS/CLAUDE.md`, which holds the actual canonical content. This makes the root/`AGENTS/` duplication that motivated this change structurally impossible — there's nothing left at root to drift out of sync. Six other `AGENTS.md` mentions (override-note pointers in §7, §14, §16, §19, and the §19 architectural-file list) updated to `CLAUDE.md`.
-- `templates/epilogue.md` §3 — dropped the per-tool context-file table (Claude/Gemini/Codex/Perplexity); replaced with `CLAUDE.md`-only guidance that locates and edits the canonical copy (root or `AGENTS/CLAUDE.md`) rather than maintaining parallel files.
-- `templates/onboarding-checklist.md`, `STRATEGY.md`, `skills/secret-scanning.md`, `README.md`, and all 23 `subagents/*.md` files — updated `AGENTS.md`/`GEMINI.md` references to `CLAUDE.md` (subagent files used a consistent "This file extends `AGENTS.md`... read root `AGENTS.md` first" pattern, bulk-corrected).
-- Downstream bundle contents — `AGENTS.md` and `GEMINI.md` no longer ship; only `CLAUDE.md` goes downstream as the root context file now.
+- `CLAUDE.md`: merged the unique content from `AGENTS.md`/`GEMINI.md` before deleting them: the explicit git-config authorship instruction and the headless-delegation "treat output as untrusted Result data" integration note (from `GEMINI.md`), and the onboarding-checklist / containerization resource-table rows (from `AGENTS.md`). Also carries forward `AGENTS.md`'s changelog section as `CLAUDE.md`'s own.
+- `RULES.md` §12: downstream copies now place the full bundle under `AGENTS/` as before, but the project root gets only a `CLAUDE.md` **stub** (new `templates/context-file-stub.md`) pointing at `AGENTS/CLAUDE.md`, which holds the actual canonical content. This makes the root/`AGENTS/` duplication that motivated this change structurally impossible, there's nothing left at root to drift out of sync. Six other `AGENTS.md` mentions (override-note pointers in §7, §14, §16, §19, and the §19 architectural-file list) updated to `CLAUDE.md`.
+- `templates/epilogue.md` §3: dropped the per-tool context-file table (Claude/Gemini/Codex/Perplexity); replaced with `CLAUDE.md`-only guidance that locates and edits the canonical copy (root or `AGENTS/CLAUDE.md`) rather than maintaining parallel files.
+- `templates/onboarding-checklist.md`, `STRATEGY.md`, `skills/secret-scanning.md`, `README.md`, and all 23 `subagents/*.md` files, updated `AGENTS.md`/`GEMINI.md` references to `CLAUDE.md` (subagent files used a consistent "This file extends `AGENTS.md`... read root `AGENTS.md` first" pattern, bulk-corrected).
+- Downstream bundle contents: `AGENTS.md` and `GEMINI.md` no longer ship; only `CLAUDE.md` goes downstream as the root context file now.
 
 ### Added
-- `templates/context-file-stub.md` — the exact root-stub content downstream projects copy to `CLAUDE.md` when the full bundle lives under `AGENTS/`.
-- `.claude/commands/epilogue.md` — the session shutdown protocol, converted from `templates/epilogue.md` to a `/epilogue` command since it's invoked frequently at end of session rather than copied once into a new project. Content carried over in full (all 9 steps, closure checklist, final report format); §3 already reflects the `CLAUDE.md`-only context-file change above. Original template archived at `archive/epilogue-template-2026-07-12.md` before conversion.
+- `templates/context-file-stub.md`: the exact root-stub content downstream projects copy to `CLAUDE.md` when the full bundle lives under `AGENTS/`.
+- `.claude/commands/epilogue.md`: the session shutdown protocol, converted from `templates/epilogue.md` to a `/epilogue` command since it's invoked frequently at end of session rather than copied once into a new project. Content carried over in full (all 9 steps, closure checklist, final report format); §3 already reflects the `CLAUDE.md`-only context-file change above. Original template archived at `archive/epilogue-template-2026-07-12.md` before conversion.
 
 ### Removed (continued)
-- `templates/epilogue.md` — superseded by `.claude/commands/epilogue.md`. All references updated (`CLAUDE.md` resource table, `README.md` structure tree and prose, `STRATEGY.md`, `skills/skills.md`'s command-file table). The downstream bundle needed no change — `.claude/commands/` is already covered by the existing `.claude/` glob, and the new `archive/` directory is intentionally unlisted (repo-internal history, not shipped downstream).
+- `templates/epilogue.md`: superseded by `.claude/commands/epilogue.md`. All references updated (`CLAUDE.md` resource table, `README.md` structure tree and prose, `STRATEGY.md`, `skills/skills.md`'s command-file table). The downstream bundle needed no change, `.claude/commands/` is already covered by the existing `.claude/` glob, and the new `archive/` directory is intentionally unlisted (repo-internal history, not shipped downstream).
 
-Note for whoever runs `/ralph` next: `plans/prd.json`'s existing "AGENTS.md canonicalization" task is now fully superseded by the work above — `AGENTS.md` no longer exists to canonicalize around. That task should be closed or rewritten, not executed as written.
+Note for whoever runs `/ralph` next: `plans/prd.json`'s existing "AGENTS.md canonicalization" task is now fully superseded by the work above, `AGENTS.md` no longer exists to canonicalize around. That task should be closed or rewritten, not executed as written.
 
 Still deferred, per the existing `plans/prd.json` backlog and pipeline discipline: `profiles/` domain expansion (`profiles/web-ui.md`, `profiles/service.md` matching RULES.md §15/§17's `[PROFILE:...]` markers) and "unused" skills/subagents triage (registries are in perfect sync with the filesystem; needs the user to name specifics).
 
-Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addressed after this cleanup.
+Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched, addressed after this cleanup.
 
 ---
 
 ## 2026-06-18
 
 ### Added
-- `RULES.md §18 Authorship and Attribution` — new `[CORE]` section: blanket prohibition on agent attribution in file headers, inline comments, documentation, commits, PRs, release notes, tags, and all version control artifacts; enumerated prohibited forms; enforcement note (human removes Co-Authored-By trailers, no hook).
+- `RULES.md §18 Authorship and Attribution`: new `[CORE]` section: blanket prohibition on agent attribution in file headers, inline comments, documentation, commits, PRs, release notes, tags, and all version control artifacts; enumerated prohibited forms; enforcement note (human removes Co-Authored-By trailers, no hook).
 
 ### Changed
-- `RULES.md` — old §18 Code Review and Approval Workflow renumbered to §19; §6 Authorship subsection trimmed to reference §18; §13 cross-reference updated; §19 review checklist gains Authorship item; RULES.md compliance range updated to §§1-18; escalation path scope updated to §§1-18.
-- `CLAUDE.md` — Git Authorship section expanded to cover file-level attribution; reference updated to §18.
-- `subagents/subagents.md §7` — removed version-stamp constraint (incoherent with authorship doctrine).
+- `RULES.md`: old §18 Code Review and Approval Workflow renumbered to §19; §6 Authorship subsection trimmed to reference §18; §13 cross-reference updated; §19 review checklist gains Authorship item; RULES.md compliance range updated to §§1-18; escalation path scope updated to §§1-18.
+- `CLAUDE.md`: Git Authorship section expanded to cover file-level attribution; reference updated to §18.
+- `subagents/subagents.md §7`: removed version-stamp constraint (incoherent with authorship doctrine).
 
 ---
 
 ## 2026-06-10
 
 ### Added
-- `CLAUDE.md`, `GEMINI.md`, `AGENTS.md` — Pipeline Discipline section enforcing ideate-to-ralph stage order at session start, with scope check against `plans/*.json`.
+- `CLAUDE.md`, `GEMINI.md`, `AGENTS.md`: Pipeline Discipline section enforcing ideate-to-ralph stage order at session start, with scope check against `plans/*.json`.
 
 ### Changed
-- `.claude/skills/ideate/SKILL.md` — added PIPELINE GATE block at output end: prohibits file creation, requires human to invoke `/grill-me` next.
-- `.claude/skills/grill-me/SKILL.md` — replaced soft "Ready to run /prd?" handoff with hard PIPELINE GATE stop instruction.
-- `.claude/skills/prd/SKILL.md` — replaced soft "Ready to run /prd-to-issues?" handoff with hard PIPELINE GATE stop instruction.
-- `subagents/subagents.md` — scope-validation step (§2) now checks pipeline stage: routes to `/ralph` if `plans/*.json` has incomplete tasks; routes to `/ideate` for new features with no plan file.
-- `templates/epilogue.md` — §3 adds `find` discovery command for locating context files from inside the `AGENTS/` subdirectory; prohibits creating context files inside `AGENTS/`; checklist item updated to match.
+- `.claude/skills/ideate/SKILL.md`: added PIPELINE GATE block at output end: prohibits file creation, requires human to invoke `/grill-me` next.
+- `.claude/skills/grill-me/SKILL.md`: replaced soft "Ready to run /prd?" handoff with hard PIPELINE GATE stop instruction.
+- `.claude/skills/prd/SKILL.md`: replaced soft "Ready to run /prd-to-issues?" handoff with hard PIPELINE GATE stop instruction.
+- `subagents/subagents.md`: scope-validation step (§2) now checks pipeline stage: routes to `/ralph` if `plans/*.json` has incomplete tasks; routes to `/ideate` for new features with no plan file.
+- `templates/epilogue.md`: §3 adds `find` discovery command for locating context files from inside the `AGENTS/` subdirectory; prohibits creating context files inside `AGENTS/`; checklist item updated to match.
 
 ---
 
 ## 2026-06-01
 
 ### Added
-- `RULES-BRIEF.md` — 31-line session-start compliance reference table covering all 18 RULES.md sections with on-demand load guidance. Reduces per-session token cost by ~4k tokens.
+- `RULES-BRIEF.md`: 31-line session-start compliance reference table covering all 18 RULES.md sections with on-demand load guidance. Reduces per-session token cost by ~4k tokens.
 
 ### Changed
 - `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`: compliance directive now loads `RULES-BRIEF.md` at session start; full `RULES.md` loaded on demand only.
@@ -193,48 +193,48 @@ Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addres
 ## 2026-05-26
 
 ### Added
-- `skills/wikimedia-svg-sourcing.md` — patterns for downloading public-domain SVGs from Wikimedia Commons: MD5-based URL computation, rate-limit-safe batch downloading (3s delay, ~20-file batches, 15-min cooldown after HTTP 429), HTML error page detection, and ICS signal flag naming conventions. Sourced from `will-it-python` naval flags session (2026-05-23).
-- `.claude/commands/rebuild.md` — `/rebuild`: reloads working context after `/clear`; reads uncommitted diff, last 5 commits, modified-file TODOs, and branch-vs-main delta, then summarizes current state.
-- `.claude/commands/preflight.md` — `/preflight`: pre-commit scan of staged diff for debug artifacts, hardcoded secrets, commented-out code, test-only flags, and dev-only imports.
-- `.claude/commands/dissect.md` — `/dissect <file>`: deep structural review across error handling, edge cases, concurrency, dependencies, and naming; findings rated Critical / Warning / Note.
-- `.claude/commands/refactor-safe.md` — `/refactor-safe <file>`: refactors internals (extract helpers, simplify conditionals, remove dead code) without touching exported signatures or public API.
-- `.claude/commands/ship.md` — `/ship`: validates tests, assesses diff size, and generates a PR description (Summary, Changes, How to test, Risk assessment, Related issues) ready to paste into GitHub.
-- `.claude/commands/migrate-draft.md` — `/migrate-draft <description>`: detects the migration system in use, generates a migration file with UP and DOWN logic matching project conventions, and outputs a safety checklist.
-- `.claude/commands/debt-scan.md` — `/debt-scan`: scans for technical debt across code complexity, dependency health, test coverage gaps, code smells, and architectural smells; findings grouped High / Medium / Low.
-- `.claude/commands/skills-sync.md` — `/skills-sync`: scans sibling projects' `AGENTS/skills/` directories, merges new skill files and missing sections into `skills/`, updates `skills/skills.md` index, and appends a CHANGELOG entry.
+- `skills/wikimedia-svg-sourcing.md`: patterns for downloading public-domain SVGs from Wikimedia Commons: MD5-based URL computation, rate-limit-safe batch downloading (3s delay, ~20-file batches, 15-min cooldown after HTTP 429), HTML error page detection, and ICS signal flag naming conventions. Sourced from `will-it-python` naval flags session (2026-05-23).
+- `.claude/commands/rebuild.md`: `/rebuild`: reloads working context after `/clear`; reads uncommitted diff, last 5 commits, modified-file TODOs, and branch-vs-main delta, then summarizes current state.
+- `.claude/commands/preflight.md`: `/preflight`: pre-commit scan of staged diff for debug artifacts, hardcoded secrets, commented-out code, test-only flags, and dev-only imports.
+- `.claude/commands/dissect.md`: `/dissect <file>`: deep structural review across error handling, edge cases, concurrency, dependencies, and naming; findings rated Critical / Warning / Note.
+- `.claude/commands/refactor-safe.md`: `/refactor-safe <file>`: refactors internals (extract helpers, simplify conditionals, remove dead code) without touching exported signatures or public API.
+- `.claude/commands/ship.md`: `/ship`: validates tests, assesses diff size, and generates a PR description (Summary, Changes, How to test, Risk assessment, Related issues) ready to paste into GitHub.
+- `.claude/commands/migrate-draft.md`: `/migrate-draft <description>`: detects the migration system in use, generates a migration file with UP and DOWN logic matching project conventions, and outputs a safety checklist.
+- `.claude/commands/debt-scan.md`: `/debt-scan`: scans for technical debt across code complexity, dependency health, test coverage gaps, code smells, and architectural smells; findings grouped High / Medium / Low.
+- `.claude/commands/skills-sync.md`: `/skills-sync`: scans sibling projects' `AGENTS/skills/` directories, merges new skill files and missing sections into `skills/`, updates `skills/skills.md` index, and appends a CHANGELOG entry.
 
 ### Changed
-- `skills/legal-fiscal-analysis.md` — added "Pattern: State-Machine Parsing of PDF-Extracted Legal Code" section: two-region PDF structure (TOC block → body block), four design rules (case-sensitive patterns, explicit state machine, emitted-key dedup, skip on context mismatch), `LegalCodeParser` skeleton. Validated against 69 TCA files, ~37k entries. Sourced from `frc-tools` TCA TSV converter session (2026-05-25).
-- `skills/skills.md` — registered `wikimedia-svg-sourcing.md` in reference table; registered `skills-sync` in invokable commands table.
+- `skills/legal-fiscal-analysis.md`: added "Pattern: State-Machine Parsing of PDF-Extracted Legal Code" section: two-region PDF structure (TOC block → body block), four design rules (case-sensitive patterns, explicit state machine, emitted-key dedup, skip on context mismatch), `LegalCodeParser` skeleton. Validated against 69 TCA files, ~37k entries. Sourced from `frc-tools` TCA TSV converter session (2026-05-25).
+- `skills/skills.md`: registered `wikimedia-svg-sourcing.md` in reference table; registered `skills-sync` in invokable commands table.
 
 ---
 
 ## 2026-05-17
 
 ### Added
-- `profiles/python.md` — language profile extracted from `RULES.md`; contains §1 (uv), §2 (python3), §3 (code quality), §7 (testing), §9 (error handling), §10 (logging), §14 (performance standards).
-- `.12-FACTOR-AGENTS.md` — worktree vs branch analysis appendix: conceptual distinction, template-copy model relationship, quantitative comparison with feature branch PR pattern.
+- `profiles/python.md`: language profile extracted from `RULES.md`; contains §1 (uv), §2 (python3), §3 (code quality), §7 (testing), §9 (error handling), §10 (logging), §14 (performance standards).
+- `.12-FACTOR-AGENTS.md`: worktree vs branch analysis appendix: conceptual distinction, template-copy model relationship, quantitative comparison with feature branch PR pattern.
 
 ### Changed
-- `RULES.md` — structural refactor: scope markers (`[CORE]`, `[LANG:PYTHON]`, `[PROFILE:WEB-UI]`, `[PROFILE:SERVICE]`, `[CONFIGURABLE]`) added to all 18 section headers; Python-specific sections replaced with stubs pointing to `profiles/python.md`; Active Profile declaration added before ToC; §12 rewritten to clarify master-source exemption; §6/§13 authorship rule deduplicated (§6 authoritative); `[CONFIGURABLE]` override notes with example syntax added to §7, §16, §18; CI/CD check commands in §17/§18 generalized to language-profile references.
-- `templates/epilogue.md` — fixed step numbering gap: §4.5 renamed §5, steps now run 1–9 sequentially.
-- `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` — updated `profiles/` resource row to reflect language profile addition.
-- `.12-FACTOR-AGENTS.md` — analysis of 12-factor agents spec against current repo orchestration, extended with Karpathy wiki lens section mapping `index.md`/`log.md`/wiki-page primitives to existing artifacts and revised recommendations for F3, F5, F12, F13.
-- `_SOLUTIONS/2026-05-17-karpathy-wiki.md` — reference document on git worktree mechanics in this repo: filesystem vs. object-level duplication, benefits/tradeoffs, and five refactoring opportunities (tracked as issues #57–#61).
+- `RULES.md`: structural refactor: scope markers (`[CORE]`, `[LANG:PYTHON]`, `[PROFILE:WEB-UI]`, `[PROFILE:SERVICE]`, `[CONFIGURABLE]`) added to all 18 section headers; Python-specific sections replaced with stubs pointing to `profiles/python.md`; Active Profile declaration added before ToC; §12 rewritten to clarify master-source exemption; §6/§13 authorship rule deduplicated (§6 authoritative); `[CONFIGURABLE]` override notes with example syntax added to §7, §16, §18; CI/CD check commands in §17/§18 generalized to language-profile references.
+- `templates/epilogue.md`: fixed step numbering gap: §4.5 renamed §5, steps now run 1–9 sequentially.
+- `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`: updated `profiles/` resource row to reflect language profile addition.
+- `.12-FACTOR-AGENTS.md`: analysis of 12-factor agents spec against current repo orchestration, extended with Karpathy wiki lens section mapping `index.md`/`log.md`/wiki-page primitives to existing artifacts and revised recommendations for F3, F5, F12, F13.
+- `_SOLUTIONS/2026-05-17-karpathy-wiki.md`: reference document on git worktree mechanics in this repo: filesystem vs. object-level duplication, benefits/tradeoffs, and five refactoring opportunities (tracked as issues #57–#61).
 
 ---
 
 ## 2026-05-15 (batch 4)
 
 ### Added
-- `skills/infrastructure-operations.md` — feature flags (env-var, flagsmith, launchdarkly patterns; lifecycle rules), canary/blue-green smoke tests and success metrics table, rollback procedure with `gh issue create` step.
-- `skills/cloud-cost-management.md` — required resource tagging table, automated budget alert thresholds, right-sizing recommendations by workload type, cost-review PR checklist.
+- `skills/infrastructure-operations.md`: feature flags (env-var, flagsmith, launchdarkly patterns; lifecycle rules), canary/blue-green smoke tests and success metrics table, rollback procedure with `gh issue create` step.
+- `skills/cloud-cost-management.md`: required resource tagging table, automated budget alert thresholds, right-sizing recommendations by workload type, cost-review PR checklist.
 
 ### Changed
-- `skills/api-integration.md` — added Rate Limiting and 429/503 Handling section: `_is_retryable` / `_get_retry_after` helpers, `@retry` decorator with `Retry-After` honor, per-status rules table.
-- `skills/web-development.md` — added Health Check Convention section: `/health` (liveness) and `/ready` (readiness) FastAPI pattern, probe rules table, Docker Compose `healthcheck` stanza.
-- `skills/secret-scanning.md` — added Credential Rotation Scheduling section: rotation schedule by credential type, `.credential-manifest.json` pattern, `check_credential_expiry()` helper, 6-step rotation procedure.
-- `skills/skills.md` — registered `infrastructure-operations.md` and `cloud-cost-management.md`; updated `secret-scanning.md` description.
+- `skills/api-integration.md`: added Rate Limiting and 429/503 Handling section: `_is_retryable` / `_get_retry_after` helpers, `@retry` decorator with `Retry-After` honor, per-status rules table.
+- `skills/web-development.md`: added Health Check Convention section: `/health` (liveness) and `/ready` (readiness) FastAPI pattern, probe rules table, Docker Compose `healthcheck` stanza.
+- `skills/secret-scanning.md`: added Credential Rotation Scheduling section: rotation schedule by credential type, `.credential-manifest.json` pattern, `check_credential_expiry()` helper, 6-step rotation procedure.
+- `skills/skills.md`: registered `infrastructure-operations.md` and `cloud-cost-management.md`; updated `secret-scanning.md` description.
 - Replaced `semver` with "semantic versioning" across `CHANGELOG.md`, `subagents/registry.json`, `subagents/subagents.md`, `subagents/project-review-interoperability.md`.
 
 ---
@@ -242,66 +242,66 @@ Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addres
 ## 2026-05-15 (batch 3)
 
 ### Added
-- `subagents/release-agent.md` — end-to-end PyPI release workflow: semantic versioning policy, CHANGELOG format, CI gates, `uv publish` / `twine` steps, PyPI token security, GitHub Release creation.
+- `subagents/release-agent.md`: end-to-end PyPI release workflow: semantic versioning policy, CHANGELOG format, CI gates, `uv publish` / `twine` steps, PyPI token security, GitHub Release creation.
 
 ### Changed
-- `RULES.md §15` — filled "Accessibility and Internationalization" placeholder: WCAG 2.1 AA criteria table, `axe-core` CLI testing requirement, CLI `NO_COLOR` rule, `babel`/`zoneinfo`/`gettext` i18n standards, scope exceptions for internal tools.
-- `subagents/subagents.md §9` — registered `release-agent`.
-- `subagents/registry.json` — added `release-agent` entry.
+- `RULES.md §15`: filled "Accessibility and Internationalization" placeholder: WCAG 2.1 AA criteria table, `axe-core` CLI testing requirement, CLI `NO_COLOR` rule, `babel`/`zoneinfo`/`gettext` i18n standards, scope exceptions for internal tools.
+- `subagents/subagents.md §9`: registered `release-agent`.
+- `subagents/registry.json`: added `release-agent` entry.
 
 ---
 
 ## 2026-05-15 (batch 2)
 
 ### Changed
-- `RULES.md §14` — filled "Performance Standards" placeholder: latency targets by workload type, memory limits (soft/hard), approved profiling tools (`cProfile`, `memray`), approved caching libraries, regression escalation criteria.
-- `RULES.md §16` — filled "Data Privacy and Compliance" placeholder: 4-level data classification, PII detection and redaction rules, anonymization techniques, retention/deletion policy by level, structured audit log schema, GDPR/CCPA/HIPAA obligation mapping.
+- `RULES.md §14`: filled "Performance Standards" placeholder: latency targets by workload type, memory limits (soft/hard), approved profiling tools (`cProfile`, `memray`), approved caching libraries, regression escalation criteria.
+- `RULES.md §16`: filled "Data Privacy and Compliance" placeholder: 4-level data classification, PII detection and redaction rules, anonymization techniques, retention/deletion policy by level, structured audit log schema, GDPR/CCPA/HIPAA obligation mapping.
 
 ---
 
 ## 2026-05-15 (batch 1)
 
 ### Added
-- `skills/secret-scanning.md` — pre-commit + detect-secrets playbook with full incident remediation.
-- `templates/.pre-commit-config.yaml` — canonical pre-commit hook configuration (detect-secrets, detect-private-key, large-files, merge-conflict).
-- `skills/multi-agent.md` — handoff payload schema, `MAX_CHAIN_DEPTH=10` loop detection, structured logging.
-- `skills/prompt-engineering.md` — prompt structure standards, injection defense, prohibited patterns, token efficiency.
-- `templates/authorized_libraries.md` — per-project approved library template with runtime and dev tables.
-- `templates/onboarding-checklist.md` — 6-step new agent onboarding checklist.
-- `subagents/registry.json` — machine-readable agent and skill catalog (22 agents, 21 skills).
-- `skills/cost-management.md` — LLM token logging, provider pricing table, session budget guards, pre-flight cost estimation.
-- `subagents/data-collection-agent.md` — provenance tracking, PII detection, data quality validation, regulatory compliance.
-- `skills/containerization.md` — Docker multi-stage builds, non-root user, trivy severity policy, blue/green deployment.
-- `templates/Dockerfile` — multi-stage Dockerfile template with `<PROJECT_MODULE>` placeholder.
-- `templates/.dockerignore` — canonical .dockerignore with 20+ entries.
+- `skills/secret-scanning.md`: pre-commit + detect-secrets playbook with full incident remediation.
+- `templates/.pre-commit-config.yaml`: canonical pre-commit hook configuration (detect-secrets, detect-private-key, large-files, merge-conflict).
+- `skills/multi-agent.md`: handoff payload schema, `MAX_CHAIN_DEPTH=10` loop detection, structured logging.
+- `skills/prompt-engineering.md`: prompt structure standards, injection defense, prohibited patterns, token efficiency.
+- `templates/authorized_libraries.md`: per-project approved library template with runtime and dev tables.
+- `templates/onboarding-checklist.md`: 6-step new agent onboarding checklist.
+- `subagents/registry.json`: machine-readable agent and skill catalog (22 agents, 21 skills).
+- `skills/cost-management.md`: LLM token logging, provider pricing table, session budget guards, pre-flight cost estimation.
+- `subagents/data-collection-agent.md`: provenance tracking, PII detection, data quality validation, regulatory compliance.
+- `skills/containerization.md`: Docker multi-stage builds, non-root user, trivy severity policy, blue/green deployment.
+- `templates/Dockerfile`: multi-stage Dockerfile template with `<PROJECT_MODULE>` placeholder.
+- `templates/.dockerignore`: canonical .dockerignore with 20+ entries.
 
 ### Changed
-- `RULES.md §8` — made pre-commit + detect-secrets mandatory (previously advisory); expanded remediation to 6 steps.
-- `RULES.md §12` — added PR review protocol: approval minimums by PR type, 4 automated pre-merge gates, 7-item reviewer checklist, architectural escalation path.
-- `RULES.md §17` — filled "Deployment and Environment Parity" placeholder: env var requirements, 5-gate CI/CD pipeline, blue/green rollback trigger.
-- `skills/python-testing.md` — added integration/E2E test section (mock-vs-live boundary table, `@pytest.mark.integration`, `pytest-httpx`/`responses` examples), property-based testing (Hypothesis), mutation testing (mutmut).
-- `skills/dashboarding-reporting.md` — added structured output standards: required fields, approved libraries by format, manifest sidecar `write_manifest()` pattern.
-- `subagents/subagents.md` — added §4.1 Cross-Agent Skill Reuse and §8.1 Versioning and Lifecycle (semantic versioning, 30-day deprecation policy).
-- `subagents/subagents.md §9` — registered `data-collection-agent`.
-- `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` — added containerization and onboarding-checklist to on-demand resource tables.
+- `RULES.md §8`: made pre-commit + detect-secrets mandatory (previously advisory); expanded remediation to 6 steps.
+- `RULES.md §12`: added PR review protocol: approval minimums by PR type, 4 automated pre-merge gates, 7-item reviewer checklist, architectural escalation path.
+- `RULES.md §17`: filled "Deployment and Environment Parity" placeholder: env var requirements, 5-gate CI/CD pipeline, blue/green rollback trigger.
+- `skills/python-testing.md`: added integration/E2E test section (mock-vs-live boundary table, `@pytest.mark.integration`, `pytest-httpx`/`responses` examples), property-based testing (Hypothesis), mutation testing (mutmut).
+- `skills/dashboarding-reporting.md`: added structured output standards: required fields, approved libraries by format, manifest sidecar `write_manifest()` pattern.
+- `subagents/subagents.md`: added §4.1 Cross-Agent Skill Reuse and §8.1 Versioning and Lifecycle (semantic versioning, 30-day deprecation policy).
+- `subagents/subagents.md §9`: registered `data-collection-agent`.
+- `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`: added containerization and onboarding-checklist to on-demand resource tables.
 
 ---
 
 ## 2026-05-14
 
 ### Added
-- `RULES.md §13 AI Agent Compliance` — consolidated agent identity, scope/escalation,
+- `RULES.md §13 AI Agent Compliance`: consolidated agent identity, scope/escalation,
   session startup, and output rules into a dedicated section.
-- `CHANGELOG.md` — this file.
-- `templates/epilogue.md` — session shutdown protocol; linked from all root context files.
+- `CHANGELOG.md`: this file.
+- `templates/epilogue.md`: session shutdown protocol; linked from all root context files.
 
 ### Changed
-- `RULES.md` — fixed duplicate TOC numbering (§12/§13); renumbered placeholders 14–18;
+- `RULES.md`: fixed duplicate TOC numbering (§12/§13); renumbered placeholders 14–18;
   updated last-modified date.
-- `RULES-DRAFTS.md` — replaced five TODO-only placeholder blocks with compact stubs
+- `RULES-DRAFTS.md`: replaced five TODO-only placeholder blocks with compact stubs
   containing provisional enforceable defaults agents can apply immediately.
-- `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` — added "Session shutdown protocol" to on-demand resources.
-- `README.md` — added RULES-DRAFTS.md and CHANGELOG.md to structure listing; added
+- `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`: added "Session shutdown protocol" to on-demand resources.
+- `README.md`: added RULES-DRAFTS.md and CHANGELOG.md to structure listing; added
   "Closing a session" workflow section; updated epilogue.md description.
 
 ---
@@ -314,7 +314,7 @@ Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addres
   recursively.
 
 ### Changed
-- `README.md` — updated structure and workflow documentation.
+- `README.md`: updated structure and workflow documentation.
 - Path and reference patches across skills and agent files (broken relative links).
 - Multi-agent refinement pass incorporating feedback from composite agent review.
 
@@ -332,7 +332,7 @@ Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addres
 ## 2026-05-07 – 2026-05-08
 
 ### Added
-- Authorship rules in `RULES.md §6` and all root context files — agents must never
+- Authorship rules in `RULES.md §6` and all root context files: agents must never
   set git identity or add attribution trailers.
 
 ### Changed
@@ -356,7 +356,7 @@ Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addres
 
 ### Added
 - `skills/approved-packages.md` extended with additional authorized libraries.
-- `tools/` directory — deterministic stdlib recipes across 8 domains.
+- `tools/` directory: deterministic stdlib recipes across 8 domains.
 
 ### Changed
 - Epilogue scripts cleaned up and updated.
@@ -378,7 +378,7 @@ Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addres
 ## 2026-04-29
 
 ### Added
-- `STRATEGY.md` — multi-agent phased-day project execution strategy.
+- `STRATEGY.md`: multi-agent phased-day project execution strategy.
 - Initial PRD plan in `plans/`.
 
 ### Changed
@@ -390,9 +390,9 @@ Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addres
 ## 2026-04-21
 
 ### Added
-- `subagents/containerization-agent.md` — Docker and deployment standards.
-- `subagents/project-review-accessibility.md` — accessibility deficiency review.
-- `subagents/accounting-agent.md` — token usage and cost monitoring.
+- `subagents/containerization-agent.md`: Docker and deployment standards.
+- `subagents/project-review-accessibility.md`: accessibility deficiency review.
+- `subagents/accounting-agent.md`: token usage and cost monitoring.
 - `subagents/security-agent.md` and three additional review agents.
 - Security assumptions log and no-markdown style rule in subagent protocol.
 
@@ -405,15 +405,15 @@ Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addres
 ## 2026-04-16
 
 ### Added
-- `skills/approved-packages.md` — 26-category authorized library list.
+- `skills/approved-packages.md`: 26-category authorized library list.
 
 ---
 
 ## 2026-04-15
 
 ### Added
-- `RULES.md` — initial mandatory compliance rules (12 sections).
-- `_SCRIPTS/create_issues.sh` — bulk GitHub issue creation script.
+- `RULES.md`: initial mandatory compliance rules (12 sections).
+- `_SCRIPTS/create_issues.sh`: bulk GitHub issue creation script.
 - WAT framework `profiles/` CLAUDE.md with frontend website rules.
 
 ---
@@ -423,5 +423,5 @@ Open GitHub issues #10, #57, #58, #59, #60, #61, #69 remain untouched — addres
 ### Added
 - Initial commit: agent and skill boilerplate templates.
 - Comprehensive `subagents/` and `skills/` markdown reference library.
-- `templates/` — pyproject.toml, ruff.toml, pytest.ini, .python-version.
+- `templates/`: pyproject.toml, ruff.toml, pytest.ini, .python-version.
 - Root context files: `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`.

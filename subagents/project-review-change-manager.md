@@ -30,15 +30,15 @@ deploying and communicating the change.
 
 ## Review Priorities
 
-1. Change classification — Is this a standard, normal, or emergency change?
+1. Change classification: Is this a standard, normal, or emergency change?
    Does classification match actual risk?
-2. Impact scope — Which teams, systems, users, and external parties are
+2. Impact scope: Which teams, systems, users, and external parties are
    affected? Are they all aware?
-3. Rollback readiness — Is there a tested rollback plan? What is the rollback
+3. Rollback readiness: Is there a tested rollback plan? What is the rollback
    trigger and window?
-4. Communication plan — Have release notes, runbooks, and user-facing
+4. Communication plan: Have release notes, runbooks, and user-facing
    communications been prepared and reviewed?
-5. CAB approval — Does this change require change advisory board sign-off
+5. CAB approval: Does this change require change advisory board sign-off
    under the team's change policy?
 
 ---
@@ -57,7 +57,7 @@ deploying and communicating the change.
 
 ```
 AGENT: project-review-change-manager
-TASK:  Change management review of PR #<number> — <title>
+TASK:  Change management review of PR #<number>, <title>
 STATUS: <completed | blocked>
 
 CHANGE CLASSIFICATION:
@@ -67,9 +67,9 @@ CHANGE CLASSIFICATION:
 
 IMPACT SCOPE:
   Systems affected: <list>
-  Teams notified: <list or "none — action required">
+  Teams notified: <list or "none, action required">
   External parties affected: <list or "none">
-  User-visible impact: <yes — describe | no>
+  User-visible impact: <yes, describe | no>
 
 ROLLBACK READINESS:
   Rollback plan documented: <yes | no>
@@ -105,6 +105,6 @@ Escalate to the CTO review agent when:
 
 ## See Also
 
-- [`project-review-cto.md`](project-review-cto.md) — executive escalation
-- [`project-review-vp.md`](project-review-vp.md) — risk/reward assessment
-- [`project-review-enterprise-architect.md`](project-review-enterprise-architect.md) — integration impact
+- [`project-review-cto.md`](project-review-cto.md): executive escalation
+- [`project-review-vp.md`](project-review-vp.md): risk/reward assessment
+- [`project-review-enterprise-architect.md`](project-review-enterprise-architect.md): integration impact

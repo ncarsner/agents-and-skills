@@ -1,4 +1,4 @@
-# index.md — Content Catalog
+# index.md: Content Catalog
 
 Queryable catalog of session wiki pages and key repo reference docs. Grep
 this file for task-domain keywords:

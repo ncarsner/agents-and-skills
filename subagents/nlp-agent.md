@@ -349,5 +349,5 @@ def test_tokenize_lemmatizes(text: str, expected_contains: list[str]) -> None:
 
 ## See Also
 
-- [`skills/nlp-processing.md`](../skills/nlp-processing.md) — detailed NLP patterns
-- [`skills/python-testing.md`](../skills/python-testing.md) — testing cookbook
+- [`skills/nlp-processing.md`](../skills/nlp-processing.md): detailed NLP patterns
+- [`skills/python-testing.md`](../skills/python-testing.md): testing cookbook

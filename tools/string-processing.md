@@ -6,7 +6,7 @@ text. Uses only the standard library: `re`, `unicodedata`, `textwrap`, and
 
 ---
 
-## normalize_whitespace — collapse runs of whitespace
+## normalize_whitespace: collapse runs of whitespace
 
 ```python
 import re
@@ -31,7 +31,7 @@ def normalize_whitespace(text: str) -> str:
 
 ---
 
-## slugify — URL/filename-safe slug
+## slugify: URL/filename-safe slug
 
 ```python
 import re
@@ -68,7 +68,7 @@ def slugify(text: str, separator: str = "-") -> str:
 
 ---
 
-## truncate — clip string with ellipsis
+## truncate: clip string with ellipsis
 
 ```python
 def truncate(text: str, max_length: int, suffix: str = "…") -> str:
@@ -103,7 +103,7 @@ def truncate(text: str, max_length: int, suffix: str = "…") -> str:
 
 ---
 
-## extract_emails — find all email addresses in text
+## extract_emails: find all email addresses in text
 
 ```python
 import re
@@ -134,7 +134,7 @@ def extract_emails(text: str) -> list[str]:
 
 ---
 
-## extract_urls — find all http/https URLs in text
+## extract_urls: find all http/https URLs in text
 
 ```python
 import re
@@ -165,7 +165,7 @@ def extract_urls(text: str) -> list[str]:
 
 ---
 
-## camel_to_snake — convert camelCase to snake_case
+## camel_to_snake: convert camelCase to snake_case
 
 ```python
 import re
@@ -194,7 +194,7 @@ def camel_to_snake(name: str) -> str:
 
 ---
 
-## snake_to_camel — convert snake_case to camelCase
+## snake_to_camel: convert snake_case to camelCase
 
 ```python
 def snake_to_camel(name: str, *, upper_first: bool = False) -> str:
@@ -224,7 +224,7 @@ def snake_to_camel(name: str, *, upper_first: bool = False) -> str:
 
 ---
 
-## wrap_text — word-wrap to a fixed width
+## wrap_text: word-wrap to a fixed width
 
 ```python
 import textwrap
@@ -253,7 +253,7 @@ def wrap_text(text: str, width: int = 79, *, indent: str = "") -> str:
 
 ---
 
-## strip_ansi — remove ANSI escape sequences from terminal output
+## strip_ansi: remove ANSI escape sequences from terminal output
 
 ```python
 import re
@@ -282,7 +282,7 @@ def strip_ansi(text: str) -> str:
 
 ---
 
-## count_words — token count for plain text
+## count_words: token count for plain text
 
 ```python
 import re
@@ -311,6 +311,6 @@ def count_words(text: str) -> int:
 
 ## See Also
 
-- [`tools/collections.md`](collections.md) — frequency counts on tokenized text
-- [`tools/serialization.md`](serialization.md) — parse structured text as JSON/CSV
-- [`skills/nlp-processing.md`](../skills/nlp-processing.md) — LLM-powered text analysis
+- [`tools/collections.md`](collections.md): frequency counts on tokenized text
+- [`tools/serialization.md`](serialization.md): parse structured text as JSON/CSV
+- [`skills/nlp-processing.md`](../skills/nlp-processing.md): LLM-powered text analysis

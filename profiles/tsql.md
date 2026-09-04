@@ -22,7 +22,7 @@ strings, stored procedures, and error handling.
 the Microsoft ODBC driver are absent from
 [`skills/approved-packages.md`](../skills/approved-packages.md), the
 authoritative list for
-[RULES.md §5](../RULES.md#5-third-party-library-authorization). Adding one
+[RULES.md §5](../RULES.md#5-third-party-library-authorization-core). Adding one
 requires the §5 approval process, and then the 72-hour cooling period recorded
 in the project's `authorized_libraries.md`, before any connection code is
 committed.
@@ -41,7 +41,7 @@ Once a driver is authorized, these requirements apply:
 | Pooling | Explicit pool size; never the driver defaults in a service |
 | ODBC driver version | Pinned explicitly in the DSN, so a host upgrade cannot change behavior silently |
 
-Extends [RULES.md §8](../RULES.md#8-security-and-secrets).
+Extends [RULES.md §8](../RULES.md#8-security-and-secrets-core).
 
 ### Prohibited
 
@@ -89,7 +89,7 @@ same query is ported to Postgres or Oracle.
 SQL built by string concatenation is prohibited. Where dynamic SQL is
 unavoidable, it MUST use `sp_executesql` with declared parameters.
 
-Extends [RULES.md §8](../RULES.md#8-security-and-secrets).
+Extends [RULES.md §8](../RULES.md#8-security-and-secrets-core).
 
 | Layer | Placeholder |
 |---|---|
@@ -123,7 +123,7 @@ input appears internal.
 **Rule:** Every query that returns a set MUST be bounded, and every paginated
 query MUST have an `ORDER BY`. `NOLOCK` is prohibited.
 
-Extends [RULES.md §14](../RULES.md#14-performance-standards).
+Extends [RULES.md §14](../RULES.md#14-performance-standards-langpython-configurable).
 
 ### Pagination
 
@@ -263,7 +263,7 @@ Verify the target edition before assuming an online operation is available.
 **Rule:** Errors MUST be handled with `TRY`/`CATCH` in T-SQL and by specific
 exception type in Python. `RAISERROR` MUST NOT be used in new code; use
 `THROW`. Bare `except` is prohibited
-([RULES.md §9](../RULES.md#9-error-handling)).
+([RULES.md §9](../RULES.md#9-error-handling-langpython)).
 
 ```sql
 BEGIN TRY

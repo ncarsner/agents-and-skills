@@ -6,7 +6,7 @@ allowed-tools: Bash(ruff *) Bash(git diff *)
 ---
 
 ## Modified Python files
-!`git diff --name-only HEAD -- '*.py' 2>/dev/null || echo "(all files — no git context)"`
+!`git diff --name-only HEAD -- '*.py' 2>/dev/null || echo "(all files, no git context)"`
 
 Run the full format + lint cycle on the project:
 

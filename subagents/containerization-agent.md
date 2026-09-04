@@ -171,7 +171,7 @@ volumes:
 ### Environment Variable File (`.env.example`)
 
 ```dotenv
-# Copy to .env and fill in values — never commit .env to source control
+# Copy to .env and fill in values: never commit .env to source control
 POSTGRES_PASSWORD=change-me-in-production
 SECRET_KEY=change-me-in-production
 ```
@@ -202,7 +202,7 @@ docker compose down
 docker compose down -v
 ```
 
-### CI/CD — GitHub Actions
+### CI/CD: GitHub Actions
 
 ```yaml
 # .github/workflows/docker.yml
@@ -252,13 +252,13 @@ Before deploying a container to production, confirm:
 
 - [ ] Image is built from a pinned base image tag (e.g., `python:3.12.3-slim`, not `python:latest`)
 - [ ] Application runs as a non-root user
-- [ ] No secrets baked into the image — all loaded from environment variables or a secrets manager
+- [ ] No secrets baked into the image, all loaded from environment variables or a secrets manager
 - [ ] `.dockerignore` excludes `.git`, `.env`, `__pycache__`, test files, and local logs
 - [ ] `HEALTHCHECK` defined and tested
 - [ ] `restart: unless-stopped` (or equivalent) configured for long-running services
 - [ ] Read-only filesystem used where possible (`--read-only` flag or `read_only: true` in compose)
 - [ ] Resource limits (`--memory`, `--cpus`) set to prevent runaway containers
-- [ ] Named volumes used for all persistent data — never bind-mount host paths in production
+- [ ] Named volumes used for all persistent data, never bind-mount host paths in production
 - [ ] Image vulnerability scan run before deploy (see [Maintenance](#maintenance))
 
 ---
@@ -365,7 +365,7 @@ services:
 
 ## See Also
 
-- [`agents/security-agent.md`](security-agent.md) — security review and hardening
-- [`agents/web-dev-agent.md`](web-dev-agent.md) — FastAPI/Flask application patterns
-- [`skills/configuration-management.md`](../skills/configuration-management.md) — environment variable management
-- [`skills/logging-observability.md`](../skills/logging-observability.md) — structured logging for containerized services
+- [`agents/security-agent.md`](security-agent.md): security review and hardening
+- [`agents/web-dev-agent.md`](web-dev-agent.md): FastAPI/Flask application patterns
+- [`skills/configuration-management.md`](../skills/configuration-management.md): environment variable management
+- [`skills/logging-observability.md`](../skills/logging-observability.md): structured logging for containerized services

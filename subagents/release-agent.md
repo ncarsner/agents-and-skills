@@ -50,7 +50,7 @@ Follow [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 - Short description of bug fix.
 
-## [1.2.3] — 2026-05-15
+## [1.2.3]: 2026-05-15
 
 ### Fixed
 - Corrected off-by-one error in pagination helper.
@@ -61,7 +61,7 @@ Follow [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 Rules:
 - Every user-visible change goes in `[Unreleased]` during development.
-- When cutting a release, rename `[Unreleased]` to `[X.Y.Z] — <date>` and add a
+- When cutting a release, rename `[Unreleased]` to `[X.Y.Z], <date>` and add a
   new empty `[Unreleased]` section above it.
 - Use exactly these subsections: `Added`, `Changed`, `Deprecated`, `Removed`,
   `Fixed`, `Security`. Do not invent new subsection names.
@@ -160,7 +160,7 @@ Attach the `dist/` artifacts to the release.
 
 ## PyPI Token Security
 
-- Tokens are scoped to a single project — never use an account-wide token.
+- Tokens are scoped to a single project: never use an account-wide token.
 - Rotate tokens immediately if exposed. Report via `skills/secret-scanning.md`
   incident procedure.
 - Store only in GitHub Actions secrets or a local secrets manager (`pass`,
@@ -171,7 +171,7 @@ Attach the `dist/` artifacts to the release.
 ## Pre-release Checklist
 
 - [ ] Version bumped in `pyproject.toml`
-- [ ] `CHANGELOG.md` updated: `[Unreleased]` → `[X.Y.Z] — <date>`
+- [ ] `CHANGELOG.md` updated: `[Unreleased]` → `[X.Y.Z]: <date>`
 - [ ] All CI gates pass on the release commit
 - [ ] `uv build` produces `.whl` and `.tar.gz` without errors
 - [ ] `git tag vX.Y.Z` created and pushed
@@ -183,7 +183,7 @@ Attach the `dist/` artifacts to the release.
 
 ## See Also
 
-- [`RULES.md §7`](../RULES.md#7-testing-and-coverage) — 100% coverage gate
-- [`RULES.md §8`](../RULES.md#8-security-and-secrets) — secret scanning before release
-- [`skills/python-uv-workflow.md`](../skills/python-uv-workflow.md) — `uv` package manager reference
-- [`skills/secret-scanning.md`](../skills/secret-scanning.md) — token incident response
+- [`RULES.md §7`](../RULES.md#7-testing-and-coverage-langpython-configurable): 100% coverage gate
+- [`RULES.md §8`](../RULES.md#8-security-and-secrets-core): secret scanning before release
+- [`skills/python-uv-workflow.md`](../skills/python-uv-workflow.md): `uv` package manager reference
+- [`skills/secret-scanning.md`](../skills/secret-scanning.md): token incident response

@@ -1,4 +1,4 @@
-# RULES.md — Agent Compliance Rules
+# RULES.md: Agent Compliance Rules
 
 This file defines mandatory rules that **all agents** operating in this
 repository (or any project that copies these templates) MUST follow. Rules are
@@ -52,47 +52,47 @@ PostgreSQL declares both.
 
 ## Table of Contents
 
-1. [Package Management](#1-package-management)
-2. [Python Executable](#2-python-executable)
-3. [Code Quality — Docstrings, Type Hints, and Comments](#3-code-quality--docstrings-type-hints-and-comments)
-4. [Documentation — Keeping README Current](#4-documentation--keeping-readme-current)
-5. [Third-Party Library Authorization](#5-third-party-library-authorization)
-6. [Version Control and Commits](#6-version-control-and-commits)
-7. [Testing and Coverage](#7-testing-and-coverage)
-8. [Security and Secrets](#8-security-and-secrets)
-9. [Error Handling](#9-error-handling)
-10. [Logging and Observability](#10-logging-and-observability)
-11. [Architecture Boundaries](#11-architecture-boundaries)
-12. [Local-Only Agent Directory](#12-local-only-agent-directory)
-13. [AI Agent Compliance](#13-ai-agent-compliance)
-14. [Performance Standards](#14-performance-standards)
-15. [Accessibility and Internationalization](#15-accessibility-and-internationalization)
-16. [Data Privacy and Compliance](#16-data-privacy-and-compliance)
-17. [Deployment and Environment Parity](#17-deployment-and-environment-parity)
-18. [Authorship and Attribution](#18-authorship-and-attribution)
-19. [Code Review and Approval Workflow](#19-code-review-and-approval-workflow)
+1. [Package Management](#1-package-management-langpython)
+2. [Python Executable](#2-python-executable-langpython)
+3. [Code Quality: Docstrings, Type Hints, and Comments](#3-code-quality-docstrings-type-hints-and-comments-langpython)
+4. [Documentation: Keeping README Current](#4-documentation-keeping-readme-current-core)
+5. [Third-Party Library Authorization](#5-third-party-library-authorization-core)
+6. [Version Control and Commits](#6-version-control-and-commits-core)
+7. [Testing and Coverage](#7-testing-and-coverage-langpython-configurable)
+8. [Security and Secrets](#8-security-and-secrets-core)
+9. [Error Handling](#9-error-handling-langpython)
+10. [Logging and Observability](#10-logging-and-observability-langpython)
+11. [Architecture Boundaries](#11-architecture-boundaries-core)
+12. [Local-Only Agent Directory](#12-local-only-agent-directory-core)
+13. [AI Agent Compliance](#13-ai-agent-compliance-core)
+14. [Performance Standards](#14-performance-standards-langpython-configurable)
+15. [Accessibility and Internationalization](#15-accessibility-and-internationalization-profileweb-ui)
+16. [Data Privacy and Compliance](#16-data-privacy-and-compliance-core-configurable)
+17. [Deployment and Environment Parity](#17-deployment-and-environment-parity-profileservice)
+18. [Authorship and Attribution](#18-authorship-and-attribution-core)
+19. [Code Review and Approval Workflow](#19-code-review-and-approval-workflow-core-configurable)
 
 ---
 
 ## 1. Package Management `[LANG:PYTHON]`
 
-See [profiles/python.md](profiles/python.md) — Package Management section.
+See [profiles/python.md](profiles/python.md): Package Management section.
 
 ---
 
 ## 2. Python Executable `[LANG:PYTHON]`
 
-See [profiles/python.md](profiles/python.md) — Python Executable section.
+See [profiles/python.md](profiles/python.md): Python Executable section.
 
 ---
 
-## 3. Code Quality — Docstrings, Type Hints, and Comments `[LANG:PYTHON]`
+## 3. Code Quality: Docstrings, Type Hints, and Comments `[LANG:PYTHON]`
 
-See [profiles/python.md](profiles/python.md) — Code Quality section.
+See [profiles/python.md](profiles/python.md): Code Quality section.
 
 ---
 
-## 4. Documentation — Keeping README Current `[CORE]`
+## 4. Documentation: Keeping README Current `[CORE]`
 
 **Rule:** Whenever a code change affects public-facing behavior, adds or removes
 a feature, changes a configuration option, or modifies the project's setup
@@ -251,7 +251,7 @@ Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`,
 ### Rules
 
 - Never bundle unrelated changes in a single commit.
-- Never commit directly to `main` or `master` — always use a feature branch.
+- Never commit directly to `main` or `master`: always use a feature branch.
 - Every PR must reference an issue (e.g., `Closes #42`).
 - Merge commits are preferred over squash when the history is meaningful.
 
@@ -259,18 +259,18 @@ Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`,
 
 The git author identity must always reflect the human who owns the work. Agents
 must never set a git identity or add any attribution to commits or version
-control artifacts. See §18 — Authorship and Attribution for the full rule.
+control artifacts. See §18, Authorship and Attribution for the full rule.
 
 ---
 
 ## 7. Testing and Coverage `[LANG:PYTHON]` `[CONFIGURABLE]`
 
-See [profiles/python.md](profiles/python.md) — Testing and Coverage section.
+See [profiles/python.md](profiles/python.md): Testing and Coverage section.
 
 > **Override:** The coverage threshold (default 100%) may be adjusted in the
 > downstream project's `AGENTS.md` (or `AGENTS/AGENTS.md` per §12) with a
 > written rationale.
-> Example: `§7 coverage override: 80% — rationale: legacy codebase with untestable I/O layer.`
+> Example: `§7 coverage override: 80%, rationale: legacy codebase with untestable I/O layer.`
 
 ---
 
@@ -285,19 +285,19 @@ source code or be committed to the repository.
   `os.environ`.
 - Add `.env` to `.gitignore` immediately when creating a new project.
 - Add `.env-template` that mimics `.env` with expected keys but includes no values.
-- Use `parameterized queries` for all database interactions — never use string
+- Use `parameterized queries` for all database interactions: never use string
   concatenation to build SQL.
 - Validate and sanitize **all** external input before it reaches business logic.
 - Install `pre-commit` with `detect-secrets` on every new project before the first
   commit. Copy `templates/.pre-commit-config.yaml` to the project root and follow
-  the setup steps in `skills/secret-scanning.md`. This is mandatory — not optional.
+  the setup steps in `skills/secret-scanning.md`. This is mandatory, not optional.
 
 ### If a secret is accidentally committed
 
 This is a security incident. Follow the full remediation playbook in
 `skills/secret-scanning.md`. Summary:
 
-1. Immediately rotate/revoke the exposed credential — assume it is compromised.
+1. Immediately rotate/revoke the exposed credential: assume it is compromised.
 2. Scrub the history using BFG Repo Cleaner (preferred over `git filter-branch`).
 3. Force-push the cleaned history with human approval (see §6).
 4. Notify all parties with a clone of the repository.
@@ -308,13 +308,13 @@ This is a security incident. Follow the full remediation playbook in
 
 ## 9. Error Handling `[LANG:PYTHON]`
 
-See [profiles/python.md](profiles/python.md) — Error Handling section.
+See [profiles/python.md](profiles/python.md): Error Handling section.
 
 ---
 
 ## 10. Logging and Observability `[LANG:PYTHON]`
 
-See [profiles/python.md](profiles/python.md) — Logging and Observability section.
+See [profiles/python.md](profiles/python.md): Logging and Observability section.
 
 ---
 
@@ -330,7 +330,7 @@ External Input (user, file, API) -> Validation -> Logic -> I/O -> Output
 1. Business logic must not import from the I/O layer directly.
 2. I/O layer functions must not contain business logic.
 3. Validation must happen before business logic runs.
-4. Secrets must never appear in source code — load from environment.
+4. Secrets must never appear in source code: load from environment.
 
 ---
 
@@ -411,7 +411,7 @@ directives in addition to every other rule in this file.
 
 ### Identity and attribution
 
-Never set a git identity or add attribution to commits, PRs, or any version control artifact. See §18 — Authorship and Attribution.
+Never set a git identity or add attribution to commits, PRs, or any version control artifact. See §18, Authorship and Attribution.
 
 ### Scope and escalation
 
@@ -419,7 +419,7 @@ Never set a git identity or add attribution to commits, PRs, or any version cont
   explanation.
 - Escalate to a human for any ambiguous, potentially destructive, or irreversible
   action. Do not guess or proceed unilaterally.
-- Take the least-privilege action necessary — never modify files outside declared
+- Take the least-privilege action necessary: never modify files outside declared
   scope without explicit human approval.
 
 ### Session startup
@@ -430,19 +430,19 @@ Never set a git identity or add attribution to commits, PRs, or any version cont
 ### Decision-making and output
 
 - Every non-trivial decision must include a brief rationale in the response.
-- Never fabricate context, file paths, or behavior — request clarification instead.
+- Never fabricate context, file paths, or behavior: request clarification instead.
 - If a skill invocation fails, log the error and halt unless a fallback is defined.
 
 ---
 
 ## 14. Performance Standards `[LANG:PYTHON]` `[CONFIGURABLE]`
 
-See [profiles/python.md](profiles/python.md) — Performance Standards section.
+See [profiles/python.md](profiles/python.md): Performance Standards section.
 
 > **Override:** Performance targets may be adjusted in the downstream project's
 > `AGENTS.md` (or `AGENTS/AGENTS.md` per §12) with a written rationale.
 > Exceeding a target by >2× requires escalation before shipping.
-> Example: `§14 latency override: CLI p95 < 2s — rationale: cold-start includes model load.`
+> Example: `§14 latency override: CLI p95 < 2s, rationale: cold-start includes model load.`
 
 ---
 
@@ -450,9 +450,9 @@ See [profiles/python.md](profiles/python.md) — Performance Standards section.
 
 **Rule:** Any web UI, CLI output, or document produced by an agent must meet
 the accessibility and internationalization standards below. These apply when the
-project serves end users — not to internal tooling or agent-only pipelines.
+project serves end users, not to internal tooling or agent-only pipelines.
 
-### Web UI — WCAG 2.1 AA Compliance
+### Web UI: WCAG 2.1 AA Compliance
 
 All agent-generated web interfaces must satisfy WCAG 2.1 Level AA:
 
@@ -463,7 +463,7 @@ All agent-generated web interfaces must satisfy WCAG 2.1 Level AA:
 | Focus indicators | Visible focus ring on all focusable elements |
 | Alt text | Every non-decorative image has a descriptive `alt` attribute |
 | Form labels | Every input has an associated `<label>` or `aria-label` |
-| Error messages | Errors identified in text — never by color alone |
+| Error messages | Errors identified in text, never by color alone |
 | Heading structure | Headings used semantically (`h1`→`h2`→`h3`), not for styling |
 
 Required accessibility testing before any web UI ships:
@@ -480,11 +480,11 @@ Zero WCAG 2.1 AA violations allowed. Critical and serious violations block the
 PR; moderate violations must be documented as known issues with a remediation
 timeline.
 
-### CLI — Color and Terminal Output
+### CLI: Color and Terminal Output
 
 - Never use color as the sole means of conveying information (e.g., red = error,
   green = success must also include a text label).
-- Test with `NO_COLOR=1` — all output must be fully readable in plain text.
+- Test with `NO_COLOR=1`: all output must be fully readable in plain text.
 - Minimum contrast for terminal color pairs: verify with the ANSI color contrast
   table in `skills/cli-development.md`.
 
@@ -495,7 +495,7 @@ timeline.
 ```python
 from zoneinfo import ZoneInfo
 
-# Always use explicit timezone — never datetime.now() without tz
+# Always use explicit timezone: never datetime.now() without tz
 from datetime import datetime
 now = datetime.now(tz=ZoneInfo("UTC"))
 
@@ -516,11 +516,11 @@ Approved i18n libraries:
 
 - All user-visible strings in web UIs must be wrapped in `gettext` calls (`_("...")`).
 - Source strings are English; translations live in `locale/<lang>/LC_MESSAGES/`.
-- Do not concatenate translated strings — use format strings with named placeholders:
+- Do not concatenate translated strings: use format strings with named placeholders:
   ```python
   # Correct
   _("Found {count} records").format(count=n)
-  # Wrong — breaks in languages with different word order
+  # Wrong, breaks in languages with different word order
   _("Found") + f" {n} " + _("records")
   ```
 - Dates, numbers, and currency must use `babel` formatters, never f-strings, when
@@ -597,7 +597,7 @@ variable (never hardcoded). See `tools/hashing-encoding.md`.
 
 > **Override:** Retention windows may be adjusted in the downstream project's
 > `AGENTS.md` (or `AGENTS/AGENTS.md` per §12) with written rationale and legal review.
-> Example: `§16 retention override: Restricted 1 year — rationale: HIPAA minimum retention requirement.`
+> Example: `§16 retention override: Restricted 1 year, rationale: HIPAA minimum retention requirement.`
 
 Agents must not retain Restricted data beyond the defined window. Implement a
 deletion job; do not rely on manual cleanup.
@@ -643,7 +643,7 @@ When a project processes data under any of these frameworks:
 
 **Rule:** All deployed services must maintain parity between local development,
 staging, and production. Differences must be limited to environment variable
-values — never to code paths, installed packages, or dependency versions.
+values, never to code paths, installed packages, or dependency versions.
 
 ### Required Environment Variables per Tier
 
@@ -673,7 +673,7 @@ Container images must pin the base image by digest, never a floating tag:
 # Good
 FROM python:3.12-slim@sha256:<digest>
 
-# Bad — floating tag can change under you
+# Bad: floating tag can change under you
 FROM python:3.12-slim
 ```
 
@@ -681,10 +681,10 @@ FROM python:3.12-slim
 
 All of the following must pass before any deployment proceeds:
 
-1. `pre-commit run --all-files` — secret scanning (§8)
+1. `pre-commit run --all-files`: secret scanning (§8)
 2. Language-profile lint and type checks (see active profile)
 3. Language-profile test suite at required coverage (see active profile)
-4. `trivy image --exit-code 1 --severity HIGH,CRITICAL <image>:<tag>` — no critical CVEs
+4. `trivy image --exit-code 1 --severity HIGH,CRITICAL <image>:<tag>`: no critical CVEs
 
 No deployment may proceed if any gate fails.
 
@@ -748,11 +748,11 @@ before merging. Required approvals and the review checklist vary by PR type.
 
 > **Override:** Minimum approval counts may be adjusted in the downstream
 > project's `AGENTS.md` (or `AGENTS/AGENTS.md` per §12) with a written rationale.
-> Example: `§19 approval override: Hotfix 0 humans — rationale: solo maintainer project.`
+> Example: `§19 approval override: Hotfix 0 humans, rationale: solo maintainer project.`
 
 ### Automated Checks (must all pass before requesting review)
 
-1. `pre-commit run --all-files` — secret scanning and hook suite (§8)
+1. `pre-commit run --all-files`: secret scanning and hook suite (§8)
 2. Language-profile lint and type checks (see active profile)
 3. Language-profile test suite at required coverage (see active profile)
 
@@ -762,13 +762,13 @@ No review may be requested while any automated check is failing.
 
 Reviewers must verify each item before approving:
 
-- [ ] **Security** — No secrets or credentials in source. Pre-commit hooks are installed and passing.
-- [ ] **Coverage** — Test coverage did not decrease. All new code has tests.
-- [ ] **Type safety** — No new `# type: ignore` without a documented reason on the same line.
-- [ ] **RULES.md compliance** — Change does not violate any enforced section (§§1–18).
-- [ ] **Authorship** — No file headers, inline comments, commit trailers, or VC artifact text attributes content to an agent (§18).
-- [ ] **Scope** — PR is atomic; unrelated changes are absent.
-- [ ] **Documentation** — README updated if public-facing behavior changed (§4).
+- [ ] **Security**: No secrets or credentials in source. Pre-commit hooks are installed and passing.
+- [ ] **Coverage**: Test coverage did not decrease. All new code has tests.
+- [ ] **Type safety**: No new `# type: ignore` without a documented reason on the same line.
+- [ ] **RULES.md compliance**: Change does not violate any enforced section (§§1–18).
+- [ ] **Authorship**: No file headers, inline comments, commit trailers, or VC artifact text attributes content to an agent (§18).
+- [ ] **Scope**: PR is atomic; unrelated changes are absent.
+- [ ] **Documentation**: README updated if public-facing behavior changed (§4).
 - [ ] **Dependencies**: Any new library is listed in `skills/approved-packages.md`, the authoritative §5 list; its approval is recorded in the project's `authorized_libraries.md`; the §5 cooling period has elapsed and `pip-audit` was re-run immediately before commit.
 
 ### Handling Disagreements
@@ -804,12 +804,12 @@ Architectural decisions require:
 | 2026-07-31 | Active Profile block gained a `Domain:` declaration and a domain profile table, for concerns orthogonal to the framework (most often a second language in the codebase). Added SQL dialect profiles `profiles/postgres.md`, `profiles/tsql.md`, and `profiles/plsql.md`. Domain and framework profiles stack; `Domain:` accepts a list but at most one profile per concern. |
 | 2026-07-31 | Active Profile block extended with a `Framework:` declaration and a table of available framework profiles. Framework profiles are additive on top of the language profile and name the sections they extend; no section content moved out of this file. Added `profiles/django.md`, `profiles/flask.md`, and `profiles/fastapi.md`. A profile is warranted only where a third-party framework imposes constraints the language profile does not cover: stdlib usage such as `argparse` belongs in `profiles/python.md` or a `skills/` reference, not in a profile. |
 | 2026-07-28 | §5 added: dependency cooling period. A 72-hour minimum wait now applies between adding an approved library to `authorized_libraries.md` and committing it to production code; `pip-audit` must be re-run immediately before commit. `authorized_libraries.md` template gained `Approved date` and `Earliest commit date` columns. §19 review checklist updated to verify the cooling period elapsed and the re-audit passed. Resolves #69. |
-| 2026-07-12 | `RULES-DRAFTS.md` resolved and deleted — four of its five placeholder sections were already fully covered by §14-§19 and `profiles/python.md`; the three remaining orphaned provisional defaults were promoted: batch-job runtime budget declaration (`profiles/python.md` Performance Standards), PII schema labeling (§16), and container base-image digest pinning (§17). Footer reference to `RULES-DRAFTS.md` removed. |
-| 2026-06-18 | §18 added: Authorship and Attribution — blanket prohibition on all agent attribution in file content, comments, documentation, and version control artifacts; prohibited forms enumerated; enforcement note added (human removes Co-Authored-By trailers, no hook); old §18 renumbered to §19; §6 authorship subsection trimmed to reference §18; §13 cross-reference updated; §19 review checklist and escalation path scope updated to include §18; subagents.md §7 version-stamp rule removed. |
+| 2026-07-12 | `RULES-DRAFTS.md` resolved and deleted, four of its five placeholder sections were already fully covered by §14-§19 and `profiles/python.md`; the three remaining orphaned provisional defaults were promoted: batch-job runtime budget declaration (`profiles/python.md` Performance Standards), PII schema labeling (§16), and container base-image digest pinning (§17). Footer reference to `RULES-DRAFTS.md` removed. |
+| 2026-06-18 | §18 added: Authorship and Attribution, blanket prohibition on all agent attribution in file content, comments, documentation, and version control artifacts; prohibited forms enumerated; enforcement note added (human removes Co-Authored-By trailers, no hook); old §18 renumbered to §19; §6 authorship subsection trimmed to reference §18; §13 cross-reference updated; §19 review checklist and escalation path scope updated to include §18; subagents.md §7 version-stamp rule removed. |
 | 2026-05-17 | Structural refactor: added scope markers (`[CORE]`, `[LANG:PYTHON]`, `[PROFILE:WEB-UI]`, `[PROFILE:SERVICE]`, `[CONFIGURABLE]`) to all section headers; extracted §1, §2, §3, §7, §9, §10, §14 to `profiles/python.md`; added Active Profile declaration before ToC; rewrote §12 to clarify master-source exemption for downstream copies; deduplicated §6/§13 authorship rule (§6 authoritative, §13 references); added `[CONFIGURABLE]` override notes with example syntax to §7, §16, §18; generalized language-specific CI/CD check commands in §17 and §18. |
-| 2026-05-15 | §15: Accessibility and Internationalization filled — WCAG 2.1 AA criteria, axe-core testing, CLI NO_COLOR rule, babel/zoneinfo/gettext i18n standards, scope exceptions. |
-| 2026-05-15 | §14: Performance Standards filled — latency targets, memory limits, approved profiling tools, caching libraries, regression escalation criteria. |
-| 2026-05-15 | §16: Data Privacy and Compliance filled — classification levels, PII handling, anonymization, retention/deletion policy, audit trail schema, GDPR/CCPA/HIPAA obligations. |
+| 2026-05-15 | §15: Accessibility and Internationalization filled, WCAG 2.1 AA criteria, axe-core testing, CLI NO_COLOR rule, babel/zoneinfo/gettext i18n standards, scope exceptions. |
+| 2026-05-15 | §14: Performance Standards filled, latency targets, memory limits, approved profiling tools, caching libraries, regression escalation criteria. |
+| 2026-05-15 | §16: Data Privacy and Compliance filled, classification levels, PII handling, anonymization, retention/deletion policy, audit trail schema, GDPR/CCPA/HIPAA obligations. |
 | 2026-05-14 | §8: pre-commit hook requirement made mandatory; reference to `skills/secret-scanning.md` and `templates/.pre-commit-config.yaml` added. Remediation steps expanded. |
 | 2026-05-14 | Initial version. Placeholder sections §14–§16 remain unfilled (see open GitHub issues). §17 and §18 filled. |
 

@@ -43,7 +43,7 @@ from datetime import UTC, datetime
 
 logger = logging.getLogger(__name__)
 
-# Approximate pricing (USD per 1M tokens) — update as provider pricing changes.
+# Approximate pricing (USD per 1M tokens): update as provider pricing changes.
 PRICING: dict[str, dict[str, float]] = {
     "claude-opus-4-7": {"input": 15.00, "output": 75.00},
     "claude-sonnet-4-6": {"input": 3.00, "output": 15.00},
@@ -206,5 +206,5 @@ Reduce token consumption without degrading output quality:
 
 ## See Also
 
-- `skills/prompt-engineering.md` — prompt structure, injection defense, token efficiency
-- `subagents/accounting-agent.md` — session-level cost monitoring agent
+- `skills/prompt-engineering.md`: prompt structure, injection defense, token efficiency
+- `subagents/accounting-agent.md`: session-level cost monitoring agent

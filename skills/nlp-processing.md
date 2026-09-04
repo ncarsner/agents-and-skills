@@ -324,7 +324,7 @@ def chunk_text(
 ## Testing NLP Code
 
 ```python
-"""NLP unit tests — deterministic, no model required for core logic."""
+"""NLP unit tests, deterministic, no model required for core logic."""
 
 import pytest
 from my_nlp.preprocessing import normalize

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ralph.sh — Agent loop: run a Claude task repeatedly until success.
+# ralph.sh: Agent loop: run a Claude task repeatedly until success.
 # Pattern: https://ghuntley.com/loop/
 #
 # Usage (general):
@@ -135,7 +135,7 @@ CONSTRAINTS: one task per iteration; modify only files_affected plus ${WIKI_LOG}
 
             elapsed=$(( $(date +%s) - $(date -j -f '%Y-%m-%dT%H:%M:%S' "$START_TIME" +%s 2>/dev/null || date -d "$START_TIME" +%s) ))
             log ""
-            log "✓ success — iteration $iteration  elapsed: ${elapsed}s"
+            log "✓ success, iteration $iteration  elapsed: ${elapsed}s"
             printf '[%s] [%s] [done] [%d] %s\n' \
                 "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$TASK_SLUG" "$((iteration - 1))" "${TASK:0:80}" >> "$WIKI_LOG"
             exit 0

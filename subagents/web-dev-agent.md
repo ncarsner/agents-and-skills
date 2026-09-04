@@ -13,7 +13,7 @@ development**. Read root `AGENTS.md` first.
 | **Flask** | Lightweight web apps, quick prototypes | `uv add flask` |
 | **Django** | Full-featured apps with ORM and admin | `uv add django` |
 
-Default choice for new REST APIs: **FastAPI** — unless the project already uses
+Default choice for new REST APIs: **FastAPI**: unless the project already uses
 Flask or Django.
 
 ---
@@ -126,7 +126,7 @@ class Settings(BaseSettings):
     debug: bool = False
     allowed_origins: list[str] = ["http://localhost:3000"]
     database_url: str = "sqlite:///./dev.db"
-    secret_key: str  # required — no default, must be in .env
+    secret_key: str  # required, no default, must be in .env
 ```
 
 ---
@@ -292,6 +292,6 @@ ALLOWED_ORIGINS=["http://localhost:3000","https://myapp.example.com"]
 
 ## See Also
 
-- [`skills/web-development.md`](../skills/web-development.md) — detailed patterns
-- [`skills/python-testing.md`](../skills/python-testing.md) — testing cookbook
-- [`templates/pyproject.toml`](../templates/pyproject.toml) — starter config
+- [`skills/web-development.md`](../skills/web-development.md): detailed patterns
+- [`skills/python-testing.md`](../skills/python-testing.md): testing cookbook
+- [`templates/pyproject.toml`](../templates/pyproject.toml): starter config

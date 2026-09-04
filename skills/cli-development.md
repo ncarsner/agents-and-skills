@@ -319,7 +319,7 @@ from pathlib import Path
 
 
 def open_input(path: Path | None):
-    """Return file handle for reading — file or stdin."""
+    """Return file handle for reading, file or stdin."""
     if path is not None:
         return path.open("r", encoding="utf-8")
     if sys.stdin.isatty():
@@ -328,7 +328,7 @@ def open_input(path: Path | None):
 
 
 def open_output(path: Path | None):
-    """Return file handle for writing — file or stdout."""
+    """Return file handle for writing, file or stdout."""
     if path is not None:
         path.parent.mkdir(parents=True, exist_ok=True)
         return path.open("w", encoding="utf-8")
@@ -346,7 +346,7 @@ from pathlib import Path
 # Read config path from env, fall back to default
 CONFIG_PATH = Path(os.environ.get("MY_TOOL_CONFIG", "config/settings.toml"))
 
-# Read API key from env — fail fast if missing
+# Read API key from env: fail fast if missing
 API_KEY = os.environ.get("MY_TOOL_API_KEY")
 if not API_KEY:
     raise EnvironmentError(

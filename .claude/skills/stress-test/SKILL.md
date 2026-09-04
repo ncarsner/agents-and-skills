@@ -15,4 +15,4 @@ Steps:
 3. For each finding, produce a specific, actionable recommendation.
 4. Summarize: what is solid, what is risky, what must be resolved before shipping.
 
-Do not hedge. Be precise and direct. Diplomacy is not the goal — correctness is.
+Do not hedge. Be precise and direct. Diplomacy is not the goal; correctness is.

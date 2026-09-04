@@ -5,7 +5,7 @@ derived from these templates. Complete all items before acting on any task.
 
 ---
 
-## Step 1 — Read Core Rules (required, no exceptions)
+## Step 1: Read Core Rules (required, no exceptions)
 
 - [ ] Read `RULES.md` in full. Note which placeholder sections (§14–§18) remain unfilled.
 - [ ] Read `AGENTS.md`, the sole context file. If agent materials were
@@ -16,14 +16,14 @@ derived from these templates. Complete all items before acting on any task.
 - [ ] Confirm the Python executable rule: always `python3`, never bare `python`.
 - [ ] Confirm the package manager rule: always `uv`, never `pip` or `conda`.
 
-## Step 2 — Load Delegation Context
+## Step 2: Load Delegation Context
 
-- [ ] Read `subagents/subagents.md` — identify which registered agents handle which
+- [ ] Read `subagents/subagents.md`: identify which registered agents handle which
       domains and what the cross-agent invocation rules are.
-- [ ] Read `skills/skills.md` — identify which reference files and slash commands
+- [ ] Read `skills/skills.md`: identify which reference files and slash commands
       are available.
 
-## Step 3 — Survey the Repository
+## Step 3: Survey the Repository
 
 - [ ] Run the following to understand the layout:
       `find . -maxdepth 3 -not -path './.git/*' -not -path './.venv/*' | sort`
@@ -39,21 +39,21 @@ derived from these templates. Complete all items before acting on any task.
 - [ ] Confirm `.secrets.baseline` exists. If not, run:
       `detect-secrets scan > .secrets.baseline` and commit it.
 
-## Step 4 — Confirm Toolchain
+## Step 4: Confirm Toolchain
 
 - [ ] Run `uv sync` to install all dependencies.
 - [ ] Run `uv run pytest -x` to confirm the test suite passes.
 - [ ] Run `uv run ruff check .` to confirm no lint errors.
 - [ ] Run `uv run mypy src/` to confirm type correctness (if `src/` exists).
 
-## Step 5 — Understand Current State
+## Step 5: Understand Current State
 
 - [ ] Run `git log --oneline -10` to review recent commits.
 - [ ] Run `git status` to confirm a clean working tree.
 - [ ] Run `gh issue list --state open` to review open work items.
 - [ ] Identify the active branch and its relationship to `main`.
 
-## Step 6 — Declare Scope Before Acting
+## Step 6: Declare Scope Before Acting
 
 - [ ] State the task objective in one sentence.
 - [ ] Identify which RULES.md sections apply to this task.
@@ -62,7 +62,7 @@ derived from these templates. Complete all items before acting on any task.
 
 ---
 
-## Quick Reference — Prohibited Actions
+## Quick Reference: Prohibited Actions
 
 | Never do this | Rule |
 |---------------|------|

@@ -8,7 +8,7 @@ decide what to test next.
 
 ## Status
 
-Coverage baseline: NONE — no tests exist yet for this repository.
+Coverage baseline: NONE, no tests exist yet for this repository.
 Target: 100% statement coverage on all Python modules; syntax-validity checks
 on all shell scripts.
 
@@ -26,7 +26,7 @@ Tests needed:
 - Exits 0 on success when `claude -p` returns exit 0
 - Detects `<promise>COMPLETE</promise>` in output and exits 0
 - Respects `--max N` flag: stops after N iterations on repeated failure
-- `--pause` flag: prompts user on failure (integration test — skip in CI)
+- `--pause` flag: prompts user on failure (integration test, skip in CI)
 - `--goal <file>` flag: reads task from file correctly
 - CTRL+C (SIGINT) during run: prompts retry/abort instead of hard exit
 
@@ -42,7 +42,7 @@ Tests needed:
 ## Python Modules
 
 <!-- ============================================================
-     BOILERPLATE SECTION — READ BEFORE EDITING
+     BOILERPLATE SECTION, READ BEFORE EDITING
      ============================================================
      When Python source files are added to this repository under src/,
      register them here. Each entry follows this template:

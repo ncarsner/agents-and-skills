@@ -1,4 +1,4 @@
-# .dockerignore — copy to project root alongside Dockerfile
+# .dockerignore: copy to project root alongside Dockerfile
 
 # Version control
 .git

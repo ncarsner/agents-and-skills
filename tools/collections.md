@@ -5,7 +5,7 @@ Python data structures using `collections`, `heapq`, and `bisect`.
 
 ---
 
-## Counter — frequency map from any iterable
+## Counter: frequency map from any iterable
 
 ```python
 from collections import Counter
@@ -30,7 +30,7 @@ def frequency_map(items: list) -> dict:
 
 ---
 
-## group_by — bucket items by a key function
+## group_by: bucket items by a key function
 
 ```python
 from collections import defaultdict
@@ -64,7 +64,7 @@ def group_by(items: list[T], key: Callable[[T], K]) -> dict[K, list[T]]:
 
 ---
 
-## deduplicate — ordered unique elements
+## deduplicate: ordered unique elements
 
 ```python
 from typing import TypeVar
@@ -97,7 +97,7 @@ def deduplicate(items: list[T]) -> list[T]:
 
 ---
 
-## flatten — nested list to flat list
+## flatten: nested list to flat list
 
 ```python
 from collections.abc import Iterable
@@ -135,7 +135,7 @@ def flatten(nested: Iterable, depth: int = 1) -> list:
 
 ---
 
-## chunk — split list into fixed-size batches
+## chunk: split list into fixed-size batches
 
 ```python
 from typing import TypeVar
@@ -170,7 +170,7 @@ def chunk(items: list[T], size: int) -> list[list[T]]:
 
 ---
 
-## top_n — k largest or smallest values
+## top_n: k largest or smallest values
 
 ```python
 import heapq
@@ -182,7 +182,7 @@ T = TypeVar("T")
 def top_n(items: list[T], n: int, *, largest: bool = True) -> list[T]:
     """Return the n largest (or smallest) values from a list.
 
-    Uses `heapq` for O(k log n) performance — faster than full sort for small k.
+    Uses `heapq` for O(k log n) performance, faster than full sort for small k.
 
     Args:
         items: Source list of comparable values.
@@ -206,7 +206,7 @@ def top_n(items: list[T], n: int, *, largest: bool = True) -> list[T]:
 
 ---
 
-## bisect_insert_index — sorted insertion point
+## bisect_insert_index: sorted insertion point
 
 ```python
 import bisect
@@ -215,7 +215,7 @@ import bisect
 def bisect_insert_index(sorted_list: list[int | float], value: int | float) -> int:
     """Return the index at which `value` should be inserted to keep the list sorted.
 
-    Uses binary search — O(log n). Does not modify the list.
+    Uses binary search, O(log n). Does not modify the list.
 
     Args:
         sorted_list: A list already sorted in ascending order.
@@ -236,7 +236,7 @@ def bisect_insert_index(sorted_list: list[int | float], value: int | float) -> i
 
 ---
 
-## invert_dict — swap keys and values
+## invert_dict: swap keys and values
 
 ```python
 def invert_dict(mapping: dict) -> dict:
@@ -266,6 +266,6 @@ def invert_dict(mapping: dict) -> dict:
 
 ## See Also
 
-- [`tools/itertools-functools.md`](itertools-functools.md) — combinatorial iteration tools
-- [`tools/math-statistics.md`](math-statistics.md) — aggregation and numeric summaries
-- [`skills/error-handling.md`](../skills/error-handling.md) — handling ValueError from validation
+- [`tools/itertools-functools.md`](itertools-functools.md): combinatorial iteration tools
+- [`tools/math-statistics.md`](math-statistics.md): aggregation and numeric summaries
+- [`skills/error-handling.md`](../skills/error-handling.md): handling ValueError from validation

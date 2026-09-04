@@ -27,7 +27,7 @@ current transaction implicitly.
 `cx_Oracle` are absent from
 [`skills/approved-packages.md`](../skills/approved-packages.md), the
 authoritative list for
-[RULES.md §5](../RULES.md#5-third-party-library-authorization). Adding one
+[RULES.md §5](../RULES.md#5-third-party-library-authorization-core). Adding one
 requires the §5 approval process, and then the 72-hour cooling period recorded
 in the project's `authorized_libraries.md`, before any connection code is
 committed.
@@ -42,7 +42,7 @@ Once a driver is authorized, these requirements apply:
 | Pooling | A session pool with explicit min and max; never a connection per request |
 | Service name | Connect by service name, never by SID |
 
-Extends [RULES.md §8](../RULES.md#8-security-and-secrets).
+Extends [RULES.md §8](../RULES.md#8-security-and-secrets-core).
 
 ### Prohibited
 
@@ -100,8 +100,8 @@ empty string, which is frequently the first symptom.
 **Rule:** Every value interpolated into SQL MUST be a bind variable. This is a
 correctness and performance requirement in Oracle, not only a security one.
 
-Extends [RULES.md §8](../RULES.md#8-security-and-secrets) and
-[RULES.md §14](../RULES.md#14-performance-standards).
+Extends [RULES.md §8](../RULES.md#8-security-and-secrets-core) and
+[RULES.md §14](../RULES.md#14-performance-standards-langpython-configurable).
 
 | Layer | Placeholder |
 |---|---|
@@ -240,7 +240,7 @@ MUST be written so that a failure at any statement leaves a recoverable state.
 **Rule:** PL/SQL exception handlers MUST name the exceptions they handle.
 `WHEN OTHERS THEN NULL` is prohibited, as is any `WHEN OTHERS` handler that
 does not re-raise. This is the PL/SQL form of the bare `except` prohibition in
-[RULES.md §9](../RULES.md#9-error-handling).
+[RULES.md §9](../RULES.md#9-error-handling-langpython).
 
 ```sql
 EXCEPTION

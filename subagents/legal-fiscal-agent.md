@@ -33,7 +33,7 @@ traceable back to the source data and the rule that produced it.
 | NLP (legal text) | `spacy` | `uv add spacy` |
 | Statistical analysis | `scipy` | `uv add scipy` |
 
-**Always use `decimal.Decimal` — never `float` — for monetary values.**
+**Always use `decimal.Decimal`: never `float`: for monetary values.**
 
 ---
 

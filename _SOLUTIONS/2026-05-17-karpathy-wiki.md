@@ -1,4 +1,4 @@
-# Worktrees in This Repo — Benefits, Tradeoffs, and Refactoring Opportunities
+# Worktrees in This Repo: Benefits, Tradeoffs, and Refactoring Opportunities
 
 Date: 2026-05-17  
 Context: Background agent isolation via Claude Code harness; Karpathy wiki lens applied to 12-factor analysis
@@ -7,7 +7,7 @@ Context: Background agent isolation via Claude Code harness; Karpathy wiki lens 
 
 ## What a Git Worktree Is
 
-A git worktree is a linked working directory that shares a single `.git` object store with a parent repository. Every tracked file is checked out into the worktree's directory, but git objects (commits, blobs, trees) are not duplicated — they live once in the parent's object store. Each worktree must be on a unique branch; the same branch cannot be active in two worktrees simultaneously.
+A git worktree is a linked working directory that shares a single `.git` object store with a parent repository. Every tracked file is checked out into the worktree's directory, but git objects (commits, blobs, trees) are not duplicated, they live once in the parent's object store. Each worktree must be on a unique branch; the same branch cannot be active in two worktrees simultaneously.
 
 The worktree's root contains a `.git` file (not a directory) that points back to the parent repo's gitdir, plus a full copy of every tracked file on its branch.
 
@@ -31,9 +31,9 @@ Branch: `feat-20260517-karpathy-wiki` (renamed from the auto-generated `worktree
 
 **At the git object level: no.** Blobs, trees, and commits are shared. The parent repo's object store is the single source of truth. Creating a worktree does not copy git history.
 
-**At the filesystem level: yes.** Every tracked file on the checked-out branch is copied into the worktree directory. For this repo that means a full copy of `skills/`, `subagents/`, `templates/`, `tools/`, `plans/`, and all root markdown files — the same byte-for-byte content as the main checkout, on the branch the worktree was created from.
+**At the filesystem level: yes.** Every tracked file on the checked-out branch is copied into the worktree directory. For this repo that means a full copy of `skills/`, `subagents/`, `templates/`, `tools/`, `plans/`, and all root markdown files, the same byte-for-byte content as the main checkout, on the branch the worktree was created from.
 
-**Practical size for this repo:** The repo is docs-first (markdown + shell). No compiled artifacts, no `node_modules`, no `.venv`. A worktree adds roughly the same disk footprint as the main checkout — small (order of magnitude: single-digit MB). Disk duplication is not a problem here.
+**Practical size for this repo:** The repo is docs-first (markdown + shell). No compiled artifacts, no `node_modules`, no `.venv`. A worktree adds roughly the same disk footprint as the main checkout, small (order of magnitude: single-digit MB). Disk duplication is not a problem here.
 
 **The more significant duplication is conceptual.** `skills/`, `subagents/`, and `templates/` are reference libraries. They are read-only from the perspective of most background tasks. Duplicating them into every worktree means:
 
@@ -64,7 +64,7 @@ Branch: `feat-20260517-karpathy-wiki` (renamed from the auto-generated `worktree
 | Nested worktree path | `.claude/worktrees/` is inside the main repo directory. Most git workflows place worktrees as siblings (`../repo-worktree/`), not children. The nested path is non-standard and can confuse tools that walk parent directories looking for `.git`. |
 | `.claude/worktrees/` not in `.gitignore` | Git correctly recognizes worktree directories and does not treat their files as untracked content in the main checkout. However, the absence of a `.gitignore` entry signals intent ambiguously. Third-party tools (editors, search indexers) may descend into the worktree directory unexpectedly. |
 | Branch uniqueness constraint | A branch checked out in a worktree cannot be checked out in the main repo simultaneously. If the user tries to switch `main` to a branch already active in a worktree, git rejects the checkout. |
-| Merge discipline required | Work done in a worktree must be explicitly merged or cherry-picked back to `main`. The worktree branch is not automatically integrated. For a docs repo, this is the correct behavior — but it means improvements discovered during a background task must survive a PR step to be useful. |
+| Merge discipline required | Work done in a worktree must be explicitly merged or cherry-picked back to `main`. The worktree branch is not automatically integrated. For a docs repo, this is the correct behavior, but it means improvements discovered during a background task must survive a PR step to be useful. |
 | Auto-generated branch names | The harness generates names like `worktree-12-factor-karpathy-extension`. These are verbose and do not follow the repo's `feat-YYYYMMDD-description` convention. |
 
 ---
@@ -94,7 +94,7 @@ Current harness auto-generates `worktree-<task-slug>`. The repo convention is `f
 
 ### 4. Treat `skills/`, `subagents/`, `templates/` as read-only in worktrees
 
-Background agents working on task-scoped deliverables (analysis docs, session summaries, draft recommendations) should not modify shared reference libraries in the worktree. If an agent discovers a pattern worth adding to `skills/`, it should note it in its output document and leave the `skills/` update for a dedicated PR — not modify the worktree copy, which would require a merge back before the improvement is visible.
+Background agents working on task-scoped deliverables (analysis docs, session summaries, draft recommendations) should not modify shared reference libraries in the worktree. If an agent discovers a pattern worth adding to `skills/`, it should note it in its output document and leave the `skills/` update for a dedicated PR, not modify the worktree copy, which would require a merge back before the improvement is visible.
 
 Add to `subagents/subagents.md`: "Background agents operating in a worktree must not modify files in `skills/`, `subagents/`, or `templates/` unless the task is explicitly scoped to those files. Improvements to reference libraries belong in a dedicated feature branch, not a background task worktree."
 
@@ -104,9 +104,9 @@ The Karpathy wiki pattern requires `log.md` (append-only execution record) and `
 
 Two viable approaches:
 
-**Option A — Commit-based (fits current workflow):** `log.md` and `index.md` are tracked files. Each session commits its log entries and index updates to its branch. The merge into `main` is what makes the log durable. Simpler; no new infrastructure; log updates are auditable in git history. Tradeoff: the log is not visible to concurrent sessions until merged.
+**Option A, Commit-based (fits current workflow):** `log.md` and `index.md` are tracked files. Each session commits its log entries and index updates to its branch. The merge into `main` is what makes the log durable. Simpler; no new infrastructure; log updates are auditable in git history. Tradeoff: the log is not visible to concurrent sessions until merged.
 
-**Option B — Untracked shared file (outside git):** `log.md` and `index.md` live in an untracked location accessible to all worktrees — e.g., `plans/log.md` (already excluded from git by `plans/*progress.txt` pattern in `.gitignore`... though `log.md` would need explicit exclusion). All worktrees share the same file via the filesystem. Tradeoff: concurrent writes risk corruption; no git history on the log.
+**Option B, Untracked shared file (outside git):** `log.md` and `index.md` live in an untracked location accessible to all worktrees, e.g., `plans/log.md` (already excluded from git by `plans/*progress.txt` pattern in `.gitignore`... though `log.md` would need explicit exclusion). All worktrees share the same file via the filesystem. Tradeoff: concurrent writes risk corruption; no git history on the log.
 
 **Recommendation:** Option A for this docs-first repo. The log's value is in its git-auditable history. Concurrency conflicts are low-risk when sessions are sequential (one background agent at a time).
 
@@ -117,7 +117,7 @@ Two viable approaches:
 | Question | Answer |
 |----------|--------|
 | Is the worktree a full repo copy? | Yes at filesystem level; no at git object level |
-| Disk cost for this repo? | Negligible — docs-first, no build artifacts |
+| Disk cost for this repo? | Negligible, docs-first, no build artifacts |
 | Biggest actual friction? | Untracked files invisible to worktrees; branch naming inconsistency |
 | `.gitignore` gap? | `.claude/worktrees/` should be listed to signal intent |
 | Highest-value refactor? | Convention: commit draft files before delegating; treat `skills/` as read-only in worktrees |

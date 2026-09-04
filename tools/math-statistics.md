@@ -4,11 +4,11 @@ Deterministic functions for numeric aggregation, rounding, clamping, and
 distribution analysis using the standard library: `math`, `statistics`,
 `decimal`, and `fractions`.
 
-All functions are pure — no side effects, same input always produces same output.
+All functions are pure, no side effects, same input always produces same output.
 
 ---
 
-## clamp — constrain a value within a range
+## clamp: constrain a value within a range
 
 ```python
 from typing import TypeVar
@@ -46,7 +46,7 @@ def clamp(value: T, lo: T, hi: T) -> T:
 
 ---
 
-## round_half_up — explicit ROUND_HALF_UP (avoids banker's rounding)
+## round_half_up: explicit ROUND_HALF_UP (avoids banker's rounding)
 
 ```python
 from decimal import ROUND_HALF_UP, Decimal
@@ -80,7 +80,7 @@ def round_half_up(value: float | Decimal, decimals: int = 0) -> float:
 
 ---
 
-## percent_change — relative change between two values
+## percent_change: relative change between two values
 
 ```python
 def percent_change(old: float, new: float, decimals: int = 2) -> float:
@@ -111,7 +111,7 @@ def percent_change(old: float, new: float, decimals: int = 2) -> float:
 
 ---
 
-## safe_divide — division with a configurable fallback
+## safe_divide: division with a configurable fallback
 
 ```python
 def safe_divide(numerator: float, denominator: float, default: float = 0.0) -> float:
@@ -139,7 +139,7 @@ def safe_divide(numerator: float, denominator: float, default: float = 0.0) -> f
 
 ---
 
-## summary_stats — mean, median, stdev, min, max
+## summary_stats: mean, median, stdev, min, max
 
 ```python
 import statistics
@@ -177,7 +177,7 @@ def summary_stats(values: list[float | int]) -> dict[str, float]:
 
 ---
 
-## percentile — value at a given percentile rank
+## percentile: value at a given percentile rank
 
 ```python
 import math
@@ -218,7 +218,7 @@ def percentile(values: list[float | int], p: float) -> float:
 
 ---
 
-## moving_average — simple moving average over a window
+## moving_average: simple moving average over a window
 
 ```python
 from collections import deque
@@ -257,7 +257,7 @@ def moving_average(values: list[float | int], window: int) -> list[float]:
 
 ---
 
-## normalize_to_range — rescale values to [0, 1] or [a, b]
+## normalize_to_range: rescale values to [0, 1] or [a, b]
 
 ```python
 def normalize_to_range(
@@ -299,7 +299,7 @@ def normalize_to_range(
 
 ---
 
-## gcd / lcm — greatest common divisor and least common multiple
+## gcd / lcm: greatest common divisor and least common multiple
 
 ```python
 import math
@@ -350,6 +350,6 @@ def lcm(a: int, b: int) -> int:
 
 ## See Also
 
-- [`tools/collections.md`](collections.md) — top_n, frequency_map
-- [`tools/itertools-functools.md`](itertools-functools.md) — reduce, accumulate
-- [`skills/dashboarding-reporting.md`](../skills/dashboarding-reporting.md) — aggregation in reports
+- [`tools/collections.md`](collections.md): top_n, frequency_map
+- [`tools/itertools-functools.md`](itertools-functools.md): reduce, accumulate
+- [`skills/dashboarding-reporting.md`](../skills/dashboarding-reporting.md): aggregation in reports

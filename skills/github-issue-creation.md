@@ -186,7 +186,7 @@ For bugs, prefer:
 ## Issue Triage and Closure
 
 Before implementing or closing an existing issue, verify its factual claims
-against current repo state — an issue's body is a snapshot from when it was
+against current repo state, an issue's body is a snapshot from when it was
 filed and can go stale after unrelated cleanup work (file renames, deletions,
 convention changes). Do not take a cited file path, "established convention,"
 or cross-reference at face value.
@@ -208,7 +208,7 @@ gh pr list --state open --json number,title,files
 If the premise no longer holds (cited file deleted, convention never
 actually enforced, goal already achieved via a different mechanism), close
 with `gh issue close <n> --comment "..."` explaining specifically what
-changed and why the issue's version should not be resurrected as written —
+changed and why the issue's version should not be resurrected as written, 
 not just "stale," but what a future reader would otherwise re-litigate.
 
 ```bash

@@ -24,7 +24,7 @@ MUST register routes through blueprints. A module-level `app = Flask(__name__)`
 is prohibited. Business logic MUST live in a service module, not in view
 functions.
 
-Extends [RULES.md §11](../RULES.md#11-architecture-boundaries) (External Input
+Extends [RULES.md §11](../RULES.md#11-architecture-boundaries-core) (External Input
 -> Validation -> Logic -> I/O -> Output).
 
 ### Required structure
@@ -100,8 +100,8 @@ code. The factory is the only structure that satisfies §17 tier parity.
 validated settings object. `SECRET_KEY` MUST never appear as a literal in a
 tracked file, and `DEBUG` MUST default to `False`.
 
-Extends [RULES.md §8](../RULES.md#8-security-and-secrets) and
-[RULES.md §17](../RULES.md#17-deployment-and-environment-parity).
+Extends [RULES.md §8](../RULES.md#8-security-and-secrets-core) and
+[RULES.md §17](../RULES.md#17-deployment-and-environment-parity-profileservice).
 
 ### Mandatory practices
 
@@ -146,8 +146,8 @@ any client forge a session, so §8 applies to it with no exceptions.
 queries. Raw SQL MUST use bound parameters. Sessions MUST be closed or rolled
 back on every request path, including error paths.
 
-Extends [RULES.md §11](../RULES.md#11-architecture-boundaries) and
-[RULES.md §14](../RULES.md#14-performance-standards).
+Extends [RULES.md §11](../RULES.md#11-architecture-boundaries-core) and
+[RULES.md §14](../RULES.md#14-performance-standards-langpython-configurable).
 
 ### Mandatory practices
 
@@ -205,8 +205,8 @@ migrations MUST be read and corrected before commit, and MUST ship in the same
 commit as the model change. `alembic` MUST never run against a database it did
 not create without a reviewed baseline revision.
 
-Extends [RULES.md §6](../RULES.md#6-version-control-and-commits) and
-[RULES.md §17](../RULES.md#17-deployment-and-environment-parity).
+Extends [RULES.md §6](../RULES.md#6-version-control-and-commits-core) and
+[RULES.md §17](../RULES.md#17-deployment-and-environment-parity-profileservice).
 
 ### Mandatory commands
 
@@ -255,8 +255,8 @@ intent. A rename reads as a drop plus an add, which silently destroys data.
 declare its HTTP methods explicitly, and MUST NOT catch bare exceptions. Every
 application MUST register error handlers that return JSON for API blueprints.
 
-Extends [RULES.md §9](../RULES.md#9-error-handling) and
-[RULES.md §8](../RULES.md#8-security-and-secrets).
+Extends [RULES.md §9](../RULES.md#9-error-handling-langpython) and
+[RULES.md §8](../RULES.md#8-security-and-secrets-core).
 
 ### Mandatory practices
 
@@ -319,7 +319,7 @@ carelessly. Neither default is acceptable under §9.
 
 **Rule:** Tests MUST build the application through `create_app` with a test
 configuration. The coverage target in
-[RULES.md §7](../RULES.md#7-testing-and-coverage) applies unchanged. Every route
+[RULES.md §7](../RULES.md#7-testing-and-coverage-langpython-configurable) applies unchanged. Every route
 MUST have a test for its success path, its validation-failure path, and its
 authorization-failure path.
 
@@ -362,7 +362,7 @@ was adopted to eliminate.
 `flask run` or `app.run()`. The application factory MUST be referenced by
 import path, and migrations MUST run as a separate release step.
 
-Extends [RULES.md §17](../RULES.md#17-deployment-and-environment-parity) and
+Extends [RULES.md §17](../RULES.md#17-deployment-and-environment-parity-profileservice) and
 [`skills/containerization.md`](../skills/containerization.md).
 
 ### Process model

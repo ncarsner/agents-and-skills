@@ -1,4 +1,4 @@
-# log.md — Append-Only Execution Record
+# log.md: Append-Only Execution Record
 
 Single source of truth for `ralph.sh` loop execution state. One line per
 iteration, appended only, never edit or reorder past entries. Replaces the
@@ -11,14 +11,14 @@ retired `plans/*-progress.txt` pattern (Karpathy wiki lens, see
 [timestamp] [task_id] [status] [err_count] [summary]
 ```
 
-- `timestamp` — UTC ISO 8601, `date -u +%Y-%m-%dT%H:%M:%SZ`
-- `task_id` — the PRD task id (`--prd` mode) or a kebab-case slug of the task
+- `timestamp`: UTC ISO 8601, `date -u +%Y-%m-%dT%H:%M:%SZ`
+- `task_id`: the PRD task id (`--prd` mode) or a kebab-case slug of the task
   description (general mode)
-- `status` — `done` (task completed this iteration), `blocked` (iteration
+- `status`: `done` (task completed this iteration), `blocked` (iteration
   failed, will retry), `failed` (max iterations reached without success)
-- `err_count` — number of failed attempts at this `task_id` prior to this
+- `err_count`: number of failed attempts at this `task_id` prior to this
   entry (`0` on first-try success)
-- `summary` — one-line description of what changed
+- `summary`: one-line description of what changed
 
 ## Entries
 

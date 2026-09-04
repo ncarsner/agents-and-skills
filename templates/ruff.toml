@@ -1,4 +1,4 @@
-# ruff.toml — standalone Ruff configuration
+# ruff.toml: standalone Ruff configuration
 #
 # Use this file if your project does not use pyproject.toml.
 # Prefer [tool.ruff] sections in pyproject.toml when that file exists.

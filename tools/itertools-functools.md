@@ -1,11 +1,11 @@
 # Tools: Itertools & Functools
 
 Deterministic tools for composing, combining, and transforming iterables using
-`itertools` and `functools`. All functions are pure — no side effects.
+`itertools` and `functools`. All functions are pure, no side effects.
 
 ---
 
-## sliding_window — overlapping n-element windows
+## sliding_window: overlapping n-element windows
 
 ```python
 from collections import deque
@@ -45,7 +45,7 @@ def sliding_window(iterable: Iterable[T], n: int) -> Iterator[tuple[T, ...]]:
 
 ---
 
-## pairwise — consecutive pairs (builtin polyfill for < 3.10)
+## pairwise: consecutive pairs (builtin polyfill for < 3.10)
 
 ```python
 from collections.abc import Iterable, Iterator
@@ -83,7 +83,7 @@ def pairwise(iterable: Iterable[T]) -> Iterator[tuple[T, T]]:
 
 ---
 
-## roundrobin — interleave multiple iterables
+## roundrobin: interleave multiple iterables
 
 ```python
 import itertools
@@ -125,7 +125,7 @@ def roundrobin(*iterables: Iterable[T]) -> list[T]:
 
 ---
 
-## partition — split iterable into two lists by predicate
+## partition: split iterable into two lists by predicate
 
 ```python
 from collections.abc import Callable, Iterable
@@ -168,7 +168,7 @@ def partition(
 
 ---
 
-## unique_everseen — deduplicate preserving order, with key support
+## unique_everseen: deduplicate preserving order, with key support
 
 ```python
 from collections.abc import Callable, Iterable, Iterator
@@ -210,7 +210,7 @@ def unique_everseen(
 
 ---
 
-## first_true — find first element matching a predicate
+## first_true: find first element matching a predicate
 
 ```python
 from collections.abc import Callable, Iterable
@@ -246,7 +246,7 @@ def first_true(
 
 ---
 
-## memoize — cache function results by argument signature
+## memoize: cache function results by argument signature
 
 ```python
 import functools
@@ -281,7 +281,7 @@ def memoize(fn: Callable[..., T]) -> Callable[..., T]:
 
 ---
 
-## take / drop — head and tail of an iterable
+## take / drop: head and tail of an iterable
 
 ```python
 import itertools
@@ -332,6 +332,6 @@ def drop(n: int, iterable: Iterable[T]) -> list[T]:
 
 ## See Also
 
-- [`tools/collections.md`](collections.md) — chunk, group_by, top_n
-- [`tools/math-statistics.md`](math-statistics.md) — reductions and aggregations
-- [`skills/python-testing.md`](../skills/python-testing.md) — parametrize itertools tests
+- [`tools/collections.md`](collections.md): chunk, group_by, top_n
+- [`tools/math-statistics.md`](math-statistics.md): reductions and aggregations
+- [`skills/python-testing.md`](../skills/python-testing.md): parametrize itertools tests

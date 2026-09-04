@@ -31,7 +31,7 @@ in this repo.
 - For each new heading: extract the full section (from that `##` line to the next `##` line
   or end of file) from the source file, then append it to the base file immediately before
   the `## See Also` section, or at the end of the file if no `See Also` exists.
-- Mark it as "updated — sections added: <list>" in the report.
+- Mark it as "updated: sections added: <list>" in the report.
 
 **In sync** (base file already contains all headings from source):
 - No action. Mark it as "already in sync" in the report.
@@ -54,14 +54,14 @@ For each newly added file:
   hyphenated convention (e.g. "Data/Web" → `data-web`, "Legal/Fiscal" → `legal-fiscal`,
   "DevOps" → `devops`).
 - If a file with the same `name` already exists in the array (should only happen if
-  Step 2 misclassified something as new), do not add a duplicate — update its `version`
+  Step 2 misclassified something as new), do not add a duplicate, update its `version`
   instead and note the correction in the sync report.
 
 ## Step 5: Update CHANGELOG.md
 
 Add a `## YYYY-MM-DD` entry at the top (use today's date). Include:
-- **Added** — one bullet per new skill file, with the source project path in parentheses.
-- **Changed** — one bullet per existing file that received new sections, listing the section
+- **Added**: one bullet per new skill file, with the source project path in parentheses.
+- **Changed**: one bullet per existing file that received new sections, listing the section
   names and source project path.
 - Omit the section entirely if there are no changes of that type.
 

@@ -1,14 +1,14 @@
 # Tools: File I/O
 
 Deterministic functions for reading, writing, and traversing files and
-directories using `pathlib.Path`. All functions use `pathlib` exclusively —
+directories using `pathlib.Path`. All functions use `pathlib` exclusively, 
 never `os.path` string manipulation.
 
 Side effects are clearly annotated in each docstring.
 
 ---
 
-## read_text — safe text file reader
+## read_text: safe text file reader
 
 ```python
 from pathlib import Path
@@ -43,7 +43,7 @@ def read_text(path: Path, encoding: str = "utf-8") -> str:
 
 ---
 
-## write_text — atomic text file writer
+## write_text: atomic text file writer
 
 ```python
 from pathlib import Path
@@ -72,7 +72,7 @@ def write_text(path: Path, content: str, encoding: str = "utf-8") -> None:
 
 ---
 
-## read_lines — file as a list of stripped lines
+## read_lines: file as a list of stripped lines
 
 ```python
 from pathlib import Path
@@ -113,7 +113,7 @@ def read_lines(path: Path, *, skip_blank: bool = True, comment_prefix: str = "")
 
 ---
 
-## find_files — recursive glob with extension filter
+## find_files: recursive glob with extension filter
 
 ```python
 from pathlib import Path
@@ -151,7 +151,7 @@ def find_files(
 
 ---
 
-## ensure_dir — idempotent directory creation
+## ensure_dir: idempotent directory creation
 
 ```python
 from pathlib import Path
@@ -181,7 +181,7 @@ def ensure_dir(path: Path) -> Path:
 
 ---
 
-## copy_file — copy with parent directory creation
+## copy_file: copy with parent directory creation
 
 ```python
 import shutil
@@ -221,7 +221,7 @@ def copy_file(src: Path, dst: Path, *, overwrite: bool = False) -> Path:
 
 ---
 
-## file_checksum — SHA-256 hash of a file
+## file_checksum: SHA-256 hash of a file
 
 ```python
 import hashlib
@@ -258,7 +258,7 @@ def file_checksum(path: Path, algorithm: str = "sha256") -> str:
 
 ---
 
-## atomic_write — write via temp file, then rename
+## atomic_write: write via temp file, then rename
 
 ```python
 import tempfile
@@ -299,6 +299,6 @@ def atomic_write(path: Path, content: str, encoding: str = "utf-8") -> None:
 
 ## See Also
 
-- [`tools/serialization.md`](serialization.md) — parse file contents as JSON, CSV, or TOML
-- [`tools/hashing-encoding.md`](hashing-encoding.md) — hash strings (not files)
-- [`skills/logging-observability.md`](../skills/logging-observability.md) — log file operations
+- [`tools/serialization.md`](serialization.md): parse file contents as JSON, CSV, or TOML
+- [`tools/hashing-encoding.md`](hashing-encoding.md): hash strings (not files)
+- [`skills/logging-observability.md`](../skills/logging-observability.md): log file operations

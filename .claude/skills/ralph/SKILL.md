@@ -40,7 +40,7 @@ Exits automatically when all tasks are marked done. Defaults to 20 iterations ma
    ```
 
 4. On success (exit 0): close the issue: `gh issue close <n> --comment "Resolved."`
-   On failure: report the error and halt — do not auto-close.
+   On failure: report the error and halt, do not auto-close.
 
 5. Report: issues resolved, issues failed, total iterations used.
 

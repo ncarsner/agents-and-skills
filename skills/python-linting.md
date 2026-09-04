@@ -125,7 +125,7 @@ ignore_missing_imports = true
 
 ## Common Lint Errors and Fixes
 
-### `B006` — Mutable default argument
+### `B006`: Mutable default argument
 ```python
 # Bad
 def add_item(item: str, items: list[str] = []) -> list[str]:
@@ -140,7 +140,7 @@ def add_item(item: str, items: list[str] | None = None) -> list[str]:
     return items
 ```
 
-### `BLE001` — Blind except
+### `BLE001`: Blind except
 ```python
 # Bad
 try:
@@ -155,7 +155,7 @@ except ValueError as exc:
     logger.error("Processing failed: %s", exc)
 ```
 
-### `S101` — Assert in non-test code
+### `S101`: Assert in non-test code
 ```python
 # Bad (in production code)
 assert user is not None
@@ -177,7 +177,7 @@ def process(items: list[str], count: int | None = None) -> str | int:
     ...
 ```
 
-### `ANN001` — Missing function argument annotation
+### `ANN001`: Missing function argument annotation
 ```python
 # Bad
 def calculate(income, rate):
@@ -188,7 +188,7 @@ def calculate(income: float, rate: float) -> float:
     return income * rate
 ```
 
-### `SIM108` — Use ternary instead of if-else block
+### `SIM108`: Use ternary instead of if-else block
 ```python
 # Bad
 if condition:
@@ -200,13 +200,13 @@ else:
 result = "yes" if condition else "no"
 ```
 
-### `PLR0913` — Too many arguments
+### `PLR0913`: Too many arguments
 ```python
-# Bad — too many positional args
+# Bad: too many positional args
 def create_user(name, email, age, phone, address, city, state):
     ...
 
-# Good — use a dataclass or Pydantic model
+# Good: use a dataclass or Pydantic model
 from dataclasses import dataclass
 
 @dataclass

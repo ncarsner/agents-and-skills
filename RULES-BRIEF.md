@@ -1,4 +1,4 @@
-# RULES-BRIEF.md — Session-Start Compliance Reference
+# RULES-BRIEF.md: Session-Start Compliance Reference
 
 One-line summary per section. Load [RULES.md](RULES.md) in full only when the task requires the detail.
 
@@ -23,10 +23,10 @@ One-line summary per section. Load [RULES.md](RULES.md) in full only when the ta
 | 12 | Downstream copies: place agent materials in `AGENTS/`, gitignore it. | Setting up new projects |
 | 13 | AI agent conduct: no git identity, escalate ambiguous/destructive actions, least-privilege. | Always active |
 | 14 | Performance: CLI p95 < 500ms, memory < 256MB. See [profiles/python.md](profiles/python.md). | Perf-sensitive work |
-| 15 | Accessibility/i18n: WCAG 2.1 AA for web UI, NO_COLOR support for CLI. See [RULES.md §15](RULES.md#15-accessibility-and-internationalization). | Web UI or CLI output tasks |
-| 16 | Data privacy: classify data first; no PII in logs; retention limits apply. See [RULES.md §16](RULES.md#16-data-privacy-and-compliance). | Any data handling task |
-| 17 | Deployment parity: env vars only differ across tiers; CI gates must pass. See [RULES.md §17](RULES.md#17-deployment-and-environment-parity). | Service/deploy tasks |
-| 18 | Code review: automated checks before requesting review; PR type determines approvals. See [RULES.md §18](RULES.md#18-code-review-and-approval-workflow). | Opening PRs |
+| 15 | Accessibility/i18n: WCAG 2.1 AA for web UI, NO_COLOR support for CLI. See [RULES.md §15](RULES.md#15-accessibility-and-internationalization-profileweb-ui). | Web UI or CLI output tasks |
+| 16 | Data privacy: classify data first; no PII in logs; retention limits apply. See [RULES.md §16](RULES.md#16-data-privacy-and-compliance-core-configurable). | Any data handling task |
+| 17 | Deployment parity: env vars only differ across tiers; CI gates must pass. See [RULES.md §17](RULES.md#17-deployment-and-environment-parity-profileservice). | Service/deploy tasks |
+| 18 | Code review: automated checks before requesting review; PR type determines approvals. See [RULES.md §18](RULES.md#19-code-review-and-approval-workflow-core-configurable). | Opening PRs |
 
 **Always-active non-negotiables (memorize, never skip):**
 - No secrets in source (§8)

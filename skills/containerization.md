@@ -14,7 +14,7 @@ and local development with Docker Compose.
 | ARM / cross-platform | `python:3.12-slim-bookworm` |
 | Minimal (expert use only) | `python:3.12-alpine` |
 
-Never use `python:latest` — pin the minor version to prevent unexpected upgrades.
+Never use `python:latest`: pin the minor version to prevent unexpected upgrades.
 
 ---
 
@@ -104,7 +104,7 @@ trivy image --exit-code 1 --severity HIGH,CRITICAL <image>:<tag>
 
 | Severity | Policy |
 |----------|--------|
-| CRITICAL | Block — must be resolved before the image is pushed |
+| CRITICAL | Block, must be resolved before the image is pushed |
 | HIGH | Block if a fix is available; document if not |
 | MEDIUM | Advisory; track and review within 30 days |
 | LOW | Advisory only |
@@ -145,7 +145,7 @@ volumes:
 ```
 
 Rules:
-- Never commit credentials in `docker-compose.yml` — use `env_file: .env`.
+- Never commit credentials in `docker-compose.yml`: use `env_file: .env`.
 - `.env` must be in `.gitignore`.
 - Use named volumes for persistent data; never bind-mount a database directory.
 
@@ -153,7 +153,7 @@ Rules:
 
 ## See Also
 
-- `templates/Dockerfile` — ready-to-copy multi-stage Dockerfile
-- `templates/.dockerignore` — canonical .dockerignore
-- `skills/secret-scanning.md` — ensure no secrets land in the image layer
-- `RULES.md §17` — deployment and environment parity rules
+- `templates/Dockerfile`: ready-to-copy multi-stage Dockerfile
+- `templates/.dockerignore`: canonical .dockerignore
+- `skills/secret-scanning.md`: ensure no secrets land in the image layer
+- `RULES.md §17`: deployment and environment parity rules

@@ -158,7 +158,7 @@ logger = logging.getLogger(__name__)
 @click.option("--verbose", "-v", is_flag=True, help="Enable verbose logging")
 @click.pass_context
 def cli(ctx: click.Context, verbose: bool) -> None:
-    """My CLI tool — one-line description."""
+    """My CLI tool, one-line description."""
     ctx.ensure_object(dict)
     ctx.obj["verbose"] = verbose
     logging.basicConfig(
@@ -295,6 +295,6 @@ def process_with_progress(items: list) -> list:
 
 ## See Also
 
-- [`skills/cli-development.md`](../skills/cli-development.md) — detailed CLI patterns
-- [`skills/python-testing.md`](../skills/python-testing.md) — testing cookbook
-- [`templates/pyproject.toml`](../templates/pyproject.toml) — starter config
+- [`skills/cli-development.md`](../skills/cli-development.md): detailed CLI patterns
+- [`skills/python-testing.md`](../skills/python-testing.md): testing cookbook
+- [`templates/pyproject.toml`](../templates/pyproject.toml): starter config

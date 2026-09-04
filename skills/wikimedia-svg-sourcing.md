@@ -95,7 +95,7 @@ https://commons.wikimedia.org/wiki/Special:FilePath/<filename>
 ## Pattern: Verify Downloaded Files
 
 HTTP 4xx/5xx responses write an HTML error page to the `-o` target. Always
-verify by checking size and first bytes — do not assume a `200` code if using
+verify by checking size and first bytes, do not assume a `200` code if using
 `-w` separately from `-o`:
 
 ```bash

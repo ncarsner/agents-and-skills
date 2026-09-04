@@ -29,7 +29,7 @@ auditable, maintainable, and scalable Python systems. Common targets include:
    configuration files or environment variables.
 4. **Add observability.** Every run should log start/end times, record counts,
    and any anomalies encountered.
-5. **Document everything.** The code is the documentation — use clear names,
+5. **Document everything.** The code is the documentation: use clear names,
    type annotations, and docstrings.
 
 ---
@@ -323,7 +323,7 @@ def run_scheduler(interval_minutes: int = 60) -> None:
     Args:
         interval_minutes: How often to run the pipeline.
     """
-    logger.info("Scheduler started — running every %d minutes", interval_minutes)
+    logger.info("Scheduler started, running every %d minutes", interval_minutes)
     schedule.every(interval_minutes).minutes.do(scheduled_job)
     # Run immediately on startup
     scheduled_job()
@@ -346,7 +346,7 @@ When converting an Excel/VBA macro to Python:
 - [ ] Write unit tests for the core calculation logic before refactoring
 - [ ] Run both old and new versions on the same input and diff the outputs
 - [ ] Replace `ActiveSheet` / index-based column access with named columns
-- [ ] Remove any `On Error Resume Next` equivalents — use explicit error handling
+- [ ] Remove any `On Error Resume Next` equivalents, use explicit error handling
 
 ---
 

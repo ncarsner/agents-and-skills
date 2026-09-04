@@ -1,12 +1,12 @@
 # Skills Reference Index
 
-This directory contains **agent reference documents** — pattern libraries, configuration
+This directory contains **agent reference documents**: pattern libraries, configuration
 recipes, and code cookbooks. They are read on demand when an agent needs to know
 *how* to implement something. They are not invokable commands.
 
 > **Distinction from Claude Code skills:**
 > Invokable slash commands live in `.claude/skills/<name>/SKILL.md`.
-> Files in this directory are reference material — loaded by agents, not invoked by users.
+> Files in this directory are reference material, loaded by agents, not invoked by users.
 
 ---
 
@@ -81,7 +81,7 @@ Command-file invocables (`.claude/commands/`, not `.claude/skills/`):
 
 | Command | Invocation | What it does |
 |---------|-----------|--------------|
-| epilogue | `/epilogue` | Session shutdown protocol — capture session, refresh AGENTS.md, update CHANGELOG, commit, push, closure report |
+| epilogue | `/epilogue` | Session shutdown protocol, capture session, refresh AGENTS.md, update CHANGELOG, commit, push, closure report |
 | skills-sync | `/skills-sync` | Scan sibling projects' AGENTS/skills/ dirs and merge new files/sections into this repo |
 | debt-scan | `/debt-scan` | Scan for technical debt patterns and prioritize remediation |
 | dissect | `/dissect [path]` | Deep structural review of a file or module |
