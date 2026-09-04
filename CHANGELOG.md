@@ -48,6 +48,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `profiles/python.md` and `skills/python-uv-workflow.md`: PEP 723 inline script metadata as the pattern for one-off scripts, replacing `python3 src/<entry>.py`.
 - `profiles/python.md`: PEP 695 type parameters, PEP 692 `Unpack[TypedDict]`, and PEP 698 `@override` documented as available at 3.12 and explicitly not mandatory, since runtime introspection of `type` aliases is still uneven.
 - `skills/python-uv-workflow.md`: a lock-export section covering the audit requirements export and PEP 751 `pylock.toml`. `uv.lock` remains the source of truth.
+- `skills/python-linting.md`: a config-resolution section. A standalone `ruff.toml` takes precedence over `pyproject.toml` in the same directory, so a stray one silently shadows every `[tool.ruff]` setting. Recorded because it produced a wrong conclusion mid-session: a `D107` probe appeared to show the ignore list being disregarded, when ruff was in fact reading a leftover `ruff.toml` in the probe directory. Also notes that `--show-settings` prints `linter.rules.enabled` before `ignore` is applied, so a rule listed there may still never be reported.
 
 ---
 

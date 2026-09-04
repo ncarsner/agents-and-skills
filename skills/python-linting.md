@@ -225,6 +225,42 @@ def create_user(data: UserData) -> User:
 
 ---
 
+## Config Resolution (a trap worth knowing)
+
+Ruff resolves configuration from the **nearest** config file walking up from
+each linted file, and a standalone `ruff.toml` or `.ruff.toml` **takes
+precedence over `pyproject.toml` in the same directory**. A stray `ruff.toml`
+left in a project root will silently shadow every `[tool.ruff]` setting in
+`pyproject.toml`.
+
+This matters when verifying a config change: if the run does not behave the way
+the config says it should, confirm which file ruff actually read before
+concluding the setting is broken.
+
+```bash
+# Print the resolved settings and, on the first lines, the config path used
+uv run ruff check --show-settings src/ | head -3
+```
+
+```
+Resolved settings for: "/path/to/project/src/pkg/__init__.py"
+Settings path: "/path/to/project/ruff.toml"     <- not pyproject.toml
+```
+
+Two related gotchas when reading `--show-settings` output:
+
+- `linter.rules.enabled` lists the **selected** rule set, before `ignore` is
+  applied. A rule appearing there does not mean it will be reported. Confirm
+  behavior by linting a file that violates it, not by reading the settings dump.
+- `[tool.ruff.lint.pydocstyle] convention` disables rules outside the chosen
+  convention, but does not re-enable anything you placed in `ignore`.
+
+Keep one config source per project. Prefer `[tool.ruff]` in `pyproject.toml`
+when that file exists, and use standalone `ruff.toml` only in projects without
+one.
+
+---
+
 ## Inline Suppressions
 
 Use sparingly and always include a reason:
