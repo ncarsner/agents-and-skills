@@ -248,7 +248,7 @@ PostgreSQL instance.
 | `23503` | Foreign key violation | Map to a 422, not a 500 |
 | `40001` | Serialization failure | Retry with backoff |
 | `40P01` | Deadlock detected | Retry with backoff |
-| `57014` | Query cancelled, statement timeout | Map to a 504, log the query |
+| `57014` | Query canceled, statement timeout | Map to a 504, log the query |
 
 Catch `psycopg2.errors.UniqueViolation` and its siblings, or inspect
 `exc.orig.sqlstate` through SQLAlchemy. Do not match on message text; messages

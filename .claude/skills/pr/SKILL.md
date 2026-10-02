@@ -1,6 +1,6 @@
 ---
 name: pr
-description: Commit the current session's work, push the branch, and open a pull request. Enforces RULES.md 6 (Conventional Commits, feature branch, issue reference) and RULES.md 18 (no agent attribution). Invoke explicitly with /pr.
+description: Commit the current session's work, push the branch, and open a pull request. Enforces RULES.md 6 (Conventional Commits, feature branch, issue reference), RULES.md 18 (no agent attribution), and the version control prose rules (American spelling, engineering-record register, unwrapped bodies). Invoke explicitly with /pr.
 disable-model-invocation: true
 allowed-tools: Bash Read
 ---
@@ -8,6 +8,28 @@ allowed-tools: Bash Read
 Commit through PR only. Session capture, CHANGELOG, and context-file updates
 belong to `/epilogue`, which runs first when both run and may have committed
 already. Each step has a stop condition; do not guess past a failed check.
+
+## Version control prose
+
+Every artifact this skill ships follows these rules: file content and comments
+in the diff, commit messages, the PR title and body, and issue comments.
+[`lint-prose.sh`](lint-prose.sh) checks them; Steps 2, 4, and 5 run it.
+
+- **American spelling.** `color`, `behavior`, `normalize`, `analyze`,
+  `canceled`, `labeled`, `license`, `gray`. Identifiers, quoted external text,
+  and third-party API names keep the spelling of their source.
+- **Engineering record.** A PR body, issue body, or issue comment documents the
+  change for an engineer who never saw the session: what changed, why, and how
+  it was verified. The subject is the code, the rule, or the defect. Rewrite
+  conversation-summary phrasing ("the user asked", "we discussed", "in this
+  session", first person) into statements about the change.
+- **Unwrapped PR and issue bodies.** Each paragraph and each list item is one
+  line. GitHub renders a newline in a body as a line break, so editor-width
+  wrapping ships as ragged text. Commit message bodies keep conventional
+  72-column wrapping.
+- **No stray blank lines.** One blank line separates blocks (a paragraph, a
+  list, a heading's section). A heading sits directly above its content, list
+  items sit on consecutive lines, and the body starts and ends on text.
 
 ## Step 0: Preconditions
 
@@ -38,7 +60,7 @@ git log --oneline "$DEFAULT"..HEAD
 | Clean, commits ahead | Scan existing commits in Step 2, then Step 4 |
 | Clean, no commits ahead | Stop. Nothing to open a PR for. |
 
-## Step 2: Attribution scan
+## Step 2: Attribution and spelling scan
 
 RULES.md §18 prohibits agent attribution in commits, PR bodies, file content,
 comments, and any version control artifact. Scan whichever target Step 1
@@ -69,7 +91,21 @@ grep -inE "claude|anthropic|copilot|chatgpt" /tmp/pr-scan.txt | head -20
 
 Filenames, paths, documented rules, and detection patterns are legitimate.
 Signatures, bylines, trailers, and "assisted by" notes are not. **Never delete
-a `CLAUDE.md` or `AGENTS.md` reference to satisfy this grep.** Then `rm -f /tmp/pr-scan.txt`.
+a `CLAUDE.md` or `AGENTS.md` reference to satisfy this grep.**
+
+**Spelling, review then fix.** Check added lines and commit messages:
+
+```bash
+grep '^+[^+]' /tmp/pr-scan.txt > /tmp/pr-prose.txt
+git log "$DEFAULT"..HEAD --format=%B >> /tmp/pr-prose.txt
+.claude/skills/pr/lint-prose.sh spelling /tmp/pr-prose.txt
+rm -f /tmp/pr-scan.txt /tmp/pr-prose.txt
+```
+
+Fix file hits in place with the American spelling. A hit in the HEAD commit
+message is fixed with `git commit --amend`; for an older or already-pushed
+commit, report the hit and ask before rewriting history. The script's own
+pattern list is a legitimate hit when it appears in the diff.
 
 ## Step 3: Commit
 
@@ -84,7 +120,7 @@ git status --short          # confirm nothing unintended is staged
 git commit -m "$(cat <<'EOF'
 <type>(<scope>): <short imperative description>
 
-<body: why, not what>
+<body: why, not what, American spelling>
 
 Refs #<N>
 EOF
@@ -101,9 +137,10 @@ EOF
 
 ## Step 4: Push and open the PR
 
+Draft the body to a file, one line per paragraph and list item:
+
 ```bash
-git push -u origin "$BRANCH"
-gh pr create --repo "$REPO" --title "<type>(<scope>): <description>" --body "$(cat <<'EOF'
+cat > /tmp/pr-body.md <<'EOF'
 Refs #<N>
 
 - `<file>` - <one-line summary>
@@ -114,24 +151,34 @@ Refs #<N>
 ### Verified
 - <what was actually run, with results>
 EOF
-)"
+.claude/skills/pr/lint-prose.sh body /tmp/pr-body.md
+```
+
+**Stop until the lint prints nothing**, unless every remaining hit is a
+legitimate identifier or quotation. Then push and open the PR:
+
+```bash
+git push -u origin "$BRANCH"
+gh pr create --repo "$REPO" --title "<type>(<scope>): <description>" --body-file /tmp/pr-body.md
 ```
 
 Hyphens, not em dashes: a PR body is agent-generated text that outlives the
 session (`AGENTS.md` Writing Style). Append no "Generated with" footer. If a PR
-already exists for the branch, use `gh pr edit <number> --repo "$REPO" --body`.
+already exists for the branch, use `gh pr edit <number> --repo "$REPO" --body-file /tmp/pr-body.md`.
 
 ## Step 5: Verify
 
 ```bash
 git log "$DEFAULT"..HEAD --format=full | grep -inE "co-authored-by|generated with|ai-generated" || echo "commits clean"
 gh pr view <number> --repo "$REPO" --json body -q .body | grep -inE "generated with|co-authored" || echo "body clean"
+gh pr view <number> --repo "$REPO" --json body -q .body > /tmp/pr-body.md
+.claude/skills/pr/lint-prose.sh body /tmp/pr-body.md || true; rm -f /tmp/pr-body.md
 gh pr view <number> --repo "$REPO" --json author -q .author.login
 git status --short
 ```
 
-Expect no hard-fail hits, a human `author.login` rather than a bot, and a clean
-working tree.
+Expect no hard-fail hits, a posted body that lints clean, a human
+`author.login` rather than a bot, and a clean working tree.
 
 ## Step 6: Post-merge issue check
 
@@ -142,6 +189,9 @@ unreliable across multiple issues.
 for n in <N> <N>; do gh issue view "$n" --repo "$REPO" --json number,state -q '"#\(.number) \(.state)"'; done
 gh issue close <N> --repo "$REPO" --comment "Closed via #<PR-number> (merged)."
 ```
+
+A longer closing comment follows [Version control prose](#version-control-prose):
+lint it with `lint-prose.sh body` before posting.
 
 Closing an issue is a mutation
 ([github-issue-creation.md](../../../skills/github-issue-creation.md)): do it

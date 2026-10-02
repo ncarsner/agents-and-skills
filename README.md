@@ -57,7 +57,7 @@ agents-and-skills/
 │
 ├── plans/                             # PRD and task-list files for ralph loops
 │   ├── prd.json                       # Active PRD task list (consumed by ralph --prd)
-│   └── test-coverage-ralph.sh         # Specialised coverage loop
+│   └── test-coverage-ralph.sh         # Specialized coverage loop
 │
 ├── subagents/                         # Agent protocol and domain-specific guides
 │   ├── subagents.md                   # Base protocol all subagents must follow
