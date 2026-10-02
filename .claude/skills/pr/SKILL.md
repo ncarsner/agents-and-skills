@@ -171,7 +171,7 @@ already exists for the branch, use `gh pr edit <number> --repo "$REPO" --body-fi
 ```bash
 git log "$DEFAULT"..HEAD --format=full | grep -inE "co-authored-by|generated with|ai-generated" || echo "commits clean"
 gh pr view <number> --repo "$REPO" --json body -q .body | grep -inE "generated with|co-authored" || echo "body clean"
-gh pr view <number> --repo "$REPO" --json body -q .body > /tmp/pr-body.md
+gh pr view <number> --repo "$REPO" --json body -q .body | sed '${/^$/d;}' > /tmp/pr-body.md   # drop the newline gh appends
 .claude/skills/pr/lint-prose.sh body /tmp/pr-body.md || true; rm -f /tmp/pr-body.md
 gh pr view <number> --repo "$REPO" --json author -q .author.login
 git status --short
