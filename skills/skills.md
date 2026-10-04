@@ -24,7 +24,7 @@ recipes, and code cookbooks. They are read on demand when an agent needs to know
 | [`logging-observability.md`](logging-observability.md) | All | structlog, logging levels, audit trails |
 | [`configuration-management.md`](configuration-management.md) | All | Config file handling patterns |
 | [`bundle-distribution.md`](bundle-distribution.md) | All | rsync include-lists, clean-slate pruning, openrsync delete-flag pitfalls, alias-shadows-function |
-| [`github-issue-creation.md`](github-issue-creation.md) | All | GitHub issue authorization rules, `gh` commands, and stale-premise triage/closure pattern |
+| [`github-issue-creation.md`](github-issue-creation.md) | All | GitHub issue authorization rules, `gh` commands, stale-premise triage/closure pattern, and body prose and layout linting |
 | [`secret-scanning.md`](secret-scanning.md) | All | Pre-commit hook setup, baseline management, credential rotation, incident remediation |
 | [`multi-agent.md`](multi-agent.md) | All | Handoff payload schema, context passing, loop detection, logging |
 | [`prompt-engineering.md`](prompt-engineering.md) | All | Prompt structure standards, injection defense, token efficiency |

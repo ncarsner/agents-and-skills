@@ -51,3 +51,4 @@ Existing dated docs, indexed for keyword lookup until migrated into the
 | 2026-07-12 | rules-drafts cleanup, registry drift, AGENTS.md consolidation, epilogue command | `CHANGELOG.md` [2026-07-12](CHANGELOG.md#2026-07-12) |
 | 2026-07-29 | issue triage, content catalog, index.md, sessions wiki format | `CHANGELOG.md` [2026-07-29](CHANGELOG.md#2026-07-29) |
 | 2026-09-04 | AGENTS.md rename, em dash scrub, markdown anchors, attribution hook, pip-audit flags | `CHANGELOG.md` [2026-09-04](CHANGELOG.md#2026-09-04) |
+| 2026-10-04 | American spelling, PR body prose, unwrapped bodies, lint-prose.sh, /pr skill | `CHANGELOG.md` [2026-10-04](CHANGELOG.md#2026-10-04) |

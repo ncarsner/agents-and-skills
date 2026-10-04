@@ -5,6 +5,19 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-10-04
+
+### Added
+- `.claude/skills/pr/lint-prose.sh`: `spelling FILE...` flags British spellings; `body FILE` adds conversation-summary phrases and layout defects (hard-wrapped lines, leading, trailing, or doubled blank lines, blank lines inside a list), skipping fenced code. Silent with exit 0 when clean.
+- `/pr` Version control prose rules: American spelling across files, comments, commit messages, and PR and issue text; PR and issue bodies written as an engineering record, unwrapped, with no stray blank lines. Steps 2, 4, 5, and 6 run the lint, and bodies post with `--body-file` after it passes (#98, #99).
+- `skills/github-issue-creation.md`: a Body Prose and Layout section. GitHub renders newlines in a body as line breaks, so bodies are unwrapped; `gh -q` appends a newline that must be dropped before re-linting a posted body.
+
+### Fixed
+- `/pr` Step 5 reported a trailing blank line on every correctly posted body, because `gh pr view -q` appends its own newline. One final empty line is now dropped before linting; a genuine trailing blank line still fails.
+- `README.md` and `profiles/postgres.md` British spellings. `Colour Contrast Analyser` in `subagents/project-review-accessibility.md` is a product name and keeps its spelling.
+
+---
+
 ## 2026-09-04
 
 ### Added

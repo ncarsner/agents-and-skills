@@ -277,6 +277,36 @@ gh issue view <N> --repo OWNER/REPO --json state,closedByPullRequestsReferences
 
 ---
 
+## Body Prose and Layout
+
+GitHub renders every newline in an issue or PR body as a line break, so a body
+wrapped at editor width displays as ragged text. Write each paragraph and each
+list item on one line, separate blocks with exactly one blank line, and write
+the body as an engineering record of the change rather than a summary of the
+conversation that produced it. Commit message bodies are unaffected and keep
+72-column wrapping.
+
+Draft to a file, lint, then post with `--body-file`:
+
+```bash
+.claude/skills/pr/lint-prose.sh body /path/to/body.md   # silent and exit 0 when clean
+gh issue create --repo OWNER/REPO --title "<title>" --body-file /path/to/body.md
+```
+
+The lint reports British spellings, conversation-summary phrases, and layout
+defects. A body that quotes the defect it describes (an old spelling, a
+conversational phrase) hits on purpose; review each hit rather than rewriting
+the quotation away.
+
+To re-check a posted body, drop the newline `gh` appends to `-q` output first,
+or every body reports a trailing blank line:
+
+```bash
+gh pr view <N> --repo OWNER/REPO --json body -q .body | sed '${/^$/d;}' > /tmp/body.md
+```
+
+---
+
 ## Safety Constraints
 
 - Treat GitHub issue creation as an external write operation.
