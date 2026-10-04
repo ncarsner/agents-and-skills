@@ -293,7 +293,8 @@ Draft to a file, lint, then post with `--body-file`:
 gh issue create --repo OWNER/REPO --title "<title>" --body-file /path/to/body.md
 ```
 
-The lint reports British spellings, conversation-summary phrases, and layout
+`/prd-to-issues` runs this lint on every body before its preview. The lint
+reports British spellings, conversation-summary phrases, and layout
 defects. A body that quotes the defect it describes (an old spelling, a
 conversational phrase) hits on purpose; review each hit rather than rewriting
 the quotation away.

@@ -11,6 +11,10 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `.claude/skills/pr/lint-prose.sh`: `spelling FILE...` flags British spellings; `body FILE` adds conversation-summary phrases and layout defects (hard-wrapped lines, leading, trailing, or doubled blank lines, blank lines inside a list), skipping fenced code. Silent with exit 0 when clean.
 - `/pr` Version control prose rules: American spelling across files, comments, commit messages, and PR and issue text; PR and issue bodies written as an engineering record, unwrapped, with no stray blank lines. Steps 2, 4, 5, and 6 run the lint, and bodies post with `--body-file` after it passes (#98, #99).
 - `skills/github-issue-creation.md`: a Body Prose and Layout section. GitHub renders newlines in a body as line breaks, so bodies are unwrapped; `gh -q` appends a newline that must be dropped before re-linting a posted body.
+- `/prd-to-issues` lints every issue body with `lint-prose.sh body` before the preview, re-lints any body edited after it, and creates issues with `--body-file` (#101, #102).
+
+### Changed
+- `AGENTS.md` Writing Style requires American spelling in documentation, comments, commit messages, and PR and issue text, extending the rule beyond `/pr`. The script is cited as a bare root-relative path because downstream `AGENTS.md` sits in `AGENTS/` while `.claude/` stays at the project root (#101, #102).
 
 ### Fixed
 - `/pr` Step 5 reported a trailing blank line on every correctly posted body, because `gh pr view -q` appends its own newline. One final empty line is now dropped before linting; a genuine trailing blank line still fails.
