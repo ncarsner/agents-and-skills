@@ -24,6 +24,7 @@ Stack: `uv` · `ruff` · `mypy` · `pytest` · 100% coverage target.
 
 - No em dashes (`—`) in any documentation, comments, or agent-generated text. Use commas, colons, or rewrite the sentence.
 - No emojis unless the user explicitly requests them.
+- American spelling (`color`, `behavior`, `normalize`, `canceled`) in all documentation, comments, commit messages, and PR and issue text. Identifiers, quoted external text, and product names keep the spelling of their source. `/pr` and `/prd-to-issues` check it with `.claude/skills/pr/lint-prose.sh`.
 
 ## Git Authorship
 
