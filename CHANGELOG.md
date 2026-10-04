@@ -18,6 +18,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 - `/pr` Step 5 reported a trailing blank line on every correctly posted body, because `gh pr view -q` appends its own newline. One final empty line is now dropped before linting; a genuine trailing blank line still fails.
+- `lint-prose.sh` reported a second issue-reference line (`Refs #98` above `Refs #101`) as a hard wrap, contradicting `/pr`'s one-closing-keyword-per-line rule. Consecutive `Refs`, `Closes`, `Fixes`, and `Resolves` lines now pass; prose wrapped beneath them is still reported (#102).
 - `README.md` and `profiles/postgres.md` British spellings. `Colour Contrast Analyser` in `subagents/project-review-accessibility.md` is a product name and keeps its spelling.
 
 ---
