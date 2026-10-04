@@ -19,6 +19,8 @@ register() { grep -nE "$REGISTER" "$1"; }
 layout() {
 	awk '
 	function item(s) { return s ~ /^[[:space:]]*([-*+]|[0-9]+\.) / }
+	# One issue reference per line is the convention, not a hard wrap.
+	function ref(s) { return s ~ /^(([Cc]loses?|[Cc]losed|[Ff]ix(es|ed)?|[Rr]esolve[sd]?|[Rr]efs?) #[0-9]+)/ }
 	/^```/ { fence = !fence; last = ""; blank = 0; next }
 	fence { next }
 	$0 == "" {
@@ -27,7 +29,7 @@ layout() {
 	}
 	{
 		if (blank && item($0) && item(last)) print NR ": blank line inside a list"
-		if (!blank && last != "" && last !~ /^#/ && $0 !~ /^[[:space:]]*([-*+>|#]|[0-9]+\. )/)
+		if (!blank && last != "" && last !~ /^#/ && !(ref(last) && ref($0)) && $0 !~ /^[[:space:]]*([-*+>|#]|[0-9]+\. )/)
 			print NR ": hard-wrapped line (join it to the line above)"
 		last = $0; blank = 0
 	}
