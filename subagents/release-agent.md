@@ -79,7 +79,9 @@ pre-commit run --all-files          # secret scanning (RULES.md §8)
 uv run ruff check .                 # no lint errors
 uv run mypy src/                    # no type errors
 uv run pytest --cov=src --cov-fail-under=100      # 100% coverage
-pip-audit                           # no known dependency vulnerabilities
+uv export --all-groups --no-emit-project --format requirements-txt > audit-requirements.txt
+uv run pip-audit --requirement audit-requirements.txt --no-deps --disable-pip --strict
+                                    # no known dependency vulnerabilities (RULES.md §5)
 ```
 
 A release tag must not be created if any gate fails. No exceptions.
