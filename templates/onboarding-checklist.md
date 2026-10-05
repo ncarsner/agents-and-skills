@@ -35,7 +35,12 @@ derived from these templates. Complete all items before acting on any task.
       before adding any dependencies.
 - [ ] Confirm `.pre-commit-config.yaml` exists. If not, copy from
       `templates/.pre-commit-config.yaml`, then run:
-      `uv add --dev pre-commit detect-secrets && pre-commit install`
+      `uv add --dev pre-commit detect-secrets && pre-commit install --hook-type pre-commit --hook-type commit-msg`
+      (the `commit-msg` type installs the RULES.md §18 attribution check).
+- [ ] Confirm `.github/workflows/attribution.yml` exists. If not, copy from
+      `templates/.github/workflows/attribution.yml`. It runs the same §18 check
+      over every commit in a pull request, including commits built in the
+      GitHub web UI that no local hook sees.
 - [ ] Confirm `.secrets.baseline` exists. If not, run:
       `detect-secrets scan > .secrets.baseline` and commit it.
 

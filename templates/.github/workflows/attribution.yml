@@ -1,0 +1,39 @@
+# RULES.md 18: reject agent attribution in every commit a pull request carries.
+#
+# The local commit-msg hook never sees commits built server side, such as an
+# accepted Copilot Autofix suggestion or an edit made in the GitHub web UI.
+# This job runs the same hook from .pre-commit-config.yaml over each commit
+# message in the pull request's range, so the pattern has one definition.
+
+name: attribution
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  commit-messages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Check every commit message in the pull request
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          failed=0
+          for sha in $(git rev-list "$BASE..$HEAD"); do
+            git log -1 --format=%B "$sha" > "$RUNNER_TEMP/msg"
+            if ! pipx run pre-commit run no-agent-attribution \
+                --hook-stage commit-msg --commit-msg-filename "$RUNNER_TEMP/msg"; then
+              echo "::error::$(git log -1 --format='%h %s' "$sha") carries agent attribution (RULES.md 18)"
+              failed=1
+            fi
+          done
+          exit "$failed"
