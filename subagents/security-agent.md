@@ -198,8 +198,9 @@ def run_script(script_path: Path, arg: str) -> str:
 ## Dependency Audit Workflow
 
 ```bash
-# Audit all installed packages for known CVEs
-uv run pip-audit
+# Audit every locked dependency for known CVEs (the RULES.md §5 command)
+uv export --all-groups --no-emit-project --format requirements-txt > audit-requirements.txt
+uv run pip-audit --requirement audit-requirements.txt --no-deps --disable-pip
 
 # Check for outdated packages
 uv pip list --outdated
@@ -208,12 +209,22 @@ uv pip list --outdated
 git diff uv.lock
 ```
 
-Run `pip-audit` in CI on every pull request:
+Run the same audit in CI on every pull request, with `--strict` so a
+dependency that cannot be audited fails the build instead of being skipped:
 
 ```yaml
 - name: Audit dependencies
-  run: uv run pip-audit --strict
+  run: |
+    uv export --all-groups --no-emit-project --format requirements-txt > audit-requirements.txt
+    uv run pip-audit --requirement audit-requirements.txt --no-deps --disable-pip --strict
 ```
+
+Audit the export, not the environment. `uv sync` installs the project itself
+in editable mode, and an unpublished project cannot be looked up on PyPI, so
+`uv run pip-audit --strict` fails on the first pull request of any private
+project with zero vulnerabilities. `--skip-editable` does not help: `--strict`
+reports the skipped package as an error. `--no-emit-project` leaves the project
+out of the export, so `--strict` applies only to real dependencies.
 
 ---
 
