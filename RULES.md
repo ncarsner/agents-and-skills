@@ -774,8 +774,14 @@ human, which stays legitimate.
 **A local hook cannot cover every path.** Commits created in the GitHub web UI,
 including accepting a Copilot Autofix suggestion, are built server side and
 never run local hooks. Five of the eight historical violations arrived that
-way. Reviewers must still reject those on the pull request, and a CI check on
-the PR's commit range is the only mechanical backstop.
+way. The backstop is a CI check over the pull request's commit range: copy
+[templates/.github/workflows/attribution.yml](templates/.github/workflows/attribution.yml)
+to `.github/workflows/`. It runs the `no-agent-attribution` hook from
+`.pre-commit-config.yaml` against each commit message, so the pattern has a
+single definition, and it fails the pull request naming each offending commit.
+Make the check required in branch protection, or a failing run does not block
+the merge. It covers pull requests only; a commit pushed straight to the default
+branch bypasses it, which branch protection also prevents.
 
 Alongside the hook:
 
